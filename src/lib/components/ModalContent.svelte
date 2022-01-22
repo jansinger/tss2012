@@ -7,11 +7,22 @@
 
 	const { open } = getContext('simple-modal');
 
+	const modalProps = {
+		styleWindow: { width: '100%' },
+		transitionWindowProps: {
+			y: 100,
+			duration: 250
+		},
+		transitionBgProps: {
+			duration: 250
+		}
+	};
+
 	const loadEntry = async (id: string) => {
 		const res = await fetch(`/logentry/${id}.json`);
 		if (res.status === 200) {
 			entry = await res.json();
-			open(LogbookEntry, { entry }, { styleWindow: { width: '100%' } });
+			open(LogbookEntry, { entry }, modalProps);
 		} else {
 			entry = {};
 		}
