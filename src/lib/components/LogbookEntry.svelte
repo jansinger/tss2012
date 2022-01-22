@@ -113,6 +113,16 @@
 		font-size: 0.8em;
 	}
 
+	figure {
+		margin: 0;
+		padding: 0;
+	}
+
+	figcaption {
+		margin: 10px 0;
+		font-style: italic;
+	}
+
 	.splide__slide {
 		opacity: 0.3;
 	}
