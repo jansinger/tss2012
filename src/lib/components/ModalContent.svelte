@@ -3,8 +3,19 @@
 	import LogbookEntry from './LogbookEntry.svelte';
 
 	export let id: string;
+	let entry: Record<string, any>;
 
 	const { open } = getContext('simple-modal');
 
-	$: id && open(LogbookEntry, { id }, { styleWindow: { width: '100%' } });
+	const loadEntry = async (id: string) => {
+		const res = await fetch(`/logentry/${id}.json`);
+		if (res.status === 200) {
+			entry = await res.json();
+			open(LogbookEntry, { entry }, { styleWindow: { width: '100%' } });
+		} else {
+			entry = {};
+		}
+	};
+
+	$: id && loadEntry(id);
 </script>

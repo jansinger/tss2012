@@ -2,9 +2,7 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import { browser } from '$app/env';
 
-	export let id: string;
-
-	let entry: Record<string, any> = {};
+	export let entry: Record<string, any> = {};
 	let pictures: Array<Record<string, any>> = [];
 	let Splide, main, thumbnails;
 
@@ -37,22 +35,12 @@
 		}
 	};
 
-	const loadEntry = async (id: string) => {
+	afterUpdate(async () => {
 		// new entry, destroy old slider
 		main?.destroy();
 		thumbnails?.destroy();
-		const res = await fetch(`/logentry/${id}.json`);
-		if (res.status === 200) {
-			entry = await res.json();
-			pictures = entry.pictures;
-		} else {
-			entry = {};
-		}
-	};
+		pictures = entry.pictures;
 
-	$: id && loadEntry(id);
-
-	afterUpdate(async () => {
 		console.log('the component just updated');
 		if (!Splide) {
 			const module = await import('@splidejs/splide');
@@ -121,6 +109,12 @@
 </article>
 
 <style lang="scss">
+	address {
+		font-size: 0.8em;
+	}
+
+	
+
 	.splide__slide {
 		opacity: 0.3;
 	}

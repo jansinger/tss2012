@@ -22,28 +22,41 @@ const clickHandler = (map: Map) => {
 	return function (evt: MapBrowserEvent<UIEvent>) {
 		const feature = getFeatureAtEventPixel(evt, map);
 		if (feature) {
-			console.log(feature);
 			map.dispatchEvent({ type: 'clickLogbook', feature } as unknown as BaseEvent);
 		}
 	};
 };
 
-const pointermoveHandler = (map: Map, tooltip: Overlay) => {
-	return (evt: MapBrowserEvent<UIEvent>) => {
-		const feature = getFeatureAtEventPixel(evt, map);
-		if (feature) {
-			map.getTargetElement().style.cursor = 'pointer';
-			tooltip.setPosition(evt.coordinate);
-			tooltip.getElement().innerHTML = feature.get('title');
-			tooltip.getElement().style.display = '';
-		} else {
-			map.getTargetElement().style.cursor = '';
-			tooltip.getElement().style.display = 'none';
-		}
-	};
-};
-
 export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
+	const pointermoveHandler = (map: Map, tooltip: Overlay) => {
+		return (evt: MapBrowserEvent<UIEvent>) => {
+			const feature = getFeatureAtEventPixel(evt, map);
+			if (feature) {
+				map.getTargetElement().style.cursor = 'pointer';
+				tooltip.setPosition(evt.coordinate);
+				const title = feature.get('title');
+				const datetime = feature.get('datetime');
+				const time = feature.get('localeDatetime');
+				const address = feature.get('section');
+				const picture = feature.get('picture');
+				const pictureTitle = feature.get('pictureTitle');
+				tooltip.getElement().innerHTML = `<div class="right">
+				<img src="https://pics.fritsjen.de/blog/${picture}" title="${pictureTitle}" />
+				<div class="text-content">
+					<time datetime="${datetime}">${time}</time>
+					<address>${address}</address>
+					<h3>${title}</h3>
+				</div>
+				<i></i>
+				</div>`;
+				tooltip.getElement().style.display = '';
+			} else {
+				map.getTargetElement().style.cursor = '';
+				tooltip.getElement().style.display = 'none';
+			}
+		};
+	};
+
 	var overlay = new Overlay({
 		element: element,
 		offset: [10, 0],

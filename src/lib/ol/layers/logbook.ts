@@ -8,11 +8,15 @@ const attributions =
 
 const markerStyle = new Style({
 	image: new Icon({
-		color: 'rgba(255, 0, 0, .5)',
 		crossOrigin: 'anonymous',
 		// For Internet Explorer 11
-		src: 'pics/sailing.png',
-		scale: 0.2
+		imgSize: [100, 100],
+		src: 'pics/marker-tss.svg',
+		scale: 0.3,
+		opacity: 1,
+		anchor: [0.5, 50],
+		anchorXUnits: 'fraction',
+		anchorYUnits: 'pixels'
 	})
 });
 
