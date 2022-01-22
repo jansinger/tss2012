@@ -113,8 +113,6 @@
 		font-size: 0.8em;
 	}
 
-	
-
 	.splide__slide {
 		opacity: 0.3;
 	}
@@ -125,5 +123,8 @@
 
 	:global(.splide__slide.is-active) {
 		opacity: 1;
+	}
+	:global(.splide__slide img) {
+		max-width: 100%;
 	}
 </style>
