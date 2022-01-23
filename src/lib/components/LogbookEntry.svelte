@@ -71,10 +71,7 @@
 							<li class="splide__slide">
 								<figure>
 									<img
-										src={`https://pics.fritsjen.de/blog/${entry.pictureFolder}/${filename.replace(
-											'.jpg',
-											'_gr.jpg'
-										)}`}
+										src={`https://pics.fritsjen.de/blog/${entry.pictureFolder}/${filename}`}
 										{title}
 										alt={text}
 									/>

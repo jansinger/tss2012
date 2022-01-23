@@ -1,6 +1,6 @@
 <script type="ts">
-	import { createEventDispatcher, onMount, setContext } from 'svelte';
-	import type { Map, Overlay } from 'ol';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import type { Map } from 'ol';
 	import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
 
 	const dispatch = createEventDispatcher();
@@ -23,14 +23,14 @@
 	<h1>&nbsp;</h1>
 </div>
 
-<div class="map" bind:this={mapElement}>
-	<img
-		src="pics/banner.png"
-		class="logo"
-		alt="Ein tierischer Segelsommer"
-		title="Ein tierischer Segelsommer"
-	/>
-</div>
+<img
+	src="pics/banner.png"
+	class="logo"
+	alt="Ein tierischer Segelsommer"
+	title="Ein tierischer Segelsommer"
+/>
+
+<div class="map" bind:this={mapElement} />
 
 <style lang="scss">
 	@import 'ol/ol.css';
@@ -46,11 +46,12 @@
 		position: absolute;
 		bottom: 0px;
 		left: 0px;
-		z-index: 10;
+		z-index: 1;
 		width: 50%;
 		min-width: 300px;
 		background-position: center center;
 		border-top-right-radius: 16px;
+		box-shadow: 0 1px 8px rgba(255, 255, 255, 0.4);
 	}
 
 	:global(.tooltip) {
@@ -74,12 +75,12 @@
 		transform: translate(0, -50%);
 		padding: 0;
 		color: #eeeeee;
-		background-color: #444444;
+		background-color: #666666;
 		font-weight: normal;
 		font-size: 13px;
 		border-radius: 8px;
 		position: absolute;
-		z-index: 99999999;
+		z-index: 10;
 		box-sizing: border-box;
 		box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 	}
@@ -89,7 +90,7 @@
 		border-radius: 8px 8px 0 0;
 	}
 	.tooltip :global(.text-content) {
-		padding: 10px 20px;
+		padding: 10px 10px;
 	}
 
 	.tooltip :global(address) {

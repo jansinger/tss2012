@@ -14,7 +14,7 @@ export const createMap = (target: string | HTMLElement) => {
 		layers: [osm, seamap, track, logbook],
 		view: new View({
 			center: startLonLat,
-			zoom: 4
+			zoom: DEFAULTS.zoom
 		})
 	});
 };
