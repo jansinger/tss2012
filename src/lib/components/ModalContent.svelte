@@ -8,7 +8,10 @@
 	const { open } = getContext('simple-modal');
 
 	const modalProps = {
-		styleWindow: { width: '100%' },
+		styleBg: {},
+		styleWindowWrap: { margin: '10px' },
+		styleWindow: { width: '100%', margin: '10px 0', padding: '5px 0' },
+		styleContent: { 'max-height': 'calc(100vh - 20px)' },
 		transitionWindowProps: {
 			y: 100,
 			duration: 250
@@ -28,5 +31,7 @@
 		}
 	};
 
-	$: id && loadEntry(id);
+	$: {
+		id && loadEntry(id);
+	}
 </script>

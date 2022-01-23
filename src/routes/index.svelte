@@ -9,12 +9,16 @@
 	const clickLogbook = (e: CustomEvent) => {
 		id = e.detail.feature.get('id');
 	};
+
+	const modalClosed = () => {
+		id = null;
+	};
 </script>
 
 <LoogbookMap on:clickLogbook={clickLogbook} />
 
 {#if browser}
-	<Modal>
+	<Modal on:closed={modalClosed}>
 		<ModalContent {id} />
 	</Modal>
 {/if}

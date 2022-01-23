@@ -1,10 +1,13 @@
 <script type="ts">
-	import { afterUpdate, onMount } from 'svelte';
+	import { afterUpdate } from 'svelte';
 	import { browser } from '$app/env';
+	import type { Splide, Options } from '@splidejs/splide';
+
+	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
 	export let entry: Record<string, any> = {};
 	let pictures: Array<Record<string, any>> = [];
-	let Splide, main, thumbnails;
+	let splide: SplideConstructor, main: Splide, thumbnails: Splide;
 
 	const splideOptions = {
 		type: 'fade',
@@ -41,13 +44,12 @@
 		thumbnails?.destroy();
 		pictures = entry.pictures;
 
-		console.log('the component just updated');
-		if (!Splide) {
+		if (!splide) {
 			const module = await import('@splidejs/splide');
-			Splide = module.Splide;
+			splide = module.Splide;
 		}
-		main = new Splide('#main-slider', splideOptions);
-		thumbnails = new Splide('#thumbnail-slider', thumSlider);
+		main = new splide('#main-slider', splideOptions);
+		thumbnails = new splide('#thumbnail-slider', thumSlider);
 		main.sync(thumbnails);
 		main.mount();
 		thumbnails.mount();

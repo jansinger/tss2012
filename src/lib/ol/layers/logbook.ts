@@ -12,7 +12,7 @@ const markerStyle = new Style({
 		// For Internet Explorer 11
 		imgSize: [100, 100],
 		src: 'pics/marker-tss.svg',
-		scale: 0.3,
+		scale: 0.4,
 		opacity: 1,
 		anchor: [0.5, 50],
 		anchorXUnits: 'fraction',

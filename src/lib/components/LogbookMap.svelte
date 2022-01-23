@@ -25,7 +25,7 @@
 
 <div class="map" bind:this={mapElement}>
 	<img
-		src="pics/logo.png"
+		src="pics/banner.png"
 		class="logo"
 		alt="Ein tierischer Segelsommer"
 		title="Ein tierischer Segelsommer"
@@ -44,10 +44,13 @@
 
 	.logo {
 		position: absolute;
-		bottom: 5px;
-		left: 5px;
+		bottom: 0px;
+		left: 0px;
 		z-index: 10;
-		width: 100px;
+		width: 50%;
+		min-width: 300px;
+		background-position: center center;
+		border-top-right-radius: 16px;
 	}
 
 	:global(.tooltip) {
