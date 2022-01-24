@@ -26,7 +26,7 @@
 	};
 
 	const loadEntry = async (id: string) => {
-		const res = await fetch(`/logentry/${id}.json`);
+		const res = await fetch(`/log/${id}.json`);
 		if (res.status === 200) {
 			entry = await res.json();
 			open(LogbookEntry, { entry }, modalProps);
@@ -35,12 +35,15 @@
 		}
 	};
 
+	const mapFeatures = (feature: Feature<Geometry>) => feature.getProperties();
+
 	const handleFeature = async (feature: Feature<Geometry>) => {
 		const features = feature.get('features');
 		if (features.length === 1) {
 			loadEntry(features[0].get('id'));
 		} else {
-			open(LogbookEntries, { features, update: loadEntry });
+			const entries = features.map(mapFeatures);
+			open(LogbookEntries, { entries, update: loadEntry });
 		}
 	};
 

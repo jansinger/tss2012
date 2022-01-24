@@ -1,12 +1,9 @@
 <script type="ts">
-	import type { Feature } from 'ol';
-	import type Geometry from 'ol/geom/Geometry';
+	export let entries: Record<string, any>;
+	export let update: Function = () => {};
 
-	export let features: Feature<Geometry>[];
-	export let update: Function;
-
-	let sortedEntries = features.sort(
-		(a, b) => new Date(a.get('datetime')).getTime() - new Date(b.get('datetime')).getTime()
+	let sortedEntries = entries.sort(
+		(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
 	);
 
 	const handleClick = (id: string) => {
@@ -15,18 +12,18 @@
 </script>
 
 {#each sortedEntries as f}
-	<article on:click={handleClick(f.get('id'))}>
+	<article on:click={handleClick(f.id)}>
 		<div class="img-container">
 			<img
-				src="https://pics.fritsjen.de/blog/{f.get('picture')}"
-				title={f.get('pictureTitle')}
-				alt={f.get('pictureTitle')}
+				src="https://pics.fritsjen.de/blog/{f.picture}"
+				title={f.pictureTitle}
+				alt={f.pictureTitle}
 			/>
 		</div>
 		<div class="text-container">
-			<time datetime={f.get('datetime')}>{f.get('localeDatetime')}</time>
-			<address>{f.get('section')}</address>
-			<p>{@html f.get('title')}</p>
+			<time datetime={f.datetime}>{f.localeDatetime}</time>
+			<address>{f.section}</address>
+			<p>{@html f.title}</p>
 		</div>
 	</article>
 {/each}

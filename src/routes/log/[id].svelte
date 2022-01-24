@@ -1,7 +1,7 @@
 <script type="ts" context="module">
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ params, fetch }) {
-		const res = await fetch(`/logentry/${params.id}.json`);
+		const res = await fetch(`/log/${params.id}.json`);
 		if (res.status === 200) {
 			return {
 				props: {
@@ -21,6 +21,8 @@
 
 	export let entry;
 </script>
+
+<nav><a href="/log">Alle Beiträge</a></nav>
 
 <div class="container">
 	<LogbookEntry {entry} />
