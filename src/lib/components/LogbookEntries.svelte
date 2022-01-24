@@ -16,14 +16,18 @@
 
 {#each sortedEntries as f}
 	<article on:click={handleClick(f.get('id'))}>
-		<img
-			src="https://pics.fritsjen.de/blog/{f.get('picture')}"
-			title={f.get('pictureTitle')}
-			alt={f.get('pictureTitle')}
-		/>
-		<time datetime={f.get('datetime')}>{f.get('localeDatetime')}</time>
-		<address>{f.get('section')}</address>
-		<p>{@html f.get('title')}</p>
+		<div class="img-container">
+			<img
+				src="https://pics.fritsjen.de/blog/{f.get('picture')}"
+				title={f.get('pictureTitle')}
+				alt={f.get('pictureTitle')}
+			/>
+		</div>
+		<div class="text-container">
+			<time datetime={f.get('datetime')}>{f.get('localeDatetime')}</time>
+			<address>{f.get('section')}</address>
+			<p>{@html f.get('title')}</p>
+		</div>
 	</article>
 {/each}
 
@@ -31,11 +35,12 @@
 	article {
 		background-color: #efefef;
 		border-radius: 0.5em;
-		padding: 10px;
+		padding: 0;
 		margin: 5px;
 		cursor: pointer;
 		float: left;
 		width: calc(100% - 30px);
+		max-height: 150px;
 	}
 	article::before {
 		clear: both;
@@ -44,9 +49,22 @@
 	article:hover {
 		background-color: #dfdfdf;
 	}
-	article img {
+	article .img-container {
+		width: 200px;
+		text-align: center;
+		margin-right: 10px;
 		float: left;
-		margin-right: 5px;
+	}
+	article .img-container img {
+		height: 150px;
+		max-width: 200px;
+		text-align: center;
+		margin-right: 10px;
+		float: left;
+		border-radius: 0.5em 0 0 0.5em;
+	}
+	article .text-container {
+		padding: 10px;
 	}
 	article p {
 		font-weight: bold;
