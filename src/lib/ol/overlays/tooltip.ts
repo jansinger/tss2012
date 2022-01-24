@@ -80,12 +80,9 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 				map.getTargetElement().style.cursor = 'pointer';
 				if (features.length === 1) {
 					showEntryPreview(features[0], tooltip);
-				} else {
-					showMultiplePreview(features, tooltip);
+					element.style.display = '';
+					tooltip.setPosition(evt.coordinate);
 				}
-				element.style.display = '';
-				tooltip.setPosition(evt.coordinate);
-				tooltip.panIntoView();
 			} else {
 				map.getTargetElement().style.cursor = '';
 				// element.style.display = 'none';

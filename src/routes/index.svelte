@@ -3,18 +3,17 @@
 	import LoogbookMap from '$lib/components/LogbookMap.svelte';
 	import Modal from 'svelte-simple-modal';
 	import { browser } from '$app/env';
+	import type Geometry from 'ol/geom/Geometry';
+	import type Feature from 'ol/Feature';
 
-	let id: string;
+	let feature: Feature<Geometry>;
 
 	const clickLogbook = (e: CustomEvent) => {
-		const features = e.detail.feature.get('features');
-		if (features.length === 1) {
-			id = features[0].get('id');
-		}
+		feature = e.detail.feature;
 	};
 
 	const modalClosed = () => {
-		id = null;
+		feature = null;
 	};
 </script>
 
@@ -22,6 +21,6 @@
 
 {#if browser}
 	<Modal on:closed={modalClosed}>
-		<ModalContent {id} />
+		<ModalContent {feature} />
 	</Modal>
 {/if}

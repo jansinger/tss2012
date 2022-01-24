@@ -1,8 +1,12 @@
 <script type="ts">
-	import { getContext } from 'svelte';
-	import LogbookEntry from './LogbookEntry.svelte';
+	import type Feature from 'ol/Feature';
+	import type Geometry from 'ol/geom/Geometry';
 
-	export let id: string;
+	import { getContext, setContext } from 'svelte';
+	import LogbookEntry from './LogbookEntry.svelte';
+	import LogbookEntries from './LogbookEntries.svelte';
+
+	export let feature: Feature<Geometry>;
 	let entry: Record<string, any>;
 
 	const { open } = getContext('simple-modal');
@@ -31,7 +35,16 @@
 		}
 	};
 
+	const handleFeature = async (feature: Feature<Geometry>) => {
+		const features = feature.get('features');
+		if (features.length === 1) {
+			loadEntry(features[0].get('id'));
+		} else {
+			open(LogbookEntries, { features, update: loadEntry });
+		}
+	};
+
 	$: {
-		id && loadEntry(id);
+		feature && handleFeature(feature);
 	}
 </script>
