@@ -1,5 +1,7 @@
 <script type="ts">
-	export let entries: Record<string, any>;
+	import type { LogEntryShort } from '$lib/types';
+
+	export let entries: LogEntryShort[];
 	export let update: Function = () => {};
 
 	let sortedEntries = entries.sort(

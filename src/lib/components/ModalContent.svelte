@@ -5,9 +5,10 @@
 	import { getContext, setContext } from 'svelte';
 	import LogbookEntry from './LogbookEntry.svelte';
 	import LogbookEntries from './LogbookEntries.svelte';
+	import type { LogEntryShort } from '$lib/types';
 
 	export let feature: Feature<Geometry>;
-	let entry: Record<string, any>;
+	let entry: LogEntryShort;
 
 	const { open } = getContext('simple-modal');
 
@@ -31,7 +32,7 @@
 			entry = await res.json();
 			open(LogbookEntry, { entry }, modalProps);
 		} else {
-			entry = {};
+			entry = null;
 		}
 	};
 

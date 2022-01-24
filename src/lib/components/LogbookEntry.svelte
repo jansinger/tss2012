@@ -2,11 +2,12 @@
 	import { afterUpdate } from 'svelte';
 	import { browser } from '$app/env';
 	import type { Splide, Options } from '@splidejs/splide';
+	import type { LogEntry, PicturesEntity } from '$lib/types';
 
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
-	export let entry: Record<string, any> = {};
-	let pictures: Array<Record<string, any>> = [];
+	export let entry: LogEntry = null;
+	let pictures: Array<PicturesEntity> = [];
 	let splide: SplideConstructor, main: Splide, thumbnails: Splide;
 
 	const splideOptions = {
@@ -42,7 +43,7 @@
 		// new entry, destroy old slider
 		main?.destroy();
 		thumbnails?.destroy();
-		pictures = entry.pictures;
+		pictures = entry?.pictures;
 
 		if (!splide) {
 			const module = await import('@splidejs/splide');
@@ -55,6 +56,11 @@
 		thumbnails.mount();
 	});
 </script>
+
+<svelte:head>
+	<meta name="geo.placename" content={entry.section} />
+	<meta name="geo.position" content="{entry.data?.coordinates[0]};{entry.data?.coordinates[1]}" />
+</svelte:head>
 
 <article>
 	<header>
