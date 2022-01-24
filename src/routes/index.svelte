@@ -7,7 +7,10 @@
 	let id: string;
 
 	const clickLogbook = (e: CustomEvent) => {
-		id = e.detail.feature.get('id');
+		const features = e.detail.feature.get('features');
+		if (features.length === 1) {
+			id = features[0].get('id');
+		}
 	};
 
 	const modalClosed = () => {

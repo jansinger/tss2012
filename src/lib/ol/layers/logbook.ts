@@ -1,10 +1,8 @@
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
-import { Style, Icon } from 'ol/style';
-
-const attributions =
-	'<a href="https://www.vecteezy.com/free-vector/web" target="_blank">&copy; Web Vectors by Vecteezy</a>';
+import { Cluster } from 'ol/source';
+import { Circle as CircleStyle, Fill, Stroke, Style, Text, Icon } from 'ol/style';
 
 const markerStyle = new Style({
 	image: new Icon({
@@ -20,13 +18,49 @@ const markerStyle = new Style({
 	})
 });
 
+const source = new VectorSource({
+	url: 'data/logbook_geo.json',
+	format: new GeoJSON()
+});
+
+const clusterSource = new Cluster({
+	distance: 40,
+	minDistance: 20,
+	source: source
+});
+
+const styleCache = {};
 export const logbook = new VectorLayer({
-	source: new VectorSource({
-		url: 'data/logbook_geo.json',
-		format: new GeoJSON(),
-		attributions: attributions
-	}),
-	style: markerStyle,
+	source: clusterSource,
+	style: function (feature) {
+		const size = feature.get('features').length;
+		let style = styleCache[size];
+		if (!style) {
+			if (size === 1) {
+				style = markerStyle;
+			} else {
+				style = new Style({
+					image: new CircleStyle({
+						radius: 10,
+						stroke: new Stroke({
+							color: '#fff'
+						}),
+						fill: new Fill({
+							color: '#3399CC'
+						})
+					}),
+					text: new Text({
+						text: size.toString(),
+						fill: new Fill({
+							color: '#fff'
+						})
+					})
+				});
+			}
+			styleCache[size] = style;
+		}
+		return style;
+	},
 	properties: {
 		name: 'logbook'
 	}

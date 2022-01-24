@@ -56,10 +56,10 @@
 
 	:global(.tooltip) {
 		display: inline-block;
-		position: relative;
+		position: absolute;
 		border-bottom: 1px dotted #666;
 		text-align: left;
-		z-index: 1;
+		z-index: 5;
 	}
 
 	.tooltip :global(h3) {

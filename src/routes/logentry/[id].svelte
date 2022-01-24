@@ -1,5 +1,4 @@
 <script type="ts" context="module">
-	export const prerender = true;
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ params, fetch }) {
 		const res = await fetch(`/logentry/${params.id}.json`);
