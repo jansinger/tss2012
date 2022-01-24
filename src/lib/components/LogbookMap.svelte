@@ -23,14 +23,14 @@
 	<h1>&nbsp;</h1>
 </div>
 
-<img
-	src="pics/banner.png"
-	class="logo"
-	alt="Ein tierischer Segelsommer"
-	title="Ein tierischer Segelsommer"
-/>
-
-<div class="map" bind:this={mapElement} />
+<div class="map" bind:this={mapElement}>
+	<img
+		src="pics/banner.png"
+		class="logo"
+		alt="Ein tierischer Segelsommer"
+		title="Ein tierischer Segelsommer"
+	/>
+</div>
 
 <style lang="scss">
 	@import 'ol/ol.css';
@@ -40,6 +40,11 @@
 		top: 0;
 		bottom: 0;
 		width: 100%;
+	}
+
+	.map :global(.ol-overlaycontainer),
+	.map :global(.ol-overlaycontainer-stopevent) {
+		z-index: 10 !important;
 	}
 
 	.logo {
