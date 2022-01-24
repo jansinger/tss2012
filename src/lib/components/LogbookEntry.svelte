@@ -22,7 +22,7 @@
 		fixedWidth: 104,
 		fixedHeight: 58,
 		isNavigation: true,
-		gap: 10,
+		gap: 0,
 		focus: 'center' as const,
 		pagination: false,
 		cover: true,
@@ -71,6 +71,7 @@
 							<li class="splide__slide">
 								<figure>
 									<img
+										class="main-image"
 										src={`https://pics.fritsjen.de/blog/${entry.pictureFolder}/${filename}`}
 										{title}
 										alt={text}
@@ -133,7 +134,9 @@
 	:global(.splide__slide.is-active) {
 		opacity: 1;
 	}
-	:global(.splide__slide img) {
-		max-width: 100%;
+	:global(.splide__slide img.main-image) {
+		margin-top: 5px;
+		max-width: 97%;
+		box-shadow: 2px 2px 8px grey;
 	}
 </style>

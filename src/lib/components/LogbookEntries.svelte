@@ -16,6 +16,11 @@
 
 {#each sortedEntries as f}
 	<article on:click={handleClick(f.get('id'))}>
+		<img
+			src="https://pics.fritsjen.de/blog/{f.get('picture')}"
+			title={f.get('pictureTitle')}
+			alt={f.get('pictureTitle')}
+		/>
 		<time datetime={f.get('datetime')}>{f.get('localeDatetime')}</time>
 		<address>{f.get('section')}</address>
 		<p>{@html f.get('title')}</p>
@@ -25,14 +30,25 @@
 <style lang="scss">
 	article {
 		background-color: #efefef;
+		border-radius: 0.5em;
 		padding: 10px;
 		margin: 5px;
 		cursor: pointer;
+		float: left;
+		width: calc(100% - 30px);
 	}
+	article::before {
+		clear: both;
+	}
+
 	article:hover {
 		background-color: #dfdfdf;
 	}
-	p {
+	article img {
+		float: left;
+		margin-right: 5px;
+	}
+	article p {
 		font-weight: bold;
 	}
 </style>
