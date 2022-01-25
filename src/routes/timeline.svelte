@@ -52,6 +52,9 @@
 </script>
 
 <script type="ts">
+	import { onMount } from 'svelte';
+
+	let timeline: HTMLElement;
 	let feature: string;
 
 	const handleClick = (entry: LogEntryShort) => {
@@ -61,6 +64,7 @@
 	const modalClosed = () => {
 		feature = null;
 	};
+	onMount(() => timeline.focus());
 </script>
 
 <nav class="main-navigation">
@@ -71,7 +75,7 @@
 </nav>
 
 <div class="content">
-	<section class="timeline">
+	<section class="timeline" bind:this={timeline}>
 		<div class="container">
 			<div class="timeline__wrapper">
 				<div class="timeline__progressbar" />
@@ -172,5 +176,23 @@
 	}
 	article p {
 		font-weight: bold;
+	}
+
+	@media screen and (max-width: 700px) {
+		article .img-container {
+			width: 100px;
+			height: 100%;
+		}
+		article .img-container img {
+			height: 75px;
+			max-width: 100px;
+		}
+		article .text-container {
+			padding: 5px;
+			font-size: 0.8em;
+		}
+		article p {
+			font-weight: bold;
+		}
 	}
 </style>

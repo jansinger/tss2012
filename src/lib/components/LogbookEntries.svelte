@@ -55,6 +55,7 @@
 		margin-right: 10px;
 		float: left;
 	}
+
 	article .img-container img {
 		height: 150px;
 		max-width: 200px;
@@ -68,5 +69,22 @@
 	}
 	article p {
 		font-weight: bold;
+	}
+	@media screen and (max-width: 700px) {
+		article .img-container {
+			width: 100px;
+			height: 100%;
+		}
+		article .img-container img {
+			height: 75px;
+			max-width: 100px;
+		}
+		article .text-container {
+			padding: 5px;
+			font-size: 0.75em;
+		}
+		article p {
+			font-weight: bold;
+		}
 	}
 </style>
