@@ -41,7 +41,7 @@ export const logbook = new VectorLayer({
 			} else {
 				style = new Style({
 					image: new CircleStyle({
-						radius: 10,
+						radius: 15,
 						stroke: new Stroke({
 							color: '#fff'
 						}),

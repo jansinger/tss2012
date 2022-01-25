@@ -193,3 +193,23 @@ nav.main-navigation {
 		background-color: transparent;
 	}
 }
+
+@media screen and (max-width: 768px) {
+	nav.main-navigation {
+		width: 3.8rem;
+
+		.item-wrapper {
+			position: absolute;
+			margin: 0px 4px;
+			padding: 0;
+		}
+
+		button {
+			font-size: 1.3em;
+		}
+
+		button:hover:enabled {
+			font-size: 1.3em;
+		}
+	}
+}
