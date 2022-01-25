@@ -3,11 +3,13 @@
 	import { goto } from '$app/navigation';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import origEntries from '$lib/data/logbook.json';
+	import type { LogEntryShort } from '$lib/types';
 
-	const entries = origEntries.map((entry) => ({
+	const entries: LogEntryShort[] = origEntries.map((entry) => ({
 		id: entry._id,
 		title: entry.title,
 		section: entry.section,
+		abstract: entry.abstract,
 		datetime: entry.datetime,
 		localeDatetime: entry.localeDatetime,
 		picture: `${entry.pictureFolder}/${entry.pictures[0].filename}`,
@@ -17,4 +19,12 @@
 	const update = (id: string) => goto(`log/${id}`);
 </script>
 
-<LogbookEntries {entries} {update} />
+<div class="content">
+	<LogbookEntries {entries} {update} />
+</div>
+
+<style lang="scss">
+	.content {
+		padding: 20px 0 20px 20px;
+	}
+</style>

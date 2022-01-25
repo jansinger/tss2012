@@ -46,7 +46,7 @@ export const logbook = new VectorLayer({
 							color: '#fff'
 						}),
 						fill: new Fill({
-							color: '#3399CC'
+							color: '#2e6287'
 						})
 					}),
 					text: new Text({

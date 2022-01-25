@@ -7,7 +7,7 @@
 	import LogbookEntries from './LogbookEntries.svelte';
 	import type { LogEntryShort } from '$lib/types';
 
-	export let feature: Feature<Geometry>;
+	export let feature: Feature<Geometry> | string;
 	let entry: LogEntryShort;
 
 	const { open } = getContext('simple-modal');
@@ -38,7 +38,11 @@
 
 	const mapFeatures = (feature: Feature<Geometry>) => feature.getProperties();
 
-	const handleFeature = async (feature: Feature<Geometry>) => {
+	const handleFeature = async (feature: Feature<Geometry> | string) => {
+		if (typeof feature === 'string') {
+			loadEntry(String(feature));
+			return;
+		}
 		const features = feature.get('features');
 		if (features.length === 1) {
 			loadEntry(features[0].get('id'));

@@ -5,6 +5,7 @@
 	import { browser } from '$app/env';
 	import type Geometry from 'ol/geom/Geometry';
 	import type Feature from 'ol/Feature';
+	import { goto } from '$app/navigation';
 
 	let feature: Feature<Geometry>;
 
@@ -16,6 +17,15 @@
 		feature = null;
 	};
 </script>
+
+<nav class="main-navigation">
+	<div class="item-wrapper">
+		<button title="Zeitleiste" on:click={() => goto('/timeline')}
+			><i class="fas fa-calendar-alt" /></button
+		>
+		<button disabled title="Karte"><i class="fas fa-map-marked-alt" /></button>
+	</div>
+</nav>
 
 <LoogbookMap on:clickLogbook={clickLogbook} />
 
