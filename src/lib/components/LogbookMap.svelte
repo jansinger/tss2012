@@ -79,7 +79,7 @@
 		margin-left: 20px;
 		transform: translate(0, -50%);
 		padding: 0;
-		color: #eeeeee;
+		color: #efefef;
 		background-color: #666666;
 		font-weight: normal;
 		font-size: 13px;

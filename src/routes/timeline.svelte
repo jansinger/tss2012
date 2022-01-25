@@ -119,7 +119,7 @@
 	:global(body) {
 		padding: 0;
 		margin: 0;
-		color: #ffffff;
+		color: #efefef;
 		background-color: #0b0b0b;
 	}
 	.img-container img {

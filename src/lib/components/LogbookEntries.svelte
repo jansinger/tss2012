@@ -32,7 +32,8 @@
 
 <style lang="scss">
 	article {
-		background-color: #efefef;
+		background-color: #666666;
+		color: #efefef;
 		border-radius: 0.5em;
 		padding: 0;
 		margin: 5px;
@@ -46,7 +47,7 @@
 	}
 
 	article:hover {
-		background-color: #dfdfdf;
+		background-color: #888888;
 	}
 	article .img-container {
 		width: 200px;
