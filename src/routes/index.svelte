@@ -1,3 +1,7 @@
+<script type="ts" context="module">
+	export const prerender = true;
+</script>
+
 <script type="ts">
 	import ModalContent from '$lib/components/ModalContent.svelte';
 	import LoogbookMap from '$lib/components/LogbookMap.svelte';
