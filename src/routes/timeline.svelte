@@ -69,7 +69,6 @@
 
 <nav class="main-navigation">
 	<div class="item-wrapper">
-		<button disabled title="Zeitleiste"><i class="fas fa-calendar-alt" /></button>
 		<button on:click={() => goto('/')} title="Karte"><i class="fas fa-map-marked-alt" /></button>
 	</div>
 </nav>

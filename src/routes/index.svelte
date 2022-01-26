@@ -27,7 +27,6 @@
 		<button title="Zeitleiste" on:click={() => goto('/timeline')}
 			><i class="fas fa-calendar-alt" /></button
 		>
-		<button disabled title="Karte"><i class="fas fa-map-marked-alt" /></button>
 	</div>
 </nav>
 
