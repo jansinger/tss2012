@@ -2,7 +2,7 @@
 	import type Feature from 'ol/Feature';
 	import type Geometry from 'ol/geom/Geometry';
 
-	import { getContext, setContext } from 'svelte';
+	import { getContext } from 'svelte';
 	import LogbookEntry from './LogbookEntry.svelte';
 	import LogbookEntries from './LogbookEntries.svelte';
 	import type { LogEntryShort } from '$lib/types';
