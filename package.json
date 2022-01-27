@@ -12,7 +12,7 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@splidejs/splide": "^3.6.11",
+		"@splidejs/splide": "^3.6.12",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.44",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^5.10.1",
