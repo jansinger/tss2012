@@ -65,6 +65,7 @@
 		margin-right: 10px;
 		float: left;
 		border-radius: 0.5em 0 0 0.5em;
+		filter: brightness(0.9) contrast(1.2);
 	}
 	article .text-container {
 		padding: 10px;

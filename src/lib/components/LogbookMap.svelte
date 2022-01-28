@@ -97,6 +97,7 @@
 	.tooltip :global(.right) :global(img) {
 		width: 200px;
 		border-radius: 8px 8px 0 0;
+		filter: brightness(0.9) contrast(1.2);
 	}
 	.tooltip :global(.text-content) {
 		padding: 10px 10px;
