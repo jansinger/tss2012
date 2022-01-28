@@ -115,7 +115,7 @@
 		max-height: 150px;
 	}
 	article {
-		background-color: #666666;
+		background-color: rgba(46, 98, 135, 0.6);
 		border-radius: 0.5em;
 		padding: 0;
 		margin: 5px;
@@ -131,7 +131,7 @@
 	}
 
 	article:hover {
-		background-color: #888888;
+		background-color: #2e6287;
 	}
 
 	article time {

@@ -48,23 +48,6 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 		</div>`;
 	};
 
-	const showMultiplePreview = (features: Feature<Geometry>[], tooltip: Overlay) => {
-		const items = features
-			.map((feature) => {
-				const title = feature.get('title').replace(/<br>/g, '');
-				const datetime = feature.get('datetime');
-				const time = feature.get('localeDatetime');
-				return `<p><time datetime="${datetime}">${time}</time><br /><strong>${title}</strong></p>`;
-			})
-			.join('\n');
-		element.innerHTML = `<div class="right">
-		<div class="text-content">
-			${items}
-		</div>
-		<i></i>
-		</div>`;
-	};
-
 	let feature: Feature<Geometry> | RenderFeature = null;
 	const pointermoveHandler = (map: Map, tooltip: Overlay) => {
 		return (evt: MapBrowserEvent<UIEvent>) => {

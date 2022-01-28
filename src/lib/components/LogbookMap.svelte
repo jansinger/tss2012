@@ -84,7 +84,7 @@
 		transform: translate(0, -50%);
 		padding: 0;
 		color: #efefef;
-		background-color: #666666;
+		background-color: #2e6287;
 		font-weight: normal;
 		font-size: 13px;
 		border-radius: 8px;

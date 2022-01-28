@@ -14,25 +14,27 @@
 </script>
 
 {#each sortedEntries as f}
-	<article on:click={handleClick(f.id)}>
-		<div class="img-container">
-			<img
-				src="https://pics.fritsjen.de/blog/{f.picture}"
-				title={f.pictureTitle}
-				alt={f.pictureTitle}
-			/>
-		</div>
-		<div class="text-container">
-			<time datetime={f.datetime}>{f.localeDatetime}</time>
-			<address>{f.section}</address>
-			<p>{@html f.title}</p>
-		</div>
-	</article>
+	<a href="/log/{f.id}" title={f.title}>
+		<article>
+			<div class="img-container">
+				<img
+					src="https://pics.fritsjen.de/blog/{f.picture}"
+					title={f.pictureTitle}
+					alt={f.pictureTitle}
+				/>
+			</div>
+			<div class="text-container">
+				<time datetime={f.datetime}>{f.localeDatetime}</time>
+				<address>{f.section}</address>
+				<p>{@html f.title}</p>
+			</div>
+		</article>
+	</a>
 {/each}
 
 <style lang="scss">
 	article {
-		background-color: #666666;
+		background-color: rgba(46, 98, 135, 0.6);
 		color: #efefef;
 		border-radius: 0.5em;
 		padding: 0;
@@ -47,7 +49,7 @@
 	}
 
 	article:hover {
-		background-color: #888888;
+		background-color: #2e6287;
 	}
 	article .img-container {
 		width: 200px;
