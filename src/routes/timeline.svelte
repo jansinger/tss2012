@@ -55,24 +55,16 @@
 	import { onMount } from 'svelte';
 
 	let timeline: HTMLElement;
-	let feature: string;
 
-	const handleClick = (entry: LogEntryShort) => {
-		return () => {
-			//feature = entry.id;
-			goto(`/log/${entry.id}`);
-		};
-	};
-
-	const modalClosed = () => {
-		feature = null;
-	};
 	onMount(() => timeline.focus());
 </script>
 
 <nav class="main-navigation">
 	<div class="item-wrapper">
-		<button on:click={() => goto('/')} title="Karte"><i class="fas fa-map-marked-alt" /></button>
+		<a href="/" title="Karte"><i class="fas fa-map-marked-alt" /></a>
+	</div>
+	<div class="item-wrapper">
+		<a href="/timeline" title="Zeitleiste" disabled><i class="fas fa-calendar-alt" /></a>
 	</div>
 </nav>
 
@@ -117,19 +109,7 @@
 	</section>
 </div>
 
-{#if browser}
-	<Modal on:closed={modalClosed}>
-		<ModalContent {feature} />
-	</Modal>
-{/if}
-
 <style lang="scss">
-	:global(body) {
-		padding: 0;
-		margin: 0;
-		color: #efefef;
-		background-color: #0b0b0b;
-	}
 	.img-container img {
 		max-width: 200px;
 		max-height: 150px;

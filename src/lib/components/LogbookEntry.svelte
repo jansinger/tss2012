@@ -109,12 +109,12 @@
 	<section class="main-content">
 		{@html entry.text}
 	</section>
-	<footer>
-		<p />
-	</footer>
 </article>
 
 <style lang="scss">
+	article {
+		margin-bottom: 15px;
+	}
 	address {
 		font-size: 0.8em;
 	}
@@ -127,6 +127,10 @@
 	figcaption {
 		margin: 10px 0;
 		font-style: italic;
+	}
+
+	section {
+		margin: 10px;
 	}
 
 	.splide__slide {
@@ -143,6 +147,5 @@
 	:global(.splide__slide img.main-image) {
 		margin-top: 5px;
 		max-width: 97%;
-		box-shadow: 2px 2px 8px grey;
 	}
 </style>

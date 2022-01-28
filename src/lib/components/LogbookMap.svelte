@@ -35,6 +35,10 @@
 <style lang="scss">
 	@import 'ol/ol.css';
 
+	:global(body) {
+		height: 100%;
+	}
+
 	.map {
 		position: absolute;
 		top: 0;

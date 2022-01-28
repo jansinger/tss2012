@@ -5,12 +5,16 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: 'Nunito Sans', sans-serif;
-	color: #666666;
-	height: 100%;
+	color: #efefef;
+	background-color: #0b0b0b;
 }
 
 .timeline {
 	position: relative;
+
+	a {
+		color: #efefef;
+	}
 }
 
 .timeline__progressbar {
@@ -173,18 +177,16 @@ nav.main-navigation {
 
 	.item-wrapper {
 		position: relative;
-		margin: 0 6px;
+		float: left;
+		margin: 0;
+		padding: 0 6px;
+		border-radius: 10px;
+		&:hover {
+			background-color: #2e6287;
+		}
 	}
 
-	/*button:hover:enabled {
-		color: #2e6287;
-	}*/
-
-	&:hover {
-		background-color: #2e6287;
-	}
-
-	button {
+	a {
 		opacity: 1;
 		font-size: 1em;
 		color: #fff;
@@ -192,6 +194,7 @@ nav.main-navigation {
 		margin: 0;
 		padding: 6px 3px;
 		background-color: transparent;
+		display: inline-block;
 	}
 }
 

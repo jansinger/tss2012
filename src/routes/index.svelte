@@ -19,6 +19,8 @@
 		const features = f.get('features');
 		if (features.length === 1) {
 			goto(`/log/${features[0].get('id')}`);
+		} else {
+			feature = f;
 		}
 	};
 
@@ -28,6 +30,9 @@
 </script>
 
 <nav class="main-navigation">
+	<div class="item-wrapper">
+		<a href="/" title="Karte" disabled><i class="fas fa-map-marked-alt" /></a>
+	</div>
 	<div class="item-wrapper">
 		<a href="/timeline" title="Zeitleiste"><i class="fas fa-calendar-alt" /></a>
 	</div>
