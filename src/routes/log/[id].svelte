@@ -18,12 +18,22 @@
 </script>
 
 <script>
+	import { goto } from '$app/navigation';
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
 
 	export let entry;
 </script>
 
-<nav><a href="/log">Alle Beiträge</a></nav>
+<nav class="main-navigation">
+	<!--div class="item-wrapper">
+		<button title="Zeitleiste" on:click={() => goto('/timeline')}
+			><i class="fas fa-calendar-alt" /></button
+		>
+	</div-->
+	<div class="item-wrapper">
+		<button on:click={() => goto('/')} title="Karte"><i class="fas fa-map-marked-alt" /></button>
+	</div>
+</nav>
 
 <div class="container">
 	<LogbookEntry {entry} />

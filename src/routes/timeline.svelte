@@ -58,7 +58,10 @@
 	let feature: string;
 
 	const handleClick = (entry: LogEntryShort) => {
-		return () => (feature = entry.id);
+		return () => {
+			//feature = entry.id;
+			goto(`/log/${entry.id}`);
+		};
 	};
 
 	const modalClosed = () => {
@@ -88,20 +91,22 @@
 						</div>
 						<div class="timeline__block__body">
 							{#each value as entry}
-								<article class="timeline__block__text" on:click={handleClick(entry)}>
-									<div class="img-container">
-										<img
-											src="https://pics.fritsjen.de/blog/{entry.picture}"
-											title={entry.pictureTitle}
-											alt={entry.pictureTitle}
-										/>
-									</div>
-									<div class="text-container">
-										<time datetime={entry.datetime}>{entry.localeDatetime}</time>
-										<address>{entry.section}</address>
-										<p>{@html entry.title}</p>
-									</div>
-								</article>
+								<a href="/log/{entry.id}">
+									<article class="timeline__block__text">
+										<div class="img-container">
+											<img
+												src="https://pics.fritsjen.de/blog/{entry.picture}"
+												title={entry.pictureTitle}
+												alt={entry.pictureTitle}
+											/>
+										</div>
+										<div class="text-container">
+											<time datetime={entry.datetime}>{entry.localeDatetime}</time>
+											<address>{entry.section}</address>
+											<p>{@html entry.title}</p>
+										</div>
+									</article>
+								</a>
 							{/each}
 						</div>
 					</div>

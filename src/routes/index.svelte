@@ -14,7 +14,12 @@
 	let feature: Feature<Geometry>;
 
 	const clickLogbook = (e: CustomEvent) => {
-		feature = e.detail.feature;
+		//feature = e.detail.feature;
+		const f = e.detail.feature;
+		const features = f.get('features');
+		if (features.length === 1) {
+			goto(`/log/${features[0].get('id')}`);
+		}
 	};
 
 	const modalClosed = () => {
@@ -24,9 +29,7 @@
 
 <nav class="main-navigation">
 	<div class="item-wrapper">
-		<button title="Zeitleiste" on:click={() => goto('/timeline')}
-			><i class="fas fa-calendar-alt" /></button
-		>
+		<a href="/timeline" title="Zeitleiste"><i class="fas fa-calendar-alt" /></a>
 	</div>
 </nav>
 
