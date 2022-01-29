@@ -147,6 +147,6 @@
 	:global(.splide__slide img.main-image) {
 		margin-top: 5px;
 		max-width: 97%;
-		filter: brightness(0.9) contrast(1.2);
+		filter: brightness(0.95) contrast(1.2);
 	}
 </style>

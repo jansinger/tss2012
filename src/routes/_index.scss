@@ -26,7 +26,7 @@ body {
 	width: var(--width);
 	height: 100%;
 	background-color: #2c2c2c;
-	z-index: -1;
+	z-index: 0;
 }
 
 .timeline__progressbar::after {

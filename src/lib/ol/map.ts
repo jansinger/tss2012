@@ -6,15 +6,19 @@ import { logbook } from './layers/logbook';
 import { fromLonLat } from 'ol/proj';
 import { DEFAULTS } from './constants';
 
-const startLonLat = fromLonLat([DEFAULTS.lon, DEFAULTS.lat]);
+export const startLonLat = fromLonLat([DEFAULTS.lon, DEFAULTS.lat]);
 
-export const createMap = (target: string | HTMLElement) => {
+export const createMap = (
+	target: string | HTMLElement,
+	zoom: number = DEFAULTS.zoom,
+	center: number[] = startLonLat
+) => {
 	return new Map({
 		target,
 		layers: [osm, seamap, track, logbook],
 		view: new View({
-			center: startLonLat,
-			zoom: DEFAULTS.zoom
+			center,
+			zoom
 		})
 	});
 };

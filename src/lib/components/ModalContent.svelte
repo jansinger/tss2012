@@ -13,10 +13,31 @@
 	const { open } = getContext('simple-modal');
 
 	const modalProps = {
-		styleBg: {},
+		styleBg: { 'background-color': '#0b0b0b;' },
 		styleWindowWrap: { margin: '10px' },
-		styleWindow: { width: '100%', margin: '10px 0', padding: '5px 0' },
-		styleContent: { 'max-height': 'calc(100vh - 20px)' },
+		styleWindow: {
+			width: '100%',
+			margin: '10px 0',
+			padding: '5px 0',
+			'background-color': '#0b0b0b;'
+		},
+		styleContent: { 'max-height': 'calc(100vh - 20px)', 'background-color': '#0b0b0b;' },
+		transitionWindowProps: {
+			y: 100,
+			duration: 250
+		},
+		transitionBgProps: {
+			duration: 250
+		}
+	};
+
+	const modalPropsMany = {
+		styleBg: {},
+		styleWindow: {
+			'background-color': '#0b0b0b;'
+		},
+		styleContent: { 'xbackground-color': '#0b0b0b;', 'padding-right': '30px;' },
+		styleCloseButton: { 'background-color': 'rgba(46, 98, 135, 0.6);', color: '#efefef;' },
 		transitionWindowProps: {
 			y: 100,
 			duration: 250
@@ -48,7 +69,7 @@
 			loadEntry(features[0].get('id'));
 		} else {
 			const entries = features.map(mapFeatures);
-			open(LogbookEntries, { entries, update: loadEntry });
+			open(LogbookEntries, { entries, update: loadEntry }, modalPropsMany);
 		}
 	};
 

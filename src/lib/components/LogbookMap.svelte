@@ -1,7 +1,15 @@
+<script type="ts" context="module">
+	import { writable } from 'svelte/store';
+	// preserve zoom and center
+	const zoom = writable(undefined);
+	const center = writable(undefined);
+</script>
+
 <script type="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import type { Map } from 'ol';
 	import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
+	import { beforeNavigate } from '$app/navigation';
 
 	const dispatch = createEventDispatcher();
 
@@ -10,10 +18,20 @@
 
 	onMount(async () => {
 		const { createMap } = await import('$lib/ol/map');
-		map = createMap(mapElement);
+		map = createMap(mapElement, $zoom, $center);
 		createTooltipOverlay(tooltipElement, map);
 		// @ts-ignore: Argument not assignable
 		map.on('clickLogbook', (e) => dispatch('clickLogbook', e));
+	});
+
+	beforeNavigate(() => {
+		zoom.set(map.getView().getZoom());
+		center.set(map.getView().getCenter());
+	});
+
+	onDestroy(() => {
+		map && map.setTarget(null);
+		map = undefined;
 	});
 </script>
 
