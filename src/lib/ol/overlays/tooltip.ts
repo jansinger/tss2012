@@ -1,5 +1,5 @@
-import { Feature, Overlay } from 'ol';
-import type { Map, MapBrowserEvent } from 'ol';
+import { Overlay } from 'ol';
+import type { Feature, Map, MapBrowserEvent } from 'ol';
 import type Layer from 'ol/layer/Layer';
 import type Source from 'ol/source/Source';
 import type BaseEvent from 'ol/events/Event';
