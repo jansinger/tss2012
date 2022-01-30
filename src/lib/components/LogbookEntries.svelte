@@ -2,15 +2,10 @@
 	import type { LogEntryShort } from '$lib/types';
 
 	export let entries: LogEntryShort[];
-	export let update: Function = () => {};
 
 	let sortedEntries = entries.sort(
 		(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
 	);
-
-	const handleClick = (id: string) => {
-		return () => update(id);
-	};
 </script>
 
 {#each sortedEntries as f}

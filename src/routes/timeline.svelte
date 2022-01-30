@@ -1,12 +1,8 @@
 <script type="ts" context="module">
 	export const prerender = true;
-	import ModalContent from '$lib/components/ModalContent.svelte';
-	import Modal from 'svelte-simple-modal';
-	import { browser } from '$app/env';
 
 	import origEntries from '$lib/data/logbook.json';
 	import type { LogEntryShort } from '$lib/types';
-	import { goto } from '$app/navigation';
 
 	const monthNames = [
 		'Januar',

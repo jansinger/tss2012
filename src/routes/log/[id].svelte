@@ -38,6 +38,9 @@
 
 <style type="scss">
 	.container {
-		margin: 10px;
+		margin: 10px auto;
+		padding: 50px 10px;
+		max-width: 900px;
+		position: relative;
 	}
 </style>

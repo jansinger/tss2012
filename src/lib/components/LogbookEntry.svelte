@@ -2,7 +2,7 @@
 	import { afterUpdate, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
 	import type { Splide, Options } from '@splidejs/splide';
-	import type { LogEntry, PicturesEntity } from '$lib/types';
+	import type { LogEntry } from '$lib/types';
 
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
@@ -64,14 +64,16 @@
 <nav class="sub-navigation">
 	<div class="item-wrapper">
 		<a
-			href="/log/{entry._prev}"
+			href={entry._prev ? `/log/${entry._prev}` : '#'}
 			class:disabled-link={entry._prev === undefined}
 			title="Vorheriger Beitrag"><i class="fas fa-arrow-left" /></a
 		>
 	</div>
 	<div class="item-wrapper">
-		<a href="/log/{entry._next}" class:disabled-link={!entry._next} title="Nächster Beitrag"
-			><i class="fas fa-arrow-right" /></a
+		<a
+			href={entry._next ? `/log/${entry._next}` : '#'}
+			class:disabled-link={!entry._next}
+			title="Nächster Beitrag"><i class="fas fa-arrow-right" /></a
 		>
 	</div>
 </nav>
