@@ -62,7 +62,7 @@
 		padding: 10px;
 	}
 	article p {
-		font-weight: bold;
+		line-height: 1.4;
 	}
 	@media screen and (max-width: 700px) {
 		article .img-container {
@@ -76,9 +76,6 @@
 		article .text-container {
 			padding: 5px;
 			font-size: 0.75em;
-		}
-		article p {
-			font-weight: bold;
 		}
 	}
 </style>
