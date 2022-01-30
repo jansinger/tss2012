@@ -90,4 +90,10 @@
 			}
 		}
 	}
+
+	@media screen and (max-width: 1140px) {
+		.sub-navigation {
+			margin-top: 60px;
+		}
+	}
 </style>
