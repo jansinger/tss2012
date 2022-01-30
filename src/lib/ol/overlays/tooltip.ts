@@ -38,7 +38,7 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 		const picture = feature.get('picture');
 		const pictureTitle = feature.get('pictureTitle');
 		element.innerHTML = `<div class="right">
-		<img src="https://pics.fritsjen.de/blog/${picture}" title="${pictureTitle}" />
+		<img src="/images/${picture}" title="${pictureTitle}" />
 		<div class="text-content">
 			<time datetime="${datetime}">${time}</time>
 			<address>${address}</address>

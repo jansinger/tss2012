@@ -16,11 +16,7 @@
 {#each sortedEntries as f}
 	<article on:click={handleClick(f.id)}>
 		<div class="img-container">
-			<img
-				src="https://pics.fritsjen.de/blog/{f.picture}"
-				title={f.pictureTitle}
-				alt={f.pictureTitle}
-			/>
+			<img src="/images/{f.picture}" title={f.pictureTitle} alt={f.pictureTitle} />
 		</div>
 		<div class="text-container">
 			<time datetime={f.datetime}>{f.localeDatetime}</time>
