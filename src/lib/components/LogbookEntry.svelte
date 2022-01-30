@@ -67,13 +67,22 @@
 	}
 	section.overview-map {
 		position: relative;
-		top: 20px;
-		right: 0;
-		margin: 0 0 15px 15px;
+		margin: 15px 0 10px 15px;
 		padding: 0;
 		float: right;
-		z-index: 100;
+		z-index: 10;
 		height: 200px;
+		:global(.map) {
+			width: 200px;
+			height: 200px;
+			-moz-border-radius: 15px;
+			border-radius: 15px;
+			overflow: hidden;
+			-webkit-backface-visibility: hidden;
+			-moz-backface-visibility: hidden;
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+		}
 	}
 
 	@media screen and (max-width: 600px) {
@@ -82,8 +91,6 @@
 			padding: 15px auto;
 			margin: 20px 0 0 0;
 			width: 100%;
-			right: auto;
-			top: auto;
 			:global(.map) {
 				margin: 10px auto;
 				width: 100%;

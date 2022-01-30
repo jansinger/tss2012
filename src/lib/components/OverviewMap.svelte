@@ -19,13 +19,3 @@
 </script>
 
 <div class="map" bind:this={mapElement} />
-
-<style lang="scss">
-	.map {
-		width: 200px;
-		height: 200px;
-		-moz-border-radius: 15px;
-		border-radius: 15px;
-		overflow: hidden;
-	}
-</style>
