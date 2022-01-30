@@ -92,7 +92,7 @@
 								<figure>
 									<img
 										class="main-image"
-										src={`https://pics.fritsjen.de/blog/${entry.pictureFolder}/${filename}`}
+										src={`/images/${entry.pictureFolder}/${filename}`}
 										{title}
 										alt={text}
 									/>
@@ -108,11 +108,7 @@
 					<ul class="splide__list">
 						{#each entry.pictures as { filename, title, text }}
 							<li class="splide__slide">
-								<img
-									src={`https://pics.fritsjen.de/blog/${entry.pictureFolder}/${filename}`}
-									{title}
-									alt={text}
-								/>
+								<img src={`/images/${entry.pictureFolder}/${filename}`} {title} alt={text} />
 							</li>
 						{/each}
 					</ul>

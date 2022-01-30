@@ -87,7 +87,7 @@
 									<article class="timeline__block__text">
 										<div class="img-container">
 											<img
-												src="https://pics.fritsjen.de/blog/{entry.picture}"
+												src="/images/{entry.picture}"
 												title={entry.pictureTitle}
 												alt={entry.pictureTitle}
 											/>
