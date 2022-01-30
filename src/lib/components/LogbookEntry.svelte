@@ -1,59 +1,9 @@
 <script type="ts">
-	import { afterUpdate, onDestroy } from 'svelte';
-	import { browser } from '$app/env';
-	import type { Splide, Options } from '@splidejs/splide';
 	import type { LogEntry } from '$lib/types';
-
-	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
+	import OverviewMap from './OverviewMap.svelte';
+	import Pictures from './Pictures.svelte';
 
 	export let entry: LogEntry = null;
-	let splide: SplideConstructor, main: Splide, thumbnails: Splide;
-
-	const splideOptions = {
-		type: 'fade',
-		//heightRatio: 0.5,
-		pagination: false,
-		arrows: false,
-		autoHeight: true
-	};
-
-	const thumSlider = {
-		rewind: true,
-		fixedWidth: 104,
-		fixedHeight: 58,
-		isNavigation: true,
-		gap: 0,
-		focus: 'center' as const,
-		pagination: false,
-		cover: true,
-		dragMinThreshold: {
-			mouse: 4,
-			touch: 10
-		},
-		breakpoints: {
-			640: {
-				fixedWidth: 66,
-				fixedHeight: 38
-			}
-		}
-	};
-
-	afterUpdate(async () => {
-		if (!splide) {
-			const module = await import('@splidejs/splide');
-			splide = module.Splide;
-		}
-		main = new splide('#main-slider', splideOptions);
-		thumbnails = new splide('#thumbnail-slider', thumSlider);
-		main.sync(thumbnails);
-		main.mount();
-		thumbnails.mount();
-	});
-
-	onDestroy(() => {
-		main?.destroy();
-		thumbnails?.destroy();
-	});
 </script>
 
 <svelte:head>
@@ -62,14 +12,17 @@
 </svelte:head>
 
 <nav class="sub-navigation">
-	<div class="item-wrapper">
+	<div class="item-wrapper left">
 		<a
 			href={entry._prev ? `/log/${entry._prev}` : '#'}
 			class:disabled-link={entry._prev === undefined}
 			title="Vorheriger Beitrag"><i class="fas fa-arrow-left" /></a
 		>
 	</div>
-	<div class="item-wrapper">
+	<div class="item-wrapper center">
+		<time datetime={entry.datetime}>{entry.localeDatetime}</time>
+	</div>
+	<div class="item-wrapper right">
 		<a
 			href={entry._next ? `/log/${entry._next}` : '#'}
 			class:disabled-link={!entry._next}
@@ -77,88 +30,64 @@
 		>
 	</div>
 </nav>
-
-<article>
+<content class="container">
 	<header>
-		<time datetime={entry.datetime}>{entry.localeDatetime}</time>
 		<address>{entry.section}</address>
 		<h1>{@html entry.title}</h1>
 	</header>
+
 	<section class="pictures">
-		{#if browser}
-			<div class="splide" id="main-slider">
-				<div class="splide__track">
-					<ul class="splide__list">
-						{#each entry.pictures as { filename, title, text }}
-							<li class="splide__slide">
-								<figure>
-									<img
-										class="main-image"
-										src={`/images/${entry.pictureFolder}/${filename}`}
-										{title}
-										alt={text}
-									/>
-									<figcaption>{text}</figcaption>
-								</figure>
-							</li>
-						{/each}
-					</ul>
-				</div>
-			</div>
-			<div class="splide" id="thumbnail-slider">
-				<div class="splide__track">
-					<ul class="splide__list">
-						{#each entry.pictures as { filename, title, text }}
-							<li class="splide__slide">
-								<img src={`/images/${entry.pictureFolder}/${filename}`} {title} alt={text} />
-							</li>
-						{/each}
-					</ul>
-				</div>
-			</div>
-		{/if}
+		<Pictures pictures={entry.pictures} folder={entry.pictureFolder} />
 	</section>
-	<section class="main-content">
+	<section class="overview-map">
+		<OverviewMap coordinates={entry.data.coordinates} />
+	</section>
+	<article class="main-content">
 		{@html entry.text}
-	</section>
-</article>
+	</article>
+</content>
 
 <style lang="scss">
+	@import 'ol/ol.css';
+
+	content.container {
+		display: block;
+		background-color: #2e6287;
+		padding: 0 15px 10px;
+		border-radius: 0 0 8px 8px;
+	}
 	article {
-		margin-bottom: 15px;
+		position: relative;
+		margin-bottom: 20px;
+		margin-top: 15px;
 	}
 	address {
 		font-size: 0.8em;
-	}
-
-	figure {
-		margin: 0;
-		padding: 0;
-	}
-
-	figcaption {
-		margin: 10px 0;
-		font-style: italic;
-	}
-
-	section {
-		margin: 10px;
-	}
-
-	.splide__slide {
-		opacity: 0.3;
-	}
-
-	:global(#main-slider .splide__slide) {
 		text-align: center;
 	}
-
-	:global(.splide__slide.is-active) {
-		opacity: 1;
+	section.overview-map {
+		position: relative;
+		top: 20px;
+		right: 0;
+		margin: 0 0 15px 15px;
+		padding: 0;
+		float: right;
+		z-index: 100;
+		height: 200px;
 	}
-	:global(.splide__slide img.main-image) {
-		margin-top: 5px;
-		max-width: 97%;
-		filter: brightness(0.95) contrast(1.2);
+
+	@media screen and (max-width: 600px) {
+		section.overview-map {
+			float: none;
+			padding: 15px auto;
+			margin: 20px 0 0 0;
+			width: 100%;
+			right: auto;
+			top: auto;
+			:global(.map) {
+				margin: 10px auto;
+				width: 100%;
+			}
+		}
 	}
 </style>

@@ -52,7 +52,6 @@
 
 <style lang="scss">
 	@import 'ol/ol.css';
-
 	:global(body) {
 		height: 100%;
 	}
@@ -91,6 +90,7 @@
 
 	.tooltip :global(h3) {
 		margin: 12px 0;
+		font-size: 1rem;
 	}
 
 	.tooltip :global(.right) {
@@ -122,7 +122,7 @@
 	}
 
 	.tooltip :global(address) {
-		font-size: 0.8em;
+		font-size: 0.75rem;
 	}
 
 	.tooltip :global(.right) :global(i) {

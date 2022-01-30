@@ -17,10 +17,11 @@
 	}
 </script>
 
-<script>
+<script type="ts">
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
+	import type { LogEntry } from '$lib/types';
 
-	export let entry;
+	export let entry: LogEntry;
 </script>
 
 <nav class="main-navigation">
@@ -39,7 +40,7 @@
 <style type="scss">
 	.container {
 		margin: 10px auto;
-		padding: 50px 10px;
+		padding: 0 10px;
 		max-width: 900px;
 		position: relative;
 	}

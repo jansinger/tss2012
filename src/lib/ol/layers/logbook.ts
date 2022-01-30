@@ -4,15 +4,15 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { Cluster } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style, Text, Icon } from 'ol/style';
 
-const markerStyle = new Style({
+export const markerStyle = new Style({
 	image: new Icon({
 		crossOrigin: 'anonymous',
 		// For Internet Explorer 11
 		imgSize: [100, 100],
-		src: 'pics/marker-tss.svg',
+		src: '/pics/marker-tss.svg',
 		scale: 0.4,
 		opacity: 1,
-		anchor: [0.5, 50],
+		anchor: [0.5, 100],
 		anchorXUnits: 'fraction',
 		anchorYUnits: 'pixels'
 	})

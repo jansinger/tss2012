@@ -128,6 +128,10 @@
 
 	article:hover {
 		background-color: #2e6287;
+		opacity: 1;
+		.img-container img {
+			opacity: 1;
+		}
 	}
 
 	article time {
@@ -150,6 +154,7 @@
 		margin-right: 10px;
 		float: left;
 		border-radius: 0.5em 0 0 0.5em;
+		opacity: 0.6;
 	}
 	article .text-container {
 		padding: 10px;
