@@ -12,6 +12,8 @@ export interface LogEntryShort {
 export interface LogEntry {
 	_id: string;
 	_rev: string;
+	_next?: string;
+	_prev?: string;
 	datetime: string;
 	category: string;
 	data: Data;

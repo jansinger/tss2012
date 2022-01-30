@@ -1,5 +1,5 @@
 <script type="ts">
-	import { afterUpdate } from 'svelte';
+	import { afterUpdate, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
 	import type { Splide, Options } from '@splidejs/splide';
 	import type { LogEntry, PicturesEntity } from '$lib/types';
@@ -7,7 +7,6 @@
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
 	export let entry: LogEntry = null;
-	let pictures: Array<PicturesEntity> = [];
 	let splide: SplideConstructor, main: Splide, thumbnails: Splide;
 
 	const splideOptions = {
@@ -40,11 +39,6 @@
 	};
 
 	afterUpdate(async () => {
-		// new entry, destroy old slider
-		main?.destroy();
-		thumbnails?.destroy();
-		pictures = entry?.pictures;
-
 		if (!splide) {
 			const module = await import('@splidejs/splide');
 			splide = module.Splide;
@@ -55,12 +49,32 @@
 		main.mount();
 		thumbnails.mount();
 	});
+
+	onDestroy(() => {
+		main?.destroy();
+		thumbnails?.destroy();
+	});
 </script>
 
 <svelte:head>
 	<meta name="geo.placename" content={entry.section} />
 	<meta name="geo.position" content="{entry.data?.coordinates[0]};{entry.data?.coordinates[1]}" />
 </svelte:head>
+
+<nav class="sub-navigation">
+	<div class="item-wrapper">
+		<a
+			href="/log/{entry._prev}"
+			class:disabled-link={entry._prev === undefined}
+			title="Vorheriger Beitrag"><i class="fas fa-arrow-left" /></a
+		>
+	</div>
+	<div class="item-wrapper">
+		<a href="/log/{entry._next}" class:disabled-link={!entry._next} title="Nächster Beitrag"
+			><i class="fas fa-arrow-right" /></a
+		>
+	</div>
+</nav>
 
 <article>
 	<header>
@@ -73,7 +87,7 @@
 			<div class="splide" id="main-slider">
 				<div class="splide__track">
 					<ul class="splide__list">
-						{#each pictures as { filename, title, text }}
+						{#each entry.pictures as { filename, title, text }}
 							<li class="splide__slide">
 								<figure>
 									<img
@@ -92,7 +106,7 @@
 			<div class="splide" id="thumbnail-slider">
 				<div class="splide__track">
 					<ul class="splide__list">
-						{#each pictures as { filename, title, text }}
+						{#each entry.pictures as { filename, title, text }}
 							<li class="splide__slide">
 								<img
 									src={`https://pics.fritsjen.de/blog/${entry.pictureFolder}/${filename}`}
