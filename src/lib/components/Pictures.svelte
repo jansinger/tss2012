@@ -62,10 +62,18 @@
 	<div class="splide" id="main-slider">
 		<div class="splide__track">
 			<ul class="splide__list">
-				{#each pictures as { filename, title, text }}
+				{#each pictures as { filename, title, text, sizebig }}
 					<li class="splide__slide">
 						<figure>
-							<img class="main-image" src={`/images/${folder}/${filename}`} {title} alt={text} />
+							<img
+								class="main-image"
+								src={`/images/${folder}/${filename}`}
+								{title}
+								alt={text}
+								width={sizebig?.width}
+								height={sizebig?.height}
+								loading="lazy"
+							/>
 							<figcaption>{text}</figcaption>
 						</figure>
 					</li>
@@ -76,9 +84,16 @@
 	<div class="splide" id="thumbnail-slider">
 		<div class="splide__track">
 			<ul class="splide__list">
-				{#each pictures as { filename, title, text }}
+				{#each pictures as { filename, title, text, sizebig }}
 					<li class="splide__slide">
-						<img src={`/images/${folder}/${filename}`} {title} alt={text} />
+						<img
+							src={`/images/${folder}/${filename}`}
+							{title}
+							alt={text}
+							width={sizebig?.width}
+							height={sizebig?.height}
+							loading="lazy"
+						/>
 					</li>
 				{/each}
 			</ul>

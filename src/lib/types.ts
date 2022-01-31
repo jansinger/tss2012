@@ -31,8 +31,14 @@ export interface Data {
 	sog: string;
 	coordinates?: number[] | null;
 }
+
+export interface SizeParams {
+	width: number;
+	height: number;
+}
 export interface PicturesEntity {
 	filename: string;
 	title: string;
 	text: string;
+	sizebig: SizeParams;
 }

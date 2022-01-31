@@ -56,6 +56,11 @@
 	onMount(() => timeline.focus());
 </script>
 
+<svelte:head>
+	<title>Zeitleiste der Segelreise</title>
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/timeline" />
+</svelte:head>
+
 <nav class="main-navigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
 		<button type="button" aria-expanded="false" title="Karte" on:click={() => goto('/')}>

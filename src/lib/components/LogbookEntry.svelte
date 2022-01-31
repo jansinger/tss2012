@@ -7,8 +7,12 @@
 </script>
 
 <svelte:head>
+	<title>{entry.title.replace(/<[^>]*>?/gm, '')}</title>
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" />
 	<meta name="geo.placename" content={entry.section} />
-	<meta name="geo.position" content="{entry.data?.coordinates[0]};{entry.data?.coordinates[1]}" />
+	<meta name="geo.placename" content={entry.section} />
+	<meta name="geo.position" content="{entry.data?.coordinates[1]};{entry.data?.coordinates[0]}" />
+	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
 </svelte:head>
 
 <nav class="sub-navigation">
