@@ -13,7 +13,7 @@
 	});
 
 	afterUpdate(async () => {
-		const { createOverviewMap } = await import('$lib/ol/minimap');
+		const { createOverviewMap } = await import('$lib/ol/overviewmap');
 		map = createOverviewMap(mapElement, coordinates);
 	});
 </script>

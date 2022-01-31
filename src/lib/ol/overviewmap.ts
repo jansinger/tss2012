@@ -22,7 +22,7 @@ export const createOverviewMap = (
 	});
 	return new Map({
 		target,
-		layers: [osm, seamap, track, featureLayer],
+		layers: [osm(), seamap(), track(), featureLayer],
 		view: new View({
 			center: lonLat,
 			zoom: 9

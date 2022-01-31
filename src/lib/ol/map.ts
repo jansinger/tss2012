@@ -15,7 +15,7 @@ export const createMap = (
 ) => {
 	return new Map({
 		target,
-		layers: [osm, seamap, track, logbook],
+		layers: [osm(), seamap(), track(), logbook],
 		view: new View({
 			center,
 			zoom

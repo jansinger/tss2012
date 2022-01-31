@@ -12,17 +12,20 @@ const stroke = new Stroke({
 	width: 1.0
 });
 
-const trackStyle = new Style({
+const style = new Style({
 	fill: fill,
 	stroke: stroke
 });
 
-export const track = new VectorLayer({
-	source: new VectorSource({
-		url: '/data/segelsommer2012.kml',
-		format: new KML({
-			extractStyles: false
-		})
-	}),
-	style: trackStyle
+const source = new VectorSource({
+	url: '/data/segelsommer2012.kml',
+	format: new KML({
+		extractStyles: false
+	})
 });
+
+export const track = () =>
+	new VectorLayer({
+		source,
+		style
+	});
