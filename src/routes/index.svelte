@@ -30,11 +30,15 @@
 </script>
 
 <nav class="main-navigation">
-	<div class="item-wrapper">
-		<a href="/" title="Karte" disabled><i class="fas fa-map-marked-alt" /></a>
-	</div>
-	<div class="item-wrapper">
-		<a href="/timeline" title="Zeitleiste"><i class="fas fa-calendar-alt" /></a>
+	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
+		<button
+			type="button"
+			aria-expanded="false"
+			title="Zeitleiste"
+			on:click={() => goto('/timeline')}
+		>
+			<i class="fas fa-calendar-alt" />
+		</button>
 	</div>
 </nav>
 

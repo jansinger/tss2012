@@ -18,6 +18,8 @@
 </script>
 
 <script type="ts">
+	import { goto } from '$app/navigation';
+
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
 	import type { LogEntry } from '$lib/types';
 
@@ -25,11 +27,18 @@
 </script>
 
 <nav class="main-navigation">
-	<div class="item-wrapper">
-		<a href="/" title="Karte"><i class="fas fa-map-marked-alt" /></a>
-	</div>
-	<div class="item-wrapper">
-		<a href="/timeline" title="Zeitleiste"><i class="fas fa-calendar-alt" /></a>
+	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
+		<button
+			type="button"
+			aria-expanded="false"
+			title="Zeitleiste"
+			on:click={() => goto('/timeline')}
+		>
+			<i class="fas fa-calendar-alt" />
+		</button>
+		<button type="button" aria-expanded="false" title="Karte" on:click={() => goto('/')}>
+			<i class="fas fa-map-marked-alt" />
+		</button>
 	</div>
 </nav>
 

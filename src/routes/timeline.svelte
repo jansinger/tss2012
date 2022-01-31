@@ -1,6 +1,7 @@
 <script type="ts" context="module">
 	export const prerender = true;
 
+	import { goto } from '$app/navigation';
 	import origEntries from '$lib/data/logbook.json';
 	import type { LogEntryShort } from '$lib/types';
 
@@ -56,11 +57,10 @@
 </script>
 
 <nav class="main-navigation">
-	<div class="item-wrapper">
-		<a href="/" title="Karte"><i class="fas fa-map-marked-alt" /></a>
-	</div>
-	<div class="item-wrapper">
-		<a href="/timeline" title="Zeitleiste" disabled><i class="fas fa-calendar-alt" /></a>
+	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
+		<button type="button" aria-expanded="false" title="Karte" on:click={() => goto('/')}>
+			<i class="fas fa-map-marked-alt" />
+		</button>
 	</div>
 </nav>
 
