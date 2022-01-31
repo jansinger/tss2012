@@ -1,4 +1,5 @@
 @import '@splidejs/splide/dist/css/splide.min.css';
+@import 'ol/ol.css';
 
 html,
 body {
@@ -196,6 +197,10 @@ article {
 
 	button {
 		display: inline-block !important;
+
+		i {
+			margin: 2px;
+		}
 	}
 }
 
@@ -235,14 +240,16 @@ nav.sub-navigation {
 	}
 	&.left:hover,
 	&.right:hover {
-		background-color: #2e6287;
+		background-color: #2e628788;
 	}
 
 	&.left {
 		grid-column: 1;
+		border-radius: 8px 0 0 0;
 	}
 	&.right {
 		grid-column: 3;
+		border-radius: 0 8px 0 0;
 	}
 	&.center {
 		grid-column: 2;
