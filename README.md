@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/666f8a79-a58c-4981-b24e-01bedcfe1a4a/deploy-status)](https://app.netlify.com/sites/pedantic-bose-aa3de2/deploys)
 
-Projekt der Webseite [https://www.ein-tierischer-segelsommer.de](Ein tierischer Segelsommer 2012) mit OpenLayers zur Darstellung der Segelroute und der Blog-Beiträge auf einer Karte.
+Projekt der Webseite [Ein tierischer Segelsommer 2012](https://www.ein-tierischer-segelsommer.de) mit OpenLayers zur Darstellung der Segelroute und der Blog-Beiträge auf einer Karte.
 
 ## Developing
 
