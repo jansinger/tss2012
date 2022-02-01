@@ -8,4 +8,4 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'report-sample' 'self' https://kit.fontawesome.com/e0edbec1b9.js; style-src 'report-sample' 'self' 'unsafe-inline' https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' https://ka-f.fontawesome.com; font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com; frame-src 'self'; img-src 'self' https://api.maptiler.com https://t1.openseamap.org; manifest-src 'self'; media-src 'self'; worker-src 'none';"
+    Content-Security-Policy = "default-src 'self'; script-src 'report-sample' 'self' 'unsafe-inline' https://kit.fontawesome.com/e0edbec1b9.js; style-src 'report-sample' 'self' 'unsafe-inline' https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' https://ka-f.fontawesome.com; font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com; frame-src 'self'; img-src 'self' https://api.maptiler.com https://t1.openseamap.org; manifest-src 'self'; media-src 'self'; worker-src 'none';"
