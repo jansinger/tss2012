@@ -1,1 +1,7 @@
-export const stripHtml = (text: string) => text.replace(/<[^>]*>?/gm, '');
+import sanitizeHtml from 'sanitize-html';
+
+const options = {
+	allowedTags: [],
+	allowedAttributes: {}
+};
+export const stripHtml = (text: string) => sanitizeHtml(text, options);
