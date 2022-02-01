@@ -54,3 +54,17 @@
 		<ModalContent {feature} />
 	</Modal>
 {/if}
+
+<a href="/impressum" class="impressum" title="Impressum">Impressum</a>
+
+<style lang="scss">
+	.impressum {
+		position: fixed;
+		bottom: 3px;
+	}
+	@media (max-width: 768px) {
+		.impressum {
+			left: 65px;
+		}
+	}
+</style>

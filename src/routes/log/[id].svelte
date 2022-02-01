@@ -42,15 +42,7 @@
 	</div>
 </nav>
 
-<div class="container">
+<div class="container-article">
 	<LogbookEntry {entry} />
+	<a href="/impressum" class="impressum" title="Impressum">Impressum</a>
 </div>
-
-<style type="scss">
-	.container {
-		margin: 10px auto;
-		padding: 0 10px;
-		max-width: 900px;
-		position: relative;
-	}
-</style>

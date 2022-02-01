@@ -52,14 +52,7 @@
 </content>
 
 <style lang="scss">
-	@import 'ol/ol.css';
-
-	content.container {
-		display: block;
-		background-color: #2e6287;
-		padding: 0 15px 10px;
-		border-radius: 0 0 8px 8px;
-	}
+	@import '../scss/article.scss';
 	article {
 		position: relative;
 		margin-bottom: 20px;

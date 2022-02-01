@@ -69,7 +69,7 @@
 			loadEntry(features[0].get('id'));
 		} else {
 			const entries = features.map(mapFeatures);
-			open(LogbookEntries, { entries, update: loadEntry }, modalPropsMany);
+			open(LogbookEntries, { entries }, modalPropsMany);
 		}
 	};
 
