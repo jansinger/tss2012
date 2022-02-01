@@ -4,3 +4,8 @@
 
 [functions]
   node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self';"
