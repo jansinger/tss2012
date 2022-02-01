@@ -20,7 +20,7 @@
 </script>
 
 <div class="content">
-	<LogbookEntries {entries} {update} />
+	<LogbookEntries {entries} />
 </div>
 
 <style lang="scss">
