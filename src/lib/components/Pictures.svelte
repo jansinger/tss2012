@@ -3,6 +3,7 @@
 	import { browser } from '$app/env';
 	import type { Splide, Options } from '@splidejs/splide';
 	import type { PicturesEntity } from '$lib/types';
+	import { stripHtml } from '$lib/utils/striphtml';
 
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
@@ -69,12 +70,12 @@
 								class="main-image"
 								src={`/images/${folder}/${filename}`}
 								{title}
-								alt={text}
+								alt={stripHtml(text)}
 								width={sizebig?.width}
 								height={sizebig?.height}
 								loading="lazy"
 							/>
-							<figcaption>{text}</figcaption>
+							<figcaption>{@html text}</figcaption>
 						</figure>
 					</li>
 				{/each}
@@ -89,7 +90,7 @@
 						<img
 							src={`/images/${folder}/${filename}`}
 							{title}
-							alt={text}
+							alt={stripHtml(text)}
 							width={sizebig?.width}
 							height={sizebig?.height}
 							loading="lazy"

@@ -1,5 +1,6 @@
 <script type="ts">
 	import type { LogEntry } from '$lib/types';
+	import { stripHtml } from '$lib/utils/striphtml';
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';
 
@@ -7,10 +8,9 @@
 </script>
 
 <svelte:head>
-	<title>{entry.title.replace(/<[^>]*>?/gm, '')}</title>
+	<title>{stripHtml(entry.title)}</title>
 	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" />
-	<meta name="geo.placename" content={entry.section} />
-	<meta name="geo.placename" content={entry.section} />
+	<meta name="geo.placename" content={stripHtml(entry.section)} />
 	<meta name="geo.position" content="{entry.data?.coordinates[1]};{entry.data?.coordinates[0]}" />
 	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
 </svelte:head>
