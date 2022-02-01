@@ -1,20 +1,8 @@
-# create-svelte
+# Ein tierischer Segelsommer
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+[![Netlify Status](https://api.netlify.com/api/v1/badges/666f8a79-a58c-4981-b24e-01bedcfe1a4a/deploy-status)](https://app.netlify.com/sites/pedantic-bose-aa3de2/deploys)
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
+Projekt der Webseite [https://www.ein-tierischer-segelsommer.de](Ein tierischer Segelsommer 2012) mit OpenLayers zur Darstellung der Segelroute und der Blog-Beiträge auf einer Karte.
 
 ## Developing
 
@@ -28,8 +16,6 @@ npm run dev -- --open
 ```
 
 ## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
 
 ```bash
 npm run build
