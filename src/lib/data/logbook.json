@@ -3550,8 +3550,8 @@
 				"filename": "4-P1070671_gr.jpg",
 				"title": "Varmbadhuset",
 				"text": "...und uns gefällt es sehr!",
-				"sizebig": { "width": 800, "height": 600 },
-				"sizesmall": { "width": 200, "height": 150 }
+				"sizebig": { "width": 600, "height": 800 },
+				"sizesmall": { "width": 150, "height": 200 }
 			},
 			{
 				"filename": "5-P1070674_gr.jpg",
@@ -3853,15 +3853,15 @@
 				"filename": "32-P1070660_gr.jpg",
 				"title": "Marinemuseum",
 				"text": "Auch die Halle der Galionsfiguren ist wirklich sehenswert.",
-				"sizebig": { "width": 800, "height": 600 },
-				"sizesmall": { "width": 200, "height": 150 }
+				"sizebig": { "width": 600, "height": 800 },
+				"sizesmall": { "width": 150, "height": 200 }
 			},
 			{
 				"filename": "33-P1070665_gr.jpg",
 				"title": "Marinemuseum",
 				"text": "Wie lange kann man das Gleichgewicht halten?",
-				"sizebig": { "width": 800, "height": 600 },
-				"sizesmall": { "width": 200, "height": 150 }
+				"sizebig": { "width": 600, "height": 800 },
+				"sizesmall": { "width": 150, "height": 200 }
 			},
 			{
 				"filename": "34-P1070667_gr.jpg",
