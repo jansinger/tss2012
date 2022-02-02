@@ -1,41 +1,31 @@
 <script type="ts" context="module">
-	import { writable } from 'svelte/store';
-	// preserve zoom and center
-	const zoom = writable(undefined);
-	const center = writable(undefined);
+	import { map } from '$lib/stores';
 </script>
 
 <script type="ts">
-	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import type { Map } from 'ol';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
-	import { beforeNavigate } from '$app/navigation';
+	import { fade } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 
-	let map: Map;
 	let mapElement: HTMLElement, tooltipElement: HTMLElement;
 
 	onMount(async () => {
-		const { createMap } = await import('$lib/ol/map');
-		map = createMap(mapElement, $zoom, $center);
-		createTooltipOverlay(tooltipElement, map);
-		// @ts-ignore: Argument not assignable
-		map.on('clickLogbook', (e) => dispatch('clickLogbook', e));
-	});
-
-	beforeNavigate(() => {
-		zoom.set(map.getView().getZoom());
-		center.set(map.getView().getCenter());
-	});
-
-	onDestroy(() => {
-		map && map.setTarget(null);
-		map = undefined;
+		if (!$map) {
+			const { createMap } = await import('$lib/ol/map');
+			map.set(createMap(mapElement));
+			createTooltipOverlay(tooltipElement, $map);
+			// @ts-ignore: Argument not assignable
+			$map.on('clickLogbook', (e) => dispatch('clickLogbook', e));
+		}
+		$map.setTarget(mapElement);
+		// ensure all tiles are loaded
+		$map.updateSize();
 	});
 </script>
 
-<div class="tooltip" bind:this={tooltipElement}>
+<div class="tooltip" bind:this={tooltipElement} transition:fade>
 	<time>&nbsp;</time>
 	<address>&nbsp;</address>
 	<h1>&nbsp;</h1>
@@ -43,7 +33,7 @@
 
 <div class="map" bind:this={mapElement}>
 	<img
-		src="pics/banner.png"
+		src="/pics/banner.png"
 		class="logo"
 		alt="Ein tierischer Segelsommer"
 		title="Ein tierischer Segelsommer"
@@ -51,20 +41,17 @@
 </div>
 
 <style lang="scss">
-	:global(body) {
-		height: 100%;
-	}
-
 	.map {
 		position: absolute;
 		top: 0;
-		bottom: 0;
+		left: 0;
 		width: 100%;
+		height: 100vh;
 	}
 
 	.map :global(.ol-overlaycontainer),
 	.map :global(.ol-overlaycontainer-stopevent) {
-		z-index: 10 !important;
+		z-index: 2 !important;
 	}
 
 	.logo {

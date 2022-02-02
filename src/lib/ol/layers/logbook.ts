@@ -19,7 +19,7 @@ export const markerStyle = new Style({
 });
 
 const source = new VectorSource({
-	url: 'data/logbook_geo.json',
+	url: '/data/logbook_geo.json',
 	format: new GeoJSON()
 });
 

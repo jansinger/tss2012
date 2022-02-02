@@ -19,30 +19,18 @@
 
 <script type="ts">
 	import { goto } from '$app/navigation';
+	import { fade } from 'svelte/transition';
 
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
+	import Overlay from '$lib/components/Overlay.svelte';
 	import type { LogEntry } from '$lib/types';
 
 	export let entry: LogEntry;
 </script>
 
-<nav class="main-navigation">
-	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
-		<button
-			type="button"
-			aria-expanded="false"
-			title="Zeitleiste"
-			on:click={() => goto('/timeline')}
-		>
-			<i class="fas fa-calendar-alt" />
-		</button>
-		<button type="button" aria-expanded="false" title="Karte" on:click={() => goto('/')}>
-			<i class="fas fa-map-marked-alt" />
-		</button>
+<Overlay isOpen={true} on:close={() => goto('/')}>
+	<div class="container-article" transition:fade>
+		<LogbookEntry {entry} />
+		<a href="/impressum" class="impressum" title="Impressum">Impressum</a>
 	</div>
-</nav>
-
-<div class="container-article">
-	<LogbookEntry {entry} />
-	<a href="/impressum" class="impressum" title="Impressum">Impressum</a>
-</div>
+</Overlay>

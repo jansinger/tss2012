@@ -63,12 +63,10 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 				if (features.length === 1) {
 					feature = newfeature;
 					showEntryPreview(features[0], tooltip);
-					element.style.display = '';
 					tooltip.setPosition(evt.coordinate);
 				}
 			} else {
 				map.getTargetElement().style.cursor = '';
-				// element.style.display = 'none';
 				overlay.setPosition(undefined);
 			}
 		};

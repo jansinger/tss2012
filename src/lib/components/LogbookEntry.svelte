@@ -3,8 +3,23 @@
 	import { stripHtml } from '$lib/utils/striphtml';
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';
+	import throttle from 'just-throttle';
+	import { goto } from '$app/navigation';
 
 	export let entry: LogEntry = null;
+
+	const throttledWheel = throttle((backwards) => {
+		goto(backwards ? `/log/${entry._prev}` : `/log/${entry._next}`);
+	}, 1000);
+
+	const trackWheel = (e: WheelEvent) => {
+		const { deltaX } = e;
+
+		if (deltaX) {
+			e.preventDefault();
+			throttledWheel(deltaX < 0);
+		}
+	};
 </script>
 
 <svelte:head>
@@ -15,12 +30,12 @@
 	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
 </svelte:head>
 
-<nav class="sub-navigation">
+<nav class="sub-navigation" on:wheel={trackWheel}>
 	<div class="item-wrapper left">
 		<a
 			href={entry._prev ? `/log/${entry._prev}` : '#'}
 			class:disabled-link={entry._prev === undefined}
-			title="Vorheriger Beitrag"><i class="fas fa-arrow-left" /></a
+			title="Vorheriger Beitrag"><i class="bi bi-caret-left-fill" /></a
 		>
 	</div>
 	<div class="item-wrapper center">
@@ -30,7 +45,7 @@
 		<a
 			href={entry._next ? `/log/${entry._next}` : '#'}
 			class:disabled-link={!entry._next}
-			title="Nächster Beitrag"><i class="fas fa-arrow-right" /></a
+			title="Nächster Beitrag"><i class="bi bi-caret-right-fill" /></a
 		>
 	</div>
 </nav>
@@ -59,8 +74,9 @@
 		margin-top: 15px;
 	}
 	address {
+		padding-top: 20px;
 		font-size: 0.8em;
-		text-align: center;
+		text-align: left;
 	}
 	section.overview-map {
 		position: relative;

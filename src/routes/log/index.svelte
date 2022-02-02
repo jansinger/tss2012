@@ -1,6 +1,5 @@
 <script type="ts" context="module">
 	export const prerender = true;
-	import { goto } from '$app/navigation';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import origEntries from '$lib/data/logbook.json';
 	import type { LogEntryShort } from '$lib/types';
@@ -15,8 +14,6 @@
 		picture: `${entry.pictureFolder}/${entry.pictures[0].filename}`,
 		pictureTitle: entry.pictures[0].title
 	}));
-
-	const update = (id: string) => goto(`log/${id}`);
 </script>
 
 <div class="content">

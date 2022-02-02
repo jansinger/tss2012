@@ -49,11 +49,11 @@
 </script>
 
 <script type="ts">
-	import { onMount } from 'svelte';
+	import { getContext } from 'svelte';
+	import { fade } from 'svelte/transition';
+	const { set } = getContext('map-overlay');
 
-	let timeline: HTMLElement;
-
-	onMount(() => timeline.focus());
+	set(true);
 </script>
 
 <svelte:head>
@@ -64,13 +64,13 @@
 <nav class="main-navigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
 		<button type="button" aria-expanded="false" title="Karte" on:click={() => goto('/')}>
-			<i class="fas fa-map-marked-alt" />
+			<i class="bi bi-map" />
 		</button>
 	</div>
 </nav>
 
-<div class="content">
-	<section class="timeline" bind:this={timeline}>
+<div class="content" transition:fade>
+	<section class="timeline">
 		<div class="container">
 			<div class="timeline__wrapper">
 				<div class="timeline__progressbar" />
@@ -116,7 +116,7 @@
 		max-height: 150px;
 	}
 	article {
-		background-color: rgba(46, 98, 135, 0.6);
+		background-color: rgba(46, 98, 135, 1);
 		border-radius: 0.5em;
 		padding: 0;
 		margin: 5px;

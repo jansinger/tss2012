@@ -1,7 +1,7 @@
 <script type="ts">
 	import type { LogEntryShort } from '$lib/types';
 
-	export let entries: LogEntryShort[];
+	export let entries: LogEntryShort[] = [];
 
 	let sortedEntries = entries.sort(
 		(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
@@ -25,7 +25,7 @@
 
 <style lang="scss">
 	article {
-		background-color: rgba(46, 98, 135, 0.6);
+		background-color: rgba(46, 98, 135, 1);
 		color: #efefef;
 		border-radius: 0.5em;
 		padding: 0;
@@ -34,6 +34,7 @@
 		float: left;
 		width: calc(100% - 30px);
 		max-height: 150px;
+		overflow: hidden;
 	}
 	article::before {
 		clear: both;

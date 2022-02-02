@@ -4,6 +4,7 @@
 	import type { Splide, Options } from '@splidejs/splide';
 	import type { PicturesEntity } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
+	import throttle from 'just-throttle';
 
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
@@ -57,11 +58,24 @@
 		main.mount();
 		thumbnails.mount();
 	});
+
+	const throttleWheel = throttle((backwards) => {
+		main.go(backwards ? '<' : '>');
+	}, 1000);
+
+	const trackWheel = (e: WheelEvent) => {
+		const { deltaX } = e;
+
+		if (deltaX) {
+			e.preventDefault();
+			throttleWheel(deltaX < 0);
+		}
+	};
 </script>
 
 {#if browser}
 	<div class="splide" id="main-slider">
-		<div class="splide__track">
+		<div class="splide__track" on:wheel={trackWheel}>
 			<ul class="splide__list">
 				{#each pictures as { filename, title, text, sizebig }}
 					<li class="splide__slide">
@@ -83,7 +97,7 @@
 		</div>
 	</div>
 	<div class="splide" id="thumbnail-slider">
-		<div class="splide__track">
+		<div class="splide__track" on:wheel={trackWheel}>
 			<ul class="splide__list">
 				{#each pictures as { filename, title, text, sizebig }}
 					<li class="splide__slide">
