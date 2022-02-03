@@ -1,6 +1,6 @@
 <script type="ts">
-	import { fade } from 'svelte/transition';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { afterUpdate, createEventDispatcher } from 'svelte';
 
 	import { getContext } from 'svelte';
 
@@ -8,7 +8,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let isOpen = false;
-	let content;
+	let content: HTMLElement;
 
 	function contains(event) {
 		const path = event.path || event.composedPath();
@@ -29,7 +29,7 @@
 		}
 	}
 
-	onMount(() => {
+	afterUpdate(() => {
 		set(isOpen);
 	});
 </script>
@@ -37,7 +37,7 @@
 <svelte:window on:mousedown={handleWindowClick} on:keydown={handleWindowKeyDown} />
 
 {#if isOpen}
-	<div class="container-article" transition:fade bind:this={content}>
+	<div class="container-article" transition:fly bind:this={content}>
 		<slot />
 	</div>
 {/if}

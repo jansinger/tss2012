@@ -1,12 +1,48 @@
 <script type="ts" context="module">
-	import { goto } from '$app/navigation';
-	import { getContext } from 'svelte';
 	export const prerender = true;
 </script>
 
 <script type="ts">
-	const { set } = getContext('map-overlay');
+	import { goto } from '$app/navigation';
+	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
+	import Overlay from '$lib/components/Overlay.svelte';
+	import { getContext } from 'svelte';
+	import type { Feature } from 'ol';
+	import type Geometry from 'ol/geom/Geometry';
+	import type { LogEntryShort } from '$lib/types';
+
+	let currentEntries: LogEntryShort[] = [];
+	let isOpen = false;
+
+	const { set, setClickHandler } = getContext('map-overlay');
+
+	const mapFeatures = (feature: Feature<Geometry>): LogEntryShort =>
+		feature.getProperties() as LogEntryShort;
+
+	const closeHandler = () => {
+		isOpen = false;
+		currentEntries = [];
+	};
+
+	const openOverlay = (features: Feature<Geometry>[]) => {
+		isOpen = true;
+		currentEntries = features.map(mapFeatures);
+	};
+
+	const clickHandler = (e: CustomEvent) => {
+		const f = e.detail.feature;
+		const features = f.get('features');
+		if (features.length === 1) {
+			isOpen = false;
+			set(false);
+			goto(`/log/${features[0].get('id')}`);
+		} else {
+			openOverlay(features);
+		}
+	};
+
 	set(false);
+	setClickHandler(clickHandler);
 </script>
 
 <svelte:head>
@@ -26,6 +62,10 @@
 		</button>
 	</div>
 </nav>
+
+<Overlay {isOpen} on:close={closeHandler}>
+	<LogbookEntries entries={currentEntries} />
+</Overlay>
 
 <a href="/impressum" class="impressum" title="Impressum">Impressum</a>
 

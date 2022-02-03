@@ -3,9 +3,13 @@
 
 	export let entries: LogEntryShort[] = [];
 
-	let sortedEntries = entries.sort(
-		(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
-	);
+	let sortedEntries: LogEntryShort[];
+
+	$: {
+		sortedEntries = entries.sort(
+			(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
+		);
+	}
 </script>
 
 {#each sortedEntries as f}
