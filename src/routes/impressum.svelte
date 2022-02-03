@@ -4,8 +4,14 @@
 </script>
 
 <Overlay isOpen={true} on:close={() => goto('/')}>
-	<div class="container-article">
+	<div class="container-article glass">
 		<content class="container">
+			<nav class="close-navigation">
+				<a href="/" title="Zur Karte">
+					<i class="bi bi-x-circle" />
+				</a>
+			</nav>
+
 			<img src="/pics/crew.jpg" title="Crew" alt="Silja & Jan" class="crew" />
 			<h1>Impressum</h1>
 			<h2>Angaben gemäß § 5 TMG</h2>
@@ -98,7 +104,7 @@
 
 	img.crew {
 		float: right;
-		margin-top: 15px;
+		margin-top: 6rem;
 	}
 
 	p.links {
@@ -111,5 +117,9 @@
 		content.container {
 			margin-top: 60px;
 		}
+	}
+
+	.close-navigation {
+		right: -5px;
 	}
 </style>
