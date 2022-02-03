@@ -274,7 +274,7 @@ nav.sub-navigation {
 	a,
 	time {
 		opacity: 1;
-		font-size: 1em;
+		font-size: 1rem;
 		color: #fff;
 		border: none;
 		margin: 0;
@@ -304,12 +304,16 @@ nav.sub-navigation {
 	nav.main-navigation,
 	div.splide__arrows {
 		button {
-			font-size: 1.5em;
+			font-size: 1.5rem;
 		}
 	}
 	nav.sub-navigation {
 		a {
 			font-size: 1.5em;
+			line-height: 1.8rem;
+		}
+		time {
+			line-height: 1.8rem;
 		}
 	}
 }
