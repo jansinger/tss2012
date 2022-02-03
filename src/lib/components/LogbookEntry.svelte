@@ -1,7 +1,3 @@
-<script type="ts" context="module">
-	import throttle from 'just-throttle';
-</script>
-
 <script type="ts">
 	import type { LogEntry } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
@@ -10,17 +6,18 @@
 	import { goto } from '$app/navigation';
 
 	export let entry: LogEntry = null;
-
-	const throttledWheel = throttle((backwards) => {
-		goto(backwards ? `/log/${entry._prev}` : `/log/${entry._next}`);
-	}, 1000);
+	let block = false;
 
 	const trackWheel = (e: WheelEvent) => {
 		const { deltaX } = e;
 
 		if (deltaX) {
 			e.preventDefault();
-			throttledWheel(deltaX < 0);
+			if (!block) {
+				block = true;
+				goto(deltaX < 0 ? `/log/${entry._prev}` : `/log/${entry._next}`);
+				setTimeout(() => (block = false), 1000);
+			}
 		}
 	};
 </script>
@@ -111,12 +108,6 @@
 				margin: 10px auto;
 				width: 100%;
 			}
-		}
-	}
-
-	@media screen and (max-width: 1140px) {
-		.sub-navigation {
-			margin-top: 60px;
 		}
 	}
 </style>

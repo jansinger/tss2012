@@ -1,6 +1,3 @@
-<script type="ts" context="module">
-	import throttle from 'just-throttle';
-</script>
 <script type="ts">
 	import { afterUpdate, beforeUpdate } from 'svelte';
 	import { browser } from '$app/env';
@@ -61,16 +58,18 @@
 		thumbnails.mount();
 	});
 
-	const throttleWheel = throttle((backwards) => {
-		main.go(backwards ? '<' : '>');
-	}, 1000);
+	let block = false;
 
 	const trackWheel = (e: WheelEvent) => {
 		const { deltaX } = e;
 
 		if (deltaX) {
 			e.preventDefault();
-			throttleWheel(deltaX < 0);
+			if (!block) {
+				block = true;
+				main.go(deltaX < 0 ? '<' : '>');
+				setTimeout(() => (block = false), 1000);
+			}
 		}
 	};
 </script>
