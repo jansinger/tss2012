@@ -1,10 +1,12 @@
+<script type="ts" context="module">
+	import throttle from 'just-throttle';
+</script>
 <script type="ts">
 	import { afterUpdate, beforeUpdate } from 'svelte';
 	import { browser } from '$app/env';
 	import type { Splide, Options } from '@splidejs/splide';
 	import type { PicturesEntity } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
-	import throttle from 'just-throttle';
 
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 

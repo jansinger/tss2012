@@ -1,9 +1,12 @@
+<script type="ts" context="module">
+	import throttle from 'just-throttle';
+</script>
+
 <script type="ts">
 	import type { LogEntry } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';
-	import throttle from 'just-throttle';
 	import { goto } from '$app/navigation';
 
 	export let entry: LogEntry = null;
