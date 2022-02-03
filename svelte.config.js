@@ -13,8 +13,6 @@ const config = {
 			// instead of creating a single one for the entire app
 			split: false
 		}),
-
-		// hydrate the <div id="svelte"> element in src/app.html
 		vite: {
 			build: {
 				chunkSizeWarningLimit: 1000
