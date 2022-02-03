@@ -69,6 +69,15 @@ article {
 	z-index: 50;
 }
 
+.glass {
+	border-radius: 10px;
+	background: rgba(46, 98, 135, 0.65);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
 .timeline {
 	position: relative;
 
@@ -244,14 +253,21 @@ nav.sub-navigation {
 	top: 0;
 	left: 0;
 	right: 0;
-	background-color: rgb(69, 141, 192);
+	//background-color: rgb(69, 141, 192);
 	color: #333333;
 	padding: 0;
-	border-radius: 8px 8px 0 0;
+	//border-radius: 8px 8px 0 0;
 	z-index: 100;
 	text-align: center;
 	display: grid;
 	grid-template-columns: 1fr 20fr 1fr;
+	background: rgba(69, 141, 192, 0.75);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(4.5px);
+	-webkit-backdrop-filter: blur(4.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	margin-bottom: 5px;
 }
 
 .item-wrapper {

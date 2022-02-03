@@ -15,7 +15,7 @@
 
 {#each sortedEntries as f}
 	<a href="/log/{f.id}" title={stripHtml(f.title)}>
-		<article>
+		<article class="glass">
 			<div class="img-container">
 				<img src="/images/{f.picture}" title={f.pictureTitle} alt={f.pictureTitle} />
 			</div>
@@ -30,9 +30,7 @@
 
 <style lang="scss">
 	article {
-		background-color: rgba(46, 98, 135, 1);
 		color: #efefef;
-		border-radius: 0.5em;
 		padding: 0;
 		margin: 5px;
 		cursor: pointer;

@@ -87,15 +87,15 @@
 		margin-left: 20px;
 		transform: translate(0, -50%);
 		padding: 0;
-		color: #efefef;
-		background-color: #2e6287;
+		//color: #efefef;
+		//background-color: #2e6287;
 		font-weight: normal;
 		font-size: 13px;
 		border-radius: 8px;
 		position: absolute;
 		z-index: 10;
-		box-sizing: border-box;
-		box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+		//box-sizing: border-box;
+		//box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 	}
 
 	.tooltip :global(.right) :global(img) {

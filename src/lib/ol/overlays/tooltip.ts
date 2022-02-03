@@ -37,7 +37,7 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 		const address = feature.get('section');
 		const picture = feature.get('picture');
 		const pictureTitle = feature.get('pictureTitle');
-		element.innerHTML = `<div class="right">
+		element.innerHTML = `<div class="right glass">
 		<img src="/images/${picture}" title="${pictureTitle}" />
 		<div class="text-content">
 			<time datetime="${datetime}">${time}</time>

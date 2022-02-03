@@ -85,7 +85,7 @@
 						<div class="timeline__block__body">
 							{#each value as entry}
 								<a href="/log/{entry.id}">
-									<article class="timeline__block__text">
+									<article class="timeline__block__text glass">
 										<div class="img-container">
 											<img
 												src="/images/{entry.picture}"
@@ -116,8 +116,6 @@
 		max-height: 150px;
 	}
 	article {
-		background-color: rgba(46, 98, 135, 1);
-		border-radius: 0.5em;
 		padding: 0;
 		margin: 5px;
 		cursor: pointer;

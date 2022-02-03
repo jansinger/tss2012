@@ -49,7 +49,7 @@
 		>
 	</div>
 </nav>
-<content class="container">
+<content class="container glass">
 	<header>
 		<address>{entry.section}</address>
 		<h1>{@html entry.title}</h1>
