@@ -37,6 +37,7 @@
 <svelte:window on:mousedown={handleWindowClick} on:keydown={handleWindowKeyDown} />
 
 {#if isOpen}
+	<slot name="outside" />
 	<div class="container-article" transition:fly bind:this={content}>
 		<slot />
 	</div>

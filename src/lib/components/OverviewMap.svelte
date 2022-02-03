@@ -8,13 +8,15 @@
 	let map: Map;
 
 	beforeUpdate(() => {
-		map && map.setTarget(null);
+		map?.setTarget(null);
+		map?.dispose();
 		map = undefined;
 	});
 
 	afterUpdate(async () => {
 		const { createOverviewMap } = await import('$lib/ol/overviewmap');
 		map = createOverviewMap(mapElement, coordinates);
+		map.updateSize();
 	});
 </script>
 

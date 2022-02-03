@@ -50,6 +50,9 @@
 	</div>
 </nav>
 <content class="container glass">
+	<nav class="close-navigation">
+		<a href="/" title="Zur Karte"><i class="bi bi-x-circle" /></a>
+	</nav>
 	<header>
 		<address>{entry.section}</address>
 		<h1>{@html entry.title}</h1>

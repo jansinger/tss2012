@@ -64,7 +64,13 @@
 </nav>
 
 <Overlay {isOpen} on:close={closeHandler}>
-	<LogbookEntries entries={currentEntries} />
+	<nav class="close-navigation glass" on:click|preventDefault={closeHandler}>
+		<i class="bi bi-x-circle" />
+	</nav>
+
+	<div class="entry-list">
+		<LogbookEntries entries={currentEntries} />
+	</div>
 </Overlay>
 
 <a href="/impressum" class="impressum" title="Impressum">Impressum</a>
@@ -78,5 +84,16 @@
 		.impressum {
 			left: 65px;
 		}
+	}
+
+	.entry-list {
+		display: block;
+		margin-right: 16px;
+	}
+	.close-navigation {
+		position: -webkit-sticky;
+		position: sticky;
+		float: right;
+		top: 16px;
 	}
 </style>

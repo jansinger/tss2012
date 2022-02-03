@@ -67,6 +67,7 @@ article {
 	position: relative;
 	display: block;
 	z-index: 50;
+	height: 300vh;
 }
 
 // #2e6287
@@ -338,4 +339,31 @@ nav.sub-navigation {
 	font-size: 0.6rem;
 	text-decoration: none;
 	color: #2e6287;
+}
+
+.close-navigation {
+	position: absolute;
+	top: 4px;
+	right: 6px;
+	padding: 2px 4px 1px;
+	margin: 0;
+	border-radius: 6px;
+	text-align: center;
+	&:hover {
+		background-color: #2e628788;
+	}
+
+	a,
+	i {
+		font-size: 1.3rem;
+		color: #fff;
+	}
+}
+@media (pointer: coarse) {
+	.close-navigation {
+		a,
+		i {
+			font-size: 1.5rem;
+		}
+	}
 }
