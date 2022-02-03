@@ -95,7 +95,7 @@
 										</div>
 										<div class="text-container">
 											<time datetime={entry.datetime}>{entry.localeDatetime}</time>
-											<address>{entry.section}</address>
+											<address>{@html entry.section}</address>
 											<p>{@html entry.title}</p>
 										</div>
 									</article>
@@ -140,10 +140,10 @@
 	}
 
 	article time {
-		font-size: 0.9em;
+		font-size: 0.9rem;
 	}
 	article address {
-		font-size: 0.8em;
+		font-size: 0.8rem;
 	}
 
 	article .img-container {
@@ -158,7 +158,7 @@
 		text-align: center;
 		margin-right: 10px;
 		float: left;
-		border-radius: 0.5em 0 0 0.5em;
+		border-radius: 0.5rem 0 0 0.5rem;
 		opacity: 0.6;
 	}
 	article .text-container {
@@ -179,7 +179,7 @@
 		}
 		article .text-container {
 			padding: 5px;
-			font-size: 0.8em;
+			font-size: 0.8rem;
 		}
 		article p {
 			font-weight: bold;

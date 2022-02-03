@@ -39,6 +39,13 @@
 		width: calc(100% - 30px);
 		max-height: 150px;
 		overflow: hidden;
+
+		address {
+			font-size: 0.8rem;
+		}
+		time {
+			font-size: 0.9rem;
+		}
 	}
 	article::before {
 		clear: both;
