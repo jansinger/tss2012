@@ -1,5 +1,6 @@
 <script type="ts">
 	import type { LogEntryShort } from '$lib/types';
+	import { stripHtml } from '$lib/utils/striphtml';
 
 	export let entries: LogEntryShort[] = [];
 
@@ -13,7 +14,7 @@
 </script>
 
 {#each sortedEntries as f}
-	<a href="/log/{f.id}" title={f.title}>
+	<a href="/log/{f.id}" title={stripHtml(f.title)}>
 		<article>
 			<div class="img-container">
 				<img src="/images/{f.picture}" title={f.pictureTitle} alt={f.pictureTitle} />
