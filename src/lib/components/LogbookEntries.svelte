@@ -51,7 +51,7 @@
 	}
 
 	article:hover {
-		background-color: #2e6287;
+		background-color: #2e628780;
 		opacity: 1;
 		.img-container img {
 			opacity: 1;

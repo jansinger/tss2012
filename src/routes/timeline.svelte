@@ -50,7 +50,7 @@
 
 <script type="ts">
 	import { getContext } from 'svelte';
-	import { fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	const { set } = getContext('map-overlay');
 
 	set(true);
@@ -69,7 +69,7 @@
 	</div>
 </nav>
 
-<div class="content" transition:fade>
+<div class="content" transition:fly>
 	<section class="timeline">
 		<div class="container">
 			<div class="timeline__wrapper">
@@ -130,7 +130,7 @@
 	}
 
 	article:hover {
-		background-color: #2e6287;
+		background-color: #2e628780;
 		opacity: 1;
 		.img-container img {
 			opacity: 1;

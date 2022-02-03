@@ -57,7 +57,7 @@ article {
 	right: 0;
 	bottom: 0;
 	pointer-events: none;
-	opacity: 0.4;
+	opacity: 0.8;
 }
 
 .container-article {
@@ -69,13 +69,16 @@ article {
 	z-index: 50;
 }
 
+// #2e6287
 .glass {
-	border-radius: 10px;
-	background: rgba(46, 98, 135, 0.65);
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	border: 1px solid rgba(255, 255, 255, 0.18);
+	box-shadow: 0 8px 32px 0 rgba(33, 70, 97, 0.37);
+	backdrop-filter: blur(15px) saturate(150%);
+	-webkit-backdrop-filter: blur(15px) saturate(150%);
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.125);
+	background: -webkit-linear-gradient(155deg, #2e628760 0%, #21466180 100%);
+	background: linear-gradient(155deg, #2e628760 0%, #21466180 100%);
+	border-radius: 15px;
 }
 
 .timeline {
@@ -238,30 +241,20 @@ article {
 	top: 0.5em;
 	right: 3em;
 	z-index: 5;
-
-	/*button {
-		display: inline-block !important;
-
-		i {
-			margin: 2px;
-		}
-	}*/
 }
 
 nav.sub-navigation {
-	position: relative;
+	position: sticky;
 	top: 0;
 	left: 0;
 	right: 0;
-	//background-color: rgb(69, 141, 192);
 	color: #333333;
 	padding: 0;
-	//border-radius: 8px 8px 0 0;
 	z-index: 100;
 	text-align: center;
 	display: grid;
 	grid-template-columns: 1fr 20fr 1fr;
-	background: rgba(69, 141, 192, 0.75);
+	background: rgba(40, 84, 116, 0.6);
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(4.5px);
 	-webkit-backdrop-filter: blur(4.5px);

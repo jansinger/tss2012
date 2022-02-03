@@ -20,16 +20,33 @@ const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
 	);
 };
 
-const clickHandler = (map: Map) => {
-	return function (evt: MapBrowserEvent<UIEvent>) {
-		const feature = getFeatureAtEventPixel(evt, map);
-		if (feature) {
-			map.dispatchEvent({ type: 'clickLogbook', feature } as unknown as BaseEvent);
-		}
-	};
-};
-
 export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
+	const overlay = new Overlay({
+		element: element,
+		offset: [5, 0],
+		positioning: 'bottom-left',
+		autoPan: {
+			animation: {
+				duration: 250
+			}
+		}
+	});
+
+	const hideTooltip = () => {
+		map.getTargetElement().style.cursor = '';
+		overlay.setPosition(undefined);
+	};
+
+	const clickHandler = () => {
+		return function (evt: MapBrowserEvent<UIEvent>) {
+			const feature = getFeatureAtEventPixel(evt, map);
+			if (feature) {
+				hideTooltip();
+				map.dispatchEvent({ type: 'clickLogbook', feature } as unknown as BaseEvent);
+			}
+		};
+	};
+
 	const showEntryPreview = (feature: Feature<Geometry>, tooltip: Overlay) => {
 		const title = feature.get('title');
 		const datetime = feature.get('datetime');
@@ -49,12 +66,12 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 	};
 
 	let feature: Feature<Geometry> | RenderFeature = null;
-	const pointermoveHandler = (map: Map, tooltip: Overlay) => {
+	const pointermoveHandler = () => {
 		return (evt: MapBrowserEvent<UIEvent>) => {
 			const newfeature = getFeatureAtEventPixel(evt, map);
 			if (feature === newfeature) {
 				// only set new position if feature has not changed
-				feature && tooltip.setPosition(evt.coordinate);
+				feature && overlay.setPosition(evt.coordinate);
 				return;
 			}
 			if (newfeature) {
@@ -62,33 +79,22 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 				const features = newfeature.get('features');
 				if (features.length === 1) {
 					feature = newfeature;
-					showEntryPreview(features[0], tooltip);
-					tooltip.setPosition(evt.coordinate);
+					showEntryPreview(features[0], overlay);
+					overlay.setPosition(evt.coordinate);
 				}
 			} else {
-				map.getTargetElement().style.cursor = '';
-				overlay.setPosition(undefined);
+				hideTooltip();
 			}
 		};
 	};
 
-	var overlay = new Overlay({
-		element: element,
-		offset: [5, 0],
-		positioning: 'bottom-left',
-		autoPan: {
-			animation: {
-				duration: 250
-			}
-		}
-	});
 	map.addOverlay(overlay);
 
 	// display popup on click
-	map.on('click', clickHandler(map));
+	map.on('click', clickHandler());
 
 	// change mouse cursor when over marker
-	map.on('pointermove', pointermoveHandler(map, overlay));
+	map.on('pointermove', pointermoveHandler());
 
 	return overlay;
 };
