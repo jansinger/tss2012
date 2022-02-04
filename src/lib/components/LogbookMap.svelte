@@ -33,7 +33,7 @@
 
 <div class="map" bind:this={mapElement}>
 	<img
-		src="/pics/banner.png"
+		src="/pics/banner_small.png"
 		class="logo"
 		alt="Ein tierischer Segelsommer"
 		title="Ein tierischer Segelsommer"
@@ -61,6 +61,7 @@
 		z-index: 1;
 		width: 35%;
 		min-width: 300px;
+		max-width: 500px;
 		background-position: center center;
 		border-top-right-radius: 16px;
 		box-shadow: 0 1px 8px rgba(255, 255, 255, 0.4);
