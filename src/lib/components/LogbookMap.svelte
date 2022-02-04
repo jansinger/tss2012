@@ -59,7 +59,7 @@
 		bottom: 0px;
 		left: 0px;
 		z-index: 1;
-		width: 50%;
+		width: 35%;
 		min-width: 300px;
 		background-position: center center;
 		border-top-right-radius: 16px;
