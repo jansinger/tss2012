@@ -9,6 +9,7 @@ import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';
 import { markerStyle } from './layers/logbook';
 import VectorSource from 'ol/source/Vector';
+import { FullScreen, defaults as defaultControls } from 'ol/control';
 
 export const createOverviewMap = (
 	target: string | HTMLElement,
@@ -22,6 +23,7 @@ export const createOverviewMap = (
 	});
 	return new Map({
 		target,
+		controls: defaultControls().extend([new FullScreen()]),
 		layers: [osm(), seamap(), track(), featureLayer],
 		view: new View({
 			center: lonLat,
