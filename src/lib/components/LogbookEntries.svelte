@@ -29,13 +29,20 @@
 {/each}
 
 <style lang="scss">
+	a {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		width: calc(100% - 30px);
+		text-decoration: none;
+	}
 	article {
 		color: #efefef;
 		padding: 0;
 		margin: 5px;
 		cursor: pointer;
 		float: left;
-		width: calc(100% - 30px);
+		width: 100%;
 		max-height: 150px;
 		overflow: hidden;
 

@@ -94,6 +94,7 @@
 		position: -webkit-sticky;
 		position: sticky;
 		float: right;
-		top: 16px;
+		top: 15px;
+		margin-right: 12px;
 	}
 </style>
