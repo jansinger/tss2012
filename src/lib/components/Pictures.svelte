@@ -4,6 +4,7 @@
 	import type { Splide, Options } from '@splidejs/splide';
 	import type { PicturesEntity } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
+	import { fly } from 'svelte/transition';
 
 	type SplideConstructor = new (target: string | HTMLElement, options?: Options) => Splide;
 
@@ -89,6 +90,7 @@
 								width={sizebig?.width}
 								height={sizebig?.height}
 								loading="lazy"
+								transition:fly
 							/>
 							<figcaption>{@html text}</figcaption>
 						</figure>
@@ -109,6 +111,7 @@
 							width={sizebig?.width}
 							height={sizebig?.height}
 							loading="lazy"
+							transition:fly
 						/>
 					</li>
 				{/each}
