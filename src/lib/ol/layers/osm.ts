@@ -6,13 +6,13 @@ const attributions =
 	'<a href="https://www.maptiler.com/copyright/" target="_blank" rel="noopener">&copy; MapTiler</a> ' +
 	'<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">&copy; OpenStreetMap contributors</a>';
 
-const source = new XYZ({
-	attributions: attributions,
-	url: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=' + key,
-	tileSize: 512
-});
+const url = `https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${key}`;
 
 export const osm = () =>
 	new TileLayer({
-		source
+		source: new XYZ({
+			attributions,
+			url,
+			tileSize: 512
+		})
 	});

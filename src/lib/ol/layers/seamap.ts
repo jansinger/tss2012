@@ -1,11 +1,11 @@
 import XYZ from 'ol/source/XYZ';
 import TileLayer from 'ol/layer/Tile';
 
-const source = new XYZ({
-	url: 'https://t1.openseamap.org/seamark/{z}/{x}/{y}.png'
-});
+const url = 'https://t1.openseamap.org/seamark/{z}/{x}/{y}.png';
 
 export const seamap = () =>
 	new TileLayer({
-		source
+		source: new XYZ({
+			url
+		})
 	});
