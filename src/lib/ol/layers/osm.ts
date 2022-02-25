@@ -1,4 +1,4 @@
-import TileLayer from 'ol/layer/Tile';
+import TileLayer from 'ol/layer/WebGLTile';
 import XYZ from 'ol/source/XYZ';
 
 const key = 'Gk3JylWsX7yLBIWEqn42';
