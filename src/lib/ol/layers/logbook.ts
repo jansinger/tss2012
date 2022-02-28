@@ -24,9 +24,19 @@ const source = new VectorSource({
 });
 
 const clusterSource = new Cluster({
-	distance: 40,
+	distance: 50,
 	minDistance: 20,
 	source: source
+});
+
+const clusterImage = new CircleStyle({
+	radius: 15,
+	stroke: new Stroke({
+		color: '#fff'
+	}),
+	fill: new Fill({
+		color: '#2e6287'
+	})
 });
 
 const styleCache = {};
@@ -40,15 +50,7 @@ export const logbook = new VectorLayer({
 				style = markerStyle;
 			} else {
 				style = new Style({
-					image: new CircleStyle({
-						radius: 15,
-						stroke: new Stroke({
-							color: '#fff'
-						}),
-						fill: new Fill({
-							color: '#2e6287'
-						})
-					}),
+					image: clusterImage,
 					text: new Text({
 						text: size.toString(),
 						fill: new Fill({

@@ -11,13 +11,7 @@ const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
 		return candidate.get('name') === 'logbook';
 	};
 	const pixel = map.getEventPixel(event.originalEvent);
-	return map.forEachFeatureAtPixel(
-		pixel,
-		function (feature) {
-			return feature;
-		},
-		{ layerFilter }
-	);
+	return map.getFeaturesAtPixel(pixel, { layerFilter })[0];
 };
 
 export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
@@ -39,21 +33,21 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 
 	const clickHandler = () => {
 		return function (evt: MapBrowserEvent<UIEvent>) {
-			const feature = getFeatureAtEventPixel(evt, map);
-			if (feature) {
+			const feat = getFeatureAtEventPixel(evt, map);
+			if (feat) {
 				hideTooltip();
-				map.dispatchEvent({ type: 'clickLogbook', feature } as unknown as BaseEvent);
+				map.dispatchEvent({ type: 'clickLogbook', feature: feat } as unknown as BaseEvent);
 			}
 		};
 	};
 
-	const showEntryPreview = (feature: Feature<Geometry>, tooltip: Overlay) => {
-		const title = feature.get('title');
-		const datetime = feature.get('datetime');
-		const time = feature.get('localeDatetime');
-		const address = feature.get('section');
-		const picture = feature.get('picture');
-		const pictureTitle = feature.get('pictureTitle');
+	const showEntryPreview = (feat: Feature<Geometry>) => {
+		const title = feat.get('title');
+		const datetime = feat.get('datetime');
+		const time = feat.get('localeDatetime');
+		const address = feat.get('section');
+		const picture = feat.get('picture');
+		const pictureTitle = feat.get('pictureTitle');
 		element.innerHTML = `<div class="right glass">
 		<img src="/images/${picture}" title="${pictureTitle}" />
 		<div class="text-content">
@@ -79,7 +73,7 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 				const features = newfeature.get('features');
 				if (features.length === 1) {
 					feature = newfeature;
-					showEntryPreview(features[0], overlay);
+					showEntryPreview(features[0]);
 					overlay.setPosition(evt.coordinate);
 				}
 			} else {
