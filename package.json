@@ -15,7 +15,7 @@
 		"@splidejs/splide": "^3.6.12",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.48",
 		"@sveltejs/kit": "next",
-		"@typescript-eslint/eslint-plugin": "^5.12.1",
+		"@typescript-eslint/eslint-plugin": "^5.13.0",
 		"@typescript-eslint/parser": "^5.12.1",
 		"bootstrap-icons": "^1.8.1",
 		"esbuild": "^0.14.23",
