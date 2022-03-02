@@ -1,13 +1,12 @@
 import { Overlay } from 'ol';
 import type { Feature, Map, MapBrowserEvent } from 'ol';
-import type Layer from 'ol/layer/Layer';
-import type Source from 'ol/source/Source';
 import type BaseEvent from 'ol/events/Event';
 import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
+import type { AtPixelOptions } from 'ol/PluggableMap';
 
 const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
-	const layerFilter = (candidate: Layer<Source, any>) => {
+	const layerFilter = (candidate: Parameters<AtPixelOptions['layerFilter']>[0]) => {
 		return candidate.get('name') === 'logbook';
 	};
 	const pixel = map.getEventPixel(event.originalEvent);
