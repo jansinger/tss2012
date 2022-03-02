@@ -1,16 +1,13 @@
 <script type="ts">
 	import type { LogEntryShort } from '$lib/types';
+	import { sortEntries } from '$lib/utils/sortEntries';
 	import { stripHtml } from '$lib/utils/striphtml';
 
 	export let entries: LogEntryShort[] = [];
 
 	let sortedEntries: LogEntryShort[];
 
-	$: {
-		sortedEntries = entries.sort(
-			(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
-		);
-	}
+	$: sortedEntries = sortEntries(entries);
 </script>
 
 {#each sortedEntries as f}

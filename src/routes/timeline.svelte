@@ -2,7 +2,7 @@
 	export const prerender = true;
 
 	import { goto } from '$app/navigation';
-	import origEntries from '$lib/data/logbook.json';
+	import { sortedEntries } from '$lib/sortedEntries';
 	import type { LogEntryShort } from '$lib/types';
 
 	const monthNames = [
@@ -20,7 +20,7 @@
 		'Dezember'
 	];
 
-	const entries: LogEntryShort[] = origEntries.map((entry) => ({
+	const entries: LogEntryShort[] = sortedEntries.map((entry) => ({
 		id: entry._id,
 		title: entry.title,
 		section: entry.section,
@@ -34,18 +34,14 @@
 		).getFullYear()}`
 	}));
 
-	let sortedEntries = entries.sort(
-		(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
-	);
-
-	const groupBy = function (xs, key) {
+	const groupBy = function (xs: LogEntryShort[], key: string) {
 		return xs.reduce(function (rv, x) {
 			(rv[x[key]] = rv[x[key]] || []).push(x);
 			return rv;
 		}, {});
 	};
 
-	const groupedEntries: { [key: string]: LogEntryShort[] } = groupBy(sortedEntries, 'key');
+	const groupedEntries: { [key: string]: LogEntryShort[] } = groupBy(entries, 'key');
 </script>
 
 <script type="ts">

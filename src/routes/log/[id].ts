@@ -1,8 +1,4 @@
-import logbookEntries from '$lib/data/logbook.json';
-
-const sortedEntries = logbookEntries.sort(
-	(a, b) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime()
-);
+import { sortedEntries } from '$lib/sortedEntries';
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async ({ params }) => {
@@ -16,9 +12,11 @@ export const get = async ({ params }) => {
 	return {
 		status: 200,
 		body: {
-			_prev: prev,
-			_next: next,
-			...sortedEntries[index]
+			entry: {
+				_prev: prev,
+				_next: next,
+				...sortedEntries[index]
+			}
 		}
 	};
 };
