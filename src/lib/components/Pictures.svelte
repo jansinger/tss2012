@@ -15,10 +15,8 @@
 
 	const splideOptions = {
 		type: 'fade',
-		//heightRatio: 0.5,
 		pagination: false,
-		arrows: false,
-		autoHeight: true
+		arrows: false
 	};
 
 	const thumSlider = {
@@ -60,24 +58,11 @@
 	});
 
 	let block = false;
-
-	const trackWheel = (e: WheelEvent) => {
-		const { deltaX } = e;
-
-		if (deltaX) {
-			e.preventDefault();
-			if (!block) {
-				block = true;
-				main.go(deltaX < 0 ? '<' : '>');
-				setTimeout(() => (block = false), 1000);
-			}
-		}
-	};
 </script>
 
 {#if browser}
 	<div class="splide" id="main-slider">
-		<div class="splide__track" on:wheel={trackWheel}>
+		<div class="splide__track">
 			<ul class="splide__list">
 				{#each pictures as { filename, title, text, sizebig }}
 					<li class="splide__slide">
@@ -100,7 +85,7 @@
 		</div>
 	</div>
 	<div class="splide" id="thumbnail-slider">
-		<div class="splide__track" on:wheel={trackWheel}>
+		<div class="splide__track">
 			<ul class="splide__list">
 				{#each pictures as { filename, title, text, sizebig }}
 					<li class="splide__slide">
@@ -144,7 +129,8 @@
 	}
 	:global(.splide__slide img.main-image) {
 		margin-top: 5px;
-		max-width: 97%;
+		object-fit: contain;
+		max-width: 100%;
 		filter: contrast(1.2);
 	}
 </style>
