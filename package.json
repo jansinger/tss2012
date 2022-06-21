@@ -16,7 +16,7 @@
 		"@sveltejs/adapter-netlify": "^1.0.0-next.64",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^5.27.1",
-		"@typescript-eslint/parser": "^5.27.1",
+		"@typescript-eslint/parser": "^5.29.0",
 		"bootstrap-icons": "^1.8.3",
 		"esbuild": "^0.14.39",
 		"eslint": "^8.17.0",
