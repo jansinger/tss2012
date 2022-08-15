@@ -19,7 +19,7 @@
 		"@typescript-eslint/parser": "^5.33.0",
 		"bootstrap-icons": "^1.9.1",
 		"esbuild": "^0.15.0",
-		"eslint": "^8.21.0",
+		"eslint": "^8.22.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"image-size": "^1.0.2",
