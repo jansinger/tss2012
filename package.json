@@ -36,6 +36,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"ol": "^6.15.1"
+		"ol": "^7.0.0"
 	}
 }
