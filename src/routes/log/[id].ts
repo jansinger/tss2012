@@ -1,7 +1,7 @@
 import { sortedEntries } from '$lib/sortedEntries';
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const get = async ({ params }) => {
+export const GET = async ({ params }) => {
 	const { id } = params;
 	const index = sortedEntries.findIndex((row) => row._id === id);
 	if (index === -1) {

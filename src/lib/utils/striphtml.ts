@@ -1,7 +1,3 @@
-import sanitizeHtml from 'sanitize-html';
+import DOMPurify from 'isomorphic-dompurify';
 
-const options = {
-	allowedTags: [],
-	allowedAttributes: {}
-};
-export const stripHtml = (text: string) => sanitizeHtml(text, options);
+export const stripHtml = (text: string) => DOMPurify.sanitize(text);
