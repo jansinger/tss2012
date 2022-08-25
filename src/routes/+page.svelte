@@ -1,7 +1,3 @@
-<script type="ts" context="module">
-	export const prerender = true;
-</script>
-
 <script type="ts">
 	import { goto } from '$app/navigation';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';

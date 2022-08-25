@@ -32,7 +32,7 @@
 
 <nav class="sub-navigation" on:wheel={trackWheel}>
 	<div class="item-wrapper left">
-		<a
+		<a 	sveltekit:prefetch
 			href={entry._prev ? `/log/${entry._prev}` : '#'}
 			class:disabled-link={entry._prev === undefined}
 			title="Vorheriger Beitrag"><i class="bi bi-caret-left-fill" /></a
@@ -42,7 +42,7 @@
 		<time datetime={entry.datetime}>{entry.localeDatetime}</time>
 	</div>
 	<div class="item-wrapper right">
-		<a
+		<a 	sveltekit:prefetch
 			href={entry._next ? `/log/${entry._next}` : '#'}
 			class:disabled-link={!entry._next}
 			title="Nächster Beitrag"><i class="bi bi-caret-right-fill" /></a
