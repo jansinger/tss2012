@@ -3,7 +3,7 @@
 
 	import { setContext } from 'svelte';
 
-	import './_index.scss';
+	import './_layout.scss';
 
 	let isOpenOverlay = false;
 	let clickHandler = () => {};
