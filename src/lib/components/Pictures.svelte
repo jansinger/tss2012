@@ -1,6 +1,6 @@
 <script type="ts">
 	import { afterUpdate, beforeUpdate } from 'svelte';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import type { Splide, Options } from '@splidejs/splide';
 	import type { PicturesEntity } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';

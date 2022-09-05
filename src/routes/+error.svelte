@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Overlay from '$lib/components/Overlay.svelte';
-	import { dev } from '$app/env';
+	import { dev } from '$app/environment';
 	import { goto } from '$app/navigation';
 </script>
 
