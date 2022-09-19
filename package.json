@@ -14,7 +14,7 @@
 	"devDependencies": {
 		"@splidejs/splide": "^4.0.17",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.77",
-		"@sveltejs/kit": "^1.0.0-next.483",
+		"@sveltejs/kit": "^1.0.0-next.484",
 		"@typescript-eslint/eslint-plugin": "^5.37.0",
 		"@typescript-eslint/parser": "^5.37.0",
 		"bootstrap-icons": "^1.9.1",
