@@ -60,7 +60,11 @@
 </nav>
 
 <Overlay {isOpen} on:close={closeHandler}>
-	<nav class="close-navigation glass" on:click|preventDefault={closeHandler}>
+	<nav
+		class="close-navigation glass"
+		on:click|preventDefault={closeHandler}
+		on:keypress|preventDefault={closeHandler}
+	>
 		<i class="bi bi-x-circle" />
 	</nav>
 

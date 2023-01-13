@@ -76,13 +76,13 @@
 				/>
 			</p>
 			<p class="links">
-				Impressum vom <a href="https://www.impressum-generator.de" rel="noopener" target="_blank"
+				Impressum vom <a href="https://www.impressum-generator.de" rel="noreferrer" target="_blank"
 					>Impressum Generator</a
 				>
 				der
 				<a
 					href="https://www.kanzlei-hasselbach.de/standorte/frankfurt/"
-					rel="nofollow"
+					rel="noreferrer"
 					target="_blank">Kanzlei Hasselbach, Frankfurt</a
 				>
 			</p>
