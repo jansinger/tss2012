@@ -17,7 +17,7 @@
 		"@sveltejs/kit": "^1.0.0-next.578",
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.45.1",
-		"bootstrap-icons": "^1.9.1",
+		"bootstrap-icons": "^1.10.3",
 		"esbuild": "^0.16.2",
 		"eslint": "^8.29.0",
 		"eslint-config-prettier": "^8.5.0",
