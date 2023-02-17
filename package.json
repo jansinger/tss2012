@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {
 		"@splidejs/splide": "^4.1.4",
-		"@sveltejs/adapter-netlify": "^1.0.5",
+		"@sveltejs/adapter-netlify": "^2.0.5",
 		"@sveltejs/kit": "^1.7.1",
 		"@typescript-eslint/eslint-plugin": "^5.51.0",
 		"@typescript-eslint/parser": "^5.51.0",
