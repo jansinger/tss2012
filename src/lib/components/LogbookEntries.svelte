@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import type { LogEntryShort } from '$lib/types';
 	import { sortEntries } from '$lib/utils/sortEntries';
 	import { stripHtml } from '$lib/utils/striphtml';

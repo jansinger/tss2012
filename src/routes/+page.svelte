@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';

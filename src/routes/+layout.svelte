@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import LogbookMap from '$lib/components/LogbookMap.svelte';
 
 	import { setContext } from 'svelte';

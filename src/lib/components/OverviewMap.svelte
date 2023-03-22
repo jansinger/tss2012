@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import { afterUpdate, beforeUpdate } from 'svelte';
 	import type { Map } from 'ol';
 
