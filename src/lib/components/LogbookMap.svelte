@@ -2,7 +2,7 @@
 	import { map } from '$lib/stores';
 </script>
 
-<script type="ts">
+<script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
 	import { fade } from 'svelte/transition';

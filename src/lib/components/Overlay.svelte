@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { afterUpdate, createEventDispatcher } from 'svelte';
 

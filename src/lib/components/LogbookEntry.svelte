@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import type { LogEntry } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
 	import OverviewMap from './OverviewMap.svelte';
