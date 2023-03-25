@@ -23,7 +23,7 @@
 		"eslint-config-prettier": "^8.7.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"image-size": "^1.0.2",
-		"prettier": "^2.8.4",
+		"prettier": "^2.8.7",
 		"prettier-plugin-svelte": "^2.10.0",
 		"sanitize-html": "^2.10.0",
 		"sass": "^1.60.0",
