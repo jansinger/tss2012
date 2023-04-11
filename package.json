@@ -18,7 +18,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.58.0",
 		"@typescript-eslint/parser": "^5.57.1",
 		"bootstrap-icons": "^1.10.4",
-		"esbuild": "^0.17.15",
+		"esbuild": "^0.17.16",
 		"eslint": "^8.38.0",
 		"eslint-config-prettier": "^8.7.0",
 		"eslint-plugin-svelte3": "^4.0.0",
