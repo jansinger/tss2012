@@ -26,7 +26,7 @@
 		"prettier": "^2.8.8",
 		"prettier-plugin-svelte": "^2.10.0",
 		"sanitize-html": "^2.10.0",
-		"sass": "^1.62.1",
+		"sass": "^1.63.4",
 		"svelte": "^3.58.0",
 		"svelte-check": "^3.4.3",
 		"svelte-preprocess": "^5.0.3",
