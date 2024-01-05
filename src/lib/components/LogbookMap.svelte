@@ -1,4 +1,4 @@
-<script type="ts" context="module">
+<script lang="ts" context="module">
 	import { map } from '$lib/stores';
 </script>
 

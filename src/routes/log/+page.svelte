@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 	import LogbookEntries from "$lib/components/LogbookEntries.svelte";
 	/** @type {import('./$types').PageData */
 	export let data;
