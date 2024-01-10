@@ -1,5 +1,5 @@
 import { sortedEntries } from '$lib/sortedEntries';
-export const prerender = false;
+export const prerender = true;
 
 /** @type {import('./$types').PageLoad} */
 export const load = async ({ params }) => {
