@@ -1,7 +1,7 @@
 import { sortedEntries } from '$lib/sortedEntries';
 export const prerender = true;
 
-/** @type {import('./$types').PageLoad} */
+/** @type {import('./$types').PageServerLoad} */
 export const load = async ({ params }) => {
 	const { id } = params;
 	

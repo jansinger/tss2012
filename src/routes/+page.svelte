@@ -60,12 +60,13 @@
 </nav>
 
 <Overlay {isOpen} on:close={closeHandler}>
-	<nav
+	<nav><span role="button" tabindex="0"
 		class="close-navigation glass"
 		on:click|preventDefault={closeHandler}
 		on:keypress|preventDefault={closeHandler}
 	>
 		<i class="bi bi-x-circle" />
+		</span>
 	</nav>
 
 	<div class="entry-list">

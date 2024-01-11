@@ -39,9 +39,7 @@ const groupBy = function (xs: LogEntryShort[], key: string) {
 	}, {});
 };
 
-//const groupedEntries: { [key: string]: LogEntryShort[] } = groupBy(entries, 'key');
-
-/** @type {import('./$types').PageLoad} */
+/** @type {import('./$types').PageServerLoad} */
 export function load() {
 	  return {
 		groupedEntries: groupBy(entries, 'key')

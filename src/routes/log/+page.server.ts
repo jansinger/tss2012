@@ -1,5 +1,4 @@
 export const prerender = true;
-import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 import origEntries from '$lib/data/logbook.json';
 import type { LogEntryShort } from '$lib/types';
 
@@ -14,7 +13,7 @@ const entries: LogEntryShort[] = origEntries.map((entry) => ({
 	pictureTitle: entry.pictures[0].title
 }));
 
-/** @type {import('./$types').PageLoad} */
+/** @type {import('./$types').PageServerLoad} */
 export function load() {
 	return {
 	  entries
