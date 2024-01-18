@@ -1,3 +1,4 @@
-import { writable } from 'svelte/store';
+import type { Map } from 'ol';
+import { writable, type Writable } from 'svelte/store';
 
-export const map = writable();
+export const map: Writable<Map> = writable();

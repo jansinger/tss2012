@@ -5,7 +5,7 @@ import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
 import type { AtPixelOptions } from 'ol/PluggableMap';
 
-const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
+export const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
 	const layerFilter = (candidate: Parameters<AtPixelOptions['layerFilter']>[0]) => {
 		return candidate.get('name') === 'logbook';
 	};
