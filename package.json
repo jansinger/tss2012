@@ -14,7 +14,7 @@
 	"devDependencies": {
 		"@splidejs/splide": "^4.1.4",
 		"@sveltejs/adapter-static": "^3.0.1",
-		"@sveltejs/kit": "^2.3.2",
+		"@sveltejs/kit": "^2.3.4",
 		"@typescript-eslint/eslint-plugin": "^6.19.0",
 		"@typescript-eslint/parser": "^6.19.0",
 		"bootstrap-icons": "^1.11.3",
