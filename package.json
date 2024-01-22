@@ -16,7 +16,7 @@
 		"@rollup/rollup-linux-x64-gnu": "^4.9.5",
 		"@splidejs/splide": "^4.1.4",
 		"@sveltejs/adapter-static": "^3.0.1",
-		"@sveltejs/kit": "^2.4.0",
+		"@sveltejs/kit": "^2.4.1",
 		"@testing-library/dom": "^9.3.4",
 		"@testing-library/jest-dom": "^6.2.0",
 		"@testing-library/svelte": "^4.0.5",
