@@ -31,7 +31,7 @@
 		"jest-dom": "^4.0.0",
 		"jsdom": "^24.0.0",
 		"prettier": "^3.2.5",
-		"prettier-plugin-svelte": "^3.1.2",
+		"prettier-plugin-svelte": "^3.2.1",
 		"sanitize-html": "^2.11.0",
 		"sass": "^1.70.0",
 		"svelte": "^4.2.10",
