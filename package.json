@@ -21,7 +21,7 @@
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/svelte": "^5.1.0",
 		"@typescript-eslint/eslint-plugin": "^7.7.1",
-		"@typescript-eslint/parser": "^7.8.0",
+		"@typescript-eslint/parser": "^7.9.0",
 		"bootstrap-icons": "^1.11.3",
 		"esbuild": "^0.21.2",
 		"eslint": "^8.57.0",
