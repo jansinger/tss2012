@@ -3,16 +3,29 @@ import type { Feature, Map, MapBrowserEvent } from 'ol';
 import type BaseEvent from 'ol/events/Event';
 import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
-import type { AtPixelOptions } from 'ol/PluggableMap';
+import type Layer from 'ol/layer/Layer';
 
+/**
+ * Retrieves the feature at the given event pixel on the map.
+ * @param event - The MapBrowserEvent containing the UI event.
+ * @param map - The OpenLayers Map instance.
+ * @returns The feature at the event pixel, or undefined if no feature is found.
+ */
 export const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
-	const layerFilter = (candidate: Parameters<AtPixelOptions['layerFilter']>[0]) => {
+	const layerFilter = (candidate: Layer) => {
 		return candidate.get('name') === 'logbook';
 	};
 	const pixel = map.getEventPixel(event.originalEvent);
 	return map.getFeaturesAtPixel(pixel, { layerFilter })[0];
 };
 
+/**
+ * Creates a tooltip overlay for a given element and map.
+ *
+ * @param element - The HTML element to be used as the tooltip overlay.
+ * @param map - The map instance to which the tooltip overlay will be added.
+ * @returns The created tooltip overlay.
+ */
 export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
 	const overlay = new Overlay({
 		element: element,

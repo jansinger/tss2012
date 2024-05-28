@@ -7,8 +7,6 @@ import { Circle as CircleStyle, Fill, Stroke, Style, Text, Icon } from 'ol/style
 export const markerStyle = new Style({
 	image: new Icon({
 		crossOrigin: 'anonymous',
-		// For Internet Explorer 11
-		imgSize: [100, 100],
 		src: '/pics/marker-tss.svg',
 		scale: 0.4,
 		opacity: 1,

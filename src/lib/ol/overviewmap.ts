@@ -11,6 +11,12 @@ import { markerStyle } from './layers/logbook';
 import VectorSource from 'ol/source/Vector';
 import { FullScreen, defaults as defaultControls } from 'ol/control';
 
+/**
+ * Creates an overview map with a given target element or selector and center coordinates.
+ * @param target - The target element or selector where the map will be rendered.
+ * @param center - The center coordinates of the map. Defaults to [DEFAULTS.lon, DEFAULTS.lat].
+ * @returns A new instance of the Map class representing the overview map.
+ */
 export const createOverviewMap = (
 	target: string | HTMLElement,
 	center: number[] = [DEFAULTS.lon, DEFAULTS.lat]
