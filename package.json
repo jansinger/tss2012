@@ -11,7 +11,7 @@
 		"lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
 		"test": "vitest",
-		"build-ci": "vitest run && vite build"
+		"build-ci": "vite build && vitest run"
 	},
 	"devDependencies": {
 		"@rollup/rollup-linux-x64-gnu": "^4.18.0",
