@@ -1,5 +1,5 @@
 import { sortedEntries } from '$lib/sortedEntries';
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 export const prerender = true;
 
 /** @type {import('./$types').PageServerLoad} */
