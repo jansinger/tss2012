@@ -10,20 +10,24 @@ export default defineConfig({
       resolveId(id) {
         if (id === '$app/navigation')
           return 'virtual:$app/navigation';
-        if (id === '$app/environment')
-          return 'virtual:$app/environment';
-
+      },
+      load(id) {
+        if (id === 'virtual:$app/navigation')
+          return 'export default []'; // Provide your mock implementation here
       }
     }
   ],
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./vitest-setup.js']
+    setupFiles: ['./vitest-setup.js'],
+    alias: {
+      '$app/environment': path.resolve('./src/mocks/environment.ts')
+    }
   },
   resolve: {
     alias: {
       $lib: path.resolve(__dirname, './src/lib')
     },
-  },
+  }
 })

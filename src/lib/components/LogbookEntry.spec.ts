@@ -2,7 +2,6 @@ import { describe, it, expect, afterEach, vi } from 'vitest';
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
 import LogbookEntry from './LogbookEntry.svelte'; // Replace with your actual component path
 import { goto } from '$app/navigation';
-import { browser } from '$app/environment';
 import type { LogEntry } from '$lib/types';
 
 // Mock the goto function

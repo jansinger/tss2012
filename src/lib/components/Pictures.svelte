@@ -58,6 +58,7 @@
 	});
 
 	let block = false;
+
 </script>
 
 {#if browser}
