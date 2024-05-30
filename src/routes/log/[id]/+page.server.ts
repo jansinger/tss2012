@@ -5,7 +5,7 @@ export const prerender = true;
 /** @type {import('./$types').PageServerLoad} */
 export const load = async ({ params }) => {
 	const { id } = params;
-	
+
 	const index = sortedEntries.findIndex((row) => row._id === id);
 	if (index === -1) {
 		return error(404, 'Not Found');

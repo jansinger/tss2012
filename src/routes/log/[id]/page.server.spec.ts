@@ -1,6 +1,6 @@
 import { sortedEntries } from '$lib/sortedEntries';
 import { load } from './+page.server';
-import { expect, test, describe } from 'vitest'
+import { expect, test, describe } from 'vitest';
 
 describe('load function', () => {
 	test('should return entry object with previous and next values if id exists in sortedEntries', async () => {
@@ -25,10 +25,10 @@ describe('load function', () => {
 		try {
 			await load({ params: { id } });
 		} catch (error) {
-		expect(error).toMatchObject({
-			status: 404,
-			body: { message: 'Not Found' }
-		});
-	}
+			expect(error).toMatchObject({
+				status: 404,
+				body: { message: 'Not Found' }
+			});
+		}
 	});
 });

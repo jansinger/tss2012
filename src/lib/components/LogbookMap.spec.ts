@@ -6,42 +6,47 @@ import type LogbookMap__SvelteComponent_ from './LogbookMap.svelte';
 
 // Mocking external dependencies
 vi.mock('/ol/map', () => ({
-  createMap: vi.fn(),
+	createMap: vi.fn()
 }));
 vi.mock('/ol/overlays/tooltip', () => ({
-  createTooltipOverlay: vi.fn(),
+	createTooltipOverlay: vi.fn()
 }));
 vi.mock('/stores', () => ({
-  map: {
-    'set': vi.fn(),
-    on: vi.fn(),
-    updateSize: vi.fn(),
-  },
+	map: {
+		set: vi.fn(),
+		on: vi.fn(),
+		updateSize: vi.fn()
+	}
 }));
 
 describe('MyComponent', () => {
-  let container: HTMLElement;
-  let tooltipElement: HTMLElement;
-  let mapElement: HTMLElement;
+	let container: HTMLElement;
+	let tooltipElement: HTMLElement;
+	let mapElement: HTMLElement;
 
-  beforeEach(async () => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    const { getByTestId }: RenderResult<LogbookMap__SvelteComponent_, typeof import("@testing-library/dom/types/queries")> = render(LogbookMap, { target: container });
+	beforeEach(async () => {
+		container = document.createElement('div');
+		document.body.appendChild(container);
+		const {
+			getByTestId
+		}: RenderResult<
+			LogbookMap__SvelteComponent_,
+			typeof import('@testing-library/dom/types/queries')
+		> = render(LogbookMap, { target: container });
 
-    tooltipElement = getByTestId('tooltip');
-    mapElement = getByTestId('map');
-  });
+		tooltipElement = getByTestId('tooltip');
+		mapElement = getByTestId('map');
+	});
 
-  afterEach(() => {
-    container.remove();
-  });
+	afterEach(() => {
+		container.remove();
+	});
 
-  it('mounts correctly and binds elements', async () => {
-    expect(tooltipElement).toBeInTheDocument();
-    expect(mapElement).toBeInTheDocument();
-    // Further assertions can be added here
-  });
+	it('mounts correctly and binds elements', async () => {
+		expect(tooltipElement).toBeInTheDocument();
+		expect(mapElement).toBeInTheDocument();
+		// Further assertions can be added here
+	});
 
-  // Additional tests for map setup, event handling, and DOM structure
+	// Additional tests for map setup, event handling, and DOM structure
 });

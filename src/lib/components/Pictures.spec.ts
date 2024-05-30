@@ -16,12 +16,11 @@ describe('Pictures component', () => {
 		pictures.forEach((picture) => {
 			const imgElement = htmlPictures.getAllByAltText(picture.text) as HTMLImageElement[];
 			expect(imgElement).toHaveLength(2);
-            imgElement.forEach((img) => {
-                expect(img.src).toContain(`${folder}/${picture.filename}`);
-                expect(img.alt).toContain(picture.text);
-                expect(img.title).toContain(picture.title);
-            })
+			imgElement.forEach((img) => {
+				expect(img.src).toContain(`${folder}/${picture.filename}`);
+				expect(img.alt).toContain(picture.text);
+				expect(img.title).toContain(picture.title);
+			});
 		});
 	});
-
 });

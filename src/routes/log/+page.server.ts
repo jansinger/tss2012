@@ -16,6 +16,6 @@ const entries: LogEntryShort[] = origEntries.map((entry) => ({
 /** @type {import('./$types').PageServerLoad} */
 export function load() {
 	return {
-	  entries
+		entries
 	};
 }

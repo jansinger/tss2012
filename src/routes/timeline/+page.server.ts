@@ -28,8 +28,8 @@ const entries: LogEntryShort[] = sortedEntries.map((entry) => ({
 	picture: `${entry.pictureFolder}/${entry.pictures[0].filename}`,
 	pictureTitle: entry.pictures[0].title,
 	key: `${monthNames[new Date(entry.datetime).getMonth()]} ${new Date(
-			entry.datetime
-		).getFullYear()}`
+		entry.datetime
+	).getFullYear()}`
 }));
 
 const groupBy = function (xs: LogEntryShort[], key: string) {
@@ -41,8 +41,7 @@ const groupBy = function (xs: LogEntryShort[], key: string) {
 
 /** @type {import('./$types').PageServerLoad} */
 export function load() {
-	  return {
+	return {
 		groupedEntries: groupBy(entries, 'key')
-	  };
-
-  }
+	};
+}
