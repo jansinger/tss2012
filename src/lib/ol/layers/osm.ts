@@ -8,6 +8,10 @@ const attributions =
 
 const url = `https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${key}`;
 
+/**
+ * Creates an OpenStreetMap layer.
+ * @returns {TileLayer} The OpenStreetMap layer.
+ */
 export const osm = () =>
 	new TileLayer({
 		source: new XYZ({

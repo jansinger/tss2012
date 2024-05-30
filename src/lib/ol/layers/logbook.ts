@@ -4,6 +4,9 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { Cluster } from 'ol/source';
 import { Circle as CircleStyle, Fill, Stroke, Style, Text, Icon } from 'ol/style';
 
+/**
+ * Marker style for the logbook layer.
+ */
 export const markerStyle = new Style({
 	image: new Icon({
 		crossOrigin: 'anonymous',
@@ -16,17 +19,26 @@ export const markerStyle = new Style({
 	})
 });
 
+/**
+ * The source for the logbook layer.
+ */
 const source = new VectorSource({
 	url: '/data/logbook_geo.json',
 	format: new GeoJSON()
 });
 
+/**
+ * The cluster source for the logbook layer.
+ */
 const clusterSource = new Cluster({
 	distance: 50,
 	minDistance: 20,
 	source: source
 });
 
+/**
+ * The style for the cluster image.
+ */
 const clusterImage = new CircleStyle({
 	radius: 15,
 	stroke: new Stroke({
@@ -37,7 +49,14 @@ const clusterImage = new CircleStyle({
 	})
 });
 
+/**
+ * The style cache for the logbook layer.
+ */
 const styleCache = {};
+
+/**
+ * The logbook layer.
+ */
 export const logbook = new VectorLayer({
 	source: clusterSource,
 	style: function (feature) {

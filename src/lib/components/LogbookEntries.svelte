@@ -14,7 +14,7 @@
 	<a href="/log/{f.id}" title={stripHtml(f.title)}>
 		<article class="glass">
 			<div class="img-container">
-				<img src="/images/{f.picture}" title={f.pictureTitle} alt={f.pictureTitle} />
+				<img src="/images/{f.picture}" loading="lazy" title={f.pictureTitle} alt={f.pictureTitle} />
 			</div>
 			<div class="text-container">
 				<time datetime={f.datetime}>{f.localeDatetime}</time>
