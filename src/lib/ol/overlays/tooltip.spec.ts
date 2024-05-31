@@ -27,6 +27,7 @@ describe('getFeatureAtEventPixel', () => {
 		mockMap.getEventPixel.mockReturnValue([0, 0]);
 		mockMap.getFeaturesAtPixel.mockReturnValue([mockFeature]);
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const feature = getFeatureAtEventPixel(mockEvent as any, mockMap as any);
 		assert.strictEqual(feature, mockFeature);
 	});
