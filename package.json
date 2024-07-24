@@ -16,7 +16,7 @@
 	"devDependencies": {
 		"@rollup/rollup-linux-x64-gnu": "^4.18.0",
 		"@splidejs/splide": "^4.1.4",
-		"@sveltejs/adapter-static": "^3.0.1",
+		"@sveltejs/adapter-static": "^3.0.2",
 		"@sveltejs/kit": "^2.5.10",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
