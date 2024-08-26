@@ -31,7 +31,7 @@
 		"eslint-plugin-svelte": "^2.43.0",
 		"image-size": "^1.1.1",
 		"jest-dom": "^4.0.0",
-		"jsdom": "^24.1.0",
+		"jsdom": "^25.0.0",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.6",
 		"sanitize-html": "^2.13.0",
