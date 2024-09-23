@@ -17,8 +17,8 @@
 			<h2>Angaben gemäß § 5 TMG</h2>
 			<p>
 				Jan Singer <br />
-				Bäderstr. 65<br />
-				24229 Schwedeneck <br />
+				An den Stadtmauern 5-7<br />
+				96047 Bamberg <br />
 			</p>
 			<h3>Vertreten durch:</h3>
 			<p>
@@ -27,14 +27,13 @@
 			</p>
 			<h3>Kontakt:</h3>
 			<p>
-				Telefon: 04308-7399640<br />
 				E-Mail: <a href="mailto:crew@fritsjen.de">crew@fritsjen.de</a>
 			</p>
 			<h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
 			<p>
 				Jan Singer <br />
-				Bäderstr. 65<br />
-				24229 Schwedeneck <br />
+				An den Stadtmauern 5-7<br />
+				96047 Bamberg
 			</p>
 			<h2>Haftungsausschluss</h2>
 			<h3>Haftung für Links</h3>
