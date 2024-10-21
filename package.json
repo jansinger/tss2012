@@ -18,7 +18,7 @@
 		"@sveltejs/kit": "^2.7.1",
 		"@testing-library/dom": "^10.4.0",
 		"@testing-library/jest-dom": "^6.6.2",
-		"@testing-library/svelte": "^5.2.3",
+		"@testing-library/svelte": "^5.2.4",
 		"@types/pug": "^2.0.10",
 		"@typescript-eslint/eslint-plugin": "^8.9.0",
 		"@typescript-eslint/parser": "^8.10.0",
