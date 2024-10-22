@@ -20,4 +20,4 @@
 	});
 </script>
 
-<div class="map" bind:this={mapElement} data-testid="map-element" />
+<div class="map" bind:this={mapElement} data-testid="map-element"></div>

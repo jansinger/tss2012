@@ -24,7 +24,7 @@
 
 <svelte:head>
 	<title>{stripHtml(entry.title)}</title>
-	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" />
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" aria-label="Ein tierischer Segelsommer" />
 	<meta name="geo.placename" content={stripHtml(entry.section)} />
 	<meta name="geo.position" content="{entry.data?.coordinates[1]};{entry.data?.coordinates[0]}" />
 	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
@@ -34,7 +34,7 @@
 	<div class="item-wrapper left">
 		<a 	href={entry._prev ? `/log/${entry._prev}` : '#'}
 			class:disabled-link={entry._prev === undefined}
-			title="Vorheriger Beitrag"><i class="bi bi-caret-left-fill" /></a
+			title="Vorheriger Beitrag" aria-label="Vorheriger Beitrag"><i class="bi bi-caret-left-fill"></i></a
 		>
 	</div>
 	<div class="item-wrapper center">
@@ -43,13 +43,13 @@
 	<div class="item-wrapper right">
 		<a	href={entry._next ? `/log/${entry._next}` : '#'}
 			class:disabled-link={!entry._next}
-			title="Nächster Beitrag"><i class="bi bi-caret-right-fill" /></a
+			title="Nächster Beitrag" aria-label="Nächster Beitrag"><i class="bi bi-caret-right-fill"></i></a
 		>
 	</div>
 </nav>
 <content class="container glass">
 	<nav class="close-navigation">
-		<a href="/" title="Zur Karte"><i class="bi bi-x-circle" /></a>
+		<a href="/" title="Zur Karte" aria-label="Zur Karte"><i class="bi bi-x-circle"></i></a>
 	</nav>
 	<header>
 		<address>{entry.section}</address>

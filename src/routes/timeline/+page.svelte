@@ -15,13 +15,13 @@
 
 <svelte:head>
 	<title>Zeitleiste der Segelreise</title>
-	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/timeline" />
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/timeline" aria-label="TSS: Timeline"/>
 </svelte:head>
 
 <nav class="main-navigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
-		<button type="button" aria-expanded="false" title="Karte" on:click={() => goto('/')}>
-			<i class="bi bi-map" />
+		<button type="button" aria-expanded="false" title="Karte" aria-label="Karte" on:click={() => goto('/')} >
+			<i class="bi bi-map"></i>
 		</button>
 	</div>
 </nav>
@@ -30,11 +30,11 @@
 	<section class="timeline">
 		<div class="container">
 			<div class="timeline__wrapper">
-				<div class="timeline__progressbar" />
+				<div class="timeline__progressbar"></div>
 				{#each Object.entries(groupedEntries) as [key, value]}
 					<div class="timeline__block">
 						<div class="timeline__block__bullet-point">
-							<span class="timeline__block__circle" />
+							<span class="timeline__block__circle"></span>
 						</div>
 						<div class="timeline__block__head">
 							<h1 class="timeline__block__title">{key}</h1>
@@ -61,7 +61,7 @@
 						</div>
 					</div>
 				{/each}
-				<div class="timeline__hider" />
+				<div class="timeline__hider"></div>
 			</div>
 		</div>
 	</section>
