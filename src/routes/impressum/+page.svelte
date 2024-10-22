@@ -90,7 +90,7 @@
 </Overlay>
 
 <style lang="scss">
-	@import '../../lib/scss/article.scss';
+	@import '../../lib/scss/article.css';
 
 	.container-article {
 		max-width: 800px;

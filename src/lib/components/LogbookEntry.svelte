@@ -68,7 +68,7 @@
 </content>
 
 <style lang="scss">
-	@import '../scss/article.scss';
+	@import '../scss/article.css';
 	article {
 		position: relative;
 		margin-bottom: 20px;
