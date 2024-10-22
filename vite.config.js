@@ -12,5 +12,12 @@ export default defineConfig(({ mode }) => ({
 	},
 	resolve: {
 		conditions: mode === 'test' ? ['browser'] : [],
-	}
+	},
+	css: {
+		preprocessorOptions: {
+		  scss: {
+			api: 'modern-compiler' // or "modern"
+		  }
+		}
+	  }
 }));
