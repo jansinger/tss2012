@@ -54,7 +54,7 @@
 			title="Zeitleiste"
 			on:click={() => goto('/timeline')}
 		>
-			<i class="bi bi-view-list" />
+			<i class="bi bi-view-list"></i>
 		</button>
 	</div>
 </nav>
@@ -65,7 +65,7 @@
 		on:click|preventDefault={closeHandler}
 		on:keypress|preventDefault={closeHandler}
 	>
-		<i class="bi bi-x-circle" />
+		<i class="bi bi-x-circle"></i>
 		</span>
 	</nav>
 
