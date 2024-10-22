@@ -1,11 +1,16 @@
+/// <reference types="vitest" />
+
+// Configure Vitest (https://vitest.dev/config/)
+
+import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig(({ mode }) => ({
 	plugins: [sveltekit()],
 	build: {
 		chunkSizeWarningLimit: 1000
+	},
+	resolve: {
+		conditions: mode === 'test' ? ['browser'] : [],
 	}
-};
-
-export default config;
+}));
