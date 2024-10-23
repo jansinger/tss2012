@@ -21,7 +21,7 @@
 		"@testing-library/svelte": "^5.2.4",
 		"@types/pug": "^2.0.10",
 		"@typescript-eslint/eslint-plugin": "^8.9.0",
-		"@typescript-eslint/parser": "^8.10.0",
+		"@typescript-eslint/parser": "^8.11.0",
 		"bootstrap-icons": "^1.11.3",
 		"esbuild": "^0.24.0",
 		"eslint": "^9.12.0",
