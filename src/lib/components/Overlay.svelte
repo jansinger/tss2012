@@ -7,8 +7,8 @@
 	const { set } = getContext('map-overlay');
 	const dispatch = createEventDispatcher();
 
-	export let isOpen = false;
-	let content: HTMLElement;
+	let {isOpen = false } = $props();
+	let content: HTMLElement = $state(undefined);
 
 	function contains(event) {
 		const path = event.path || event.composedPath();
@@ -29,7 +29,7 @@
 		}
 	}
 
-	tick().then(() => {
+	$effect(() => {
 		set(isOpen);
 	});
 </script>

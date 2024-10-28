@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { beforeUpdate, tick } from 'svelte';
 	import type { Map } from 'ol';
 
-	export let coordinates: number[] = [0, 0];
+	let { coordinates = [0, 0] } = $props();
 
 	let mapElement: HTMLElement;
 	let map: Map;
 
-	beforeUpdate(() => {
+	$effect.pre(() => {
 		map?.setTarget(null);
 		map?.dispose();
 		map = undefined;
 	});
 
-	tick().then(async () => {
-		const { createOverviewMap } = await import('$lib/ol/overviewmap');
-		map = createOverviewMap(mapElement, coordinates);
-		map.updateSize();
+	$effect(() => {
+		import('$lib/ol/overviewmap').then(({createOverviewMap}) => {
+			map = createOverviewMap(mapElement, coordinates);
+			map.updateSize();
+		})
 	});
 </script>
 
