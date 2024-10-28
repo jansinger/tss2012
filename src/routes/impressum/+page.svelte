@@ -7,7 +7,7 @@
 	<div class="container-article glass">
 		<content class="container">
 			<nav class="close-navigation">
-				<a href="/" title="Zur Karte">
+				<a href="/" title="Zur Karte" aria-label="Zur Karte">
 					<i class="bi bi-x-circle"></i>
 				</a>
 			</nav>
