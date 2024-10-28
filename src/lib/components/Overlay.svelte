@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { afterUpdate, createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, tick } from 'svelte';
 
 	import { getContext } from 'svelte';
 
@@ -29,7 +29,7 @@
 		}
 	}
 
-	afterUpdate(() => {
+	tick().then(() => {
 		set(isOpen);
 	});
 </script>

@@ -4,9 +4,14 @@
 	import { setContext } from 'svelte';
 
 	import './_layout.scss';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
 
-	let isOpenOverlay = false;
-	let clickHandler = () => {};
+	let { children }: Props = $props();
+
+	let isOpenOverlay = $state(false);
+	let clickHandler = $state(() => {});
 	const setClickHandler = (handler: () => void) => (clickHandler = handler);
 
 	const set = (overlay: boolean) => (isOpenOverlay = overlay);
@@ -19,5 +24,5 @@
 		<LogbookMap on:clickLogbook={clickHandler} />
 	</div>
 
-	<slot />
+	{@render children?.()}
 </main>

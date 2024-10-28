@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import { goto } from '$app/navigation';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
@@ -7,8 +9,8 @@
 	import type Geometry from 'ol/geom/Geometry';
 	import type { LogEntryShort } from '$lib/types';
 
-	let currentEntries: LogEntryShort[] = [];
-	let isOpen = false;
+	let currentEntries: LogEntryShort[] = $state([]);
+	let isOpen = $state(false);
 
 	const { set, setClickHandler } = getContext('map-overlay');
 
@@ -53,7 +55,7 @@
 			aria-expanded="false"
 			title="Zeitleiste"
 			aria-label="Zeitleiste"
-			on:click={() => goto('/timeline')}
+			onclick={() => goto('/timeline')}
 		>
 			<i class="bi bi-view-list"></i>
 		</button>
@@ -63,8 +65,8 @@
 <Overlay {isOpen} on:close={closeHandler}>
 	<nav><span role="button" tabindex="0"
 		class="close-navigation glass"
-		on:click|preventDefault={closeHandler}
-		on:keypress|preventDefault={closeHandler}
+		onclick={preventDefault(closeHandler)}
+		onkeypress={preventDefault(closeHandler)}
 	>
 		<i class="bi bi-x-circle"></i>
 		</span>

@@ -8,8 +8,12 @@
 	// register Swiper custom elements
 	register();
 
-	export let pictures: PicturesEntity[] = [];
-	export let folder: string;
+	interface Props {
+		pictures?: PicturesEntity[];
+		folder: string;
+	}
+
+	let { pictures = [], folder }: Props = $props();
 
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { afterUpdate, beforeUpdate } from 'svelte';
+	import { beforeUpdate, tick } from 'svelte';
 	import type { Map } from 'ol';
 
 	export let coordinates: number[] = [0, 0];
@@ -13,7 +13,7 @@
 		map = undefined;
 	});
 
-	afterUpdate(async () => {
+	tick().then(async () => {
 		const { createOverviewMap } = await import('$lib/ol/overviewmap');
 		map = createOverviewMap(mapElement, coordinates);
 		map.updateSize();

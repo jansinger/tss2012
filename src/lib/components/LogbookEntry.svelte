@@ -5,7 +5,11 @@
 	import Pictures from './Pictures.svelte';
 	import { goto } from '$app/navigation';
 
-	export let entry: LogEntry = null;
+	interface Props {
+		entry?: LogEntry;
+	}
+
+	let { entry = null }: Props = $props();
 	let block = false;
 
 	const trackWheel = (e: WheelEvent) => {
@@ -30,7 +34,7 @@
 	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
 </svelte:head>
 
-<nav class="sub-navigation" on:wheel={trackWheel}>
+<nav class="sub-navigation" onwheel={trackWheel}>
 	<div class="item-wrapper left">
 		<a 	href={entry._prev ? `/log/${entry._prev}` : '#'}
 			class:disabled-link={entry._prev === undefined}

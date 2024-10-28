@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { map } from '$lib/stores';
 </script>
 
@@ -9,7 +9,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	let mapElement: HTMLElement, tooltipElement: HTMLElement;
+	let mapElement: HTMLElement = $state(), tooltipElement: HTMLElement = $state();
 
 	onMount(async () => {
 		if (!$map) {
@@ -28,7 +28,7 @@
 <div class="tooltip" bind:this={tooltipElement} transition:fade data-testid="tooltip">
 	<time>&nbsp;</time>
 	<address>&nbsp;</address>
-	<h1>&nbsp;</h1>
+	<h1>Huch! Keine Überschrift...</h1>
 </div>
 
 <div class="map" bind:this={mapElement} data-testid="map">

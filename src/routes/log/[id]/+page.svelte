@@ -5,8 +5,13 @@
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 
-	/** @type {import('./$types').PageData */
-	export let data;
+	
+	interface Props {
+		/** @type {import('./$types').PageData */
+		data: any;
+	}
+
+	let { data }: Props = $props();
 	let isOpen = true;
 </script>
 

@@ -8,7 +8,7 @@
 		<content class="container">
 			<nav class="close-navigation">
 				<a href="/" title="Zur Karte">
-					<i class="bi bi-x-circle" />
+					<i class="bi bi-x-circle"></i>
 				</a>
 			</nav>
 

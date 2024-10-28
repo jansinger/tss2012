@@ -3,11 +3,15 @@
 	import { sortEntries } from '$lib/utils/sortEntries';
 	import { stripHtml } from '$lib/utils/striphtml';
 
-	export let entries: LogEntryShort[] = [];
+	interface Props {
+		entries?: LogEntryShort[];
+	}
 
-	let sortedEntries: LogEntryShort[];
+	let { entries = [] }: Props = $props();
 
-	$: sortedEntries = sortEntries(entries);
+	let sortedEntries: LogEntryShort[] = $derived(sortEntries(entries));
+
+	
 </script>
 
 {#each sortedEntries as f}

@@ -8,8 +8,13 @@
 
 	set(true);
 
-	/** @type {import('./$types').PageData */
-	export let data;
+	
+	interface Props {
+		/** @type {import('./$types').PageData */
+		data: any;
+	}
+
+	let { data }: Props = $props();
 	let {groupedEntries}: { groupedEntries: { [key: string]: LogEntryShort[] }} = data;
 </script>
 
@@ -20,7 +25,7 @@
 
 <nav class="main-navigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
-		<button type="button" aria-expanded="false" title="Karte" aria-label="Karte" on:click={() => goto('/')} >
+		<button type="button" aria-expanded="false" title="Karte" aria-label="Karte" onclick={() => goto('/')} >
 			<i class="bi bi-map"></i>
 		</button>
 	</div>
