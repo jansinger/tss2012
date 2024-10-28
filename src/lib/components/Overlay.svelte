@@ -7,7 +7,7 @@
 	const { set } = getContext('map-overlay');
 	const dispatch = createEventDispatcher();
 
-	let {isOpen = false } = $props();
+	let {isOpen = false, children, outside } = $props();
 	let content: HTMLElement = $state(undefined);
 
 	function contains(event) {
@@ -37,8 +37,8 @@
 <svelte:window on:mousedown={handleWindowClick} on:keydown={handleWindowKeyDown} />
 
 {#if isOpen}
-	<slot name="outside" />
+	{@render outside?.()}
 	<div class="container-article" transition:fly bind:this={content}>
-		<slot />
+		{@render children?.()}
 	</div>
 {/if}
