@@ -11,7 +11,7 @@
 		"lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
 		"test": "vitest",
-		"build-ci": "vite build && vitest run"
+		"build-ci": "svelte-kit sync && vite build && vitest run"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^3.0.6",
