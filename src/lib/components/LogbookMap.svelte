@@ -3,26 +3,39 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
-	import { fade } from 'svelte/transition';
+    import { createEventDispatcher, onMount } from 'svelte';
+    import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
+    import { fade } from 'svelte/transition';
 
-	const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-	let mapElement: HTMLElement = $state(), tooltipElement: HTMLElement = $state();
+    let mapElement: HTMLElement = $state(), tooltipElement: HTMLElement = $state();
 
-	onMount(async () => {
-		if (!$map) {
-			const { createMap } = await import('$lib/ol/map');
-			map.set(createMap(mapElement));
-			createTooltipOverlay(tooltipElement, $map);
-			// @ts-ignore: Argument not assignable
-			$map.on('clickLogbook', (e) => dispatch('clickLogbook', e));
-		}
-		$map.setTarget(mapElement);
-		// ensure all tiles are loaded
-		$map.updateSize();
-	});
+    /**
+     * Initializes and sets up the map when the component is mounted.
+     * 
+     * This function performs the following tasks:
+     * 1. Creates a new map if it doesn't exist.
+     * 2. Sets up a tooltip overlay for the map.
+     * 3. Adds a click event listener for logbook entries.
+     * 4. Sets the target element for the map.
+     * 5. Updates the map size to ensure all tiles are loaded.
+     * 
+     * @param {void} - This function doesn't take any parameters.
+     * @returns {Promise<void>} - A promise that resolves when the map is fully initialized.
+     */
+    onMount(async () => {
+        if (!$map) {
+            const { createMap } = await import('$lib/ol/map');
+            map.set(createMap(mapElement));
+            createTooltipOverlay(tooltipElement, $map);
+            // @ts-ignore: Argument not assignable
+    		$map.on('clickLogbook', (e) => dispatch('clickLogbook', e));
+        }
+        $map.setTarget(mapElement);
+        // ensure all tiles are loaded
+        $map.updateSize();
+    });
 </script>
 
 <div class="tooltip" bind:this={tooltipElement} transition:fade data-testid="tooltip">

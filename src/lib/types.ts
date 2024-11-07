@@ -28,10 +28,12 @@ export interface LogEntry extends SortableEntry {
 	visible: boolean;
 	localeDatetime: string;
 }
+
+export type Coordinates = [number, number];
 export interface Data {
 	cog: string;
 	sog: string;
-	coordinates?: number[] | null;
+	coordinates?: Coordinates | null;
 }
 
 export interface SizeParams {

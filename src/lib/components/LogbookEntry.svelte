@@ -6,23 +6,33 @@
 	import { goto } from '$app/navigation';
 
 	interface Props {
-		entry?: LogEntry;
+	    entry?: LogEntry;
 	}
-
+	
 	let { entry = null }: Props = $props();
 	let block = false;
-
+	
+	/**
+	 * Handles horizontal wheel events to navigate between log entries.
+	 * 
+	 * This function prevents the default wheel behavior and navigates to the previous
+	 * or next log entry based on the horizontal scroll direction. It also implements
+	 * a debounce mechanism to prevent rapid successive navigations.
+	 * 
+	 * @param {WheelEvent} e - The wheel event object.
+	 * @returns {void}
+	 */
 	const trackWheel = (e: WheelEvent) => {
-		const { deltaX } = e;
-
-		if (deltaX) {
-			e.preventDefault();
-			if (!block) {
-				block = true;
-				goto(deltaX < 0 ? `/log/${entry._prev}` : `/log/${entry._next}`);
-				setTimeout(() => (block = false), 1000);
-			}
-		}
+	    const { deltaX } = e;
+	
+	    if (deltaX) {
+	        e.preventDefault();
+	        if (!block) {
+	            block = true;
+	            goto(deltaX < 0 ? `/log/${entry._prev}` : `/log/${entry._next}`);
+	            setTimeout(() => (block = false), 1000);
+	        }
+	    }
 	};
 </script>
 

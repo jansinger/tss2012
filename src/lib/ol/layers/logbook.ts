@@ -55,31 +55,42 @@ const clusterImage = new CircleStyle({
 const styleCache = {};
 
 /**
+ * Generates a style for a feature in the logbook layer.
+ * 
+ * This function determines the appropriate style for a feature based on the number of features it represents.
+ * For single features, it uses a marker style. For clusters (multiple features), it uses a circular style with a text label.
+ * 
+ * @param {import('ol/Feature').default} feature - The OpenLayers feature to style.
+ * @returns {Style} The OpenLayers Style object to apply to the feature.
+ */
+function styleFunction(feature) {
+    const size = feature.get('features').length;
+    let style = styleCache[size];
+    if (!style) {
+        if (size === 1) {
+            style = markerStyle;
+        } else {
+            style = new Style({
+                image: clusterImage,
+                text: new Text({
+                    text: size.toString(),
+                    fill: new Fill({
+                        color: '#fff'
+                    })
+                })
+            });
+        }
+        styleCache[size] = style;
+    }
+    return style;
+}
+
+/**
  * The logbook layer.
  */
 export const logbook = new VectorLayer({
 	source: clusterSource,
-	style: function (feature) {
-		const size = feature.get('features').length;
-		let style = styleCache[size];
-		if (!style) {
-			if (size === 1) {
-				style = markerStyle;
-			} else {
-				style = new Style({
-					image: clusterImage,
-					text: new Text({
-						text: size.toString(),
-						fill: new Fill({
-							color: '#fff'
-						})
-					})
-				});
-			}
-			styleCache[size] = style;
-		}
-		return style;
-	},
+	style: styleFunction,
 	properties: {
 		name: 'logbook'
 	}

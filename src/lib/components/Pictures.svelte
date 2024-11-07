@@ -1,19 +1,29 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import type { PicturesEntity } from '$lib/types';
-	import { stripHtml } from '$lib/utils/striphtml';
+    import { browser } from '$app/environment';
+    import type { PicturesEntity } from '$lib/types';
+    import { stripHtml } from '$lib/utils/striphtml';
 
-	// import function to register Swiper custom elements
-	import { register } from 'swiper/element/bundle';
-	// register Swiper custom elements
-	register();
+    // import function to register Swiper custom elements
+    import { register } from 'swiper/element/bundle';
+    // register Swiper custom elements
+    register();
 
-	interface Props {
-		pictures?: PicturesEntity[];
-		folder: string;
-	}
+    /**
+     * Represents the properties for the Pictures component.
+     * @typedef {Object} Props
+     * @property {PicturesEntity[]} [pictures=[]] - An optional array of PicturesEntity objects representing the images to be displayed.
+     * @property {string} folder - The folder path where the images are stored.
+     */
+    interface Props {
+        pictures?: PicturesEntity[];
+        folder: string;
+    }
 
-	let { pictures = [], folder }: Props = $props();
+    /**
+     * Initializes the component props with default values.
+     * @type {Props}
+     */
+    let { pictures = [], folder }: Props = $props();
 
 </script>
 

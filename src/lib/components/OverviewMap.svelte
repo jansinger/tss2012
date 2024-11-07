@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { Coordinates } from '$lib/types';
 	import type { Map } from 'ol';
 
-	let { coordinates = [0, 0] } = $props();
+	let { coordinates = [0, 0] as Coordinates } = $props();
 
 	let mapElement: HTMLElement;
 	let map: Map;

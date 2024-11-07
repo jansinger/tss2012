@@ -10,6 +10,7 @@ import VectorLayer from 'ol/layer/Vector';
 import { markerStyle } from './layers/logbook';
 import VectorSource from 'ol/source/Vector';
 import { FullScreen, defaults as defaultControls } from 'ol/control';
+import type { Coordinates } from '$lib/types';
 
 /**
  * Creates an overview map with a given target element or selector and center coordinates.
@@ -19,7 +20,7 @@ import { FullScreen, defaults as defaultControls } from 'ol/control';
  */
 export const createOverviewMap = (
 	target: string | HTMLElement,
-	center: number[] = [DEFAULTS.lon, DEFAULTS.lat]
+	center: Coordinates = [DEFAULTS.lon, DEFAULTS.lat]
 ) => {
 	const lonLat = fromLonLat(center);
 	const iconFeature = new Feature(new Point(lonLat));

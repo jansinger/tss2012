@@ -1,17 +1,28 @@
 <script lang="ts">
-	import type { LogEntryShort } from '$lib/types';
-	import { sortEntries } from '$lib/utils/sortEntries';
-	import { stripHtml } from '$lib/utils/striphtml';
+    import type { LogEntryShort } from '$lib/types';
+    import { sortEntries } from '$lib/utils/sortEntries';
+    import { stripHtml } from '$lib/utils/striphtml';
 
-	interface Props {
-		entries?: LogEntryShort[];
-	}
+    /**
+     * Represents the props for the LogbookEntries component.
+     * @typedef {Object} Props
+     * @property {LogEntryShort[]} [entries] - An optional array of log entries to display.
+     */
+    interface Props {
+        entries?: LogEntryShort[];
+    }
 
-	let { entries = [] }: Props = $props();
+    /**
+     * The entries prop, destructured from $props().
+     * @type {LogEntryShort[]}
+     */
+    let { entries = [] }: Props = $props();
 
-	let sortedEntries: LogEntryShort[] = $derived(sortEntries(entries));
-
-	
+    /**
+     * A derived store that contains the sorted log entries.
+     * @type {LogEntryShort[]}
+     */
+    let sortedEntries: LogEntryShort[] = $derived(sortEntries(entries));
 </script>
 
 {#each sortedEntries as f}
