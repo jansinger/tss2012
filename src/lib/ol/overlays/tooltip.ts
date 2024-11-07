@@ -3,104 +3,74 @@ import type { Feature, Map, MapBrowserEvent } from 'ol';
 import type BaseEvent from 'ol/events/Event';
 import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
-import type Layer from 'ol/layer/Layer';
+import { createTooltipHTML } from './createTooltipHTML';
+import { getFeatureAtEventPixel } from './getFeatureAtEventPixel';
+
+const CLICK_LOGBOOK_EVENT = 'clickLogbook';
+
+export interface LogbookFeature {
+  title: string;
+  datetime: string;
+  localeDatetime: string;
+  section: string;
+  picture: string;
+  pictureTitle: string;
+}
 
 /**
- * Retrieves the feature at the given event pixel on the map.
- * @param event - The MapBrowserEvent containing the UI event.
- * @param map - The OpenLayers Map instance.
- * @returns The feature at the event pixel, or undefined if no feature is found.
- */
-export const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
-	const layerFilter = (candidate: Layer) => {
-		return candidate.get('name') === 'logbook';
-	};
-	const pixel = map.getEventPixel(event.originalEvent);
-	return map.getFeaturesAtPixel(pixel, { layerFilter })[0];
-};
-
-/**
- * Creates a tooltip overlay for a given element and map.
+ * Creates a tooltip overlay for a map and sets up event handlers for interactions.
  *
- * @param element - The HTML element to be used as the tooltip overlay.
- * @param map - The map instance to which the tooltip overlay will be added.
- * @returns The created tooltip overlay.
+ * @param element - The HTML element to use as the container for the tooltip.
+ * @param map - The OpenLayers Map instance to which the tooltip overlay will be added.
+ * @returns An OpenLayers Overlay instance representing the tooltip.
  */
 export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
-	const overlay = new Overlay({
-		element: element,
-		offset: [5, 0],
-		positioning: 'bottom-left',
-		autoPan: {
-			animation: {
-				duration: 250
-			}
-		}
-	});
+  const overlay = new Overlay({
+    element,
+    offset: [5, 0],
+    positioning: 'bottom-left',
+    autoPan: { animation: { duration: 250 } }
+  });
 
-	const hideTooltip = () => {
-		map.getTargetElement().style.cursor = '';
-		overlay.setPosition(undefined);
-	};
+  let currentFeature: Feature<Geometry> | RenderFeature | null = null;
 
-	const clickHandler = () => {
-		return function (evt: MapBrowserEvent<UIEvent>) {
-			const feat = getFeatureAtEventPixel(evt, map);
-			if (feat) {
-				hideTooltip();
-				map.dispatchEvent({ type: 'clickLogbook', feature: feat } as unknown as BaseEvent);
-			}
-		};
-	};
+  const hideTooltip = () => {
+    map.getTargetElement().style.cursor = '';
+    overlay.setPosition(undefined);
+    currentFeature = null;
+  };
 
-	const showEntryPreview = (feat: Feature<Geometry>) => {
-		const title = feat.get('title');
-		const datetime = feat.get('datetime');
-		const time = feat.get('localeDatetime');
-		const address = feat.get('section');
-		const picture = feat.get('picture');
-		const pictureTitle = feat.get('pictureTitle');
-		element.innerHTML = `<div class="right glass">
-		<img src="/images/${picture}" title="${pictureTitle}" />
-		<div class="text-content">
-			<time datetime="${datetime}">${time}</time>
-			<address>${address}</address>
-			<h3>${title}</h3>
-		</div>
-		<i></i>
-		</div>`;
-	};
+  const showTooltip = (feature: Feature<Geometry> | RenderFeature, coordinate: number[]) => {
+    const features = feature.get('features');
+    if (features && features.length === 1) {
+      map.getTargetElement().style.cursor = 'pointer';
+      currentFeature = feature;
+      element.innerHTML = createTooltipHTML(features[0].getProperties() as LogbookFeature);
+      overlay.setPosition(coordinate);
+    }
+  };
 
-	let feature: Feature<Geometry> | RenderFeature = null;
-	const pointermoveHandler = () => {
-		return (evt: MapBrowserEvent<UIEvent>) => {
-			const newfeature = getFeatureAtEventPixel(evt, map);
-			if (feature === newfeature) {
-				// only set new position if feature has not changed
-				feature && overlay.setPosition(evt.coordinate);
-				return;
-			}
-			if (newfeature) {
-				map.getTargetElement().style.cursor = 'pointer';
-				const features = newfeature.get('features');
-				if (features.length === 1) {
-					feature = newfeature;
-					showEntryPreview(features[0]);
-					overlay.setPosition(evt.coordinate);
-				}
-			} else {
-				hideTooltip();
-			}
-		};
-	};
+  const handleFeatureInteraction = (evt: MapBrowserEvent<UIEvent>, isClick: boolean) => {
+    const newFeature = getFeatureAtEventPixel(evt, map);
 
-	map.addOverlay(overlay);
+	if (isClick && newFeature) {
+		hideTooltip();
+		map.dispatchEvent({ type: CLICK_LOGBOOK_EVENT, feature: newFeature } as unknown as BaseEvent);
+	} else if (newFeature && (!currentFeature || currentFeature !== newFeature)) {
+      showTooltip(newFeature, evt.coordinate);
+    } else if (!newFeature) {
+      hideTooltip();
+    } else if (currentFeature) {
+      overlay.setPosition(evt.coordinate);
+    }
+  };
 
-	// display popup on click
-	map.on('click', clickHandler());
+  const handleClick = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, true);
+  const handlePointerMove = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, false);
 
-	// change mouse cursor when over marker
-	map.on('pointermove', pointermoveHandler());
+  map.addOverlay(overlay);
+  map.on('click', handleClick);
+  map.on('pointermove', handlePointerMove);
 
-	return overlay;
+  return overlay;
 };
