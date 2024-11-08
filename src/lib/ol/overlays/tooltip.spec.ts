@@ -1,6 +1,8 @@
 import { assert, describe, it, vi } from 'vitest';
-import { getFeatureAtEventPixel, createTooltipOverlay } from './tooltip';
+import { getFeatureAtEventPixel } from './getFeatureAtEventPixel';
+
 import { Map, Overlay } from 'ol';
+import { createTooltipOverlay } from './tooltip';
 // At the top of your test file
 global.ResizeObserver = class ResizeObserver {
 	observe() {
