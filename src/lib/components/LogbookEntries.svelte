@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { AppState } from '$lib/AppState.svelte';
     import type { LogEntryShort } from '$lib/types';
     import { sortEntries } from '$lib/utils/sortEntries';
     import { stripHtml } from '$lib/utils/striphtml';
@@ -23,10 +24,11 @@
      * @type {LogEntryShort[]}
      */
     let sortedEntries: LogEntryShort[] = $derived(sortEntries(entries));
+
 </script>
 
 {#each sortedEntries as f}
-	<a href="/log/{f.id}" title={stripHtml(f.title)}>
+	<a href="/log/{f.id}" title={stripHtml(f.title)} onclick={() => { AppState.currentEntries=[]} }>
 		<article class="glass">
 			<div class="img-container">
 				<img src="/images/{f.picture}" loading="lazy" title={f.pictureTitle} alt={f.pictureTitle} />

@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { createEventDispatcher, tick } from 'svelte';
 
-	import { getContext } from 'svelte';
-
-	const { set } = getContext('map-overlay');
-	const dispatch = createEventDispatcher();
-
-	let {isOpen = false, children, outside } = $props();
+	let {children, outside = undefined } = $props();
 	let content: HTMLElement = $state(undefined);
+	let isOpen = $state(true);
 
 	function contains(event) {
 		const path = event.path || event.composedPath();
@@ -17,21 +12,20 @@
 
 	function handleWindowClick(event) {
 		if (!isOpen || contains(event)) return;
-		isOpen = false;
-		dispatch('close');
+		close();
 	}
 
 	function handleWindowKeyDown(event) {
 		if (!isOpen) return;
 		if (event.key === 'Escape') {
-			isOpen = false;
-			dispatch('close');
+			close();
 		}
 	}
 
-	$effect(() => {
-		set(isOpen);
-	});
+	export function close() {
+		isOpen = false;
+	}
+
 </script>
 
 <svelte:window on:mousedown={handleWindowClick} on:keydown={handleWindowKeyDown} />

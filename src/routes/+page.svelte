@@ -1,46 +1,8 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
-
+	import LogbookEntriesOverlay from '$lib/components/LogbookEntriesOverlay.svelte';
 	import { goto } from '$app/navigation';
-	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
-	import Overlay from '$lib/components/Overlay.svelte';
-	import { getContext } from 'svelte';
-	import type { Feature } from 'ol';
-	import type Geometry from 'ol/geom/Geometry';
-	import type { LogEntryShort } from '$lib/types';
+	import { AppState } from '$lib/AppState.svelte';
 
-	let currentEntries: LogEntryShort[] = $state([]);
-	let isOpen = $state(false);
-
-	const { set, setClickHandler } = getContext('map-overlay');
-
-	const mapFeatures = (feature: Feature<Geometry>): LogEntryShort =>
-		feature.getProperties() as LogEntryShort;
-
-	const closeHandler = () => {
-		isOpen = false;
-		currentEntries = [];
-	};
-
-	const openOverlay = (features: Feature<Geometry>[]) => {
-		isOpen = true;
-		currentEntries = features.map(mapFeatures);
-	};
-
-	const clickHandler = (e: CustomEvent) => {
-		const f = e.detail.feature;
-		const features = f.get('features');
-		if (features.length === 1) {
-			isOpen = false;
-			set(false);
-			goto(`/log/${features[0].get('id')}`);
-		} else {
-			openOverlay(features);
-		}
-	};
-
-	set(false);
-	setClickHandler(clickHandler);
 </script>
 
 <svelte:head>
@@ -62,20 +24,9 @@
 	</div>
 </nav>
 
-<Overlay {isOpen} on:close={closeHandler}>
-	<nav><span role="button" tabindex="0"
-		class="close-navigation glass"
-		onclick={preventDefault(closeHandler)}
-		onkeypress={preventDefault(closeHandler)}
-	>
-		<i class="bi bi-x-circle"></i>
-		</span>
-	</nav>
-
-	<div class="entry-list">
-		<LogbookEntries entries={currentEntries} />
-	</div>
-</Overlay>
+{#if AppState.currentEntries.length > 0}
+<LogbookEntriesOverlay bind:currentEntries={AppState.currentEntries}></LogbookEntriesOverlay>
+{/if}
 
 <a href="/impressum" class="impressum" title="Impressum">Impressum</a>
 

@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import type { LogEntryShort } from '$lib/types';
-
-	import { getContext } from 'svelte';
 	import { fly } from 'svelte/transition';
-	const { set } = getContext('map-overlay');
-
-	set(true);
 
 	
 	interface Props {
@@ -15,7 +10,7 @@
 	}
 
 	let { data }: Props = $props();
-	let {groupedEntries}: { groupedEntries: { [key: string]: LogEntryShort[] }} = data;
+	let { groupedEntries }: { groupedEntries: { [key: string]: LogEntryShort[] }} = data;
 </script>
 
 <svelte:head>

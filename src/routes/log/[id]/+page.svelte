@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { fly } from 'svelte/transition';
 
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
@@ -12,10 +11,10 @@
 	}
 
 	let { data }: Props = $props();
-	let isOpen = true;
+
 </script>
 
-<Overlay {isOpen} on:close={() => goto('/')}>
+<Overlay>
 	<div class="container-article" transition:fly>
 		<LogbookEntry entry={data.entry} />
 		<a href="/impressum" class="impressum" title="Impressum">Impressum</a>
