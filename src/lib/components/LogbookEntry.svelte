@@ -70,7 +70,7 @@
 </nav>
 <content class="container glass">
 	<nav class="close-navigation">
-		<a href="self" onclick={close} title="Zur Karte" aria-label="Zur Karte"><i class="bi bi-x-circle"></i></a>
+		<a href="/" onclick={close} title="Zur Karte" aria-label="Zur Karte"><i class="bi bi-x-circle"></i></a>
 	</nav>
 	<header>
 		<address>{entry.section}</address>
