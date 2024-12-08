@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { AppState } from '$lib/AppState.svelte';
 	import { fly } from 'svelte/transition';
 
 	let {children, outside = undefined } = $props();
@@ -11,11 +13,13 @@
 	}
 
 	function handleWindowClick(event) {
+		event.preventDefault();
 		if (!isOpen || contains(event)) return;
 		close();
 	}
 
 	function handleWindowKeyDown(event) {
+		event.preventDefault();
 		if (!isOpen) return;
 		if (event.key === 'Escape') {
 			close();
@@ -23,7 +27,9 @@
 	}
 
 	export function close() {
+		AppState.currentEntries = [];
 		isOpen = false;
+		goto('/');
 	}
 
 </script>

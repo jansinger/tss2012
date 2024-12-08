@@ -4,6 +4,7 @@
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';
 	import { goto } from '$app/navigation';
+	import { AppState } from '$lib/AppState.svelte';
 
 	interface Props {
 	    entry?: LogEntry;
@@ -34,6 +35,12 @@
 	        }
 	    }
 	};
+
+	const close = (event) => {
+		event.preventDefault();
+		AppState.currentEntries = [];
+		goto('/');
+	}
 </script>
 
 <svelte:head>
@@ -63,7 +70,7 @@
 </nav>
 <content class="container glass">
 	<nav class="close-navigation">
-		<a href="/" title="Zur Karte" aria-label="Zur Karte"><i class="bi bi-x-circle"></i></a>
+		<a href="self" onclick={close} title="Zur Karte" aria-label="Zur Karte"><i class="bi bi-x-circle"></i></a>
 	</nav>
 	<header>
 		<address>{entry.section}</address>

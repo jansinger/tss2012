@@ -24,9 +24,7 @@
 	</div>
 </nav>
 
-{#if AppState.currentEntries.length > 0}
 <LogbookEntriesOverlay bind:currentEntries={AppState.currentEntries}></LogbookEntriesOverlay>
-{/if}
 
 <a href="/impressum" class="impressum" title="Impressum">Impressum</a>
 

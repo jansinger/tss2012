@@ -13,8 +13,8 @@
 </script>
 
 <main>
-	<div class:noscroll={AppState.isOpen}>
-		<LogbookMap />
+	<div class:noscroll={AppState.currentEntries.length > 0}>
+		<LogbookMap></LogbookMap>
 	</div>
 
 	{@render children?.()}
