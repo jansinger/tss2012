@@ -113,10 +113,6 @@
 			-moz-border-radius: 15px;
 			border-radius: 15px;
 			overflow: hidden;
-			-webkit-backface-visibility: hidden;
-			-moz-backface-visibility: hidden;
-			-webkit-transform: translate3d(0, 0, 0);
-			-moz-transform: translate3d(0, 0, 0);
 		}
 	}
 
