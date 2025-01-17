@@ -16,6 +16,11 @@
 	const mapFeatures = (feature: Feature<Geometry>): LogEntryShort =>
 		feature.getProperties() as LogEntryShort;
 
+	// Add proper type for the click event
+	type LogbookClickEvent = {
+		feature: Feature;
+	}
+
 	const clickLogbook = (feature: Feature) => {
 		const features = feature.get('features');
 		if (features.length === 1) {
@@ -29,27 +34,52 @@
      * Initializes and sets up the map when the component is mounted.
      * 
      * This function performs the following tasks:
-     * 1. Creates a new map if it doesn't exist.
-     * 2. Sets up a tooltip overlay for the map.
-     * 3. Adds a click event listener for logbook entries.
-     * 4. Sets the target element for the map.
-     * 5. Updates the map size to ensure all tiles are loaded.
-	 **/
-	
-	 const initMap = async() => {
-        if (!$map) {
+     * 1. Creates a new map if it doesn't exist
+     * 2. Sets up a tooltip overlay for the map
+     * 3. Sets the target element and updates size
+     * 4. Adds event listeners after map is fully initialized
+     **/
+	const initMap = async () => {
+        try {
+            // Return early if map already exists
+            if ($map) {
+                $map.setTarget(mapElement);
+                $map.updateSize();
+                return;
+            }
+
+            // Ensure both elements are available
+            if (!mapElement || !tooltipElement) {
+                return;
+            }
+
             const { createMap } = await import('$lib/ol/map');
-            map.set(createMap(mapElement));
-            createTooltipOverlay(tooltipElement, $map);
-            // @ts-ignore: Argument not assignable
-    		$map.on('clickLogbook', (e) => clickLogbook(e.feature));
+            const newMap = createMap(mapElement);
+            
+            // First set the target and update size
+            newMap.setTarget(mapElement);
+            newMap.updateSize();
+
+            // Then create overlay and add event listeners
+            createTooltipOverlay(tooltipElement, newMap);
+            
+            // Set in store before adding listeners
+            map.set(newMap);
+
+            // Add event listener after map is fully initialized
+            $map.on('clickLogbook', (e: LogbookClickEvent) => clickLogbook(e.feature));
+            
+        } catch (error) {
+            console.error('Error initializing map:', error);
         }
-        $map.setTarget(mapElement);
-        // ensure all tiles are loaded
-        $map.updateSize();
     }
 
-    $effect(() => {initMap()});
+    // Run effect when component mounts and elements are available
+    $: {
+        if (mapElement && tooltipElement) {
+            initMap();
+        }
+    }
 </script>
 
 <div class="tooltip" bind:this={tooltipElement} transition:fade data-testid="tooltip">
@@ -107,7 +137,7 @@
 		font-size: 1rem;
 	}
 
-	.tooltip :global(.right) {
+	:global(.tooltip .right) {
 		min-width: 200px;
 		max-width: 400px;
 		top: 50%;
@@ -115,48 +145,46 @@
 		margin-left: 20px;
 		transform: translate(0, -50%);
 		padding: 0;
-		//color: #efefef;
-		//background-color: #2e6287;
-		font-weight: normal;
-		font-size: 13px;
 		border-radius: 8px;
 		position: absolute;
 		z-index: 10;
-		//box-sizing: border-box;
-		//box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+		
+		// Consolidated image styles
+		img {
+			width: 200px;
+			border-radius: 8px 8px 0 0;
+			filter: brightness(0.9) contrast(1.2);
+		}
+
+		// Consolidated arrow styles
+		i {
+			position: absolute;
+			top: 50%;
+			right: 100%;
+			margin-top: -12px;
+			width: 12px;
+			height: 24px;
+			overflow: hidden;
+
+			&::after {
+				content: '';
+				position: absolute;
+				width: 12px;
+				height: 12px;
+				left: 0;
+				top: 50%;
+				transform: translate(50%, -50%) rotate(-45deg);
+				background-color: #444444;
+				box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+			}
+		}
 	}
 
-	.tooltip :global(.right) :global(img) {
-		width: 200px;
-		border-radius: 8px 8px 0 0;
-		filter: brightness(0.9) contrast(1.2);
-	}
 	.tooltip :global(.text-content) {
 		padding: 10px 10px;
 	}
 
 	.tooltip :global(address) {
 		font-size: 0.75rem;
-	}
-
-	.tooltip :global(.right) :global(i) {
-		position: absolute;
-		top: 50%;
-		right: 100%;
-		margin-top: -12px;
-		width: 12px;
-		height: 24px;
-		overflow: hidden;
-	}
-	.tooltip :global(.right) :global(i::after) {
-		content: '';
-		position: absolute;
-		width: 12px;
-		height: 12px;
-		left: 0;
-		top: 50%;
-		transform: translate(50%, -50%) rotate(-45deg);
-		background-color: #444444;
-		box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 	}
 </style>
