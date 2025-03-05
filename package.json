@@ -26,7 +26,7 @@
 		"bootstrap-icons": "^1.11.3",
 		"esbuild": "^0.25.0",
 		"eslint": "^9.20.1",
-		"eslint-config-prettier": "^10.0.1",
+		"eslint-config-prettier": "^10.0.2",
 		"eslint-plugin-svelte": "^2.46.1",
 		"image-size": "^1.2.0",
 		"jest-dom": "^4.0.0",
