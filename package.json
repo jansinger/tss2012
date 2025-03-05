@@ -46,6 +46,6 @@
 	"type": "module",
 	"dependencies": {
 		"ol": "^10.4.0",
-		"swiper": "^11.2.4"
+		"swiper": "^11.2.5"
 	}
 }
