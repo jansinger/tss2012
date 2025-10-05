@@ -6,10 +6,11 @@ import type { LogbookFeature } from "./tooltip";
  * @param text - The text to escape
  * @returns Escaped text safe for HTML insertion
  */
+// Use a singleton element for escaping to improve performance
+const _escapeDiv = document.createElement('div');
 const escapeHtml = (text: string): string => {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    _escapeDiv.textContent = text;
+    return _escapeDiv.innerHTML;
 };
 
 /**
