@@ -1,8 +1,21 @@
 import type { LogbookFeature } from "./tooltip";
 
 /**
+ * Escapes HTML special characters to prevent XSS attacks.
+ *
+ * @param text - The text to escape
+ * @returns Escaped text safe for HTML insertion
+ */
+const escapeHtml = (text: string): string => {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+};
+
+/**
  * Creates an HTML string for a tooltip based on the provided LogbookFeature.
- * 
+ * All user-provided content is escaped to prevent XSS vulnerabilities.
+ *
  * @param feature - The LogbookFeature object containing the data for the tooltip.
  * @param feature.title - The title of the logbook entry.
  * @param feature.datetime - The date and time of the entry in ISO format.
@@ -10,18 +23,27 @@ import type { LogbookFeature } from "./tooltip";
  * @param feature.section - The section or location of the entry.
  * @param feature.picture - The filename of the associated picture.
  * @param feature.pictureTitle - The title or description of the picture.
- * 
+ *
  * @returns A string containing HTML markup for the tooltip.
  */
 export const createTooltipHTML = (feature: LogbookFeature): string => {
     const { title, datetime, localeDatetime, section, picture, pictureTitle } = feature;
+
+    // Escape all user-provided content to prevent XSS
+    const escapedTitle = escapeHtml(title);
+    const escapedDatetime = escapeHtml(datetime);
+    const escapedLocaleDatetime = escapeHtml(localeDatetime);
+    const escapedSection = escapeHtml(section);
+    const escapedPicture = escapeHtml(picture);
+    const escapedPictureTitle = escapeHtml(pictureTitle);
+
     return `
     <div class="right glass">
-      <img src="/images/${picture}" title="${pictureTitle}" />
+      <img src="/images/${escapedPicture}" title="${escapedPictureTitle}" alt="${escapedPictureTitle}" />
       <div class="text-content">
-        <time datetime="${datetime}">${localeDatetime}</time>
-        <address>${section}</address>
-        <h3>${title}</h3>
+        <time datetime="${escapedDatetime}">${escapedLocaleDatetime}</time>
+        <address>${escapedSection}</address>
+        <h3>${escapedTitle}</h3>
       </div>
       <i></i>
     </div>

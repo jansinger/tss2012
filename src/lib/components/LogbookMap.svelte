@@ -32,7 +32,7 @@
 
 	/**
      * Initializes and sets up the map when the component is mounted.
-     * 
+     *
      * This function performs the following tasks:
      * 1. Creates a new map if it doesn't exist
      * 2. Sets up a tooltip overlay for the map
@@ -55,20 +55,19 @@
 
             const { createMap } = await import('$lib/ol/map');
             const newMap = createMap(mapElement);
-            
-            // First set the target and update size
-            newMap.setTarget(mapElement);
+
+            // Update size after map creation
             newMap.updateSize();
 
             // Then create overlay and add event listeners
             createTooltipOverlay(tooltipElement, newMap);
-            
+
             // Set in store before adding listeners
             map.set(newMap);
 
             // Add event listener after map is fully initialized
             $map.on('clickLogbook', (e: LogbookClickEvent) => clickLogbook(e.feature));
-            
+
         } catch (error) {
             console.error('Error initializing map:', error);
         }
