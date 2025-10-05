@@ -2,15 +2,26 @@ import type { LogbookFeature } from "./tooltip";
 
 /**
  * Escapes HTML special characters to prevent XSS attacks.
+ * Uses browser DOM API when available, falls back to regex for SSR.
  *
  * @param text - The text to escape
  * @returns Escaped text safe for HTML insertion
  */
-// Use a singleton element for escaping to improve performance
-const _escapeDiv = document.createElement('div');
 const escapeHtml = (text: string): string => {
-    _escapeDiv.textContent = text;
-    return _escapeDiv.innerHTML;
+    // Browser-based escaping (most secure)
+    if (typeof document !== 'undefined') {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Fallback for SSR: regex-based escaping
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 };
 
 /**
