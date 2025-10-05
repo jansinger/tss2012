@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
 	},
 	// Suppress warnings for Node.js-only libraries used during SSR/prerender
 	optimizeDeps: {
-		exclude: ['sanitize-html']
+		exclude: []
 	},
 	ssr: {
 		noExternal: mode === 'production' ? [] : undefined
