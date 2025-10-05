@@ -22,8 +22,8 @@
 	 * @param event - Mouse event from window
 	 */
 	function handleWindowClick(event: MouseEvent): void {
-		event.preventDefault();
 		if (!isOpen || contains(event)) return;
+		event.preventDefault();
 		close();
 	}
 
