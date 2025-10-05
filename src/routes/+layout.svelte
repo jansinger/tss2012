@@ -15,7 +15,7 @@
 <a href="#main-content" class="skip-to-main">Zum Hauptinhalt springen</a>
 
 <main id="main-content">
-	<div class:noscroll={AppState.currentEntries.length > 0}>
+	<div class="background-map" class:dimmed={AppState.currentEntries.length > 0}>
 		<LogbookMap></LogbookMap>
 	</div>
 
