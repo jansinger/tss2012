@@ -44,7 +44,9 @@
 
 	    if (deltaX) {
 	        e.preventDefault();
-	        const targetPath = deltaX < 0 ? `/log/${entry._prev}` : `/log/${entry._next}`;
+	        const targetId = deltaX < 0 ? entry._prev : entry._next;
+	        if (!targetId) return;
+	        const targetPath = `/log/${targetId}`;
 	        navigateWithDebounce(targetPath, NAVIGATION_DEBOUNCE_WHEEL_MS);
 	    }
 	};
