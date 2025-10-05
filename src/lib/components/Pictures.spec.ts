@@ -14,13 +14,15 @@ describe('Pictures component', () => {
 		const htmlPictures = render(Pictures, { pictures, folder });
 
 		pictures.forEach((picture) => {
-			const imgElement = htmlPictures.getAllByAltText(picture.text) as HTMLImageElement[];
-			expect(imgElement).toHaveLength(2);
-			imgElement.forEach((img) => {
-				expect(img.src).toContain(`${folder}/${picture.filename}`);
-				expect(img.alt).toContain(picture.text);
-				expect(img.title).toContain(picture.title);
-			});
+			// Main images have alt text for accessibility
+			const mainImgElement = htmlPictures.getByAltText(picture.text) as HTMLImageElement;
+			expect(mainImgElement.src).toContain(`${folder}/${picture.filename}`);
+			expect(mainImgElement.alt).toContain(picture.text);
+			expect(mainImgElement.title).toContain(picture.title);
 		});
+
+		// Verify all images are rendered (main + thumbnails)
+		const allImages = htmlPictures.container.querySelectorAll('img');
+		expect(allImages).toHaveLength(pictures.length * 2); // main + thumbnail for each picture
 	});
 });

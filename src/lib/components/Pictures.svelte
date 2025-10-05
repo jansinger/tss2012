@@ -28,21 +28,30 @@
 </script>
 
 {#if browser}
-	<swiper-container 
+	<p id="gallery-help" class="visually-hidden">
+		Verwenden Sie die Pfeiltasten links/rechts oder die Navigationspfeile, um durch die Bilder zu blättern.
+	</p>
+
+	<swiper-container
 		class="mySwiper"
 		style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-		slides-per-view="1" 
-		navigation={true} 
-		pagination={false} 
+		slides-per-view="1"
+		navigation={true}
+		pagination={false}
 		centered-slides={true}
 		centered-slides-bounds={true}
 		effect="coverflow"
 		thumbs-swiper=".mySwiper2"
 		auto-height={true}
 		loop={false}
+		keyboard={{ enabled: true, onlyInViewport: false }}
+		a11y={{ enabled: true }}
+		role="region"
+		aria-label="Bildergalerie"
+		aria-describedby="gallery-help"
 		>
-		{#each pictures as { filename, title, text, sizebig }}
-			<swiper-slide>
+		{#each pictures as { filename, title, text, sizebig }, index}
+			<swiper-slide role="group" aria-label="Bild {index + 1} von {pictures.length}">
 				<figure>
 					<img
 						class="main-image"
@@ -52,6 +61,10 @@
 						width={sizebig?.width}
 						height={sizebig?.height}
 					/>
+					<!--
+						@html is used for formatted image captions from static JSON.
+						Data source: src/lib/data/logbook.json (trusted static content)
+					-->
 					<figcaption>{@html text}</figcaption>
 				</figure>
 			</swiper-slide>
@@ -60,19 +73,22 @@
 	<!-- thumbs swiper -->
 	<swiper-container class="mySwiper2"
 		style="--swiper-pagination-top: 90px"
-		space-between="5" 
-		slides-per-view="10" 
+		space-between="5"
+		slides-per-view="10"
 		free-mode={true}
     	watch-slides-progress={true}
 		pagination={true}
-		pagination-clickable={true}>
+		pagination-clickable={true}
+		role="list"
+		aria-label="Bildvorschauen">
 		{#each pictures as { filename, title, text, sizebig }}
-			<swiper-slide>
+			<swiper-slide role="listitem">
 				<img
 					class="main-image"
 					src={`/images/${folder}/${filename}`}
 					{title}
-					alt={stripHtml(text)}
+					alt=""
+					aria-hidden="true"
 					width={sizebig?.width}
 					height={sizebig?.height}
 					/>

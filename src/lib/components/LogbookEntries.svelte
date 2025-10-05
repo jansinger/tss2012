@@ -36,6 +36,10 @@
 			<div class="text-container">
 				<time datetime={f.datetime}>{f.localeDatetime}</time>
 				<address>{f.section}</address>
+				<!--
+					@html is used for formatted titles from static JSON.
+					Data source: src/lib/data/logbook.json (trusted static content)
+				-->
 				<p>{@html f.title}</p>
 			</div>
 		</article>

@@ -7,26 +7,42 @@
 	let content: HTMLElement = $state(undefined);
 	let isOpen = $state(true);
 
-	function contains(event) {
-		const path = event.path || event.composedPath();
+	/**
+	 * Checks if the event target is contained within the overlay content
+	 * @param event - Mouse or pointer event
+	 * @returns True if event target is inside content element
+	 */
+	function contains(event: MouseEvent | PointerEvent): boolean {
+		const path = event.composedPath();
 		return path.includes(content);
 	}
 
-	function handleWindowClick(event) {
-		event.preventDefault();
+	/**
+	 * Handles clicks outside the overlay to close it
+	 * @param event - Mouse event from window
+	 */
+	function handleWindowClick(event: MouseEvent): void {
 		if (!isOpen || contains(event)) return;
+		event.preventDefault();
 		close();
 	}
 
-	function handleWindowKeyDown(event) {
-		event.preventDefault();
+	/**
+	 * Handles Escape key to close the overlay
+	 * @param event - Keyboard event from window
+	 */
+	function handleWindowKeyDown(event: KeyboardEvent): void {
 		if (!isOpen) return;
 		if (event.key === 'Escape') {
+			event.preventDefault();
 			close();
 		}
 	}
 
-	export function close() {
+	/**
+	 * Closes the overlay and navigates to home
+	 */
+	export function close(): void {
 		AppState.currentEntries = [];
 		isOpen = false;
 		goto('/');
