@@ -13,7 +13,7 @@
 	let { entry = null }: Props = $props();
 
 	// Error handling
-	$: hasValidEntry = entry && entry.data && entry.data.coordinates;
+	const hasValidEntry = $derived(entry && entry.data && entry.data.coordinates);
 	let block = false;
 
 	// Navigation debounce delays

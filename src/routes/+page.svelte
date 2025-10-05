@@ -51,7 +51,6 @@
 		margin-right: 16px;
 	}
 	.close-navigation {
-		position: -webkit-sticky;
 		position: sticky;
 		float: right;
 		top: 15px;
