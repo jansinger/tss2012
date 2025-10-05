@@ -29,7 +29,7 @@
 		</button>
 	</nav>
 
-	<div class="entry-list">
+	<div class="entry-list" role="region" aria-label="Logbuch-Einträge" aria-live="polite">
 		<LogbookEntries entries={currentEntries} />
 	</div>
 </Overlay>

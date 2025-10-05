@@ -27,7 +27,7 @@
 </nav>
 
 <div class="content" transition:fly>
-	<section class="timeline">
+	<section class="timeline" role="feed" aria-label="Chronologische Zeitleiste der Segelreise">
 		<div class="container">
 			<div class="timeline__wrapper">
 				<div class="timeline__progressbar"></div>
@@ -45,8 +45,8 @@
 						</div>
 						<div class="timeline__block__body">
 							{#each value as entry}
-								<a href="/log/{entry.id}">
-									<article class="timeline__block__text glass">
+								<a href="/log/{entry.id}" aria-label="Beitrag vom {entry.localeDatetime}: {entry.title}">
+									<article class="timeline__block__text glass" aria-labelledby="entry-{entry.id}-title">
 										<div class="img-container">
 											<img
 												src="/images/{entry.picture}"
@@ -58,7 +58,7 @@
 										<div class="text-container">
 											<time datetime={entry.datetime}>{entry.localeDatetime}</time>
 											<address>{@html entry.section}</address>
-											<p>{@html entry.title}</p>
+											<p id="entry-{entry.id}-title">{@html entry.title}</p>
 										</div>
 									</article>
 								</a>

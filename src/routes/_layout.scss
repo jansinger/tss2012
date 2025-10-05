@@ -207,7 +207,8 @@ article {
 
 .timeline__block__title {
 	font-size: 2rem;
-	color: #444;
+	color: #1a1a1a;
+	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 @media screen and (min-width: 800px) {
@@ -396,16 +397,23 @@ nav.sub-navigation {
 	left: 10px;
 	bottom: 25px;
 	z-index: 5;
-	font-size: 0.6rem;
+	font-size: 0.75rem;
 	text-decoration: none;
-	color: #2e6287;
+	color: #1a4d6d;
+	font-weight: 600;
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 3px 6px;
+	border-radius: 3px;
+
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.95);
+		text-decoration: underline;
+	}
 
 	&:focus-visible {
 		outline: 3px solid #ffd700;
 		outline-offset: 2px;
-		background-color: rgba(255, 255, 255, 0.2);
-		padding: 2px 4px;
-		border-radius: 3px;
+		background-color: rgba(255, 255, 255, 0.95);
 	}
 }
 

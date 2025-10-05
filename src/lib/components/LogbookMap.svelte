@@ -87,7 +87,7 @@
 	<h3>Huch! Keine Überschrift...</h3>
 </div>
 
-<div class="map" bind:this={mapElement} data-testid="map">
+<div class="map" bind:this={mapElement} data-testid="map" role="application" aria-label="Interaktive Karte der Segelreise">
 	<img
 		src="/pics/banner_small.png"
 		class="logo"

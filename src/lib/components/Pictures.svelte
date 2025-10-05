@@ -40,11 +40,13 @@
 		thumbs-swiper=".mySwiper2"
 		auto-height={true}
 		loop={false}
+		keyboard={{ enabled: true, onlyInViewport: false }}
+		a11y={{ enabled: true }}
 		role="region"
 		aria-label="Bildergalerie"
 		>
-		{#each pictures as { filename, title, text, sizebig }}
-			<swiper-slide role="group" aria-label="Bild {pictures.indexOf({ filename, title, text, sizebig }) + 1} von {pictures.length}">
+		{#each pictures as { filename, title, text, sizebig }, index}
+			<swiper-slide role="group" aria-label="Bild {index + 1} von {pictures.length}">
 				<figure>
 					<img
 						class="main-image"

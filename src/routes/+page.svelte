@@ -12,6 +12,12 @@
 
 <h1 class="visually-hidden">Ein tierischer Segelsommer - Interaktive Karte</h1>
 
+<p class="visually-hidden">
+	Diese Seite zeigt eine interaktive Karte der Segelreise durch die Ostsee.
+	Für eine barrierefreie Alternative nutzen Sie die <a href="/timeline">Zeitleisten-Ansicht</a>
+	oder die <a href="/log">Logbuch-Liste</a>.
+</p>
+
 <nav class="main-navigation" role="navigation" aria-label="Hauptnavigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
 		<button
