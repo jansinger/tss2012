@@ -9,8 +9,13 @@
  * @returns The text without HTML tags.
  */
 export const stripHtml = (text: string): string => {
-	// Remove HTML tags
-	let clean = text.replace(/<[^>]*>/g, '');
+	// Remove HTML tags (repeat until stable for nested/malformed tags)
+	let clean = text;
+	let prev;
+	do {
+		prev = clean;
+		clean = clean.replace(/<[^>]*>/g, '');
+	} while (clean !== prev);
 
 	// Decode common HTML entities
 	clean = clean
