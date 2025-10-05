@@ -51,14 +51,15 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
       currentFeature = feature;
 
       const featureData = features[0].getProperties() as LogbookFeature;
-      const entryId = featureData.id || '';
+      // Use id if present, otherwise generate a unique key from feature properties
+      const entryKey = featureData.id ?? JSON.stringify(featureData);
 
       // Check cache first
-      let html = tooltipCache.get(entryId);
+      let html = tooltipCache.get(entryKey);
       if (!html) {
         // Generate and cache if not found
         html = createTooltipHTML(featureData);
-        tooltipCache.set(entryId, html);
+        tooltipCache.set(entryKey, html);
       }
 
       element.innerHTML = html;
