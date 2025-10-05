@@ -22,8 +22,8 @@
 	 * @param event - Mouse event from window
 	 */
 	function handleWindowClick(event: MouseEvent): void {
-		event.preventDefault();
 		if (!isOpen || contains(event)) return;
+		event.preventDefault();
 		close();
 	}
 
@@ -32,9 +32,9 @@
 	 * @param event - Keyboard event from window
 	 */
 	function handleWindowKeyDown(event: KeyboardEvent): void {
-		event.preventDefault();
 		if (!isOpen) return;
 		if (event.key === 'Escape') {
+			event.preventDefault();
 			close();
 		}
 	}
