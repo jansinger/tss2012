@@ -6,13 +6,13 @@
 <Overlay isOpen={true} on:close={() => goto('/')}>
 	<div class="container-article glass">
 		<content class="container">
-			<nav class="close-navigation">
+			<nav class="close-navigation" role="navigation" aria-label="Navigation schließen">
 				<a href="/" title="Zur Karte" aria-label="Zur Karte">
 					<i class="bi bi-x-circle"></i>
 				</a>
 			</nav>
 
-			<img src="/pics/crew.jpg" title="Crew" alt="Silja & Jan" class="crew" />
+			<img src="/pics/crew.jpg" title="Crew" alt="Foto der Crew: Silja Schröder und Jan Singer" class="crew" />
 			<h1>Impressum</h1>
 			<h2>Angaben gemäß § 5 TMG</h2>
 			<p>

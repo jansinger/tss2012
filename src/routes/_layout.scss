@@ -20,6 +20,44 @@ body {
 	color: #fff;
 	font-family: 'Nunito', sans-serif;
 }
+
+/* Global focus styles for accessibility */
+*:focus-visible {
+	outline: 3px solid #ffd700;
+	outline-offset: 2px;
+}
+
+/* Enhanced focus for links */
+a:focus-visible {
+	outline: 3px solid #ffd700;
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* Enhanced focus for buttons */
+button:focus-visible {
+	outline: 3px solid #ffd700;
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* Skip to main content link - visible only when focused */
+.skip-to-main {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	z-index: 9999;
+	padding: 8px 16px;
+	background-color: #2e6287;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	border-radius: 0 0 4px 0;
+
+	&:focus {
+		top: 0;
+	}
+}
 h1 {
 	font-size: 32px;
 	font-size: 2rem;
@@ -45,6 +83,19 @@ article {
 
 .hidden {
 	display: none;
+}
+
+/* Visually hidden but accessible to screen readers */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }
 
 .noscroll {
@@ -278,6 +329,13 @@ nav.sub-navigation {
 		padding: 6px 3px;
 		display: inline-block;
 	}
+
+	a:focus-visible {
+		outline: 3px solid #ffd700;
+		outline-offset: 3px;
+		background-color: #2e628788;
+	}
+
 	&.left:hover,
 	&.right:hover {
 		background-color: #2e628788;
@@ -322,9 +380,15 @@ nav.sub-navigation {
 .ol-control button:focus {
 	background-color: #2e6287 !important;
 }
+.ol-control button:focus-visible {
+	outline: 3px solid #ffd700 !important;
+	outline-offset: 2px !important;
+}
 
 .disabled-link {
 	pointer-events: none;
+	opacity: 0.4;
+	cursor: not-allowed;
 }
 
 .impressum {
@@ -335,6 +399,14 @@ nav.sub-navigation {
 	font-size: 0.6rem;
 	text-decoration: none;
 	color: #2e6287;
+
+	&:focus-visible {
+		outline: 3px solid #ffd700;
+		outline-offset: 2px;
+		background-color: rgba(255, 255, 255, 0.2);
+		padding: 2px 4px;
+		border-radius: 3px;
+	}
 }
 
 .close-navigation {
@@ -353,6 +425,13 @@ nav.sub-navigation {
 	i {
 		font-size: 1.3rem;
 		color: #fff;
+	}
+
+	a:focus-visible,
+	button:focus-visible {
+		outline: 3px solid #ffd700;
+		outline-offset: 3px;
+		background-color: #2e628788;
 	}
 }
 @media (pointer: coarse) {

@@ -84,7 +84,7 @@
 <div class="tooltip" bind:this={tooltipElement} transition:fade data-testid="tooltip">
 	<time>&nbsp;</time>
 	<address>&nbsp;</address>
-	<h1>Huch! Keine Überschrift...</h1>
+	<h3>Huch! Keine Überschrift...</h3>
 </div>
 
 <div class="map" bind:this={mapElement} data-testid="map">

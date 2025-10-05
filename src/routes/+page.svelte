@@ -7,16 +7,17 @@
 
 <svelte:head>
 	<title>Karte der Segelreise</title>
-	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/" aria-label="Ein tierischer Segelsommer"/>
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/"/>
 </svelte:head>
 
-<nav class="main-navigation">
+<h1 class="visually-hidden">Ein tierischer Segelsommer - Interaktive Karte</h1>
+
+<nav class="main-navigation" role="navigation" aria-label="Hauptnavigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
 		<button
 			type="button"
-			aria-expanded="false"
 			title="Zeitleiste"
-			aria-label="Zeitleiste"
+			aria-label="Zur Zeitleiste"
 			onclick={() => goto('/timeline')}
 		>
 			<i class="bi bi-view-list"></i>

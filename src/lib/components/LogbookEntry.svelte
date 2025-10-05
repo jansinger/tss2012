@@ -45,27 +45,33 @@
 
 <svelte:head>
 	<title>{stripHtml(entry.title)}</title>
-	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" aria-label="Ein tierischer Segelsommer" />
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" />
 	<meta name="geo.placename" content={stripHtml(entry.section)} />
 	<meta name="geo.position" content="{entry.data?.coordinates[1]};{entry.data?.coordinates[0]}" />
 	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
 </svelte:head>
 
-<nav class="sub-navigation" onwheel={trackWheel}>
+<nav class="sub-navigation" role="navigation" aria-label="Navigation zwischen Beiträgen" onwheel={trackWheel}>
 	<div class="item-wrapper left">
-		<a 	href={entry._prev ? `/log/${entry._prev}` : '#'}
-			class:disabled-link={entry._prev === undefined}
-			title="Vorheriger Beitrag" aria-label="Vorheriger Beitrag"><i class="bi bi-caret-left-fill"></i></a
-		>
+		{#if entry._prev}
+			<a href="/log/{entry._prev}"
+				title="Vorheriger Beitrag"
+				aria-label="Vorheriger Beitrag"><i class="bi bi-caret-left-fill"></i></a>
+		{:else}
+			<span class="disabled-link" aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+		{/if}
 	</div>
 	<div class="item-wrapper center">
 		<time datetime={entry.datetime}>{entry.localeDatetime}</time>
 	</div>
 	<div class="item-wrapper right">
-		<a	href={entry._next ? `/log/${entry._next}` : '#'}
-			class:disabled-link={!entry._next}
-			title="Nächster Beitrag" aria-label="Nächster Beitrag"><i class="bi bi-caret-right-fill"></i></a
-		>
+		{#if entry._next}
+			<a href="/log/{entry._next}"
+				title="Nächster Beitrag"
+				aria-label="Nächster Beitrag"><i class="bi bi-caret-right-fill"></i></a>
+		{:else}
+			<span class="disabled-link" aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+		{/if}
 	</div>
 </nav>
 <content class="container glass">

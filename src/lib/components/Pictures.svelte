@@ -28,21 +28,23 @@
 </script>
 
 {#if browser}
-	<swiper-container 
+	<swiper-container
 		class="mySwiper"
 		style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-		slides-per-view="1" 
-		navigation={true} 
-		pagination={false} 
+		slides-per-view="1"
+		navigation={true}
+		pagination={false}
 		centered-slides={true}
 		centered-slides-bounds={true}
 		effect="coverflow"
 		thumbs-swiper=".mySwiper2"
 		auto-height={true}
 		loop={false}
+		role="region"
+		aria-label="Bildergalerie"
 		>
 		{#each pictures as { filename, title, text, sizebig }}
-			<swiper-slide>
+			<swiper-slide role="group" aria-label="Bild {pictures.indexOf({ filename, title, text, sizebig }) + 1} von {pictures.length}">
 				<figure>
 					<img
 						class="main-image"
@@ -60,19 +62,22 @@
 	<!-- thumbs swiper -->
 	<swiper-container class="mySwiper2"
 		style="--swiper-pagination-top: 90px"
-		space-between="5" 
-		slides-per-view="10" 
+		space-between="5"
+		slides-per-view="10"
 		free-mode={true}
     	watch-slides-progress={true}
 		pagination={true}
-		pagination-clickable={true}>
+		pagination-clickable={true}
+		role="list"
+		aria-label="Bildvorschauen">
 		{#each pictures as { filename, title, text, sizebig }}
-			<swiper-slide>
+			<swiper-slide role="listitem">
 				<img
 					class="main-image"
 					src={`/images/${folder}/${filename}`}
 					{title}
-					alt={stripHtml(text)}
+					alt=""
+					aria-hidden="true"
 					width={sizebig?.width}
 					height={sizebig?.height}
 					/>

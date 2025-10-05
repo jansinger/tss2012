@@ -15,12 +15,12 @@
 
 <svelte:head>
 	<title>Zeitleiste der Segelreise</title>
-	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/timeline" aria-label="TSS: Timeline"/>
+	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/timeline"/>
 </svelte:head>
 
-<nav class="main-navigation">
+<nav class="main-navigation" role="navigation" aria-label="Hauptnavigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
-		<button type="button" aria-expanded="false" title="Karte" aria-label="Karte" onclick={() => goto('/')} >
+		<button type="button" title="Karte" aria-label="Zur Karte" onclick={() => goto('/')} >
 			<i class="bi bi-map"></i>
 		</button>
 	</div>
@@ -31,13 +31,17 @@
 		<div class="container">
 			<div class="timeline__wrapper">
 				<div class="timeline__progressbar"></div>
-				{#each Object.entries(groupedEntries) as [key, value]}
+				{#each Object.entries(groupedEntries) as [key, value], index}
 					<div class="timeline__block">
 						<div class="timeline__block__bullet-point">
 							<span class="timeline__block__circle"></span>
 						</div>
 						<div class="timeline__block__head">
-							<h1 class="timeline__block__title">{key}</h1>
+							{#if index === 0}
+								<h1 class="timeline__block__title">{key}</h1>
+							{:else}
+								<h2 class="timeline__block__title">{key}</h2>
+							{/if}
 						</div>
 						<div class="timeline__block__body">
 							{#each value as entry}
@@ -48,6 +52,7 @@
 												src="/images/{entry.picture}"
 												title={entry.pictureTitle}
 												alt={entry.pictureTitle}
+												loading="lazy"
 											/>
 										</div>
 										<div class="text-container">
@@ -89,6 +94,15 @@
 	article:hover {
 		background-color: #2e628780;
 		opacity: 1;
+		.img-container img {
+			opacity: 1;
+		}
+	}
+
+	a:focus-visible article {
+		outline: 3px solid #ffd700;
+		outline-offset: 2px;
+		background-color: #2e628780;
 		.img-container img {
 			opacity: 1;
 		}
