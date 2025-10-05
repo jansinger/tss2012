@@ -58,6 +58,7 @@
 	 * @param e - The keyboard event object
 	 */
 	const handleKeyboardNav = (e: KeyboardEvent): void => {
+		if (!entry) return;
 		if (e.key === 'ArrowLeft' && entry._prev) {
 			e.preventDefault();
 			navigateWithDebounce(`/log/${entry._prev}`, NAVIGATION_DEBOUNCE_KEYBOARD_MS);
