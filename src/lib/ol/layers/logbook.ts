@@ -20,23 +20,6 @@ export const markerStyle = new Style({
 });
 
 /**
- * The source for the logbook layer.
- */
-const source = new VectorSource({
-	url: '/data/logbook_geo.json',
-	format: new GeoJSON()
-});
-
-/**
- * The cluster source for the logbook layer.
- */
-const clusterSource = new Cluster({
-	distance: 50,
-	minDistance: 20,
-	source: source
-});
-
-/**
  * The style for the cluster image.
  */
 const clusterImage = new CircleStyle({
@@ -51,15 +34,16 @@ const clusterImage = new CircleStyle({
 
 /**
  * The style cache for the logbook layer.
+ * Shared across all logbook layer instances for performance.
  */
 const styleCache = {};
 
 /**
  * Generates a style for a feature in the logbook layer.
- * 
+ *
  * This function determines the appropriate style for a feature based on the number of features it represents.
  * For single features, it uses a marker style. For clusters (multiple features), it uses a circular style with a text label.
- * 
+ *
  * @param {import('ol/Feature').default} feature - The OpenLayers feature to style.
  * @returns {Style} The OpenLayers Style object to apply to the feature.
  */
@@ -86,12 +70,27 @@ function styleFunction(feature) {
 }
 
 /**
- * The logbook layer.
+ * Creates a new logbook layer with clustered markers.
+ *
+ * @returns {VectorLayer} A new vector layer for logbook entries
  */
-export const logbook = new VectorLayer({
-	source: clusterSource,
-	style: styleFunction,
-	properties: {
-		name: 'logbook'
-	}
-});
+export const logbook = () => {
+	const source = new VectorSource({
+		url: '/data/logbook_geo.json',
+		format: new GeoJSON()
+	});
+
+	const clusterSource = new Cluster({
+		distance: 50,
+		minDistance: 20,
+		source: source
+	});
+
+	return new VectorLayer({
+		source: clusterSource,
+		style: styleFunction,
+		properties: {
+			name: 'logbook'
+		}
+	});
+};

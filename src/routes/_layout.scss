@@ -6,14 +6,10 @@
 	font-family: 'Nunito';
 	font-style: normal;
 	font-weight: 400;
-	src: url('/fonts/nunito-v20-latin-regular.eot'); /* IE9 Compat Modes */
+	font-display: swap;
 	src:
-		local(''),
-		url('/fonts/nunito-v20-latin-regular.eot?#iefix') format('embedded-opentype'),
-		/* IE6-IE8 */ url('/fonts/nunito-v20-latin-regular.woff2') format('woff2'),
-		/* Super Modern Browsers */ url('/fonts/nunito-v20-latin-regular.woff') format('woff'),
-		/* Modern Browsers */ url('/fonts/nunito-v20-latin-regular.ttf') format('truetype'),
-		/* Safari, Android, iOS */ url('/fonts/nunito-v20-latin-regular.svg#Nunito') format('svg'); /* Legacy iOS */
+		url('/fonts/nunito-v20-latin-regular.woff2') format('woff2'),
+		url('/fonts/nunito-v20-latin-regular.woff') format('woff');
 }
 
 html,

@@ -15,6 +15,7 @@ export interface LogbookFeature {
   section: string;
   picture: string;
   pictureTitle: string;
+  id?: string;
 }
 
 /**
@@ -34,6 +35,9 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 
   let currentFeature: Feature<Geometry> | RenderFeature | null = null;
 
+  // Cache for tooltip HTML content, keyed by entry ID
+  const tooltipCache = new Map<string, string>();
+
   const hideTooltip = () => {
     map.getTargetElement().style.cursor = '';
     overlay.setPosition(undefined);
@@ -45,7 +49,20 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
     if (features && features.length === 1) {
       map.getTargetElement().style.cursor = 'pointer';
       currentFeature = feature;
-      element.innerHTML = createTooltipHTML(features[0].getProperties() as LogbookFeature);
+
+      const featureData = features[0].getProperties() as LogbookFeature;
+      // Use id if present, otherwise generate a unique key from feature properties
+      const entryKey = featureData.id ?? JSON.stringify(featureData);
+
+      // Check cache first
+      let html = tooltipCache.get(entryKey);
+      if (!html) {
+        // Generate and cache if not found
+        html = createTooltipHTML(featureData);
+        tooltipCache.set(entryKey, html);
+      }
+
+      element.innerHTML = html;
       overlay.setPosition(coordinate);
     }
   };

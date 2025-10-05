@@ -19,5 +19,12 @@ export default defineConfig(({ mode }) => ({
 			api: 'modern-compiler' // or "modern"
 		  }
 		}
-	  }
+	},
+	// Suppress warnings for Node.js-only libraries used during SSR/prerender
+	optimizeDeps: {
+		exclude: []
+	},
+	ssr: {
+		noExternal: mode === 'production' ? [] : undefined
+	}
 }));
