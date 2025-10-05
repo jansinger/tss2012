@@ -7,32 +7,45 @@
 	import { AppState } from '$lib/AppState.svelte';
 
 	interface Props {
-	    entry?: LogEntry;
+	    entry?: LogEntry | null;
 	}
-	
+
 	let { entry = null }: Props = $props();
+
+	// Error handling
+	$: hasValidEntry = entry && entry.data && entry.data.coordinates;
 	let block = false;
-	
+
+	// Navigation debounce delays
+	const NAVIGATION_DEBOUNCE_WHEEL_MS = 1000;
+	const NAVIGATION_DEBOUNCE_KEYBOARD_MS = 300;
+
+	/**
+	 * Navigates to a logbook entry with debounce protection
+	 * @param path - The path to navigate to
+	 * @param delay - Debounce delay in milliseconds
+	 */
+	const navigateWithDebounce = (path: string | undefined, delay: number): void => {
+		if (!path || block) return;
+
+		block = true;
+		goto(path);
+		setTimeout(() => (block = false), delay);
+	};
+
 	/**
 	 * Handles horizontal wheel events to navigate between log entries.
+	 * Prevents default wheel behavior and implements debounce.
 	 *
-	 * This function prevents the default wheel behavior and navigates to the previous
-	 * or next log entry based on the horizontal scroll direction. It also implements
-	 * a debounce mechanism to prevent rapid successive navigations.
-	 *
-	 * @param {WheelEvent} e - The wheel event object.
-	 * @returns {void}
+	 * @param e - The wheel event object
 	 */
-	const trackWheel = (e: WheelEvent) => {
+	const trackWheel = (e: WheelEvent): void => {
 	    const { deltaX } = e;
 
 	    if (deltaX) {
 	        e.preventDefault();
-	        if (!block) {
-	            block = true;
-	            goto(deltaX < 0 ? `/log/${entry._prev}` : `/log/${entry._next}`);
-	            setTimeout(() => (block = false), 1000);
-	        }
+	        const targetPath = deltaX < 0 ? `/log/${entry._prev}` : `/log/${entry._next}`;
+	        navigateWithDebounce(targetPath, NAVIGATION_DEBOUNCE_WHEEL_MS);
 	    }
 	};
 
@@ -40,24 +53,15 @@
 	 * Handles keyboard navigation between log entries.
 	 * Arrow keys (Left/Right) navigate between entries.
 	 *
-	 * @param {KeyboardEvent} e - The keyboard event object.
-	 * @returns {void}
+	 * @param e - The keyboard event object
 	 */
-	const handleKeyboardNav = (e: KeyboardEvent) => {
+	const handleKeyboardNav = (e: KeyboardEvent): void => {
 		if (e.key === 'ArrowLeft' && entry._prev) {
 			e.preventDefault();
-			if (!block) {
-				block = true;
-				goto(`/log/${entry._prev}`);
-				setTimeout(() => (block = false), 300);
-			}
+			navigateWithDebounce(`/log/${entry._prev}`, NAVIGATION_DEBOUNCE_KEYBOARD_MS);
 		} else if (e.key === 'ArrowRight' && entry._next) {
 			e.preventDefault();
-			if (!block) {
-				block = true;
-				goto(`/log/${entry._next}`);
-				setTimeout(() => (block = false), 300);
-			}
+			navigateWithDebounce(`/log/${entry._next}`, NAVIGATION_DEBOUNCE_KEYBOARD_MS);
 		}
 	};
 
@@ -86,6 +90,12 @@
 	Nutzen Sie die Pfeiltasten links/rechts oder horizontales Scrollen, um zwischen den Logbuch-Einträgen zu navigieren.
 </p>
 
+{#if !hasValidEntry}
+	<div class="error-container">
+		<p class="error-message">Logbuch-Eintrag konnte nicht geladen werden.</p>
+		<a href="/" class="btn-back">Zurück zur Karte</a>
+	</div>
+{:else}
 <nav class="sub-navigation" role="navigation" aria-label="Navigation zwischen Beiträgen" aria-describedby="nav-description" onwheel={trackWheel}>
 	<div class="item-wrapper left">
 		{#if entry._prev}
@@ -138,9 +148,40 @@
 		{@html entry.text}
 	</article>
 </content>
+{/if}
 
 <style lang="scss">
 	@import '../scss/article.css';
+
+	.error-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		min-height: 400px;
+		text-align: center;
+		padding: 2rem;
+	}
+
+	.error-message {
+		font-size: 1.5rem;
+		color: #ffd700;
+		margin-bottom: 2rem;
+	}
+
+	.btn-back {
+		padding: 0.75rem 1.5rem;
+		background-color: #2e6287;
+		color: #fff;
+		text-decoration: none;
+		border-radius: 4px;
+		transition: background-color 0.2s;
+
+		&:hover {
+			background-color: #1a4d6d;
+		}
+	}
+
 	article {
 		position: relative;
 		margin-bottom: 20px;
@@ -161,7 +202,6 @@
 		:global(.map) {
 			width: 200px;
 			height: 200px;
-			-moz-border-radius: 15px;
 			border-radius: 15px;
 			overflow: hidden;
 		}
