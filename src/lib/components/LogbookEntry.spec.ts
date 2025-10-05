@@ -15,6 +15,8 @@ vi.mock('$app/environment', () => ({
 const entry: LogEntry = {
 	_id: '9681f8b4-eb47-44c4-ad11-0941704c0163',
 	_rev: '10-1c9a4adb31840e33a697b0362ca0a082',
+	_prev: 'prev-entry-id',
+	_next: 'next-entry-id',
 	datetime: '2012-04-03T10:03:00.000Z',
 	category: 'blog',
 	data: { cog: '', sog: '', coordinates: [12.096666666667, 54.181666666667] },
@@ -173,8 +175,8 @@ describe('LogbookEntry', () => {
 		const nav = container.querySelector('.sub-navigation');
 		await fireEvent.wheel(nav, { deltaX: 100 });
 
-		// Check if goto is called correctly
-		expect(goto).toHaveBeenCalledWith('/log/undefined');
+		// Check if goto is called correctly (deltaX > 0 navigates to _next)
+		expect(goto).toHaveBeenCalledWith('/log/next-entry-id');
 	});
 
 	// Add more tests as needed
