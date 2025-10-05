@@ -74,6 +74,10 @@
 				im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor.<br
 				/>
 			</p>
+			<p class="accessibility-link">
+				<a href="/barrierefreiheit">→ Erklärung zur Barrierefreiheit</a>
+			</p>
+
 			<p class="links">
 				Impressum vom <a href="https://www.impressum-generator.de" rel="noreferrer" target="_blank"
 					>Impressum Generator</a
@@ -106,10 +110,30 @@
 		margin-top: 6rem;
 	}
 
+	p.accessibility-link {
+		margin-top: 2rem;
+		padding: 1rem;
+		background-color: rgba(255, 215, 0, 0.1);
+		border-left: 4px solid #ffd700;
+		border-radius: 4px;
+
+		a {
+			color: #ffd700;
+			font-weight: 600;
+			text-decoration: none;
+			font-size: 1rem;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
 	p.links {
-		font-size: 0.7rem;
+		font-size: 0.8rem;
 		text-align: right;
 		margin-top: 20px;
+		color: rgba(255, 255, 255, 0.7);
 	}
 
 	@media screen and (max-width: 1140px) {

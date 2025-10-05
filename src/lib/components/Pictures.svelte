@@ -28,6 +28,10 @@
 </script>
 
 {#if browser}
+	<p id="gallery-help" class="visually-hidden">
+		Verwenden Sie die Pfeiltasten links/rechts oder die Navigationspfeile, um durch die Bilder zu blättern.
+	</p>
+
 	<swiper-container
 		class="mySwiper"
 		style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
@@ -44,6 +48,7 @@
 		a11y={{ enabled: true }}
 		role="region"
 		aria-label="Bildergalerie"
+		aria-describedby="gallery-help"
 		>
 		{#each pictures as { filename, title, text, sizebig }, index}
 			<swiper-slide role="group" aria-label="Bild {index + 1} von {pictures.length}">

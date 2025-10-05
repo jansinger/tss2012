@@ -15,17 +15,17 @@
 	
 	/**
 	 * Handles horizontal wheel events to navigate between log entries.
-	 * 
+	 *
 	 * This function prevents the default wheel behavior and navigates to the previous
 	 * or next log entry based on the horizontal scroll direction. It also implements
 	 * a debounce mechanism to prevent rapid successive navigations.
-	 * 
+	 *
 	 * @param {WheelEvent} e - The wheel event object.
 	 * @returns {void}
 	 */
 	const trackWheel = (e: WheelEvent) => {
 	    const { deltaX } = e;
-	
+
 	    if (deltaX) {
 	        e.preventDefault();
 	        if (!block) {
@@ -34,6 +34,31 @@
 	            setTimeout(() => (block = false), 1000);
 	        }
 	    }
+	};
+
+	/**
+	 * Handles keyboard navigation between log entries.
+	 * Arrow keys (Left/Right) navigate between entries.
+	 *
+	 * @param {KeyboardEvent} e - The keyboard event object.
+	 * @returns {void}
+	 */
+	const handleKeyboardNav = (e: KeyboardEvent) => {
+		if (e.key === 'ArrowLeft' && entry._prev) {
+			e.preventDefault();
+			if (!block) {
+				block = true;
+				goto(`/log/${entry._prev}`);
+				setTimeout(() => (block = false), 300);
+			}
+		} else if (e.key === 'ArrowRight' && entry._next) {
+			e.preventDefault();
+			if (!block) {
+				block = true;
+				goto(`/log/${entry._next}`);
+				setTimeout(() => (block = false), 300);
+			}
+		}
 	};
 
 	const close = (event) => {
@@ -51,7 +76,13 @@
 	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
 </svelte:head>
 
-<nav class="sub-navigation" role="navigation" aria-label="Navigation zwischen Beiträgen" onwheel={trackWheel}>
+<svelte:window onkeydown={handleKeyboardNav} />
+
+<p id="nav-description" class="visually-hidden">
+	Nutzen Sie die Pfeiltasten links/rechts oder horizontales Scrollen, um zwischen den Logbuch-Einträgen zu navigieren.
+</p>
+
+<nav class="sub-navigation" role="navigation" aria-label="Navigation zwischen Beiträgen" aria-describedby="nav-description" onwheel={trackWheel}>
 	<div class="item-wrapper left">
 		{#if entry._prev}
 			<a href="/log/{entry._prev}"

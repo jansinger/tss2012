@@ -148,10 +148,16 @@
 		}
 		article .text-container {
 			padding: 5px;
-			font-size: 0.8rem;
+			font-size: 0.9rem;
 		}
 		article p {
 			font-weight: bold;
+		}
+		article time {
+			font-size: 0.85rem;
+		}
+		article address {
+			font-size: 0.8rem;
 		}
 	}
 </style>
