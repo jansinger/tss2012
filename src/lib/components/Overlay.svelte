@@ -32,9 +32,9 @@
 	 * @param event - Keyboard event from window
 	 */
 	function handleWindowKeyDown(event: KeyboardEvent): void {
-		event.preventDefault();
 		if (!isOpen) return;
 		if (event.key === 'Escape') {
+			event.preventDefault();
 			close();
 		}
 	}
