@@ -39,7 +39,14 @@ export const createTooltipHTML = (feature: LogbookFeature): string => {
 
     return `
     <div class="right glass">
-      <img src="/images/${escapedPicture}" title="${escapedPictureTitle}" alt="${escapedPictureTitle}" />
+      <img
+        src="/images/${escapedPicture}"
+        title="${escapedPictureTitle}"
+        alt="${escapedPictureTitle}"
+        loading="lazy"
+        decoding="async"
+        width="200"
+      />
       <div class="text-content">
         <time datetime="${escapedDatetime}">${escapedLocaleDatetime}</time>
         <address>${escapedSection}</address>
