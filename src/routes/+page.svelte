@@ -37,12 +37,35 @@
 
 <style lang="scss">
 	.impressum {
-		position: fixed;
-		bottom: 3px;
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		padding: 8px 12px;
+		background: rgba(40, 84, 116, 0.8);
+		color: #ffffff;
+		text-decoration: none;
+		border-radius: 6px;
+		font-size: 0.9rem;
+		transition: background-color 0.2s ease;
+		z-index: 10;
 	}
+
+	.impressum:hover {
+		background: rgba(40, 84, 116, 0.95);
+		text-decoration: none;
+	}
+
+	.impressum:focus-visible {
+		outline: 3px solid #ffd700;
+		outline-offset: 2px;
+	}
+
 	@media (max-width: 768px) {
 		.impressum {
-			left: 65px;
+			bottom: 8px;
+			right: 8px;
+			font-size: 0.8rem;
+			padding: 6px 10px;
 		}
 	}
 
