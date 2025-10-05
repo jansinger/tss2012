@@ -61,6 +61,10 @@
 						width={sizebig?.width}
 						height={sizebig?.height}
 					/>
+					<!--
+						@html is used for formatted image captions from static JSON.
+						Data source: src/lib/data/logbook.json (trusted static content)
+					-->
 					<figcaption>{@html text}</figcaption>
 				</figure>
 			</swiper-slide>

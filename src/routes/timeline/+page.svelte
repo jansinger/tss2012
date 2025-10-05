@@ -57,6 +57,10 @@
 										</div>
 										<div class="text-container">
 											<time datetime={entry.datetime}>{entry.localeDatetime}</time>
+											<!--
+												@html is used for formatted content from static JSON.
+												Data source: src/lib/data/logbook.json (trusted static content)
+											-->
 											<address>{@html entry.section}</address>
 											<p id="entry-{entry.id}-title">{@html entry.title}</p>
 										</div>

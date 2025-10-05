@@ -61,7 +61,11 @@
 		}
 	};
 
-	const close = (event) => {
+	/**
+	 * Closes the logbook entry and returns to map view
+	 * @param event - Click event from close button
+	 */
+	const close = (event: Event): void => {
 		event.preventDefault();
 		AppState.currentEntries = [];
 		goto('/');
@@ -111,6 +115,11 @@
 	</nav>
 	<header>
 		<address>{entry.section}</address>
+		<!--
+			@html is used here for formatted blog content from static JSON.
+			Data source: src/lib/data/logbook.json (trusted, static content from 2012)
+			Security: Content is not user-generated and comes from version-controlled files.
+		-->
 		<h1>{@html entry.title}</h1>
 	</header>
 
@@ -121,6 +130,11 @@
 		<OverviewMap coordinates={entry.data.coordinates} />
 	</section>
 	<article class="main-content">
+		<!--
+			@html is used here for formatted blog content from static JSON.
+			Data source: src/lib/data/logbook.json (trusted, static content from 2012)
+			Security: Content is not user-generated and comes from version-controlled files.
+		-->
 		{@html entry.text}
 	</article>
 </content>

@@ -36,22 +36,12 @@
 {/if}
 
 <style lang="scss">
-	.impressum {
-		position: fixed;
-		bottom: 3px;
-	}
-	@media (max-width: 768px) {
-		.impressum {
-			left: 65px;
-		}
-	}
-
 	.entry-list {
 		display: block;
 		margin-right: 16px;
 	}
+
 	.close-navigation {
-		position: -webkit-sticky;
 		position: sticky;
 		float: right;
 		top: 15px;
