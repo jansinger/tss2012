@@ -45,8 +45,8 @@
 
 <style lang="scss">
 	.impressum-control {
-		bottom: 0.5em;
-		right: 3.5em;
+		bottom: 2.5em;
+		right: 0.5em;
 		z-index: 5;
 	}
 

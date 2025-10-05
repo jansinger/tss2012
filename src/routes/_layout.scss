@@ -104,12 +104,12 @@ article {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	pointer-events: none;
-	z-index: -1;
+	z-index: 0;
 }
 
 .background-map.dimmed {
 	opacity: 0.8;
+	pointer-events: none;
 }
 
 .container-article {
@@ -132,6 +132,7 @@ article {
 
 .timeline {
 	position: relative;
+	z-index: 50;
 
 	a {
 		color: #fff;
