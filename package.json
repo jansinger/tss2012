@@ -11,6 +11,7 @@
 		"lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
 		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
 		"build-ci": "svelte-kit sync && vite build && vitest run"
 	},
 	"devDependencies": {
@@ -23,6 +24,7 @@
 		"@types/pug": "^2.0.10",
 		"@typescript-eslint/eslint-plugin": "^8.39.1",
 		"@typescript-eslint/parser": "^8.35.0",
+		"@vitest/coverage-v8": "^3.2.4",
 		"bootstrap-icons": "^1.13.1",
 		"esbuild": "^0.25.10",
 		"eslint": "^9.37.0",
