@@ -8,7 +8,7 @@ import Point from 'ol/geom/Point';
 import type { Coordinates } from '$lib/types';
 
 // Mock ResizeObserver for OpenLayers
-global.ResizeObserver = class ResizeObserver {
+(global as any).ResizeObserver = class ResizeObserver {
 	observe() {}
 	unobserve() {}
 	disconnect() {}

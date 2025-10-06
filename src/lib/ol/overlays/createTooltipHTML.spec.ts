@@ -185,16 +185,16 @@ describe('createTooltipHTML', () => {
 
 			beforeEach(() => {
 				// Save original document
-				originalDocument = global.document;
+				originalDocument = (global as any).document;
 				// Simulate SSR by removing document
 				// @ts-expect-error - Intentionally testing SSR behavior
-				delete global.document;
+				delete (global as any).document;
 			});
 
 			afterEach(() => {
 				// Restore document
 				if (originalDocument) {
-					global.document = originalDocument;
+					(global as any).document = originalDocument;
 				}
 			});
 

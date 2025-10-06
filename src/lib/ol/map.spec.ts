@@ -7,7 +7,7 @@ import { DEFAULTS } from './constants';
 import { fromLonLat } from 'ol/proj';
 
 // Mock ResizeObserver for OpenLayers
-global.ResizeObserver = class ResizeObserver {
+(global as any).ResizeObserver = class ResizeObserver {
 	observe() {}
 	unobserve() {}
 	disconnect() {}

@@ -98,7 +98,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event);
@@ -123,7 +123,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event);
@@ -145,7 +145,7 @@ describe('tooltip - Integration Tests', () => {
 			const event1 = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event1);
@@ -158,7 +158,7 @@ describe('tooltip - Integration Tests', () => {
 			const event2 = {
 				coordinate: [1100, 2100],
 				pixel: [110, 210]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			pointerMoveHandler(event2);
 
@@ -181,7 +181,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event);
@@ -205,7 +205,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 
@@ -242,7 +242,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 
@@ -268,7 +268,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const clickHandler = mockMap._listeners['click'][0];
 			clickHandler(event);
@@ -294,7 +294,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event);
@@ -318,7 +318,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			mockMap.dispatchEvent.mockClear();
 
@@ -339,7 +339,7 @@ describe('tooltip - Integration Tests', () => {
 			const event1 = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event1);
@@ -350,7 +350,7 @@ describe('tooltip - Integration Tests', () => {
 			const event2 = {
 				coordinate: [1100, 2100],
 				pixel: [110, 210]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			pointerMoveHandler(event2);
 
@@ -372,7 +372,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 
@@ -405,7 +405,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 
@@ -423,7 +423,7 @@ describe('tooltip - Integration Tests', () => {
 			const event = {
 				coordinate: [1000, 2000],
 				pixel: [100, 200]
-			} as MapBrowserEvent<UIEvent>;
+			} as MapBrowserEvent<PointerEvent>;
 
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 

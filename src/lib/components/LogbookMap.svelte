@@ -66,6 +66,7 @@
             map.set(newMap);
 
             // Add event listener after map is fully initialized
+            // @ts-ignore - clickLogbook is a custom event
             $map.on('clickLogbook', (e: LogbookClickEvent) => clickLogbook(e.feature));
 
         } catch (error) {

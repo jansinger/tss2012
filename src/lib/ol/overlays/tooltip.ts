@@ -1,5 +1,6 @@
 import { Overlay } from 'ol';
-import type { Feature, Map, MapBrowserEvent } from 'ol';
+import type { Feature, MapBrowserEvent } from 'ol';
+import type OLMap from 'ol/Map';
 import type BaseEvent from 'ol/events/Event';
 import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
@@ -25,7 +26,7 @@ export interface LogbookFeature {
  * @param map - The OpenLayers Map instance to which the tooltip overlay will be added.
  * @returns An OpenLayers Overlay instance representing the tooltip.
  */
-export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
+export const createTooltipOverlay = (element: HTMLElement, map: OLMap): Overlay => {
 	const overlay = new Overlay({
 		element,
 		offset: [5, 0],
@@ -67,7 +68,7 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 		}
 	};
 
-	const handleFeatureInteraction = (evt: MapBrowserEvent<UIEvent>, isClick: boolean) => {
+	const handleFeatureInteraction = (evt: MapBrowserEvent<PointerEvent>, isClick: boolean) => {
 		const newFeature = getFeatureAtEventPixel(evt, map);
 
 		if (isClick && newFeature) {
@@ -82,8 +83,10 @@ export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay =>
 		}
 	};
 
-	const handleClick = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, true);
-	const handlePointerMove = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, false);
+	const handleClick = (evt: MapBrowserEvent<PointerEvent>) =>
+		handleFeatureInteraction(evt, true);
+	const handlePointerMove = (evt: MapBrowserEvent<PointerEvent>) =>
+		handleFeatureInteraction(evt, false);
 
 	map.addOverlay(overlay);
 	map.on('click', handleClick);

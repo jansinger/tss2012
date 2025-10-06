@@ -1,4 +1,5 @@
 import type { LogEntry, PicturesEntity, Coordinates } from '$lib/types';
+import { vi } from 'vitest';
 
 /**
  * Creates a mock LogEntry with sensible defaults
@@ -254,5 +255,5 @@ export function wait(ms: number): Promise<void> {
  * Flushes all pending promises and timers
  */
 export async function flushPromises(): Promise<void> {
-	await new Promise((resolve) => setImmediate(resolve));
+	await new Promise((resolve) => setTimeout(resolve, 0));
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import '@testing-library/jest-dom/vitest';
 
 // Mock Element.prototype.animate for Svelte transitions in jsdom
@@ -22,8 +23,8 @@ Element.prototype.animate =
 			playState: 'finished',
 			replaceState: 'active',
 			pending: false,
-			ready: Promise.resolve(),
-			finished: Promise.resolve(),
+			ready: Promise.resolve(animation),
+			finished: Promise.resolve(animation),
 			onfinish: null,
 			oncancel: null,
 			onremove: null,

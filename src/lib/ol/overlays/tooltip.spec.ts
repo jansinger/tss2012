@@ -5,7 +5,7 @@ import { Map, Overlay, Feature } from 'ol';
 import { Point } from 'ol/geom';
 import { createTooltipOverlay } from './tooltip';
 // At the top of your test file
-global.ResizeObserver = class ResizeObserver {
+(global as any).ResizeObserver = class ResizeObserver {
 	observe() {
 		// Do nothing
 	}
