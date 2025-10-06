@@ -30,7 +30,6 @@ describe('getFeatureAtEventPixel', () => {
 		mockMap.getEventPixel.mockReturnValue([0, 0]);
 		mockMap.getFeaturesAtPixel.mockReturnValue([mockFeature]);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const feature = getFeatureAtEventPixel(mockEvent as any, mockMap as any);
 		assert.strictEqual(feature, mockFeature);
 	});
@@ -45,7 +44,6 @@ describe('getFeatureAtEventPixel', () => {
 		mockMap.getEventPixel.mockReturnValue([100, 200]);
 		mockMap.getFeaturesAtPixel.mockReturnValue([]);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const feature = getFeatureAtEventPixel(mockEvent as any, mockMap as any);
 		expect(feature).toBeUndefined();
 	});
@@ -61,7 +59,6 @@ describe('getFeatureAtEventPixel', () => {
 		mockMap.getEventPixel.mockReturnValue([50, 50]);
 		mockMap.getFeaturesAtPixel.mockReturnValue([mockFeature]);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		getFeatureAtEventPixel(mockEvent as any, mockMap as any);
 
 		// Verify layerFilter was passed
@@ -85,7 +82,6 @@ describe('getFeatureAtEventPixel', () => {
 		mockMap.getEventPixel.mockReturnValue([50, 50]);
 		mockMap.getFeaturesAtPixel.mockReturnValue([mockFeature1, mockFeature2]);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const feature = getFeatureAtEventPixel(mockEvent as any, mockMap as any);
 
 		expect(feature).toBe(mockFeature1);
@@ -102,7 +98,6 @@ describe('getFeatureAtEventPixel', () => {
 		mockMap.getEventPixel.mockReturnValue([123, 456]);
 		mockMap.getFeaturesAtPixel.mockReturnValue([]);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		getFeatureAtEventPixel(mockEvent as any, mockMap as any);
 
 		expect(mockMap.getEventPixel).toHaveBeenCalledWith(mouseEvent);

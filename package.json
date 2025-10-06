@@ -8,7 +8,7 @@
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+		"lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint .",
 		"format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
 		"format:fix": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
 		"test": "vitest",
