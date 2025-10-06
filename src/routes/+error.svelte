@@ -17,7 +17,7 @@
 			<h2>{$page.error?.message}</h2>
 
 			{#if dev && $page.error && 'stack' in $page.error}
-				<pre>{$page.error.stack}</pre>
+				<pre>{$page.error?.stack}</pre>
 			{/if}
 		</article>
 	</div>
