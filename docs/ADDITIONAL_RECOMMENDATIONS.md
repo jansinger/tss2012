@@ -5,6 +5,7 @@
 Your application is already well-optimized! Here's what has been completed:
 
 ### ✅ Completed Optimizations
+
 1. XSS protection with HTML escaping
 2. Removed redundant code (setTarget call)
 3. Logbook layer factory pattern
@@ -14,6 +15,7 @@ Your application is already well-optimized! Here's what has been completed:
 7. Removed heavy Node.js dependency (sanitize-html)
 
 ### 📊 Current Performance Metrics
+
 - **Bundle size**: ~384KB for largest chunk (includes OpenLayers)
 - **Build time**: ~9 seconds
 - **Test suite**: 10/10 passing
@@ -33,6 +35,7 @@ These are **low priority** - your app is already production-ready. Only implemen
 **Current State**: Original images served as-is
 
 **Opportunity**:
+
 ```bash
 # Current structure
 static/images/
@@ -43,6 +46,7 @@ static/images/
 **Recommendations**:
 
 #### A. Generate Thumbnail Versions
+
 ```bash
 # Create thumbnail directory
 static/images/thumbnails/
@@ -50,11 +54,13 @@ static/images/thumbnails/
 ```
 
 **Benefits**:
+
 - Faster tooltip display
 - Reduced bandwidth usage
 - Better mobile performance
 
 **Implementation**:
+
 - Use build script with `sharp` or `imagemin`
 - Update `createTooltipHTML.ts` to use thumbnails
 - Keep full-size images for blog entries
@@ -65,16 +71,18 @@ static/images/thumbnails/
 ---
 
 #### B. Modern Image Formats
+
 ```html
 <!-- Use WebP/AVIF with fallback -->
 <picture>
-  <source srcset="/images/image1.avif" type="image/avif" />
-  <source srcset="/images/image1.webp" type="image/webp" />
-  <img src="/images/image1.jpg" alt="..." />
+	<source srcset="/images/image1.avif" type="image/avif" />
+	<source srcset="/images/image1.webp" type="image/webp" />
+	<img src="/images/image1.jpg" alt="..." />
 </picture>
 ```
 
 **Benefits**:
+
 - 30-50% smaller file sizes
 - Faster loading
 - Better compression
@@ -89,15 +97,17 @@ static/images/thumbnails/
 **Current State**: Google Fonts loaded from external CDN
 
 **Opportunity**:
+
 ```html
 <!-- In app.html -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 ```
 
 **Recommendation**: Add `font-display: swap` to avoid FOIT (Flash of Invisible Text)
 
 **Benefits**:
+
 - Faster perceived load time
 - No text blocking
 
@@ -111,6 +121,7 @@ static/images/thumbnails/
 **Opportunity**: Make the app work offline
 
 **Implementation**:
+
 ```javascript
 // Use @sveltejs/adapter-static with service worker
 import { build, files, version } from '$service-worker';
@@ -121,6 +132,7 @@ const ASSETS = [...build, ...files];
 ```
 
 **Benefits**:
+
 - Offline functionality
 - Faster repeat visits
 - App-like experience
@@ -136,6 +148,7 @@ const ASSETS = [...build, ...files];
 **Current State**: Vite automatically splits code
 
 **Analysis**:
+
 ```
 Largest chunk: 384KB (includes OpenLayers - necessary)
 Route chunks: 4-40KB (well split)
@@ -148,6 +161,7 @@ Route chunks: 4-40KB (well split)
 ### 5. CSS Optimization (Very Low Impact) 🟢
 
 **Current Warnings**:
+
 ```
 Unused CSS selector ":global(.tooltip .right) i"
 Unused CSS selector ":global(.tooltip .right) i::after"
@@ -156,6 +170,7 @@ Unused CSS selector ":global(.tooltip .right) i::after"
 **Opportunity**: These selectors are used (Svelte can't detect dynamic usage)
 
 **Options**:
+
 1. Ignore warnings (recommended - they're false positives)
 2. Add `/* svelte-ignore css-unused-selector */` comments
 3. Restructure tooltip CSS
@@ -174,19 +189,26 @@ Unused CSS selector ":global(.tooltip .right) i::after"
 **Options**:
 
 #### A. Plausible (Privacy-friendly)
+
 ```html
-<script defer data-domain="ein-tierischer-segelsommer.de"
-  src="https://plausible.io/js/script.js"></script>
+<script
+	defer
+	data-domain="ein-tierischer-segelsommer.de"
+	src="https://plausible.io/js/script.js"
+></script>
 ```
 
 **Benefits**:
+
 - Privacy-friendly (no cookies)
 - GDPR compliant
 - Lightweight (< 1KB)
 - Understand user behavior
 
 #### B. Self-hosted Umami
+
 **Benefits**:
+
 - Full control
 - Privacy-friendly
 - Free
@@ -207,6 +229,7 @@ Unused CSS selector ":global(.tooltip .right) i::after"
 ```
 
 **Benefits**:
+
 - Faster initial render
 - Reduced LCP (Largest Contentful Paint)
 
@@ -220,6 +243,7 @@ Unused CSS selector ":global(.tooltip .right) i::after"
 **Current State**: JSON files for data
 
 **Why NOT to change**:
+
 - ✅ Fast builds with static adapter
 - ✅ Simple deployment
 - ✅ No server costs
@@ -247,6 +271,7 @@ Unused CSS selector ":global(.tooltip .right) i::after"
 ```
 
 **Benefits**:
+
 - Faster initial load
 - Reduced round trips
 
@@ -268,14 +293,12 @@ npm install -D rollup-plugin-visualizer
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
-  plugins: [
-    sveltekit(),
-    visualizer({ filename: 'stats.html' })
-  ]
+	plugins: [sveltekit(), visualizer({ filename: 'stats.html' })]
 });
 ```
 
 **Benefits**:
+
 - Understand what's in your bundle
 - Identify optimization opportunities
 - Track bundle growth over time
@@ -287,36 +310,39 @@ export default defineConfig({
 
 ## Priority Matrix
 
-| Optimization | Effort | Impact | Priority | Status |
-|-------------|--------|--------|----------|--------|
-| Bundle Analysis | Very Low | Info | Do First | Not done |
-| Font Optimization | Very Low | Low | Quick Win | Not done |
-| CSS Warning Suppression | Very Low | Very Low | Optional | Not done |
-| Preload Resources | Low | Low | Consider | Not done |
-| HTTP/2 Push Config | Low | Medium | Consider | Not done |
-| Analytics | Medium | High | Recommended | Not done |
-| Image Thumbnails | Medium | Medium | Nice to have | Not done |
-| Modern Image Formats | High | High | Future | Not done |
-| Service Worker/PWA | High | High | Future | Not done |
-| Database Migration | N/A | N/A | ❌ Not recommended | N/A |
+| Optimization            | Effort   | Impact   | Priority           | Status   |
+| ----------------------- | -------- | -------- | ------------------ | -------- |
+| Bundle Analysis         | Very Low | Info     | Do First           | Not done |
+| Font Optimization       | Very Low | Low      | Quick Win          | Not done |
+| CSS Warning Suppression | Very Low | Very Low | Optional           | Not done |
+| Preload Resources       | Low      | Low      | Consider           | Not done |
+| HTTP/2 Push Config      | Low      | Medium   | Consider           | Not done |
+| Analytics               | Medium   | High     | Recommended        | Not done |
+| Image Thumbnails        | Medium   | Medium   | Nice to have       | Not done |
+| Modern Image Formats    | High     | High     | Future             | Not done |
+| Service Worker/PWA      | High     | High     | Future             | Not done |
+| Database Migration      | N/A      | N/A      | ❌ Not recommended | N/A      |
 
 ---
 
 ## Recommendations by Scenario
 
 ### If You Want Quick Wins (< 1 hour)
+
 1. Install bundle visualizer (understand what you have)
 2. Add font-display: swap to font loading
 3. Add CSS warning suppressions
 4. Add resource preload hints
 
 ### If You Want Measurable Improvements (< 1 day)
+
 1. Set up analytics (understand usage patterns)
 2. Configure HTTP/2 server push
 3. Create image thumbnail generation script
 4. Update tooltips to use thumbnails
 
 ### If You Want Long-term Investment (> 1 week)
+
 1. Convert images to modern formats (WebP/AVIF)
 2. Implement Service Worker/PWA
 3. Add performance monitoring
@@ -327,16 +353,19 @@ export default defineConfig({
 ## What NOT to Do
 
 ### ❌ Over-optimize
+
 - Your app loads fast already
 - Don't sacrifice maintainability for marginal gains
 - Static site + Netlify CDN is already very fast
 
 ### ❌ Premature Optimization
+
 - Only optimize if you have actual performance issues
 - Measure first, optimize second
 - Real user metrics > synthetic benchmarks
 
 ### ❌ Break Simplicity
+
 - Keep JSON-based approach (perfect for static content)
 - Don't add complexity without clear benefit
 - Current architecture is clean and maintainable

@@ -9,13 +9,13 @@ import { getFeatureAtEventPixel } from './getFeatureAtEventPixel';
 const CLICK_LOGBOOK_EVENT = 'clickLogbook';
 
 export interface LogbookFeature {
-  title: string;
-  datetime: string;
-  localeDatetime: string;
-  section: string;
-  picture: string;
-  pictureTitle: string;
-  id?: string;
+	title: string;
+	datetime: string;
+	localeDatetime: string;
+	section: string;
+	picture: string;
+	pictureTitle: string;
+	id?: string;
 }
 
 /**
@@ -26,68 +26,68 @@ export interface LogbookFeature {
  * @returns An OpenLayers Overlay instance representing the tooltip.
  */
 export const createTooltipOverlay = (element: HTMLElement, map: Map): Overlay => {
-  const overlay = new Overlay({
-    element,
-    offset: [5, 0],
-    positioning: 'bottom-left',
-    autoPan: { animation: { duration: 250 } }
-  });
+	const overlay = new Overlay({
+		element,
+		offset: [5, 0],
+		positioning: 'bottom-left',
+		autoPan: { animation: { duration: 250 } }
+	});
 
-  let currentFeature: Feature<Geometry> | RenderFeature | null = null;
+	let currentFeature: Feature<Geometry> | RenderFeature | null = null;
 
-  // Cache for tooltip HTML content, keyed by entry ID
-  const tooltipCache = new Map<string, string>();
+	// Cache for tooltip HTML content, keyed by entry ID
+	const tooltipCache = new Map<string, string>();
 
-  const hideTooltip = () => {
-    map.getTargetElement().style.cursor = '';
-    overlay.setPosition(undefined);
-    currentFeature = null;
-  };
+	const hideTooltip = () => {
+		map.getTargetElement().style.cursor = '';
+		overlay.setPosition(undefined);
+		currentFeature = null;
+	};
 
-  const showTooltip = (feature: Feature<Geometry> | RenderFeature, coordinate: number[]) => {
-    const features = feature.get('features');
-    if (features && features.length === 1) {
-      map.getTargetElement().style.cursor = 'pointer';
-      currentFeature = feature;
+	const showTooltip = (feature: Feature<Geometry> | RenderFeature, coordinate: number[]) => {
+		const features = feature.get('features');
+		if (features && features.length === 1) {
+			map.getTargetElement().style.cursor = 'pointer';
+			currentFeature = feature;
 
-      const featureData = features[0].getProperties() as LogbookFeature;
-      // Use id if present, otherwise generate a unique key from feature properties
-      const entryKey = featureData.id ?? JSON.stringify(featureData);
+			const featureData = features[0].getProperties() as LogbookFeature;
+			// Use id if present, otherwise generate a unique key from feature properties
+			const entryKey = featureData.id ?? JSON.stringify(featureData);
 
-      // Check cache first
-      let html = tooltipCache.get(entryKey);
-      if (!html) {
-        // Generate and cache if not found
-        html = createTooltipHTML(featureData);
-        tooltipCache.set(entryKey, html);
-      }
+			// Check cache first
+			let html = tooltipCache.get(entryKey);
+			if (!html) {
+				// Generate and cache if not found
+				html = createTooltipHTML(featureData);
+				tooltipCache.set(entryKey, html);
+			}
 
-      element.innerHTML = html;
-      overlay.setPosition(coordinate);
-    }
-  };
+			element.innerHTML = html;
+			overlay.setPosition(coordinate);
+		}
+	};
 
-  const handleFeatureInteraction = (evt: MapBrowserEvent<UIEvent>, isClick: boolean) => {
-    const newFeature = getFeatureAtEventPixel(evt, map);
+	const handleFeatureInteraction = (evt: MapBrowserEvent<UIEvent>, isClick: boolean) => {
+		const newFeature = getFeatureAtEventPixel(evt, map);
 
-	if (isClick && newFeature) {
-		hideTooltip();
-		map.dispatchEvent({ type: CLICK_LOGBOOK_EVENT, feature: newFeature } as unknown as BaseEvent);
-	} else if (newFeature && (!currentFeature || currentFeature !== newFeature)) {
-      showTooltip(newFeature, evt.coordinate);
-    } else if (!newFeature) {
-      hideTooltip();
-    } else if (currentFeature) {
-      overlay.setPosition(evt.coordinate);
-    }
-  };
+		if (isClick && newFeature) {
+			hideTooltip();
+			map.dispatchEvent({ type: CLICK_LOGBOOK_EVENT, feature: newFeature } as unknown as BaseEvent);
+		} else if (newFeature && (!currentFeature || currentFeature !== newFeature)) {
+			showTooltip(newFeature, evt.coordinate);
+		} else if (!newFeature) {
+			hideTooltip();
+		} else if (currentFeature) {
+			overlay.setPosition(evt.coordinate);
+		}
+	};
 
-  const handleClick = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, true);
-  const handlePointerMove = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, false);
+	const handleClick = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, true);
+	const handlePointerMove = (evt: MapBrowserEvent<UIEvent>) => handleFeatureInteraction(evt, false);
 
-  map.addOverlay(overlay);
-  map.on('click', handleClick);
-  map.on('pointermove', handlePointerMove);
+	map.addOverlay(overlay);
+	map.on('click', handleClick);
+	map.on('pointermove', handlePointerMove);
 
-  return overlay;
+	return overlay;
 };

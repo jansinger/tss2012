@@ -1,6 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createTooltipOverlay } from './tooltip';
-import { createMockOLMap, createMockOLFeature, createMockLogEntry } from '../../../tests/test-utils';
+import {
+	createMockOLMap,
+	createMockOLFeature,
+	createMockLogEntry
+} from '../../../tests/test-utils';
 import type { MapBrowserEvent } from 'ol';
 
 // Mock dependencies

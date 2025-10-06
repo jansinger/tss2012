@@ -127,9 +127,7 @@ describe('overviewmap factory', () => {
 			const controls = map.getControls().getArray();
 
 			// Should have default controls + FullScreen
-			const hasFullScreen = controls.some(
-				(control) => control.constructor.name === 'FullScreen'
-			);
+			const hasFullScreen = controls.some((control) => control.constructor.name === 'FullScreen');
 			expect(hasFullScreen).toBe(true);
 			map.dispose();
 		});

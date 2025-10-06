@@ -1,4 +1,4 @@
-import type { MapBrowserEvent, Map } from "ol";
+import type { MapBrowserEvent, Map } from 'ol';
 import type Layer from 'ol/layer/Layer';
 
 const LOGBOOK_LAYER_NAME = 'logbook';
@@ -21,6 +21,6 @@ const logbookLayerFilter = (candidate: Layer) => candidate.get('name') === LOGBO
  *          or undefined if no feature is found.
  */
 export const getFeatureAtEventPixel = (event: MapBrowserEvent<UIEvent>, map: Map) => {
-    const pixel = map.getEventPixel(event.originalEvent);
-    return map.getFeaturesAtPixel(pixel, { layerFilter: logbookLayerFilter })[0];
-  };
+	const pixel = map.getEventPixel(event.originalEvent);
+	return map.getFeaturesAtPixel(pixel, { layerFilter: logbookLayerFilter })[0];
+};

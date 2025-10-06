@@ -9,6 +9,7 @@
 ## ✅ Completed Phases (Phase 1-3)
 
 ### Phase 1: Utils & Critical Business Logic ✅
+
 - **Status:** Complete (68 tests)
 - **Coverage:** 100%
 - **Files:**
@@ -18,6 +19,7 @@
   - ✅ tooltip.spec.ts extended (14 tests)
 
 ### Phase 2: Component Foundation ✅
+
 - **Status:** Complete (41 tests)
 - **Coverage:** 70-100% per component
 - **Files:**
@@ -26,6 +28,7 @@
   - ✅ Overlay.spec.ts (12 tests)
 
 ### Phase 3: OpenLayers & Server Logic ✅
+
 - **Status:** Complete (98 tests)
 - **Coverage:** 80-100%
 - **Files:**
@@ -41,21 +44,25 @@
 ## 📋 Upcoming Phases (4-7)
 
 ## Phase 4: Integration Tests 🔄
+
 **Priority:** HIGH
 **Estimated Tests:** ~50-70 tests
 **Timeline:** 2-3 days
 
 ### Objectives
+
 - Increase component coverage from 77.65% to 90%+
 - Test component interactions and integration
 - Cover uncovered code paths in existing components
 
 ### 4.1 LogbookMap Integration Tests (~20 tests)
+
 **Current Coverage:** 42.85% → Target: 85%+
 
 **Uncovered Lines:** 35-37, 39-46, 49, 54, 57-73
 
 **Test Areas:**
+
 1. **Map Initialization Flow** (5 tests)
    - Map initialization with mapElement binding
    - Map recreation on remount
@@ -82,11 +89,13 @@
    - URL parameter handling
 
 ### 4.2 Tooltip Event Handlers (~12 tests)
+
 **Current Coverage:** 42.59% → Target: 75%+
 
 **Uncovered Lines:** 42-45, 48-68, 71-83
 
 **Test Areas:**
+
 1. **Tooltip Display** (4 tests)
    - Show tooltip on feature hover
    - Hide tooltip on mouseout
@@ -106,11 +115,13 @@
    - Multiple listeners handling
 
 ### 4.3 Logbook Layer Styling (~8 tests)
+
 **Current Coverage:** 67.69% → Target: 85%+
 
 **Uncovered Lines:** 50-70 (cluster styling function)
 
 **Test Areas:**
+
 1. **Cluster Style Generation** (5 tests)
    - Style for single feature (marker icon)
    - Style for cluster of 2-9 features
@@ -124,14 +135,16 @@
    - Color/opacity variations
 
 ### 4.4 LogbookEntry Component (~10 tests)
+
 **Current Coverage:** 78.57% → Target: 90%+
 
 **Uncovered Lines:** 61-68, 76-79
 
 **Test Areas:**
+
 1. **Navigation Controls** (4 tests)
-   - Previous button (when _prev exists)
-   - Next button (when _next exists)
+   - Previous button (when \_prev exists)
+   - Next button (when \_next exists)
    - Disabled state (first/last entry)
    - Keyboard navigation (arrow keys)
 
@@ -146,9 +159,11 @@
    - Reset on direction change
 
 ### 4.5 Pictures Component (~8 tests)
+
 **Current Coverage:** 100% lines, but missing integration tests
 
 **Test Areas:**
+
 1. **Swiper Integration** (4 tests)
    - Swiper initialization
    - Navigation between images
@@ -162,11 +177,13 @@
    - Focus management
 
 ### 4.6 OverviewMap Component (~5 tests)
+
 **Current Coverage:** 87.5% → Target: 95%+
 
 **Uncovered Lines:** 18-19
 
 **Test Areas:**
+
 1. **Map Sync** (3 tests)
    - Overview map follows main map
    - Marker position updates
@@ -179,22 +196,26 @@
 ---
 
 ## Phase 5: End-to-End Tests 🎯
+
 **Priority:** HIGH
 **Estimated Tests:** ~25-35 tests
 **Timeline:** 3-4 days
 
 ### Setup
+
 - **Framework:** Playwright
 - **Browsers:** Chromium, Firefox, WebKit
 - **Viewports:** Desktop (1920x1080), Tablet (768x1024), Mobile (375x667)
 
 ### 5.1 Installation & Configuration (~1 day)
+
 ```bash
 npm install -D @playwright/test
 npx playwright install
 ```
 
 **Configuration:**
+
 - Create `playwright.config.ts`
 - Set up test directories
 - Configure CI/CD integration
@@ -203,6 +224,7 @@ npx playwright install
 ### 5.2 User Journey Tests (~15 tests)
 
 #### Journey 1: Browse Map → View Entry (~5 tests)
+
 1. Load homepage with map
 2. Click on logbook marker
 3. Navigate to entry detail page
@@ -210,6 +232,7 @@ npx playwright install
 5. Return to map
 
 #### Journey 2: Timeline Navigation (~5 tests)
+
 1. Navigate to timeline page
 2. Browse grouped entries
 3. Click on entry
@@ -217,6 +240,7 @@ npx playwright install
 5. Return to timeline
 
 #### Journey 3: Logbook List (~5 tests)
+
 1. Navigate to logbook list
 2. Scroll through entries
 3. Click on entry
@@ -242,6 +266,7 @@ npx playwright install
    - Deep linking to entries
 
 ### 5.4 Responsive/Mobile Tests (~5 tests)
+
 1. Mobile viewport navigation
 2. Touch gestures (swipe, pinch)
 3. Mobile menu interactions
@@ -251,15 +276,18 @@ npx playwright install
 ---
 
 ## Phase 6: Visual Regression Tests 🎨
+
 **Priority:** MEDIUM
 **Estimated Tests:** ~20-30 screenshots
 **Timeline:** 2-3 days
 
 ### Setup
+
 - **Tool:** Playwright Visual Comparisons
 - **Storage:** Git LFS or dedicated service (Percy, Chromatic)
 
 ### 6.1 Component Screenshots (~15 tests)
+
 1. LogbookEntry - various states
 2. LogbookEntries - list view
 3. Overlay - open/closed states
@@ -269,6 +297,7 @@ npx playwright install
 7. Error pages - 404, 500
 
 ### 6.2 Page Screenshots (~10 tests)
+
 1. Homepage - full map view
 2. Timeline page - desktop
 3. Timeline page - mobile
@@ -281,6 +310,7 @@ npx playwright install
 10. Error page
 
 ### 6.3 Interaction States (~5 tests)
+
 1. Hover states (buttons, links)
 2. Focus states (accessibility)
 3. Active/pressed states
@@ -290,6 +320,7 @@ npx playwright install
 ---
 
 ## Phase 7: Performance & Accessibility Tests ⚡
+
 **Priority:** MEDIUM
 **Estimated Tests:** ~15-20 tests
 **Timeline:** 2-3 days
@@ -297,11 +328,13 @@ npx playwright install
 ### 7.1 Performance Tests (~10 tests)
 
 #### Lighthouse CI Integration
+
 ```bash
 npm install -D @lhci/cli
 ```
 
 **Metrics to Track:**
+
 1. **Core Web Vitals** (5 tests)
    - LCP (Largest Contentful Paint) < 2.5s
    - FID (First Input Delay) < 100ms
@@ -319,29 +352,32 @@ npm install -D @lhci/cli
    - Image loading (lazy) optimized
 
 #### Performance Budget
+
 ```json
 {
-  "timings": {
-    "firstContentfulPaint": 1800,
-    "interactive": 3500,
-    "speedIndex": 2500
-  },
-  "resourceSizes": {
-    "script": 500000,
-    "stylesheet": 50000,
-    "image": 2000000
-  }
+	"timings": {
+		"firstContentfulPaint": 1800,
+		"interactive": 3500,
+		"speedIndex": 2500
+	},
+	"resourceSizes": {
+		"script": 500000,
+		"stylesheet": 50000,
+		"image": 2000000
+	}
 }
 ```
 
 ### 7.2 Accessibility Tests (~10 tests)
 
 #### axe-core Integration
+
 ```bash
 npm install -D @axe-core/playwright
 ```
 
 **WCAG 2.1 Level AA Compliance:**
+
 1. **Keyboard Navigation** (3 tests)
    - All interactive elements focusable
    - Focus indicators visible
@@ -364,37 +400,40 @@ npm install -D @axe-core/playwright
 
 ## Implementation Priority Matrix
 
-| Phase | Priority | Impact | Effort | Order |
-|-------|----------|--------|--------|-------|
-| Phase 4 | HIGH | HIGH | MEDIUM | 1st |
-| Phase 5 | HIGH | HIGH | HIGH | 2nd |
-| Phase 6 | MEDIUM | MEDIUM | MEDIUM | 3rd |
-| Phase 7 | MEDIUM | HIGH | LOW | 4th |
+| Phase   | Priority | Impact | Effort | Order |
+| ------- | -------- | ------ | ------ | ----- |
+| Phase 4 | HIGH     | HIGH   | MEDIUM | 1st   |
+| Phase 5 | HIGH     | HIGH   | HIGH   | 2nd   |
+| Phase 6 | MEDIUM   | MEDIUM | MEDIUM | 3rd   |
+| Phase 7 | MEDIUM   | HIGH   | LOW    | 4th   |
 
 ---
 
 ## Coverage Goals
 
-| Category | Current | Phase 4 Target | Final Target |
-|----------|---------|----------------|--------------|
-| **Overall** | 77.65% | 90%+ | 95%+ |
-| **Components** | 77.65% | 90%+ | 95%+ |
-| **Utils** | 100% | 100% | 100% |
-| **OpenLayers** | 94.91% | 95%+ | 98%+ |
-| **Server** | 89.47% | 95%+ | 100% |
+| Category       | Current | Phase 4 Target | Final Target |
+| -------------- | ------- | -------------- | ------------ |
+| **Overall**    | 77.65%  | 90%+           | 95%+         |
+| **Components** | 77.65%  | 90%+           | 95%+         |
+| **Utils**      | 100%    | 100%           | 100%         |
+| **OpenLayers** | 94.91%  | 95%+           | 98%+         |
+| **Server**     | 89.47%  | 95%+           | 100%         |
 
 ---
 
 ## Testing Infrastructure Improvements
 
 ### 1. Test Utilities (~2 hours)
+
 Create shared test helpers:
+
 - `createMockLogEntry(overrides)` - Factory for test data
 - `renderWithRouter(component, props)` - Router context
 - `waitForMap(timeout)` - Async map loading
 - `createMockMap()` - OpenLayers mock
 
 ### 2. CI/CD Integration (~1 day)
+
 - **GitHub Actions Workflow:**
   ```yaml
   - Run unit tests (all 207+)
@@ -406,6 +445,7 @@ Create shared test helpers:
   ```
 
 ### 3. Documentation (~1 day)
+
 - **TESTING.md** - Testing guide
 - **CONTRIBUTING.md** - How to add tests
 - Test naming conventions
@@ -416,6 +456,7 @@ Create shared test helpers:
 ## Success Metrics
 
 ### Quantitative
+
 - ✅ 207+ unit/integration tests passing
 - 🎯 25+ E2E tests passing
 - 🎯 90%+ code coverage
@@ -423,6 +464,7 @@ Create shared test helpers:
 - 🎯 Lighthouse score ≥ 90
 
 ### Qualitative
+
 - ✅ Regression prevention
 - 🎯 Faster development feedback
 - 🎯 Improved code quality
@@ -433,18 +475,19 @@ Create shared test helpers:
 
 ## Risks & Mitigation
 
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Flaky E2E tests | HIGH | MEDIUM | Implement retry logic, stable selectors |
-| Slow test execution | MEDIUM | HIGH | Parallelize, optimize fixtures |
-| Maintenance overhead | MEDIUM | MEDIUM | Clear documentation, DRY principles |
-| CI/CD costs | LOW | LOW | Use GitHub Actions free tier |
+| Risk                 | Impact | Probability | Mitigation                              |
+| -------------------- | ------ | ----------- | --------------------------------------- |
+| Flaky E2E tests      | HIGH   | MEDIUM      | Implement retry logic, stable selectors |
+| Slow test execution  | MEDIUM | HIGH        | Parallelize, optimize fixtures          |
+| Maintenance overhead | MEDIUM | MEDIUM      | Clear documentation, DRY principles     |
+| CI/CD costs          | LOW    | LOW         | Use GitHub Actions free tier            |
 
 ---
 
 ## Resources Needed
 
 ### Tools & Services
+
 - ✅ Vitest (installed)
 - ✅ @testing-library/svelte (installed)
 - 🔜 Playwright (~100MB download)
@@ -453,6 +496,7 @@ Create shared test helpers:
 - 📋 Visual regression service (optional: Percy/Chromatic)
 
 ### Time Estimate
+
 - **Phase 4:** 2-3 days (50-70 tests)
 - **Phase 5:** 3-4 days (25-35 tests + setup)
 - **Phase 6:** 2-3 days (20-30 screenshots)
@@ -465,6 +509,7 @@ Create shared test helpers:
 ## Next Steps (Phase 4)
 
 ### Immediate Actions
+
 1. **Start with LogbookMap integration tests**
    - Highest impact (42.85% → 85%+)
    - Most complex component
@@ -481,6 +526,7 @@ Create shared test helpers:
    - Edge cases
 
 ### Phase 4 Kickoff Checklist
+
 - [ ] Review uncovered code paths
 - [ ] Create test utilities file
 - [ ] Set up OpenLayers test mocks

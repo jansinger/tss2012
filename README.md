@@ -122,6 +122,7 @@ The application is automatically deployed to Netlify on every push to the main b
 For detailed technical documentation, architecture guidelines, and development patterns, see [CLAUDE.md](CLAUDE.md).
 
 Topics covered:
+
 - Architecture & design patterns (DRY, KISS, SOLID)
 - OpenLayers integration guide
 - State management (Svelte 5 runes + stores)
@@ -145,6 +146,7 @@ Topics covered:
 ## Browser Support
 
 Modern browsers with ES2021 support:
+
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
@@ -158,6 +160,7 @@ Modern browsers with ES2021 support:
 5. Open a Pull Request
 
 Please ensure:
+
 - Tests pass (`npm run test`)
 - Code is formatted (`npm run format`)
 - TypeScript validation passes (`npm run check`)

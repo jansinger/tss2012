@@ -14,12 +14,15 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 ## 🚀 Active Workflows
 
 ### 1. CI - Tests & Build
+
 **File:** `.github/workflows/ci.yml`
 **Triggers:**
+
 - Push to `main` or `testing`
 - Pull requests to `main`
 
 **What it does:**
+
 - ✅ Runs 267 tests on Node 20.x and 22.x
 - ✅ Generates test coverage report
 - ✅ Builds application
@@ -31,11 +34,14 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 ---
 
 ### 2. PR Checks
+
 **File:** `.github/workflows/pr-checks.yml`
 **Triggers:**
+
 - Pull request opened/updated
 
 **What it does:**
+
 - ✅ Quick test run (10min timeout)
 - 📊 Posts coverage report as comment
 - ✅ Verifies build succeeds
@@ -43,6 +49,7 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 - ✅ Final status summary
 
 **Features:**
+
 - Auto-comments on PR with coverage %
 - Clear pass/fail indicators
 - Parallel execution for speed
@@ -52,13 +59,16 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 ---
 
 ### 3. CodeQL Security Scanning
+
 **File:** `.github/workflows/codeql-analysis.yml`
 **Triggers:**
+
 - Push to `main`
 - Pull requests to `main`
 - Weekly schedule (Mondays)
 
 **What it does:**
+
 - 🔒 Security vulnerability scanning
 - 📊 Code quality analysis
 - 🚨 Automated alerts
@@ -70,11 +80,13 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 ## ✅ What's Tested on Every PR
 
 ### Critical Checks (Must Pass ✅)
+
 1. **All 267 Tests** - Unit & Integration
 2. **Build Success** - Application builds without errors
 3. **Linter** - ESLint rules pass
 
 ### Informational Checks (Can Warn ⚠️)
+
 1. **TypeScript** - Type checking (warnings allowed)
 2. **Code Format** - Prettier formatting
 3. **Coverage** - Test coverage metrics
@@ -84,11 +96,13 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 ## 🎯 Required for PR Merge
 
 **Minimum requirements:**
+
 - ✅ All tests passing (267/267)
 - ✅ Build succeeds
 - ✅ No linting errors
 
 **Recommended:**
+
 - ✅ TypeScript checks pass
 - ✅ Code formatted with Prettier
 - ✅ Coverage maintained or improved
@@ -98,6 +112,7 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
 ## 📊 Current Metrics
 
 ### Test Suite
+
 - **Total Tests:** 267 passing, 1 skipped
 - **Execution Time:** ~4 seconds
 - **Files:** 20 test files
@@ -107,11 +122,13 @@ Automated CI/CD workflows are now active for the project. Every push and pull re
   - OpenLayers: 90-95%
 
 ### Build
+
 - **Build Time:** ~8 seconds
 - **Output Size:** Check artifacts
 - **Format:** Static HTML/CSS/JS
 
 ### CI Runtime
+
 - **Total:** 2-3 minutes per run
 - **Parallel jobs:** Yes
 - **Node versions:** 20.x, 22.x
@@ -209,13 +226,13 @@ All CI commands use these `package.json` scripts:
 
 ```json
 {
-  "test": "vitest",
-  "test:coverage": "vitest run --coverage",
-  "build": "vite build",
-  "check": "svelte-check --tsconfig ./tsconfig.json",
-  "lint": "prettier --check . && eslint .",
-  "format": "prettier --write .",
-  "build-ci": "svelte-kit sync && vite build && vitest run"
+	"test": "vitest",
+	"test:coverage": "vitest run --coverage",
+	"build": "vite build",
+	"check": "svelte-check --tsconfig ./tsconfig.json",
+	"lint": "prettier --check . && eslint .",
+	"format": "prettier --write .",
+	"build-ci": "svelte-kit sync && vite build && vitest run"
 }
 ```
 
@@ -259,6 +276,7 @@ Add to README.md:
 ### Tests Pass Locally but Fail in CI
 
 **Check:**
+
 - Node version (use 22.x locally)
 - Clear `node_modules` and reinstall
 - Check for OS-specific issues
@@ -273,6 +291,7 @@ npm run test
 ### Build Fails in CI
 
 **Check:**
+
 - All imports are valid
 - No missing dependencies
 - Static adapter configuration
@@ -285,6 +304,7 @@ ls -la build/
 ### Workflow Not Running
 
 **Check:**
+
 - Workflow file syntax (YAML)
 - Branch name matches trigger
 - Actions enabled in repo settings
@@ -324,17 +344,20 @@ Coverage still runs, just not uploaded.
 ## 🎉 Benefits
 
 ### For Contributors
+
 - ✅ **Immediate feedback** on code changes
 - ✅ **Confidence** before creating PR
 - ✅ **Clear requirements** for PR approval
 
 ### For Maintainers
+
 - ✅ **Automated quality gates**
 - ✅ **Consistent testing** across all PRs
 - ✅ **Coverage tracking** over time
 - ✅ **Security scanning** included
 
 ### For Project
+
 - ✅ **Regression prevention**
 - ✅ **Code quality assurance**
 - ✅ **Professional CI/CD pipeline**
@@ -345,12 +368,14 @@ Coverage still runs, just not uploaded.
 ## 🔮 Next Steps
 
 ### Immediate
+
 1. ✅ CI/CD is active
 2. Create PR to test workflows
 3. Review workflow results
 4. Merge when all checks pass
 
 ### Optional
+
 1. Configure branch protection
 2. Add status badges
 3. Integrate Codecov
@@ -363,6 +388,7 @@ Coverage still runs, just not uploaded.
 ## 📞 Support
 
 For CI/CD issues:
+
 1. Check workflow logs in Actions tab
 2. Review `.github/workflows/README.md`
 3. Run `npm run build-ci` locally

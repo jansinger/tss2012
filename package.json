@@ -10,6 +10,7 @@
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --ignore-path .prettierignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
+		"format:fix": "prettier --ignore-path .prettierignore --write --plugin-search-dir=. .",
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"build-ci": "svelte-kit sync && vite build && vitest run"

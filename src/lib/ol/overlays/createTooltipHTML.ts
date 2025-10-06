@@ -1,4 +1,4 @@
-import type { LogbookFeature } from "./tooltip";
+import type { LogbookFeature } from './tooltip';
 
 /**
  * Escapes HTML special characters to prevent XSS attacks.
@@ -8,20 +8,20 @@ import type { LogbookFeature } from "./tooltip";
  * @returns Escaped text safe for HTML insertion
  */
 const escapeHtml = (text: string): string => {
-    // Browser-based escaping (most secure)
-    if (typeof document !== 'undefined') {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
+	// Browser-based escaping (most secure)
+	if (typeof document !== 'undefined') {
+		const div = document.createElement('div');
+		div.textContent = text;
+		return div.innerHTML;
+	}
 
-    // Fallback for SSR: regex-based escaping
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+	// Fallback for SSR: regex-based escaping
+	return text
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#039;');
 };
 
 /**
@@ -39,17 +39,17 @@ const escapeHtml = (text: string): string => {
  * @returns A string containing HTML markup for the tooltip.
  */
 export const createTooltipHTML = (feature: LogbookFeature): string => {
-    const { title, datetime, localeDatetime, section, picture, pictureTitle } = feature;
+	const { title, datetime, localeDatetime, section, picture, pictureTitle } = feature;
 
-    // Escape all user-provided content to prevent XSS
-    const escapedTitle = escapeHtml(title);
-    const escapedDatetime = escapeHtml(datetime);
-    const escapedLocaleDatetime = escapeHtml(localeDatetime);
-    const escapedSection = escapeHtml(section);
-    const escapedPicture = escapeHtml(picture);
-    const escapedPictureTitle = escapeHtml(pictureTitle);
+	// Escape all user-provided content to prevent XSS
+	const escapedTitle = escapeHtml(title);
+	const escapedDatetime = escapeHtml(datetime);
+	const escapedLocaleDatetime = escapeHtml(localeDatetime);
+	const escapedSection = escapeHtml(section);
+	const escapedPicture = escapeHtml(picture);
+	const escapedPictureTitle = escapeHtml(pictureTitle);
 
-    return `
+	return `
     <div class="right glass">
       <img
         src="/images/${escapedPicture}"

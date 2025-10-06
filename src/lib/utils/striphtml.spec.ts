@@ -73,13 +73,13 @@ describe('stripHtml', () => {
 		});
 
 		it('decodes &#039; to single quote', () => {
-			const html = "it&#039;s working";
+			const html = 'it&#039;s working';
 			const result = stripHtml(html);
 			expect(result).toBe("it's working");
 		});
 
 		it('decodes &apos; to single quote', () => {
-			const html = "it&apos;s working";
+			const html = 'it&apos;s working';
 			const result = stripHtml(html);
 			expect(result).toBe("it's working");
 		});
@@ -180,15 +180,21 @@ describe('stripHtml', () => {
 
 	describe('real-world examples from logbook', () => {
 		it('handles logbook entry with line breaks', () => {
-			const html = 'Am 1.4. haben wir abgelegt - das ist kein Aprilscherz - und sind unterwegs Richtung Osten.<br>';
+			const html =
+				'Am 1.4. haben wir abgelegt - das ist kein Aprilscherz - und sind unterwegs Richtung Osten.<br>';
 			const result = stripHtml(html);
-			expect(result).toBe('Am 1.4. haben wir abgelegt - das ist kein Aprilscherz - und sind unterwegs Richtung Osten.');
+			expect(result).toBe(
+				'Am 1.4. haben wir abgelegt - das ist kein Aprilscherz - und sind unterwegs Richtung Osten.'
+			);
 		});
 
 		it('handles complex paragraph with multiple tags', () => {
-			const html = '<p>Wie geplant haben wir am <strong>1.4.2012</strong> die Leinen losgeschmissen. Nach einem letzten Frühstück direkt in <em>Schilksee</em> mit der Familie ging es gegen 10 Uhr zum Steg&nbsp;5.</p>';
+			const html =
+				'<p>Wie geplant haben wir am <strong>1.4.2012</strong> die Leinen losgeschmissen. Nach einem letzten Frühstück direkt in <em>Schilksee</em> mit der Familie ging es gegen 10 Uhr zum Steg&nbsp;5.</p>';
 			const result = stripHtml(html);
-			expect(result).toBe('Wie geplant haben wir am 1.4.2012 die Leinen losgeschmissen. Nach einem letzten Frühstück direkt in Schilksee mit der Familie ging es gegen 10 Uhr zum Steg 5.');
+			expect(result).toBe(
+				'Wie geplant haben wir am 1.4.2012 die Leinen losgeschmissen. Nach einem letzten Frühstück direkt in Schilksee mit der Familie ging es gegen 10 Uhr zum Steg 5.'
+			);
 		});
 
 		it('handles title with HTML formatting', () => {

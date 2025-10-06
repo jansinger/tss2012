@@ -5,7 +5,12 @@ import LogbookMap from './LogbookMap.svelte';
 import { get } from 'svelte/store';
 import { map as mapStore } from '$lib/stores';
 import { AppState } from '$lib/AppState.svelte';
-import { createMockOLMap, createMockOLFeature, createMockLogEntry, wait } from '../../tests/test-utils';
+import {
+	createMockOLMap,
+	createMockOLFeature,
+	createMockLogEntry,
+	wait
+} from '../../tests/test-utils';
 
 // Mock modules
 vi.mock('$app/navigation', () => ({
@@ -122,10 +127,7 @@ describe('LogbookMap - Integration Tests', () => {
 
 			await wait(100);
 
-			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				'Error initializing map:',
-				expect.any(Error)
-			);
+			expect(consoleErrorSpy).toHaveBeenCalledWith('Error initializing map:', expect.any(Error));
 
 			consoleErrorSpy.mockRestore();
 		});

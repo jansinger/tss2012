@@ -12,12 +12,14 @@
 ## Technology Stack
 
 ### Core Framework
+
 - **SvelteKit 2.x** (v2.43.7) - Full-stack framework with static adapter
 - **Svelte 5.x** (v5.38.1) - UI component framework with runes API
 - **TypeScript** (v5.8.3) - Type-safe development
 - **Vite 7.x** (v7.1.5) - Build tool and dev server
 
 ### Mapping & Visualization
+
 - **OpenLayers** (v10.6.1) - Interactive map rendering
   - Vector layers (KML, GeoJSON)
   - Clustering for logbook entries
@@ -25,22 +27,26 @@
   - Multiple tile layers (OSM, SeaMap)
 
 ### UI & Styling
+
 - **SASS/SCSS** (v1.89.2) - CSS preprocessing
 - **Bootstrap Icons** (v1.13.1) - Icon library
 - **Swiper** (v11.2.10) - Image carousel/slider
 
 ### Testing
+
 - **Vitest** (v3.2.4) - Unit testing framework
 - **@testing-library/svelte** (v5.2.8) - Component testing
 - **@testing-library/jest-dom** (v6.9.1) - DOM matchers
 - **jsdom** (v26.1.0) - DOM implementation for testing
 
 ### Code Quality
+
 - **ESLint** (v9.33.0) + TypeScript plugin - Linting
 - **Prettier** (v3.6.2) + Svelte plugin - Code formatting
 - **svelte-check** (v4.2.2) - TypeScript/Svelte validation
 
 ### Deployment
+
 - **@sveltejs/adapter-static** - Static site generation
 - **Netlify** - Hosting and CI/CD
 
@@ -121,32 +127,39 @@ tss2012/
 ## Architecture & Design Patterns
 
 ### 1. **Component-Based Architecture**
+
 - **Single Responsibility Principle**: Each component has a clear, focused purpose
 - **Composition over Inheritance**: Components compose smaller components
 - **Separation of Concerns**: Business logic separated from presentation
 
 **Example**:
+
 - `LogbookMap.svelte` - Handles map initialization and events
 - `LogbookEntry.svelte` - Displays a single entry
 - `LogbookEntriesOverlay.svelte` - Manages overlay display logic
 
 ### 2. **Factory Pattern**
+
 Used for creating OpenLayers map instances with consistent configuration.
 
 **Files**:
+
 - [src/lib/ol/map.ts](src/lib/ol/map.ts) - `createMap()` factory
 - [src/lib/ol/overviewmap.ts](src/lib/ol/overviewmap.ts) - `createOverviewMap()` factory
 
 **Benefits**:
+
 - Centralized configuration
 - Consistent defaults
 - Easy testing with dependency injection
 - DRY (Don't Repeat Yourself) principle
 
 ### 3. **Module Pattern**
+
 OpenLayers layers and overlays are exported as modules with encapsulated configuration.
 
 **Files**:
+
 - [src/lib/ol/layers/logbook.ts](src/lib/ol/layers/logbook.ts)
 - [src/lib/ol/layers/track.ts](src/lib/ol/layers/track.ts)
 - [src/lib/ol/layers/osm.ts](src/lib/ol/layers/osm.ts)
@@ -155,17 +168,19 @@ OpenLayers layers and overlays are exported as modules with encapsulated configu
 ### 4. **State Management**
 
 #### Svelte 5 Runes (`$state`)
+
 - **File**: [src/lib/AppState.svelte.ts](src/lib/AppState.svelte.ts)
 - **Purpose**: Reactive global state for current entries
 - **Pattern**: Global state object with reactive properties
 
 ```typescript
 export const AppState = $state({
-    currentEntries: []
-})
+	currentEntries: []
+});
 ```
 
 #### Svelte Stores
+
 - **File**: [src/lib/stores.ts](src/lib/stores.ts)
 - **Purpose**: Writable store for OpenLayers Map instance
 - **Pattern**: Singleton store pattern
@@ -189,7 +204,9 @@ export const map: Writable<Map> = writable();
 ```
 
 ### 6. **File-Based Routing**
+
 SvelteKit's convention-based routing with:
+
 - `+page.svelte` - Page components
 - `+layout.svelte` - Layout wrappers
 - `+page.ts` / `+layout.ts` - Data loading
@@ -200,7 +217,9 @@ SvelteKit's convention-based routing with:
 ## Key Architectural Guidelines
 
 ### DRY (Don't Repeat Yourself)
+
 ✅ **Applied**:
+
 - Factory functions for map creation (`createMap`, `createOverviewMap`)
 - Shared types in [src/lib/types.ts](src/lib/types.ts)
 - Reusable components (`Overlay.svelte`, `Pictures.svelte`)
@@ -208,11 +227,14 @@ SvelteKit's convention-based routing with:
 - Style caching in logbook layer to avoid recreating styles
 
 ⚠️ **Watch for**:
+
 - Route-specific data loading logic could be abstracted
 - Similar SCSS patterns across components
 
 ### KISS (Keep It Simple, Stupid)
+
 ✅ **Applied**:
+
 - Straightforward component hierarchy
 - Clear naming conventions
 - Minimal abstractions where not needed
@@ -222,49 +244,62 @@ SvelteKit's convention-based routing with:
 ### SOLID Principles
 
 #### Single Responsibility Principle (SRP)
+
 ✅ Each module has one reason to change:
+
 - Components handle UI only
 - Layers handle map rendering only
 - Utils handle specific transformations
 - Stores handle state only
 
 #### Open/Closed Principle (OCP)
+
 ✅ **Applied**:
+
 - New map layers can be added without modifying existing layers
 - OpenLayers configuration is extensible
 - Components accept props for customization
 
 #### Dependency Inversion Principle (DIP)
+
 ✅ **Applied**:
+
 - Components depend on stores (abstractions), not concrete implementations
 - Factory functions accept parameters for flexibility
 - TypeScript interfaces define contracts ([src/lib/types.ts](src/lib/types.ts))
 
 ### Idempotency
+
 ✅ **Applied in**:
+
 - Map initialization checks if map already exists before creating
   ```typescript
   if ($map) {
-      $map.setTarget(mapElement);
-      $map.updateSize();
-      return;
+  	$map.setTarget(mapElement);
+  	$map.updateSize();
+  	return;
   }
   ```
 - Layer creation functions can be called multiple times safely
 - Component mounting/unmounting is handled safely
 
 ### Immutability
+
 ✅ **Preferred patterns**:
+
 - TypeScript readonly interfaces where appropriate
 - Functional utilities (sort, filter, map) instead of mutations
 - Svelte's reactive declarations create new values
 
 ⚠️ **Watch for**:
+
 - State mutations should use Svelte's reactive patterns
 - Array/object updates should trigger reactivity
 
 ### Separation of Concerns
+
 ✅ **Clear separation**:
+
 - **UI**: Svelte components
 - **Map Logic**: OpenLayers modules
 - **Data**: JSON files + TypeScript types
@@ -277,22 +312,25 @@ SvelteKit's convention-based routing with:
 ## Code Style & Conventions
 
 ### TypeScript
+
 - **Strict mode**: Enabled (`isolatedModules`, `forceConsistentCasingInFileNames`)
 - **Type imports**: Use `import type` for type-only imports
 - **Interfaces over types**: Prefer `interface` for object shapes
 - **Explicit types**: Function parameters and return types should be typed
 
 ### Formatting (Prettier)
+
 ```json
 {
-  "useTabs": true,
-  "singleQuote": true,
-  "trailingComma": "none",
-  "printWidth": 100
+	"useTabs": true,
+	"singleQuote": true,
+	"trailingComma": "none",
+	"printWidth": 100
 }
 ```
 
 ### Naming Conventions
+
 - **Components**: PascalCase (e.g., `LogbookMap.svelte`)
 - **Files**: camelCase for utilities, PascalCase for components
 - **Constants**: UPPER_SNAKE_CASE (e.g., `DEFAULTS`)
@@ -300,6 +338,7 @@ SvelteKit's convention-based routing with:
 - **Types/Interfaces**: PascalCase (e.g., `LogEntry`, `Coordinates`)
 
 ### Component Structure
+
 ```svelte
 <script lang="ts" module>
   // Module-level code
@@ -325,6 +364,7 @@ SvelteKit's convention-based routing with:
 ## Data Flow
 
 ### 1. Map Initialization Flow
+
 ```
 +page.svelte
     ↓
@@ -340,6 +380,7 @@ Event listeners attached
 ```
 
 ### 2. Logbook Entry Selection Flow
+
 ```
 User clicks map marker
     ↓
@@ -354,6 +395,7 @@ Displays overlay with entries
 ```
 
 ### 3. Data Loading Flow
+
 ```
 Static JSON files in /static/data/
     ↓
@@ -369,17 +411,20 @@ Features accessible via map events
 ## OpenLayers Integration
 
 ### Layer Stack (Bottom to Top)
+
 1. **OSM Base Layer** - OpenStreetMap tiles
 2. **SeaMap Overlay** - Nautical charts
 3. **Track Layer** - Sailing route (KML)
 4. **Logbook Layer** - Clustered markers (GeoJSON)
 
 ### Custom Events
+
 - `clickLogbook` - Fired when logbook marker is clicked
   - Emitted in: [src/lib/ol/overlays/tooltip.ts](src/lib/ol/overlays/tooltip.ts)
   - Handled in: [src/lib/components/LogbookMap.svelte](src/lib/components/LogbookMap.svelte)
 
 ### Clustering Strategy
+
 - **Distance**: 50px between clusters
 - **Min Distance**: 20px minimum separation
 - **Style Cache**: Styles cached by cluster size for performance
@@ -392,6 +437,7 @@ Features accessible via map events
 ## Testing Strategy
 
 ### Unit Testing
+
 - **Framework**: Vitest + Testing Library
 - **Coverage**: Components, utilities, OpenLayers modules
 - **Mock Strategy**:
@@ -400,10 +446,12 @@ Features accessible via map events
   - Mocks in [src/mocks/](src/mocks/)
 
 ### Test Files
+
 - Co-located with implementation (`*.spec.ts`)
 - Example: [src/lib/components/LogbookMap.spec.ts](src/lib/components/LogbookMap.spec.ts)
 
 ### Running Tests
+
 ```bash
 npm run test          # Run tests in watch mode
 npm run build-ci      # Build + test (CI pipeline)
@@ -414,6 +462,7 @@ npm run build-ci      # Build + test (CI pipeline)
 ## Build & Deployment
 
 ### Development
+
 ```bash
 npm run dev           # Start dev server
 npm run check         # TypeScript + Svelte validation
@@ -422,12 +471,14 @@ npm run format        # Prettier auto-format
 ```
 
 ### Production Build
+
 ```bash
 npm run build         # Vite build (static site)
 npm run preview       # Preview production build
 ```
 
 ### CI/CD Pipeline (Netlify)
+
 1. **Trigger**: Git push to main branch
 2. **Build Command**: `npm run build-ci`
    - Runs `svelte-kit sync`
@@ -437,7 +488,9 @@ npm run preview       # Preview production build
 4. **Headers**: CSP configured in [netlify.toml](netlify.toml)
 
 ### Security Headers
+
 Content Security Policy includes:
+
 - `script-src`: Self + FontAwesome
 - `style-src`: Self + Google Fonts
 - `img-src`: Self + MapTiler + OpenSeaMap
@@ -448,6 +501,7 @@ Content Security Policy includes:
 ## Performance Considerations
 
 ### Optimization Techniques
+
 1. **Code Splitting**: Vite automatic chunking
 2. **Lazy Loading**: Map creation is dynamic import
 3. **Style Caching**: OpenLayers styles cached by cluster size
@@ -456,6 +510,7 @@ Content Security Policy includes:
 6. **Chunk Size**: Warning limit set to 1000KB
 
 ### Best Practices
+
 - ✅ Use `bind:this` for DOM references
 - ✅ Defer map initialization until DOM ready
 - ✅ Cache frequently used computations
@@ -467,22 +522,26 @@ Content Security Policy includes:
 ## Common Development Tasks
 
 ### Adding a New Map Layer
+
 1. Create layer file in `src/lib/ol/layers/`
 2. Export layer factory/instance
 3. Import in `src/lib/ol/map.ts`
 4. Add to `layers` array in `createMap()`
 
 ### Adding a New Route
+
 1. Create `routes/[route-name]/+page.svelte`
 2. Optionally add `+page.ts` for data loading
 3. Update navigation links
 
 ### Adding a New Component
+
 1. Create `src/lib/components/ComponentName.svelte`
 2. Create tests in `src/lib/components/ComponentName.spec.ts`
 3. Import and use in parent components
 
 ### Updating Types
+
 1. Modify `src/lib/types.ts`
 2. TypeScript will show errors where updates needed
 3. Run `npm run check` to validate
@@ -492,11 +551,13 @@ Content Security Policy includes:
 ## Dependencies Management
 
 ### Update Strategy
+
 - **Dependabot**: Automated PR for dependency updates
 - **Testing**: CI runs tests on all PRs
 - **Pinning**: Exact versions in `package.json` for stability
 
 ### Critical Dependencies
+
 - **Svelte/SvelteKit**: Follow migration guides carefully
 - **OpenLayers**: Check breaking changes in major versions
 - **Vite**: Usually backward compatible
@@ -507,24 +568,28 @@ Content Security Policy includes:
 ## Troubleshooting
 
 ### Map Not Rendering
+
 1. Check `mapElement` is bound correctly
 2. Verify `map.setTarget()` called after DOM ready
 3. Call `map.updateSize()` after container resize
 4. Check browser console for OpenLayers errors
 
 ### State Not Updating
+
 1. Ensure reactive declarations use `$:` syntax
 2. For Svelte 5 runes, use `$state` correctly
 3. Check store subscriptions with `$map` prefix
 4. Verify mutations trigger reactivity
 
 ### Build Errors
+
 1. Run `npm run check` for TypeScript errors
 2. Clear `.svelte-kit` directory
 3. Delete `node_modules` and reinstall
 4. Check Node.js version compatibility
 
 ### Test Failures
+
 1. Check mocks are up to date
 2. Verify virtual modules resolve correctly
 3. Ensure `jsdom` environment is set
@@ -535,16 +600,19 @@ Content Security Policy includes:
 ## Project-Specific Notes
 
 ### Data Sources
+
 - **Logbook Data**: `static/data/logbook_geo.json` (GeoJSON format)
 - **Track Data**: `static/data/segelsommer2012.kml` (KML format)
 - **Images**: `static/images/` (referenced in logbook JSON)
 
 ### Map Configuration
+
 - **Default Center**: Defined in [src/lib/ol/constants.ts](src/lib/ol/constants.ts)
 - **Default Zoom**: 8
 - **Projection**: Web Mercator (EPSG:3857)
 
 ### Legacy Considerations
+
 - `logbook_orig.json` kept as backup/reference
 - Migration from Svelte 3 to Svelte 5 (runes API)
 - Browser support: Modern browsers (ES2021)
@@ -554,11 +622,13 @@ Content Security Policy includes:
 ## Git Workflow
 
 ### Branch Strategy
+
 - **Main Branch**: `main` (production)
 - **Feature Branches**: Short-lived, merged via PR
 - **Dependabot**: Automated dependency updates
 
 ### Commit Guidelines
+
 - Descriptive commit messages
 - Reference issue numbers where applicable
 - Squash commits for cleaner history
@@ -568,6 +638,7 @@ Content Security Policy includes:
 ## Resources
 
 ### Documentation
+
 - [SvelteKit Docs](https://kit.svelte.dev/docs)
 - [Svelte 5 Docs](https://svelte.dev/docs/svelte/overview)
 - [OpenLayers Docs](https://openlayers.org/en/latest/apidoc/)
@@ -575,6 +646,7 @@ Content Security Policy includes:
 - [Vite Guide](https://vitejs.dev/guide/)
 
 ### External Services
+
 - **Map Tiles**: OpenStreetMap, MapTiler
 - **Nautical Charts**: OpenSeaMap
 - **Icons**: Bootstrap Icons

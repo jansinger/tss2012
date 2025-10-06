@@ -11,13 +11,13 @@ export default defineConfig(({ mode }) => ({
 		chunkSizeWarningLimit: 1000
 	},
 	resolve: {
-		conditions: mode === 'test' ? ['browser'] : [],
+		conditions: mode === 'test' ? ['browser'] : []
 	},
 	css: {
 		preprocessorOptions: {
-		  scss: {
-			api: 'modern-compiler' // or "modern"
-		  }
+			scss: {
+				api: 'modern-compiler' // or "modern"
+			}
 		}
 	},
 	// Suppress warnings for Node.js-only libraries used during SSR/prerender

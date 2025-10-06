@@ -132,7 +132,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(5).fill(null).map(() => createMockOLFeature())
+				features: Array(5)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -147,7 +149,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(3).fill(null).map(() => createMockOLFeature())
+				features: Array(3)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -162,7 +166,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(3).fill(null).map(() => createMockOLFeature())
+				features: Array(3)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -177,7 +183,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(3).fill(null).map(() => createMockOLFeature())
+				features: Array(3)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -194,7 +202,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(10).fill(null).map(() => createMockOLFeature())
+				features: Array(10)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -208,7 +218,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(99).fill(null).map(() => createMockOLFeature())
+				features: Array(99)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -222,7 +234,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(150).fill(null).map(() => createMockOLFeature())
+				features: Array(150)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style = styleFunc(feature) as Style;
@@ -238,11 +252,15 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature1 = createMockOLFeature({
-				features: Array(5).fill(null).map(() => createMockOLFeature())
+				features: Array(5)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const feature2 = createMockOLFeature({
-				features: Array(5).fill(null).map(() => createMockOLFeature())
+				features: Array(5)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style1 = styleFunc(feature1);
@@ -257,11 +275,15 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc = layer.getStyle() as Function;
 
 			const feature3 = createMockOLFeature({
-				features: Array(3).fill(null).map(() => createMockOLFeature())
+				features: Array(3)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const feature5 = createMockOLFeature({
-				features: Array(5).fill(null).map(() => createMockOLFeature())
+				features: Array(5)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style3 = styleFunc(feature3);
@@ -318,7 +340,9 @@ describe('logbook layer - Integration Tests', () => {
 			const styleFunc2 = layer2.getStyle() as Function;
 
 			const feature = createMockOLFeature({
-				features: Array(7).fill(null).map(() => createMockOLFeature())
+				features: Array(7)
+					.fill(null)
+					.map(() => createMockOLFeature())
 			});
 
 			const style1 = styleFunc1(feature);

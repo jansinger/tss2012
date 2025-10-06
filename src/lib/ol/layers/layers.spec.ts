@@ -41,7 +41,8 @@ describe('Map Layers', () => {
 			const attributions = source.getAttributions();
 
 			expect(attributions).toBeDefined();
-			const attrString = typeof attributions === 'function' ? attributions(null as any) : attributions;
+			const attrString =
+				typeof attributions === 'function' ? attributions(null as any) : attributions;
 			const attrArray = Array.isArray(attrString) ? attrString : [attrString];
 			const combinedAttrs = attrArray.join(' ');
 
