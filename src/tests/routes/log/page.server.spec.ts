@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { load } from './+page.server';
+import { load } from '../../../routes/log/+page.server';
 import type { LogEntryShort } from '$lib/types';
 
 describe('/log +page.server', () => {

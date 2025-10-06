@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { load } from './+page.server';
+import { load } from '../../../routes/timeline/+page.server';
 
 describe('/timeline +page.server', () => {
 	describe('load function', () => {

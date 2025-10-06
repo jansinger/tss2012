@@ -1,5 +1,5 @@
 import { sortedEntries } from '$lib/sortedEntries';
-import { load } from './+page.server';
+import { load } from '../../../../routes/log/[id]/+page.server';
 import { expect, test, describe } from 'vitest';
 
 describe('load function', () => {
