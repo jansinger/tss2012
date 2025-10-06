@@ -5,7 +5,7 @@ import { expect, test, describe } from 'vitest';
 describe('load function', () => {
 	test('should return entry object with previous and next values if id exists in sortedEntries', async () => {
 		const id = '82014b17-e618-4b5d-a244-140298f69916';
-		const result = await load({ params: { id } });
+		const result = await load({ params: { id } } as any);
 
 		const index = sortedEntries.findIndex((row) => row._id === id);
 		const prev = index > 0 ? sortedEntries[index - 1]._id : undefined;
@@ -23,7 +23,7 @@ describe('load function', () => {
 	test('should return status 404 and errors "Not Found" if id does not exist in sortedEntries', async () => {
 		const id = 'nonExistentId';
 		try {
-			await load({ params: { id } });
+			await load({ params: { id } } as any);
 		} catch (error) {
 			expect(error).toMatchObject({
 				status: 404,

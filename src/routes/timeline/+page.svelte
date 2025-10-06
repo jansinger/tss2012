@@ -18,7 +18,7 @@
 	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/timeline"/>
 </svelte:head>
 
-<nav class="main-navigation" role="navigation" aria-label="Hauptnavigation">
+<nav class="main-navigation" aria-label="Hauptnavigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
 		<button type="button" title="Karte" aria-label="Zur Karte" onclick={() => goto('/')} >
 			<i class="bi bi-map"></i>

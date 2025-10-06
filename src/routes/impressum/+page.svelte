@@ -3,10 +3,10 @@
 	import Overlay from '$lib/components/Overlay.svelte';
 </script>
 
-<Overlay isOpen={true} on:close={() => goto('/')}>
+<Overlay>
 	<div class="container-article glass">
 		<content class="container">
-			<nav class="close-navigation" role="navigation" aria-label="Navigation schließen">
+			<nav class="close-navigation" aria-label="Navigation schließen">
 				<a href="/" title="Zur Karte" aria-label="Zur Karte">
 					<i class="bi bi-x-circle"></i>
 				</a>

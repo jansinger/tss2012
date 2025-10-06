@@ -45,4 +45,5 @@ export interface PicturesEntity {
 	title: string;
 	text: string;
 	sizebig?: SizeParams;
+	sizesmall?: SizeParams;
 }

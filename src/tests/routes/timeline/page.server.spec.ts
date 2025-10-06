@@ -38,7 +38,7 @@ describe('/timeline +page.server', () => {
 		it('groups contain arrays of entries', () => {
 			const result = load();
 
-			Object.values(result.groupedEntries).forEach((group) => {
+			Object.values(result.groupedEntries).forEach((group: any) => {
 				expect(Array.isArray(group)).toBe(true);
 				expect(group.length).toBeGreaterThan(0);
 			});
