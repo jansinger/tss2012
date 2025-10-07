@@ -14,7 +14,7 @@
 		"build-ci": "svelte-kit sync && vite build && vitest run"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^3.0.8",
+		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.43.7",
 		"@sveltejs/vite-plugin-svelte": "^6.1.2",
 		"@testing-library/dom": "^10.4.0",
