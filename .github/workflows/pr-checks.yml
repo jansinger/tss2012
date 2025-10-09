@@ -37,6 +37,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync SvelteKit
+        run: npx svelte-kit sync
+
       - name: Run tests
         run: npm run test
         env:
@@ -69,6 +72,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Sync SvelteKit
+        run: npx svelte-kit sync
 
       - name: Run coverage
         run: npm run test:coverage
