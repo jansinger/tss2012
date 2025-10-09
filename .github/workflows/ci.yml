@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Sync SvelteKit
-        run: npm run sync
+        run: npx svelte-kit sync
       - name: Run TypeScript check
         run: npm run check
         continue-on-error: true
