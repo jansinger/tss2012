@@ -22,6 +22,7 @@ Module "util" has been externalized for browser compatibility...
 ### Root Cause: `sanitize-html`
 
 The `sanitize-html` library is a **Node.js-only** library that:
+
 1. Used in [src/lib/utils/striphtml.ts](../src/lib/utils/striphtml.ts)
 2. Only runs during **build time** (SSR/prerender)
 3. **Never runs in the browser**
@@ -70,6 +71,7 @@ npm run build
 ## Why Vite Shows Warnings in Dev Mode
 
 During development (`npm run dev`), Vite:
+
 1. Tries to bundle everything for hot module reload (HMR)
 2. Encounters Node.js-specific code
 3. Warns that it's externalizing Node.js built-ins
@@ -85,17 +87,18 @@ During development (`npm run dev`), Vite:
 
 ```javascript
 export default defineConfig(({ mode }) => ({
-  // ...
-  optimizeDeps: {
-    exclude: ['sanitize-html']  // Don't try to optimize for browser
-  },
-  ssr: {
-    noExternal: mode === 'production' ? [] : undefined
-  }
+	// ...
+	optimizeDeps: {
+		exclude: ['sanitize-html'] // Don't try to optimize for browser
+	},
+	ssr: {
+		noExternal: mode === 'production' ? [] : undefined
+	}
 }));
 ```
 
 This tells Vite:
+
 - Don't try to optimize `sanitize-html` for the browser
 - It's OK that it uses Node.js APIs
 
@@ -104,13 +107,17 @@ This tells Vite:
 ## Alternative Solutions (Not Recommended)
 
 ### Option 1: Replace with Browser Code
+
 ❌ **Not recommended** - Would require refactoring to process data differently
 
 ### Option 2: Move to Build Script
+
 ❌ **Not recommended** - Would add complexity to build process
 
 ### Option 3: Current Approach ✅
+
 ✅ **Recommended** - Clean, simple, works perfectly
+
 - Warnings only in dev (informational)
 - No warnings in production
 - Zero impact on final bundle
@@ -121,12 +128,14 @@ This tells Vite:
 ## How to Verify Everything Works
 
 ### 1. Check Production Build
+
 ```bash
 npm run build
 # Should complete with no warnings ✅
 ```
 
 ### 2. Check Bundle Size
+
 ```bash
 # After build, check client bundle
 ls -lh build/_app/immutable/chunks/
@@ -135,6 +144,7 @@ ls -lh build/_app/immutable/chunks/
 ```
 
 ### 3. Check Browser Network Tab
+
 - Open DevTools → Network
 - Refresh page
 - No requests for sanitize-html dependencies
@@ -145,12 +155,14 @@ ls -lh build/_app/immutable/chunks/
 ## When to Worry
 
 ### ✅ Safe (Current State)
+
 - Warnings only during `npm run dev`
 - Production build clean
 - No errors in browser console
 - All functionality works
 
 ### ⚠️ Would Need Attention
+
 - Errors in production build
 - `sanitize-html` in browser bundle
 - Runtime errors in browser
@@ -162,13 +174,13 @@ ls -lh build/_app/immutable/chunks/
 
 ## Summary
 
-| Aspect | Status | Notes |
-|--------|--------|-------|
-| Dev warnings | ⚠️ Present | Expected, harmless |
-| Production build | ✅ Clean | No warnings |
-| Browser bundle | ✅ Optimized | No Node.js deps |
-| Functionality | ✅ Working | All features work |
-| Performance | ✅ Optimal | No overhead |
+| Aspect           | Status       | Notes              |
+| ---------------- | ------------ | ------------------ |
+| Dev warnings     | ⚠️ Present   | Expected, harmless |
+| Production build | ✅ Clean     | No warnings        |
+| Browser bundle   | ✅ Optimized | No Node.js deps    |
+| Functionality    | ✅ Working   | All features work  |
+| Performance      | ✅ Optimal   | No overhead        |
 
 ---
 

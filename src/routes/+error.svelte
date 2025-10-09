@@ -9,14 +9,14 @@
 	<title>{$page.status}: {$page.error?.message}</title>
 </svelte:head>
 
-<Overlay isOpen={true} on:close={() => goto('/')}>
+<Overlay>
 	<div class="container-article glass">
 		<article>
 			<h1>Error: {$page.status}</h1>
 
 			<h2>{$page.error?.message}</h2>
 
-			{#if dev && $page.error?.stack}
+			{#if dev && $page.error && 'stack' in $page.error}
 				<pre>{$page.error?.stack}</pre>
 			{/if}
 		</article>

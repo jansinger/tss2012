@@ -99,7 +99,7 @@
 		<a href="/" class="btn-back">Zurück zur Karte</a>
 	</div>
 {:else}
-<nav class="sub-navigation" role="navigation" aria-label="Navigation zwischen Beiträgen" aria-describedby="nav-description" onwheel={trackWheel}>
+<nav class="sub-navigation" aria-label="Navigation zwischen Beiträgen" aria-describedby="nav-description" onwheel={trackWheel}>
 	<div class="item-wrapper left">
 		{#if entry._prev}
 			<a href="/log/{entry._prev}"

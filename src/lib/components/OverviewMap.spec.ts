@@ -11,7 +11,7 @@ describe('OverviewMap', () => {
 
 	it('renders the map element extended', async () => {
 		const { getByTestId } = render(OverviewMap);
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		const mapElement = getByTestId('map-element') as any; // Cast mapElement to 'any' type
 		// Check if mapElement is defined
 		if (!mapElement) {

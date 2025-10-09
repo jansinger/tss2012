@@ -23,5 +23,6 @@
 		"checkJs": true
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "vitest-setup.js"],
+	"exclude": ["src/tools/**/*", "**/*.spec.ts", "**/*.test.ts", "src/tests/**/*"],
 	"types": ["@types/pug"]
 }

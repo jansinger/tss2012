@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
 
-export default defineConfig(({mode}) => ({
+export default defineConfig(({ mode }) => ({
 	plugins: [
 		svelte({ hot: !process.env.VITEST }),
 		{
@@ -21,6 +21,26 @@ export default defineConfig(({mode}) => ({
 		setupFiles: ['./vitest-setup.js'],
 		alias: {
 			'$app/environment': path.resolve('./src/mocks/environment.ts')
+		},
+		coverage: {
+			provider: 'v8',
+			reporter: ['text', 'html', 'json'],
+			exclude: [
+				'node_modules/',
+				'src/mocks/',
+				'src/tools/',
+				'**/*.spec.ts',
+				'**/*.test.ts',
+				'vitest.config.js',
+				'vite.config.js',
+				'svelte.config.js'
+			],
+			thresholds: {
+				lines: 50,
+				functions: 50,
+				branches: 50,
+				statements: 50
+			}
 		}
 	},
 	resolve: {

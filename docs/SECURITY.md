@@ -32,6 +32,7 @@ img-src 'self' https://api.maptiler.com https://t1.openseamap.org
 ```
 
 **Allowed External Domains:**
+
 - `https://api.maptiler.com` - Map tiles (required for OpenLayers)
 - `https://t1.openseamap.org` - Sea map overlay tiles
 
@@ -49,6 +50,7 @@ img-src 'self' https://api.maptiler.com https://t1.openseamap.org
 ### 4. Controlled Data Sources
 
 All content comes from controlled static JSON files:
+
 - `static/data/logbook_geo.json` - Map marker data
 - `static/data/segelsommer2012.json` - Blog entry data
 
@@ -78,10 +80,11 @@ Svelte's `{@html}` directive renders unescaped HTML in 5 locations:
 ### Example of Intentional HTML
 
 From `logbook_geo.json`:
+
 ```json
 {
-  "title": "Kein Wind, keine Schweinswale, kein Polen und kein benzin<br>",
-  "abstract": "Und wieder einmal kommt es anders...<br>"
+	"title": "Kein Wind, keine Schweinswale, kein Polen und kein benzin<br>",
+	"abstract": "Und wieder einmal kommt es anders...<br>"
 }
 ```
 
@@ -101,6 +104,7 @@ The `<br>` tags are intentionally included for proper text formatting.
 ### Current Grade: A-
 
 **Strengths:**
+
 - ✅ XSS protection in dynamic tooltips
 - ✅ Strict CSP policy (no external scripts)
 - ✅ Static site generation (no server vulnerabilities)
@@ -109,6 +113,7 @@ The `<br>` tags are intentionally included for proper text formatting.
 - ✅ HTTPS-only deployment (Netlify default)
 
 **Areas for Improvement:**
+
 - ⚠️ `unsafe-inline` in CSP (SvelteKit limitation)
 - ⚠️ `{@html}` usage (acceptable risk given controlled data)
 
@@ -140,6 +145,7 @@ Removed `sanitize-html` and 7 sub-dependencies to reduce attack surface and elim
 ### Security Headers
 
 Configured in `netlify.toml`:
+
 - Content-Security-Policy (CSP)
 - X-Frame-Options (implicitly via CSP `frame-src`)
 - No external font/script CDNs
@@ -153,6 +159,7 @@ Automated security alerts enabled for vulnerable dependencies.
 ### Manual Review
 
 Review static data files periodically for:
+
 - Accidental inclusion of sensitive data
 - Malformed HTML that could cause rendering issues
 - Broken links or missing images

@@ -48,25 +48,25 @@ const styleCache = {};
  * @returns {Style} The OpenLayers Style object to apply to the feature.
  */
 function styleFunction(feature) {
-    const size = feature.get('features').length;
-    let style = styleCache[size];
-    if (!style) {
-        if (size === 1) {
-            style = markerStyle;
-        } else {
-            style = new Style({
-                image: clusterImage,
-                text: new Text({
-                    text: size.toString(),
-                    fill: new Fill({
-                        color: '#fff'
-                    })
-                })
-            });
-        }
-        styleCache[size] = style;
-    }
-    return style;
+	const size = feature.get('features').length;
+	let style = styleCache[size];
+	if (!style) {
+		if (size === 1) {
+			style = markerStyle;
+		} else {
+			style = new Style({
+				image: clusterImage,
+				text: new Text({
+					text: size.toString(),
+					fill: new Fill({
+						color: '#fff'
+					})
+				})
+			});
+		}
+		styleCache[size] = style;
+	}
+	return style;
 }
 
 /**
