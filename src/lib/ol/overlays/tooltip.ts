@@ -83,8 +83,7 @@ export const createTooltipOverlay = (element: HTMLElement, map: OLMap): Overlay 
 		}
 	};
 
-	const handleClick = (evt: MapBrowserEvent<PointerEvent>) =>
-		handleFeatureInteraction(evt, true);
+	const handleClick = (evt: MapBrowserEvent<PointerEvent>) => handleFeatureInteraction(evt, true);
 	const handlePointerMove = (evt: MapBrowserEvent<PointerEvent>) =>
 		handleFeatureInteraction(evt, false);
 
