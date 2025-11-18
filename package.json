@@ -25,7 +25,7 @@
 		"@types/pug": "^2.0.10",
 		"@typescript-eslint/eslint-plugin": "^8.46.1",
 		"@typescript-eslint/parser": "^8.46.1",
-		"@vitest/coverage-v8": "^3.2.4",
+		"@vitest/coverage-v8": "^4.0.10",
 		"bootstrap-icons": "^1.13.1",
 		"esbuild": "^0.27.0",
 		"eslint": "^9.38.0",
