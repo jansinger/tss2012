@@ -53,10 +53,11 @@ describe('tooltip - Integration Tests', () => {
 
 	describe('Overlay Creation', () => {
 		it('should create overlay and add to map', () => {
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
-			expect(overlay).toBeDefined();
-			expect(mockMap.addOverlay).toHaveBeenCalledWith(overlay);
+			expect(result.overlay).toBeDefined();
+			expect(result.cleanup).toBeDefined();
+			expect(mockMap.addOverlay).toHaveBeenCalledWith(result.overlay);
 		});
 
 		it('should set up click event listener', () => {
@@ -72,10 +73,10 @@ describe('tooltip - Integration Tests', () => {
 		});
 
 		it('should configure overlay with correct options', () => {
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			// Overlay should have element set
-			expect(overlay.getElement()).toBe(tooltipElement);
+			expect(result.overlay.getElement()).toBe(tooltipElement);
 		});
 	});
 
@@ -92,7 +93,7 @@ describe('tooltip - Integration Tests', () => {
 
 			mockGetFeatureAtEventPixel.mockReturnValue(clusterFeature);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			// Simulate pointermove event
 			const event = {
@@ -104,7 +105,7 @@ describe('tooltip - Integration Tests', () => {
 			pointerMoveHandler(event);
 
 			// Tooltip should be positioned
-			expect(overlay.getPosition()).toEqual([1000, 2000]);
+			expect(result.overlay.getPosition()).toEqual([1000, 2000]);
 
 			// Tooltip HTML should be set
 			expect(tooltipElement.innerHTML).toContain('Test Entry');
@@ -140,7 +141,7 @@ describe('tooltip - Integration Tests', () => {
 			const targetElement = { style: { cursor: 'pointer' } };
 			mockMap.getTargetElement.mockReturnValue(targetElement);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			const event1 = {
 				coordinate: [1000, 2000],
@@ -150,7 +151,7 @@ describe('tooltip - Integration Tests', () => {
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event1);
 
-			expect(overlay.getPosition()).toBeDefined();
+			expect(result.overlay.getPosition()).toBeDefined();
 
 			// Then move away (no feature)
 			mockGetFeatureAtEventPixel.mockReturnValue(null);
@@ -163,7 +164,7 @@ describe('tooltip - Integration Tests', () => {
 			pointerMoveHandler(event2);
 
 			// Tooltip should be hidden
-			expect(overlay.getPosition()).toBeUndefined();
+			expect(result.overlay.getPosition()).toBeUndefined();
 			expect(targetElement.style.cursor).toBe('');
 		});
 
@@ -176,7 +177,7 @@ describe('tooltip - Integration Tests', () => {
 
 			mockGetFeatureAtEventPixel.mockReturnValue(clusterFeature);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			const event = {
 				coordinate: [1000, 2000],
@@ -187,7 +188,7 @@ describe('tooltip - Integration Tests', () => {
 			pointerMoveHandler(event);
 
 			// Tooltip should NOT be shown for clusters
-			expect(overlay.getPosition()).toBeUndefined();
+			expect(result.overlay.getPosition()).toBeUndefined();
 		});
 	});
 
@@ -288,7 +289,7 @@ describe('tooltip - Integration Tests', () => {
 			const targetElement = { style: { cursor: 'pointer' } };
 			mockMap.getTargetElement.mockReturnValue(targetElement);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			// Show tooltip first
 			const event = {
@@ -299,14 +300,14 @@ describe('tooltip - Integration Tests', () => {
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event);
 
-			expect(overlay.getPosition()).toBeDefined();
+			expect(result.overlay.getPosition()).toBeDefined();
 
 			// Click
 			const clickHandler = mockMap._listeners['click'][0];
 			clickHandler(event);
 
 			// Tooltip should be hidden
-			expect(overlay.getPosition()).toBeUndefined();
+			expect(result.overlay.getPosition()).toBeUndefined();
 			expect(targetElement.style.cursor).toBe('');
 		});
 
@@ -334,7 +335,7 @@ describe('tooltip - Integration Tests', () => {
 			const feature = createMockOLFeature({ features: [createMockOLFeature()] });
 			mockGetFeatureAtEventPixel.mockReturnValue(feature);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			const event1 = {
 				coordinate: [1000, 2000],
@@ -344,7 +345,7 @@ describe('tooltip - Integration Tests', () => {
 			const pointerMoveHandler = mockMap._listeners['pointermove'][0];
 			pointerMoveHandler(event1);
 
-			expect(overlay.getPosition()).toEqual([1000, 2000]);
+			expect(result.overlay.getPosition()).toEqual([1000, 2000]);
 
 			// Move mouse while still over feature
 			const event2 = {
@@ -354,7 +355,7 @@ describe('tooltip - Integration Tests', () => {
 
 			pointerMoveHandler(event2);
 
-			expect(overlay.getPosition()).toEqual([1100, 2100]);
+			expect(result.overlay.getPosition()).toEqual([1100, 2100]);
 		});
 
 		it('should show tooltip for new feature when switching', () => {
@@ -367,7 +368,7 @@ describe('tooltip - Integration Tests', () => {
 			const cluster1 = createMockOLFeature({ features: [feature1] });
 			const cluster2 = createMockOLFeature({ features: [feature2] });
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			createTooltipOverlay(tooltipElement, mockMap);
 
 			const event = {
 				coordinate: [1000, 2000],
@@ -400,7 +401,7 @@ describe('tooltip - Integration Tests', () => {
 
 			mockGetFeatureAtEventPixel.mockReturnValue(clusterFeature);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			const event = {
 				coordinate: [1000, 2000],
@@ -411,14 +412,14 @@ describe('tooltip - Integration Tests', () => {
 
 			// Should not crash
 			expect(() => pointerMoveHandler(event)).not.toThrow();
-			expect(overlay.getPosition()).toBeDefined();
+			expect(result.overlay.getPosition()).toBeDefined();
 		});
 
 		it('should handle empty features array', () => {
 			const clusterFeature = createMockOLFeature({ features: [] });
 			mockGetFeatureAtEventPixel.mockReturnValue(clusterFeature);
 
-			const overlay = createTooltipOverlay(tooltipElement, mockMap);
+			const result = createTooltipOverlay(tooltipElement, mockMap);
 
 			const event = {
 				coordinate: [1000, 2000],
@@ -429,7 +430,25 @@ describe('tooltip - Integration Tests', () => {
 
 			expect(() => pointerMoveHandler(event)).not.toThrow();
 			// Should not show tooltip for empty cluster
-			expect(overlay.getPosition()).toBeUndefined();
+			expect(result.overlay.getPosition()).toBeUndefined();
+		});
+	});
+
+	describe('Cleanup', () => {
+		it('should remove event listeners and overlay on cleanup', () => {
+			const result = createTooltipOverlay(tooltipElement, mockMap);
+
+			// Verify listeners were added
+			expect(mockMap.on).toHaveBeenCalledWith('click', expect.any(Function));
+			expect(mockMap.on).toHaveBeenCalledWith('pointermove', expect.any(Function));
+
+			// Call cleanup
+			result.cleanup();
+
+			// Verify listeners were removed
+			expect(mockMap.un).toHaveBeenCalledWith('click', expect.any(Function));
+			expect(mockMap.un).toHaveBeenCalledWith('pointermove', expect.any(Function));
+			expect(mockMap.removeOverlay).toHaveBeenCalledWith(result.overlay);
 		});
 	});
 });

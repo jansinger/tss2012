@@ -6,8 +6,7 @@ import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
 import { createTooltipHTML } from './createTooltipHTML';
 import { getFeatureAtEventPixel } from './getFeatureAtEventPixel';
-
-const CLICK_LOGBOOK_EVENT = 'clickLogbook';
+import { CLICK_LOGBOOK_EVENT } from '$lib/types';
 
 export interface LogbookFeature {
 	title: string;
@@ -19,14 +18,19 @@ export interface LogbookFeature {
 	id?: string;
 }
 
+export interface TooltipOverlayResult {
+	overlay: Overlay;
+	cleanup: () => void;
+}
+
 /**
  * Creates a tooltip overlay for a map and sets up event handlers for interactions.
  *
  * @param element - The HTML element to use as the container for the tooltip.
  * @param map - The OpenLayers Map instance to which the tooltip overlay will be added.
- * @returns An OpenLayers Overlay instance representing the tooltip.
+ * @returns An object containing the Overlay instance and a cleanup function.
  */
-export const createTooltipOverlay = (element: HTMLElement, map: OLMap): Overlay => {
+export const createTooltipOverlay = (element: HTMLElement, map: OLMap): TooltipOverlayResult => {
 	const overlay = new Overlay({
 		element,
 		offset: [5, 0],
@@ -91,5 +95,13 @@ export const createTooltipOverlay = (element: HTMLElement, map: OLMap): Overlay 
 	map.on('click', handleClick);
 	map.on('pointermove', handlePointerMove);
 
-	return overlay;
+	const cleanup = () => {
+		map.un('click', handleClick);
+		map.un('pointermove', handlePointerMove);
+		map.removeOverlay(overlay);
+		tooltipCache.clear();
+		currentFeature = null;
+	};
+
+	return { overlay, cleanup };
 };

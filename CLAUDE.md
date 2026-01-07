@@ -13,14 +13,14 @@
 
 ### Core Framework
 
-- **SvelteKit 2.x** (v2.43.7) - Full-stack framework with static adapter
-- **Svelte 5.x** (v5.38.1) - UI component framework with runes API
-- **TypeScript** (v5.8.3) - Type-safe development
-- **Vite 7.x** (v7.1.5) - Build tool and dev server
+- **SvelteKit 2.x** (v2.48.5) - Full-stack framework with static adapter
+- **Svelte 5.x** (v5.43.0) - UI component framework with runes API
+- **TypeScript** (v5.9.3) - Type-safe development
+- **Vite 7.x** (v7.1.12) - Build tool and dev server
 
 ### Mapping & Visualization
 
-- **OpenLayers** (v10.6.1) - Interactive map rendering
+- **OpenLayers** (v10.7.0) - Interactive map rendering
   - Vector layers (KML, GeoJSON)
   - Clustering for logbook entries
   - Custom overlays and tooltips
@@ -28,22 +28,22 @@
 
 ### UI & Styling
 
-- **SASS/SCSS** (v1.89.2) - CSS preprocessing
+- **SASS/SCSS** (v1.93.2) - CSS preprocessing
 - **Bootstrap Icons** (v1.13.1) - Icon library
-- **Swiper** (v11.2.10) - Image carousel/slider
+- **Swiper** (v12.0.3) - Image carousel/slider
 
 ### Testing
 
-- **Vitest** (v3.2.4) - Unit testing framework
-- **@testing-library/svelte** (v5.2.8) - Component testing
+- **Vitest** (v4.0.15) - Unit testing framework
+- **@testing-library/svelte** (v5.2.9) - Component testing
 - **@testing-library/jest-dom** (v6.9.1) - DOM matchers
-- **jsdom** (v26.1.0) - DOM implementation for testing
+- **jsdom** (v27.0.0) - DOM implementation for testing
 
 ### Code Quality
 
-- **ESLint** (v9.33.0) + TypeScript plugin - Linting
+- **ESLint** (v9.39.1) + TypeScript plugin - Linting
 - **Prettier** (v3.6.2) + Svelte plugin - Code formatting
-- **svelte-check** (v4.2.2) - TypeScript/Svelte validation
+- **svelte-check** (v4.3.3) - TypeScript/Svelte validation
 
 ### Deployment
 
@@ -309,14 +309,52 @@ SvelteKit's convention-based routing with:
 
 ---
 
+## Svelte 5 Best Practices
+
+### Runes Usage
+
+This project fully uses Svelte 5 runes:
+
+- **`$state`**: For reactive state (`AppState.svelte.ts`)
+- **`$derived`**: For computed values (`LogbookEntries.svelte`)
+- **`$effect`**: For side effects with cleanup
+- **`$props`**: For component props (all components)
+- **`$bindable`**: For two-way binding (`LogbookEntriesOverlay.svelte`)
+
+### $effect Cleanup Pattern
+
+Always return a cleanup function from `$effect` when managing resources:
+
+```typescript
+$effect(() => {
+    // Setup code
+    const handler = () => { /* ... */ };
+    map.on('click', handler);
+
+    // Return cleanup function
+    return () => {
+        map.un('click', handler);
+    };
+});
+```
+
+### Avoid Legacy Patterns
+
+- ❌ Do NOT use `$:` reactive statements (Svelte 4 syntax)
+- ✅ Use `$effect` for side effects
+- ✅ Use `$derived` for computed values
+
+---
+
 ## Code Style & Conventions
 
 ### TypeScript
 
-- **Strict mode**: Enabled (`isolatedModules`, `forceConsistentCasingInFileNames`)
+- **Partial strict mode**: Enabled (`strictBindCallApply`, `noImplicitThis`, `isolatedModules`, `forceConsistentCasingInFileNames`)
 - **Type imports**: Use `import type` for type-only imports
 - **Interfaces over types**: Prefer `interface` for object shapes
 - **Explicit types**: Function parameters and return types should be typed
+- **Custom events**: Use type-safe helper functions for OpenLayers custom events (see `onLogbookClick` in types.ts)
 
 ### Formatting (Prettier)
 
@@ -427,10 +465,16 @@ Features accessible via map events
 
 - **Distance**: 50px between clusters
 - **Min Distance**: 20px minimum separation
-- **Style Cache**: Styles cached by cluster size for performance
+- **Style Cache**: LRU cache with max 100 entries to prevent unbounded memory growth
 - **Single vs Cluster**:
   - Single feature → Custom marker icon
   - Cluster → Circle with count text
+
+### Memory Management
+
+- **Tooltip Overlay**: Returns cleanup function to remove event listeners and clear cache
+- **Map Components**: Use `$effect` with return cleanup function for proper resource disposal
+- **Style Cache**: LRU eviction prevents memory leaks for cluster styles
 
 ---
 
@@ -439,7 +483,8 @@ Features accessible via map events
 ### Unit Testing
 
 - **Framework**: Vitest + Testing Library
-- **Coverage**: Components, utilities, OpenLayers modules
+- **Coverage**: Components, utilities, OpenLayers modules, state management
+- **Coverage Thresholds**: 70% for lines, functions, statements; 50% for branches
 - **Mock Strategy**:
   - Virtual modules for SvelteKit imports
   - `jsdom` for DOM environment
@@ -576,10 +621,11 @@ Content Security Policy includes:
 
 ### State Not Updating
 
-1. Ensure reactive declarations use `$:` syntax
+1. For Svelte 5, use `$effect` instead of `$:` for side effects
 2. For Svelte 5 runes, use `$state` correctly
 3. Check store subscriptions with `$map` prefix
 4. Verify mutations trigger reactivity
+5. Ensure `$effect` cleanup functions are implemented for resource disposal
 
 ### Build Errors
 
@@ -614,7 +660,7 @@ Content Security Policy includes:
 ### Legacy Considerations
 
 - `logbook_orig.json` kept as backup/reference
-- Migration from Svelte 3 to Svelte 5 (runes API)
+- Fully migrated to Svelte 5 runes API (`$state`, `$derived`, `$effect`, `$props`, `$bindable`)
 - Browser support: Modern browsers (ES2021)
 
 ---
@@ -677,6 +723,6 @@ Refer to repository for license information and contact details.
 
 ---
 
-**Last Updated**: 2025-10-05
-**Svelte Version**: 5.38.1
-**SvelteKit Version**: 2.43.7
+**Last Updated**: 2026-01-07
+**Svelte Version**: 5.43.0
+**SvelteKit Version**: 2.48.5

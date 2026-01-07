@@ -36,10 +36,10 @@ export default defineConfig(({ mode }) => ({
 				'svelte.config.js'
 			],
 			thresholds: {
-				lines: 50,
-				functions: 50,
+				lines: 70,
+				functions: 70,
 				branches: 50,
-				statements: 50
+				statements: 70
 			}
 		}
 	},

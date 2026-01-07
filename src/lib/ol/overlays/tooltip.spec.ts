@@ -105,11 +105,32 @@ describe('getFeatureAtEventPixel', () => {
 });
 
 describe('createTooltipOverlay', () => {
-	it('creates an overlay', () => {
+	it('creates an overlay and cleanup function', () => {
 		const mockElement = document.createElement('div');
 		const mockMap = new Map();
 
-		const overlay = createTooltipOverlay(mockElement, mockMap);
-		assert.instanceOf(overlay, Overlay);
+		const result = createTooltipOverlay(mockElement, mockMap);
+
+		// Verify result structure
+		expect(result).toHaveProperty('overlay');
+		expect(result).toHaveProperty('cleanup');
+		assert.instanceOf(result.overlay, Overlay);
+		expect(typeof result.cleanup).toBe('function');
+	});
+
+	it('cleanup function removes event listeners and overlay', () => {
+		const mockElement = document.createElement('div');
+		const mockMap = new Map();
+
+		const result = createTooltipOverlay(mockElement, mockMap);
+
+		// Verify overlay was added
+		expect(mockMap.getOverlays().getLength()).toBe(1);
+
+		// Call cleanup
+		result.cleanup();
+
+		// Verify overlay was removed
+		expect(mockMap.getOverlays().getLength()).toBe(0);
 	});
 });

@@ -5,19 +5,28 @@
 	let { coordinates = [0, 0] as Coordinates } = $props();
 
 	let mapElement: HTMLElement;
-	let map: Map;
+	let map: Map | undefined;
 
-	$effect.pre(() => {
-		map?.setTarget(null);
-		map?.dispose();
-		map = undefined;
-	});
-
+	// Combined effect with proper cleanup using return function
 	$effect(() => {
-		import('$lib/ol/overviewmap').then(({createOverviewMap}) => {
-			map = createOverviewMap(mapElement, coordinates);
-			map.updateSize();
-		})
+		if (!mapElement) return;
+
+		let currentMap: Map | undefined;
+
+		import('$lib/ol/overviewmap').then(({ createOverviewMap }) => {
+			currentMap = createOverviewMap(mapElement, coordinates);
+			currentMap.updateSize();
+			map = currentMap;
+		});
+
+		// Cleanup function runs before effect re-runs or on unmount
+		return () => {
+			if (currentMap) {
+				currentMap.setTarget(null);
+				currentMap.dispose();
+			}
+			map = undefined;
+		};
 	});
 </script>
 

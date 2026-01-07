@@ -1,5 +1,34 @@
+import type { Feature } from 'ol';
+import type OLMap from 'ol/Map';
+
 export interface SortableEntry {
 	datetime: string;
+}
+
+/**
+ * Custom event type for logbook click events dispatched by OpenLayers Map.
+ * Used when a user clicks on a logbook marker on the map.
+ */
+export interface LogbookClickEvent {
+	feature: Feature;
+}
+
+/**
+ * Type-safe constant for the custom logbook click event name.
+ */
+export const CLICK_LOGBOOK_EVENT = 'clickLogbook' as const;
+
+/**
+ * Type-safe wrapper for adding custom event listeners to OpenLayers Map.
+ * This avoids @ts-ignore by using the generic Observable.on method.
+ */
+export function onLogbookClick(
+	map: OLMap,
+	handler: (evt: LogbookClickEvent) => void
+): () => void {
+	const listener = (evt: unknown) => handler(evt as LogbookClickEvent);
+	map.on(CLICK_LOGBOOK_EVENT as 'click', listener);
+	return () => map.un(CLICK_LOGBOOK_EVENT as 'click', listener);
 }
 
 export interface LogEntryShort extends SortableEntry {

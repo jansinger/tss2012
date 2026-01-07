@@ -3,23 +3,20 @@
 </script>
 
 <script lang="ts">
-    import { createTooltipOverlay } from '$lib/ol/overlays/tooltip';
-    import { fade } from 'svelte/transition';
+	import { createTooltipOverlay, type TooltipOverlayResult } from '$lib/ol/overlays/tooltip';
+	import { fade } from 'svelte/transition';
 	import { AppState } from '$lib/AppState.svelte';
 	import type { Feature } from 'ol';
 	import type { Geometry } from 'ol/geom';
-	import type { LogEntryShort } from '$lib/types';
+	import { type LogEntryShort, type LogbookClickEvent, onLogbookClick } from '$lib/types';
 	import { goto } from '$app/navigation';
 
-    let mapElement: HTMLElement, tooltipElement: HTMLElement;
+	let mapElement: HTMLElement;
+	let tooltipElement: HTMLElement;
+	let tooltipResult: TooltipOverlayResult | null = null;
 
 	const mapFeatures = (feature: Feature<Geometry>): LogEntryShort =>
 		feature.getProperties() as LogEntryShort;
-
-	// Add proper type for the click event
-	type LogbookClickEvent = {
-		feature: Feature;
-	}
 
 	const clickLogbook = (feature: Feature) => {
 		const features = feature.get('features');
@@ -28,58 +25,78 @@
 		} else {
 			AppState.currentEntries = features.map(mapFeatures);
 		}
-	}
+	};
+
+	const handleLogbookClick = (e: LogbookClickEvent) => clickLogbook(e.feature);
 
 	/**
-     * Initializes and sets up the map when the component is mounted.
-     *
-     * This function performs the following tasks:
-     * 1. Creates a new map if it doesn't exist
-     * 2. Sets up a tooltip overlay for the map
-     * 3. Sets the target element and updates size
-     * 4. Adds event listeners after map is fully initialized
-     **/
-	const initMap = async () => {
-        try {
-            // Return early if map already exists
-            if ($map) {
-                $map.setTarget(mapElement);
-                $map.updateSize();
-                return;
-            }
+	 * Initializes and sets up the map when the component is mounted.
+	 *
+	 * This function performs the following tasks:
+	 * 1. Creates a new map if it doesn't exist
+	 * 2. Sets up a tooltip overlay for the map
+	 * 3. Sets the target element and updates size
+	 * 4. Adds event listeners after map is fully initialized
+	 *
+	 * @returns A cleanup function to remove event listeners
+	 **/
+	const initMap = async (): Promise<(() => void) | undefined> => {
+		try {
+			// Return early if map already exists
+			if ($map) {
+				$map.setTarget(mapElement);
+				$map.updateSize();
 
-            // Ensure both elements are available
-            if (!mapElement || !tooltipElement) {
-                return;
-            }
+				// Re-attach event listener using type-safe helper and return cleanup
+				const unsubscribe = onLogbookClick($map, handleLogbookClick);
+				return unsubscribe;
+			}
 
-            const { createMap } = await import('$lib/ol/map');
-            const newMap = createMap(mapElement);
+			// Ensure both elements are available
+			if (!mapElement || !tooltipElement) {
+				return;
+			}
 
-            // Update size after map creation
-            newMap.updateSize();
+			const { createMap } = await import('$lib/ol/map');
+			const newMap = createMap(mapElement);
 
-            // Then create overlay and add event listeners
-            createTooltipOverlay(tooltipElement, newMap);
+			// Update size after map creation
+			newMap.updateSize();
 
-            // Set in store before adding listeners
-            map.set(newMap);
+			// Then create overlay and add event listeners
+			tooltipResult = createTooltipOverlay(tooltipElement, newMap);
 
-            // Add event listener after map is fully initialized
-            // @ts-ignore - clickLogbook is a custom event
-            $map.on('clickLogbook', (e: LogbookClickEvent) => clickLogbook(e.feature));
+			// Set in store before adding listeners
+			map.set(newMap);
 
-        } catch (error) {
-            console.error('Error initializing map:', error);
-        }
-    }
+			// Add event listener using type-safe helper
+			const unsubscribe = onLogbookClick(newMap, handleLogbookClick);
 
-    // Run effect when component mounts and elements are available
-    $: {
-        if (mapElement && tooltipElement) {
-            initMap();
-        }
-    }
+			// Return cleanup function
+			return () => {
+				unsubscribe();
+				tooltipResult?.cleanup();
+				tooltipResult = null;
+			};
+		} catch (error) {
+			console.error('Error initializing map:', error);
+		}
+	};
+
+	// Run effect when component mounts and elements are available (Svelte 5)
+	$effect(() => {
+		if (!mapElement || !tooltipElement) return;
+
+		let cleanup: (() => void) | undefined;
+
+		initMap().then((cleanupFn) => {
+			cleanup = cleanupFn;
+		});
+
+		return () => {
+			cleanup?.();
+		};
+	});
 </script>
 
 <div class="tooltip" bind:this={tooltipElement} transition:fade data-testid="tooltip">

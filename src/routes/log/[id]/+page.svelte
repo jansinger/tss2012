@@ -4,17 +4,25 @@
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 	import { AppState } from '$lib/AppState.svelte';
+	import type { LogEntry, LogEntryShort } from '$lib/types';
 
-	
 	interface Props {
-		/** @type {import('./$types').PageData */
-		data: any;
+		data: {
+			entry: LogEntry;
+		};
 	}
 
 	let { data }: Props = $props();
 
-	AppState.currentEntries = [data.entry];
+	// Update AppState when data changes, with cleanup on unmount
+	// Cast to LogEntryShort[] since LogEntry contains all required fields
+	$effect(() => {
+		AppState.currentEntries = [data.entry as unknown as LogEntryShort];
 
+		return () => {
+			AppState.currentEntries = [];
+		};
+	});
 </script>
 
 <Overlay>

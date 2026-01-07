@@ -6,6 +6,15 @@
 		"lib": ["es2021", "DOM"],
 		"target": "es2021",
 		/**
+			Partial strict mode options for better type safety.
+			Full "strict: true" requires additional type fixes in components.
+			strictFunctionTypes disabled due to OpenLayers type incompatibilities.
+			*/
+		"strictNullChecks": false,
+		"strictFunctionTypes": false,
+		"strictBindCallApply": true,
+		"noImplicitThis": true,
+		/**
 			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
 			to enforce using \`import type\` instead of \`import\` for Types.
 			*/
