@@ -1,8 +1,9 @@
-import { describe, it, expect, afterEach, vi } from 'vitest';
+import { describe, it, expect, afterEach, vi, beforeEach } from 'vitest';
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
-import LogbookEntry from './LogbookEntry.svelte'; // Replace with your actual component path
+import LogbookEntry from './LogbookEntry.svelte';
 import { goto } from '$app/navigation';
 import type { LogEntry } from '$lib/types';
+import { AppState } from '$lib/AppState.svelte';
 
 // Mock the goto function
 vi.mock('$app/navigation', () => ({
@@ -10,6 +11,22 @@ vi.mock('$app/navigation', () => ({
 }));
 vi.mock('$app/environment', () => ({
 	browser: vi.fn()
+}));
+// Mock OverviewMap module - returns a simple component that renders nothing
+vi.mock('./OverviewMap.svelte', async () => {
+	const { mount, unmount } = await import('svelte');
+	return {
+		default: function OverviewMapMock() {}
+	};
+});
+
+// Mock $lib/ol/overviewmap to prevent OpenLayers from loading
+vi.mock('$lib/ol/overviewmap', () => ({
+	createOverviewMap: vi.fn(() => ({
+		updateSize: vi.fn(),
+		setTarget: vi.fn(),
+		dispose: vi.fn()
+	}))
 }));
 
 const entry: LogEntry = {
@@ -159,25 +176,204 @@ const entry: LogEntry = {
 };
 
 describe('LogbookEntry', () => {
-	afterEach(() => cleanup());
-
-	it('renders correctly with given entry', () => {
-		const { getByText } = render(LogbookEntry, { entry });
-
-		// Add assertions to check if key elements are rendered
-		expect(getByText(entry.title)).toBeInTheDocument();
-		// Add more assertions as needed
+	beforeEach(() => {
+		vi.clearAllMocks();
+		vi.useFakeTimers();
 	});
 
-	it('navigates correctly on wheel event', async () => {
-		const { container } = render(LogbookEntry, { entry });
-
-		const nav = container.querySelector('.sub-navigation');
-		await fireEvent.wheel(nav, { deltaX: 100 });
-
-		// Check if goto is called correctly (deltaX > 0 navigates to _next)
-		expect(goto).toHaveBeenCalledWith('/log/next-entry-id');
+	afterEach(() => {
+		cleanup();
+		vi.useRealTimers();
 	});
 
-	// Add more tests as needed
+	describe('basic rendering', () => {
+		it('renders correctly with given entry', () => {
+			const { getByText } = render(LogbookEntry, { entry });
+			expect(getByText(entry.title)).toBeInTheDocument();
+		});
+
+		it('renders section address', () => {
+			const { getByText } = render(LogbookEntry, { entry });
+			expect(getByText(entry.section)).toBeInTheDocument();
+		});
+
+		it('renders formatted date', () => {
+			const { getByText } = render(LogbookEntry, { entry });
+			expect(getByText(entry.localeDatetime)).toBeInTheDocument();
+		});
+	});
+
+	describe('error state', () => {
+		// Note: The component has a bug where <svelte:head> accesses entry.section
+		// before checking hasValidEntry, causing errors when entry is null.
+		// These tests document the current behavior.
+
+		it('throws error when entry is null (svelte:head accesses entry.section)', () => {
+			expect(() => render(LogbookEntry, { entry: null })).toThrow();
+		});
+
+		it('renders error message when entry has no data', () => {
+			const invalidEntry = { ...entry, data: undefined } as unknown as LogEntry;
+			const { getByText } = render(LogbookEntry, { entry: invalidEntry });
+			expect(getByText(/konnte nicht geladen werden/)).toBeInTheDocument();
+		});
+
+		it('throws error when coordinates is null (svelte:head accesses coordinates[1])', () => {
+			const invalidEntry = {
+				...entry,
+				data: { ...entry.data, coordinates: null }
+			} as unknown as LogEntry;
+			expect(() => render(LogbookEntry, { entry: invalidEntry })).toThrow();
+		});
+
+		it('throws error when coordinates is undefined (svelte:head accesses coordinates[1])', () => {
+			const invalidEntry = {
+				...entry,
+				data: { ...entry.data, coordinates: undefined }
+			} as unknown as LogEntry;
+			expect(() => render(LogbookEntry, { entry: invalidEntry })).toThrow();
+		});
+	});
+
+	describe('navigation links', () => {
+		it('renders previous link when _prev exists', () => {
+			const { container } = render(LogbookEntry, { entry });
+			const prevLink = container.querySelector('.item-wrapper.left a');
+			expect(prevLink).toBeInTheDocument();
+			expect(prevLink).toHaveAttribute('href', '/log/prev-entry-id');
+		});
+
+		it('renders next link when _next exists', () => {
+			const { container } = render(LogbookEntry, { entry });
+			const nextLink = container.querySelector('.item-wrapper.right a');
+			expect(nextLink).toBeInTheDocument();
+			expect(nextLink).toHaveAttribute('href', '/log/next-entry-id');
+		});
+
+		it('renders disabled span when _prev is missing', () => {
+			const entryNoPrev = { ...entry, _prev: undefined };
+			const { container } = render(LogbookEntry, { entry: entryNoPrev });
+			const disabledLink = container.querySelector('.item-wrapper.left .disabled-link');
+			expect(disabledLink).toBeInTheDocument();
+		});
+
+		it('renders disabled span when _next is missing', () => {
+			const entryNoNext = { ...entry, _next: undefined };
+			const { container } = render(LogbookEntry, { entry: entryNoNext });
+			const disabledLink = container.querySelector('.item-wrapper.right .disabled-link');
+			expect(disabledLink).toBeInTheDocument();
+		});
+	});
+
+	describe('wheel navigation', () => {
+		it('navigates to next entry on positive deltaX', async () => {
+			const { container } = render(LogbookEntry, { entry });
+
+			const nav = container.querySelector('.sub-navigation');
+			await fireEvent.wheel(nav!, { deltaX: 100 });
+
+			expect(goto).toHaveBeenCalledWith('/log/next-entry-id');
+		});
+
+		it('navigates to previous entry on negative deltaX', async () => {
+			const { container } = render(LogbookEntry, { entry });
+
+			const nav = container.querySelector('.sub-navigation');
+			await fireEvent.wheel(nav!, { deltaX: -100 });
+
+			expect(goto).toHaveBeenCalledWith('/log/prev-entry-id');
+		});
+
+		it('does not navigate when deltaX is 0', async () => {
+			const { container } = render(LogbookEntry, { entry });
+
+			const nav = container.querySelector('.sub-navigation');
+			await fireEvent.wheel(nav!, { deltaX: 0 });
+
+			expect(goto).not.toHaveBeenCalled();
+		});
+
+		it('does not navigate to previous when _prev is missing', async () => {
+			const entryNoPrev = { ...entry, _prev: undefined };
+			const { container } = render(LogbookEntry, { entry: entryNoPrev });
+
+			const nav = container.querySelector('.sub-navigation');
+			await fireEvent.wheel(nav!, { deltaX: -100 });
+
+			expect(goto).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('keyboard navigation', () => {
+		it('navigates to previous entry on ArrowLeft', async () => {
+			render(LogbookEntry, { entry });
+
+			await fireEvent.keyDown(window, { key: 'ArrowLeft' });
+
+			expect(goto).toHaveBeenCalledWith('/log/prev-entry-id');
+		});
+
+		it('navigates to next entry on ArrowRight', async () => {
+			render(LogbookEntry, { entry });
+
+			await fireEvent.keyDown(window, { key: 'ArrowRight' });
+
+			expect(goto).toHaveBeenCalledWith('/log/next-entry-id');
+		});
+
+		it('does not navigate on ArrowLeft when _prev is missing', async () => {
+			const entryNoPrev = { ...entry, _prev: undefined };
+			render(LogbookEntry, { entry: entryNoPrev });
+
+			await fireEvent.keyDown(window, { key: 'ArrowLeft' });
+
+			expect(goto).not.toHaveBeenCalled();
+		});
+
+		it('does not navigate on ArrowRight when _next is missing', async () => {
+			const entryNoNext = { ...entry, _next: undefined };
+			render(LogbookEntry, { entry: entryNoNext });
+
+			await fireEvent.keyDown(window, { key: 'ArrowRight' });
+
+			expect(goto).not.toHaveBeenCalled();
+		});
+
+		it('does not navigate on other keys', async () => {
+			render(LogbookEntry, { entry });
+
+			await fireEvent.keyDown(window, { key: 'ArrowUp' });
+			await fireEvent.keyDown(window, { key: 'ArrowDown' });
+			await fireEvent.keyDown(window, { key: 'Enter' });
+
+			expect(goto).not.toHaveBeenCalled();
+		});
+
+		it('debounces keyboard navigation', async () => {
+			render(LogbookEntry, { entry });
+
+			// First navigation should work
+			await fireEvent.keyDown(window, { key: 'ArrowRight' });
+			expect(goto).toHaveBeenCalledTimes(1);
+
+			// Second immediate navigation should be blocked
+			await fireEvent.keyDown(window, { key: 'ArrowRight' });
+			expect(goto).toHaveBeenCalledTimes(1);
+
+			// After debounce time, navigation should work again
+			vi.advanceTimersByTime(300);
+			await fireEvent.keyDown(window, { key: 'ArrowRight' });
+			expect(goto).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe('close functionality', () => {
+		it('close link navigates to home', async () => {
+			const { container } = render(LogbookEntry, { entry });
+
+			const closeLink = container.querySelector('.close-navigation a');
+			expect(closeLink).toBeInTheDocument();
+			expect(closeLink).toHaveAttribute('href', '/');
+		});
+	});
 });

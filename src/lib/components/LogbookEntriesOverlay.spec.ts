@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/svelte';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 import LogbookEntriesOverlay from './LogbookEntriesOverlay.svelte';
 import type { LogEntryShort } from '$lib/types';
@@ -116,6 +116,94 @@ describe('LogbookEntriesOverlay', () => {
 
 			const entryList = container.querySelector('.entry-list');
 			expect(entryList).toBeInTheDocument();
+		});
+	});
+
+	describe('event handlers', () => {
+		beforeEach(() => {
+			vi.clearAllMocks();
+		});
+
+		it('closes overlay when close button is clicked', async () => {
+			const { getByRole, container } = render(LogbookEntriesOverlay, {
+				currentEntries: [...mockEntries]
+			});
+
+			const closeButton = getByRole('button');
+			await fireEvent.click(closeButton);
+
+			// After click, currentEntries should be empty, so entry-list should not be rendered
+			const entryList = container.querySelector('.entry-list');
+			expect(entryList).not.toBeInTheDocument();
+		});
+
+		it('closes overlay when Enter key is pressed on close button', async () => {
+			const { getByRole, container } = render(LogbookEntriesOverlay, {
+				currentEntries: [...mockEntries]
+			});
+
+			const closeButton = getByRole('button');
+			await fireEvent.keyDown(closeButton, { key: 'Enter' });
+
+			const entryList = container.querySelector('.entry-list');
+			expect(entryList).not.toBeInTheDocument();
+		});
+
+		it('closes overlay when Space key is pressed on close button', async () => {
+			const { getByRole, container } = render(LogbookEntriesOverlay, {
+				currentEntries: [...mockEntries]
+			});
+
+			const closeButton = getByRole('button');
+			await fireEvent.keyDown(closeButton, { key: ' ' });
+
+			const entryList = container.querySelector('.entry-list');
+			expect(entryList).not.toBeInTheDocument();
+		});
+
+		it('does not close overlay for other keys', async () => {
+			const { getByRole, container } = render(LogbookEntriesOverlay, {
+				currentEntries: [...mockEntries]
+			});
+
+			const closeButton = getByRole('button');
+			await fireEvent.keyDown(closeButton, { key: 'Escape' });
+
+			// Entry list should still be visible
+			const entryList = container.querySelector('.entry-list');
+			expect(entryList).toBeInTheDocument();
+		});
+
+		it('prevents default on click event', async () => {
+			const { getByRole } = render(LogbookEntriesOverlay, {
+				currentEntries: [...mockEntries]
+			});
+
+			const closeButton = getByRole('button');
+			const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+			const preventDefaultSpy = vi.spyOn(clickEvent, 'preventDefault');
+
+			closeButton.dispatchEvent(clickEvent);
+
+			expect(preventDefaultSpy).toHaveBeenCalled();
+		});
+
+		it('prevents default on Enter key press', async () => {
+			const { getByRole } = render(LogbookEntriesOverlay, {
+				currentEntries: [...mockEntries]
+			});
+
+			const closeButton = getByRole('button');
+			const keyEvent = new KeyboardEvent('keydown', {
+				key: 'Enter',
+				bubbles: true,
+				cancelable: true
+			});
+			const preventDefaultSpy = vi.spyOn(keyEvent, 'preventDefault');
+
+			closeButton.dispatchEvent(keyEvent);
+
+			expect(preventDefaultSpy).toHaveBeenCalled();
 		});
 	});
 });
