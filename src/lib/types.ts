@@ -22,10 +22,7 @@ export const CLICK_LOGBOOK_EVENT = 'clickLogbook' as const;
  * Type-safe wrapper for adding custom event listeners to OpenLayers Map.
  * This avoids @ts-ignore by using the generic Observable.on method.
  */
-export function onLogbookClick(
-	map: OLMap,
-	handler: (evt: LogbookClickEvent) => void
-): () => void {
+export function onLogbookClick(map: OLMap, handler: (evt: LogbookClickEvent) => void): () => void {
 	const listener = (evt: unknown) => handler(evt as LogbookClickEvent);
 	map.on(CLICK_LOGBOOK_EVENT as 'click', listener);
 	return () => map.un(CLICK_LOGBOOK_EVENT as 'click', listener);

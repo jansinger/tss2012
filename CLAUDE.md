@@ -327,14 +327,16 @@ Always return a cleanup function from `$effect` when managing resources:
 
 ```typescript
 $effect(() => {
-    // Setup code
-    const handler = () => { /* ... */ };
-    map.on('click', handler);
+	// Setup code
+	const handler = () => {
+		/* ... */
+	};
+	map.on('click', handler);
 
-    // Return cleanup function
-    return () => {
-        map.un('click', handler);
-    };
+	// Return cleanup function
+	return () => {
+		map.un('click', handler);
+	};
 });
 ```
 
