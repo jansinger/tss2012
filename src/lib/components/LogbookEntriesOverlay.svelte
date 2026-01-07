@@ -2,21 +2,21 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
+	import { clearCurrentEntries } from '$lib/utils/appStateHelpers';
 
 	let { currentEntries = $bindable() } = $props();
 
 	const closeHandler = (e: Event) => {
 		e.preventDefault();
-		currentEntries = [];
+		clearCurrentEntries();
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
-			currentEntries = [];
+			clearCurrentEntries();
 		}
 	};
-
 </script>
 
 {#if currentEntries.length > 0}

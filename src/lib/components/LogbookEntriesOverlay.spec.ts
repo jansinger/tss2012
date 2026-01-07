@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 import LogbookEntriesOverlay from './LogbookEntriesOverlay.svelte';
 import type { LogEntryShort } from '$lib/types';
+import { AppState } from '$lib/AppState.svelte';
 
 // Mock goto to prevent navigation errors in tests
 vi.mock('$app/navigation', () => ({
@@ -122,43 +123,44 @@ describe('LogbookEntriesOverlay', () => {
 	describe('event handlers', () => {
 		beforeEach(() => {
 			vi.clearAllMocks();
+			// Reset AppState to mock entries for each test
+			AppState.currentEntries = [...mockEntries];
 		});
 
 		it('closes overlay when close button is clicked', async () => {
-			const { getByRole, container } = render(LogbookEntriesOverlay, {
-				currentEntries: [...mockEntries]
+			const { getByRole } = render(LogbookEntriesOverlay, {
+				currentEntries: AppState.currentEntries
 			});
 
 			const closeButton = getByRole('button');
 			await fireEvent.click(closeButton);
 
-			// After click, currentEntries should be empty, so entry-list should not be rendered
-			const entryList = container.querySelector('.entry-list');
-			expect(entryList).not.toBeInTheDocument();
+			// After click, AppState.currentEntries should be empty
+			expect(AppState.currentEntries).toEqual([]);
 		});
 
 		it('closes overlay when Enter key is pressed on close button', async () => {
-			const { getByRole, container } = render(LogbookEntriesOverlay, {
-				currentEntries: [...mockEntries]
+			const { getByRole } = render(LogbookEntriesOverlay, {
+				currentEntries: AppState.currentEntries
 			});
 
 			const closeButton = getByRole('button');
 			await fireEvent.keyDown(closeButton, { key: 'Enter' });
 
-			const entryList = container.querySelector('.entry-list');
-			expect(entryList).not.toBeInTheDocument();
+			// After keydown, AppState.currentEntries should be empty
+			expect(AppState.currentEntries).toEqual([]);
 		});
 
 		it('closes overlay when Space key is pressed on close button', async () => {
-			const { getByRole, container } = render(LogbookEntriesOverlay, {
-				currentEntries: [...mockEntries]
+			const { getByRole } = render(LogbookEntriesOverlay, {
+				currentEntries: AppState.currentEntries
 			});
 
 			const closeButton = getByRole('button');
 			await fireEvent.keyDown(closeButton, { key: ' ' });
 
-			const entryList = container.querySelector('.entry-list');
-			expect(entryList).not.toBeInTheDocument();
+			// After keydown, AppState.currentEntries should be empty
+			expect(AppState.currentEntries).toEqual([]);
 		});
 
 		it('does not close overlay for other keys', async () => {

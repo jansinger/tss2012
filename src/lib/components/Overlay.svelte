@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { AppState } from '$lib/AppState.svelte';
+	import { closeAndNavigateHome } from '$lib/utils/appStateHelpers';
 	import { fly } from 'svelte/transition';
 
-	let {children, outside = undefined } = $props();
+	let { children, outside = undefined } = $props();
 	let content: HTMLElement = $state(undefined);
 	let isOpen = $state(true);
 
@@ -43,11 +42,9 @@
 	 * Closes the overlay and navigates to home
 	 */
 	export function close(): void {
-		AppState.currentEntries = [];
 		isOpen = false;
-		goto('/');
+		closeAndNavigateHome();
 	}
-
 </script>
 
 <svelte:window on:mousedown={handleWindowClick} on:keydown={handleWindowKeyDown} />

@@ -5,29 +5,14 @@
 <script lang="ts">
 	import { createTooltipOverlay, type TooltipOverlayResult } from '$lib/ol/overlays/tooltip';
 	import { fade } from 'svelte/transition';
-	import { AppState } from '$lib/AppState.svelte';
-	import type { Feature } from 'ol';
-	import type { Geometry } from 'ol/geom';
-	import { type LogEntryShort, type LogbookClickEvent, onLogbookClick } from '$lib/types';
-	import { goto } from '$app/navigation';
+	import { type LogbookClickEvent, onLogbookClick } from '$lib/types';
+	import { handleLogbookClick as handleClick } from '$lib/utils/handleLogbookClick';
 
 	let mapElement: HTMLElement;
 	let tooltipElement: HTMLElement;
 	let tooltipResult: TooltipOverlayResult | null = null;
 
-	const mapFeatures = (feature: Feature<Geometry>): LogEntryShort =>
-		feature.getProperties() as LogEntryShort;
-
-	const clickLogbook = (feature: Feature) => {
-		const features = feature.get('features');
-		if (features.length === 1) {
-			goto(`/log/${features[0].get('id')}`);
-		} else {
-			AppState.currentEntries = features.map(mapFeatures);
-		}
-	};
-
-	const handleLogbookClick = (e: LogbookClickEvent) => clickLogbook(e.feature);
+	const handleLogbookClickEvent = (e: LogbookClickEvent) => handleClick(e.feature);
 
 	/**
 	 * Initializes and sets up the map when the component is mounted.
@@ -48,7 +33,7 @@
 				$map.updateSize();
 
 				// Re-attach event listener using type-safe helper and return cleanup
-				const unsubscribe = onLogbookClick($map, handleLogbookClick);
+				const unsubscribe = onLogbookClick($map, handleLogbookClickEvent);
 				return unsubscribe;
 			}
 
@@ -70,7 +55,7 @@
 			map.set(newMap);
 
 			// Add event listener using type-safe helper
-			const unsubscribe = onLogbookClick(newMap, handleLogbookClick);
+			const unsubscribe = onLogbookClick(newMap, handleLogbookClickEvent);
 
 			// Return cleanup function
 			return () => {
@@ -173,28 +158,29 @@
 			filter: brightness(0.9) contrast(1.2);
 		}
 
-		// Consolidated arrow styles
-		i {
-			position: absolute;
-			top: 50%;
-			right: 100%;
-			margin-top: -12px;
-			width: 12px;
-			height: 24px;
-			overflow: hidden;
+	}
 
-			&::after {
-				content: '';
-				position: absolute;
-				width: 12px;
-				height: 12px;
-				left: 0;
-				top: 50%;
-				transform: translate(50%, -50%) rotate(-45deg);
-				background-color: #444444;
-				box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-			}
-		}
+	// Arrow styles for dynamically generated tooltip content (from createTooltipHTML.ts)
+	:global(.tooltip .right i) {
+		position: absolute;
+		top: 50%;
+		right: 100%;
+		margin-top: -12px;
+		width: 12px;
+		height: 24px;
+		overflow: hidden;
+	}
+
+	:global(.tooltip .right i::after) {
+		content: '';
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		left: 0;
+		top: 50%;
+		transform: translate(50%, -50%) rotate(-45deg);
+		background-color: #444444;
+		box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 	}
 
 	.tooltip :global(.text-content) {

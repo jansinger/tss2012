@@ -1,38 +1,36 @@
 <script lang="ts">
 	import type { LogEntry } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
+	import { closeAndNavigateHome } from '$lib/utils/appStateHelpers';
+	import { createDebouncedNavigation } from '$lib/utils/navigation';
 	import Icon from './Icon.svelte';
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';
-	import { goto } from '$app/navigation';
-	import { AppState } from '$lib/AppState.svelte';
 
 	interface Props {
-	    entry?: LogEntry | null;
+		entry?: LogEntry | null;
 	}
 
 	let { entry = null }: Props = $props();
 
 	// Error handling
 	const hasValidEntry = $derived(entry && entry.data && entry.data.coordinates);
-	let block = false;
 
 	// Navigation debounce delays
 	const NAVIGATION_DEBOUNCE_WHEEL_MS = 1000;
 	const NAVIGATION_DEBOUNCE_KEYBOARD_MS = 300;
 
-	/**
-	 * Navigates to a logbook entry with debounce protection
-	 * @param path - The path to navigate to
-	 * @param delay - Debounce delay in milliseconds
-	 */
-	const navigateWithDebounce = (path: string | undefined, delay: number): void => {
-		if (!path || block) return;
+	// Create debounced navigation handlers with proper cleanup
+	const wheelNav = createDebouncedNavigation(NAVIGATION_DEBOUNCE_WHEEL_MS);
+	const keyboardNav = createDebouncedNavigation(NAVIGATION_DEBOUNCE_KEYBOARD_MS);
 
-		block = true;
-		goto(path);
-		setTimeout(() => (block = false), delay);
-	};
+	// Cleanup debounced navigations on component unmount
+	$effect(() => {
+		return () => {
+			wheelNav.cleanup();
+			keyboardNav.cleanup();
+		};
+	});
 
 	/**
 	 * Handles horizontal wheel events to navigate between log entries.
@@ -41,15 +39,14 @@
 	 * @param e - The wheel event object
 	 */
 	const trackWheel = (e: WheelEvent): void => {
-	    const { deltaX } = e;
+		const { deltaX } = e;
 
-	    if (deltaX) {
-	        e.preventDefault();
-	        const targetId = deltaX < 0 ? entry._prev : entry._next;
-	        if (!targetId) return;
-	        const targetPath = `/log/${targetId}`;
-	        navigateWithDebounce(targetPath, NAVIGATION_DEBOUNCE_WHEEL_MS);
-	    }
+		if (deltaX) {
+			e.preventDefault();
+			const targetId = deltaX < 0 ? entry._prev : entry._next;
+			if (!targetId) return;
+			wheelNav.navigate(`/log/${targetId}`);
+		}
 	};
 
 	/**
@@ -62,10 +59,10 @@
 		if (!entry) return;
 		if (e.key === 'ArrowLeft' && entry._prev) {
 			e.preventDefault();
-			navigateWithDebounce(`/log/${entry._prev}`, NAVIGATION_DEBOUNCE_KEYBOARD_MS);
+			keyboardNav.navigate(`/log/${entry._prev}`);
 		} else if (e.key === 'ArrowRight' && entry._next) {
 			e.preventDefault();
-			navigateWithDebounce(`/log/${entry._next}`, NAVIGATION_DEBOUNCE_KEYBOARD_MS);
+			keyboardNav.navigate(`/log/${entry._next}`);
 		}
 	};
 
@@ -75,9 +72,8 @@
 	 */
 	const close = (event: Event): void => {
 		event.preventDefault();
-		AppState.currentEntries = [];
-		goto('/');
-	}
+		closeAndNavigateHome();
+	};
 </script>
 
 <svelte:head>

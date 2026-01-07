@@ -28,6 +28,5 @@
 <Overlay>
 	<div class="container-article" transition:fly>
 		<LogbookEntry entry={data.entry} />
-		<a href="/impressum" class="impressum" title="Impressum">Impressum</a>
 	</div>
 </Overlay>
