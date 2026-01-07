@@ -49,15 +49,4 @@
 		right: 0.5em;
 		z-index: 5;
 	}
-
-	.entry-list {
-		display: block;
-		margin-right: 16px;
-	}
-	.close-navigation {
-		position: sticky;
-		float: right;
-		top: 15px;
-		margin-right: 12px;
-	}
 </style>

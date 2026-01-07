@@ -3,14 +3,17 @@
 	import type { LogEntryShort } from '$lib/types';
 	import { fly } from 'svelte/transition';
 
-	
 	interface Props {
 		/** @type {import('./$types').PageData */
-		data: any;
+		data: {
+			groupedEntries: { [key: string]: LogEntryShort[] };
+		};
 	}
 
 	let { data }: Props = $props();
-	let { groupedEntries }: { groupedEntries: { [key: string]: LogEntryShort[] }} = data;
+
+	// Use $derived to keep groupedEntries reactive when data changes
+	let groupedEntries = $derived(data.groupedEntries);
 </script>
 
 <svelte:head>
