@@ -1,9 +1,9 @@
 <script lang="ts">
 	import LogbookEntries from "$lib/components/LogbookEntries.svelte";
-	
+	import type { PageData } from './$types';
+
 	interface Props {
-		/** @type {import('./$types').PageData */
-		data: any;
+		data: PageData;
 	}
 
 	let { data }: Props = $props();

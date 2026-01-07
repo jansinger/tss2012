@@ -1,6 +1,6 @@
 ---
-description: "Svelte 5 runes patterns for tss2012 components"
-globs: ["src/**/*.svelte", "src/**/*.svelte.ts"]
+description: 'Svelte 5 runes patterns for tss2012 components'
+globs: ['src/**/*.svelte', 'src/**/*.svelte.ts']
 alwaysApply: false
 ---
 
@@ -26,9 +26,10 @@ let items = $state<string[]>([]);
 ```
 
 **File Example**: [src/lib/AppState.svelte.ts](../../src/lib/AppState.svelte.ts)
+
 ```typescript
 export const AppState = $state({
-    currentEntries: []
+	currentEntries: []
 });
 ```
 
@@ -39,16 +40,16 @@ let count = $state(0);
 let doubled = $derived(count * 2);
 
 // Complex derivation
-let filtered = $derived(items.filter(item => item.active));
+let filtered = $derived(items.filter((item) => item.active));
 ```
 
 ### $props - Component Props
 
 ```typescript
 interface Props {
-    title: string;
-    count?: number;
-    onClose?: () => void;
+	title: string;
+	count?: number;
+	onClose?: () => void;
 }
 
 let { title, count = 0, onClose }: Props = $props();
@@ -58,7 +59,7 @@ let { title, count = 0, onClose }: Props = $props();
 
 ```typescript
 interface Props {
-    visible: boolean;
+	visible: boolean;
 }
 
 let { visible = $bindable(false) }: Props = $props();
@@ -76,14 +77,16 @@ let { visible = $bindable(false) }: Props = $props();
 
 ```typescript
 $effect(() => {
-    // Setup code
-    const handler = () => { /* ... */ };
-    map.on('click', handler);
+	// Setup code
+	const handler = () => {
+		/* ... */
+	};
+	map.on('click', handler);
 
-    // ALWAYS return cleanup function
-    return () => {
-        map.un('click', handler);
-    };
+	// ALWAYS return cleanup function
+	return () => {
+		map.un('click', handler);
+	};
 });
 ```
 
@@ -93,25 +96,25 @@ $effect(() => {
 
 ```typescript
 $effect(() => {
-    if (!$map || !mapElement) return;
+	if (!$map || !mapElement) return;
 
-    const { cleanup } = createTooltipOverlay(tooltipElement, $map);
+	const { cleanup } = createTooltipOverlay(tooltipElement, $map);
 
-    return () => {
-        cleanup();
-    };
+	return () => {
+		cleanup();
+	};
 });
 ```
 
 ### When Cleanup is Required
 
-| Resource | Cleanup Action |
-|----------|---------------|
-| Event listeners | `map.un('event', handler)` |
-| Overlays | `map.removeOverlay(overlay)` |
-| Timers | `clearInterval(id)` / `clearTimeout(id)` |
-| Subscriptions | `unsubscribe()` |
-| Caches | `cache.clear()` |
+| Resource        | Cleanup Action                           |
+| --------------- | ---------------------------------------- |
+| Event listeners | `map.un('event', handler)`               |
+| Overlays        | `map.removeOverlay(overlay)`             |
+| Timers          | `clearInterval(id)` / `clearTimeout(id)` |
+| Subscriptions   | `unsubscribe()`                          |
+| Caches          | `cache.clear()`                          |
 
 ---
 
@@ -122,12 +125,16 @@ $effect(() => {
 ```typescript
 // BAD - Svelte 4 syntax
 $: doubled = count * 2;
-$: if (count > 10) { doSomething(); }
+$: if (count > 10) {
+	doSomething();
+}
 
 // GOOD - Svelte 5 runes
 let doubled = $derived(count * 2);
 $effect(() => {
-    if (count > 10) { doSomething(); }
+	if (count > 10) {
+		doSomething();
+	}
 });
 ```
 
@@ -136,14 +143,14 @@ $effect(() => {
 ```typescript
 // BAD - Memory leak
 $effect(() => {
-    map.on('click', handler);
-    // Missing cleanup!
+	map.on('click', handler);
+	// Missing cleanup!
 });
 
 // GOOD - Proper cleanup
 $effect(() => {
-    map.on('click', handler);
-    return () => map.un('click', handler);
+	map.on('click', handler);
+	return () => map.un('click', handler);
 });
 ```
 
@@ -154,16 +161,16 @@ $effect(() => {
 import { onMount, onDestroy } from 'svelte';
 
 onMount(() => {
-    map.on('click', handler);
+	map.on('click', handler);
 });
 onDestroy(() => {
-    map.un('click', handler);
+	map.un('click', handler);
 });
 
 // GOOD - Single $effect with cleanup
 $effect(() => {
-    map.on('click', handler);
-    return () => map.un('click', handler);
+	map.on('click', handler);
+	return () => map.un('click', handler);
 });
 ```
 
@@ -253,8 +260,8 @@ export const map: Writable<Map> = writable();
 
 ```typescript
 interface Props {
-    entries: LogEntry[];
-    onSelect?: (entry: LogEntry) => void;
+	entries: LogEntry[];
+	onSelect?: (entry: LogEntry) => void;
 }
 
 let { entries, onSelect }: Props = $props();
@@ -271,10 +278,10 @@ let items = $state<LogEntry[]>([]);
 
 ```typescript
 $effect(() => {
-    // TypeScript infers types from closure
-    const entry = entries.find(e => e.id === selectedId);
-    if (entry) {
-        onSelect?.(entry);
-    }
+	// TypeScript infers types from closure
+	const entry = entries.find((e) => e.id === selectedId);
+	if (entry) {
+		onSelect?.(entry);
+	}
 });
 ```

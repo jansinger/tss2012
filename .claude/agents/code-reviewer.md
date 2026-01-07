@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: "Review code quality, patterns, and best practices"
+description: 'Review code quality, patterns, and best practices'
 tools: Read, Grep, Glob, Bash
 ---
 
@@ -86,11 +86,15 @@ npm run build-ci
 ```typescript
 // BAD - Flag this
 $: doubled = count * 2;
-$: if (condition) { doSomething(); }
+$: if (condition) {
+	doSomething();
+}
 
 // GOOD - Should be
 let doubled = $derived(count * 2);
-$effect(() => { if (condition) doSomething(); });
+$effect(() => {
+	if (condition) doSomething();
+});
 ```
 
 ### Missing Cleanup
@@ -98,14 +102,14 @@ $effect(() => { if (condition) doSomething(); });
 ```typescript
 // BAD - Memory leak
 $effect(() => {
-    map.on('click', handler);
-    // No cleanup!
+	map.on('click', handler);
+	// No cleanup!
 });
 
 // GOOD
 $effect(() => {
-    map.on('click', handler);
-    return () => map.un('click', handler);
+	map.on('click', handler);
+	return () => map.un('click', handler);
 });
 ```
 
@@ -114,12 +118,12 @@ $effect(() => {
 ```typescript
 // BAD
 function process(data) {
-    return data.map(item => item.name);
+	return data.map((item) => item.name);
 }
 
 // GOOD
 function process(data: LogEntry[]): string[] {
-    return data.map(item => item.name);
+	return data.map((item) => item.name);
 }
 ```
 
@@ -195,24 +199,30 @@ Before approving:
 ## Code Review Summary
 
 ### Files Reviewed
+
 - [list files]
 
 ### Issues Found
 
 #### Critical
+
 - [blocking issues]
 
 #### Warnings
+
 - [non-blocking but should fix]
 
 #### Suggestions
+
 - [nice to have]
 
 ### Tests
+
 - [ ] All tests pass
 - [ ] Coverage maintained
 
 ### Recommendation
+
 - [ ] Approve
 - [ ] Request changes
 ```

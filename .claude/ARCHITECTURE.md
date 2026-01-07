@@ -31,10 +31,12 @@ This document describes the architectural patterns and design principles used in
 Used for creating OpenLayers map instances with consistent configuration.
 
 **Files**:
+
 - [src/lib/ol/map.ts](../src/lib/ol/map.ts) - `createMap()` factory
 - [src/lib/ol/overviewmap.ts](../src/lib/ol/overviewmap.ts) - `createOverviewMap()` factory
 
 **Benefits**:
+
 - Centralized configuration
 - Consistent defaults
 - Easy testing with dependency injection
@@ -45,6 +47,7 @@ Used for creating OpenLayers map instances with consistent configuration.
 OpenLayers layers and overlays are exported as modules with encapsulated configuration.
 
 **Files**:
+
 - [src/lib/ol/layers/logbook.ts](../src/lib/ol/layers/logbook.ts) - Clustered markers
 - [src/lib/ol/layers/track.ts](../src/lib/ol/layers/track.ts) - Sailing route (KML)
 - [src/lib/ol/layers/osm.ts](../src/lib/ol/layers/osm.ts) - Base map tiles
@@ -55,6 +58,7 @@ OpenLayers layers and overlays are exported as modules with encapsulated configu
 Used for global state management via Svelte stores.
 
 **File**: [src/lib/stores.ts](../src/lib/stores.ts)
+
 ```typescript
 export const map: Writable<Map> = writable();
 ```
@@ -64,13 +68,15 @@ export const map: Writable<Map> = writable();
 #### Svelte 5 Runes (`$state`)
 
 **File**: [src/lib/AppState.svelte.ts](../src/lib/AppState.svelte.ts)
+
 ```typescript
 export const AppState = $state({
-    currentEntries: []
+	currentEntries: []
 });
 ```
 
 **When to use**:
+
 - Svelte 5 runes (`$state`) - For reactive component/app state
 - Svelte stores - For values shared across components (like the map instance)
 
@@ -129,12 +135,12 @@ Features accessible via map events
 
 Each module has one reason to change:
 
-| Module Type | Responsibility |
-|-------------|---------------|
-| Components | UI rendering only |
-| Layers | Map rendering only |
-| Utils | Specific transformations |
-| Stores | State management only |
+| Module Type | Responsibility           |
+| ----------- | ------------------------ |
+| Components  | UI rendering only        |
+| Layers      | Map rendering only       |
+| Utils       | Specific transformations |
+| Stores      | State management only    |
 
 ### Open/Closed Principle (OCP)
 
@@ -155,6 +161,7 @@ Each module has one reason to change:
 ### DRY (Don't Repeat Yourself)
 
 **Applied**:
+
 - Factory functions for map creation (`createMap`, `createOverviewMap`)
 - Shared types in [src/lib/types.ts](../src/lib/types.ts)
 - Reusable components (`Overlay.svelte`, `Pictures.svelte`)
@@ -164,6 +171,7 @@ Each module has one reason to change:
 ### KISS (Keep It Simple, Stupid)
 
 **Applied**:
+
 - Straightforward component hierarchy
 - Clear naming conventions
 - Minimal abstractions where not needed
@@ -173,34 +181,38 @@ Each module has one reason to change:
 ### Idempotency
 
 **Applied**:
+
 - Map initialization checks if map already exists before creating
+
 ```typescript
 if ($map) {
-    $map.setTarget(mapElement);
-    $map.updateSize();
-    return;
+	$map.setTarget(mapElement);
+	$map.updateSize();
+	return;
 }
 ```
+
 - Layer creation functions can be called multiple times safely
 - Component mounting/unmounting handled safely
 
 ### Immutability
 
 **Preferred patterns**:
+
 - TypeScript readonly interfaces where appropriate
 - Functional utilities (sort, filter, map) instead of mutations
 - Svelte's reactive declarations create new values
 
 ### Separation of Concerns
 
-| Concern | Location |
-|---------|----------|
-| UI | Svelte components |
+| Concern   | Location                           |
+| --------- | ---------------------------------- |
+| UI        | Svelte components                  |
 | Map Logic | OpenLayers modules (`src/lib/ol/`) |
-| Data | JSON files + TypeScript types |
-| Styling | SCSS files |
-| Routing | SvelteKit file structure |
-| Testing | Separate `.spec.ts` files |
+| Data      | JSON files + TypeScript types      |
+| Styling   | SCSS files                         |
+| Routing   | SvelteKit file structure           |
+| Testing   | Separate `.spec.ts` files          |
 
 ---
 
@@ -208,14 +220,15 @@ if ($map) {
 
 SvelteKit's convention-based routing:
 
-| File | Purpose |
-|------|---------|
-| `+page.svelte` | Page components |
-| `+layout.svelte` | Layout wrappers |
-| `+page.ts` / `+layout.ts` | Data loading |
-| `[id]` | Dynamic route parameters |
+| File                      | Purpose                  |
+| ------------------------- | ------------------------ |
+| `+page.svelte`            | Page components          |
+| `+layout.svelte`          | Layout wrappers          |
+| `+page.ts` / `+layout.ts` | Data loading             |
+| `[id]`                    | Dynamic route parameters |
 
 **Current Routes**:
+
 - `/` - Home page (map view)
 - `/log` - Logbook list
 - `/log/[id]` - Individual entry
@@ -233,6 +246,7 @@ SvelteKit's convention-based routing:
 - **Separation of Concerns**: Business logic separated from presentation
 
 **Examples**:
+
 - `LogbookMap.svelte` - Handles map initialization and events
 - `LogbookEntry.svelte` - Displays a single entry
 - `LogbookEntriesOverlay.svelte` - Manages overlay display logic

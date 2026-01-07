@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { LogEntry } from '$lib/types';
 	import { stripHtml } from '$lib/utils/striphtml';
+	import Icon from './Icon.svelte';
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';
 	import { goto } from '$app/navigation';
@@ -104,9 +105,9 @@
 		{#if entry._prev}
 			<a href="/log/{entry._prev}"
 				title="Vorheriger Beitrag"
-				aria-label="Vorheriger Beitrag"><i class="bi bi-caret-left-fill"></i></a>
+				aria-label="Vorheriger Beitrag"><Icon name="caret-left-fill" /></a>
 		{:else}
-			<span class="disabled-link" aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+			<span class="disabled-link" aria-hidden="true"><Icon name="caret-left-fill" /></span>
 		{/if}
 	</div>
 	<div class="item-wrapper center">
@@ -116,15 +117,15 @@
 		{#if entry._next}
 			<a href="/log/{entry._next}"
 				title="Nächster Beitrag"
-				aria-label="Nächster Beitrag"><i class="bi bi-caret-right-fill"></i></a>
+				aria-label="Nächster Beitrag"><Icon name="caret-right-fill" /></a>
 		{:else}
-			<span class="disabled-link" aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+			<span class="disabled-link" aria-hidden="true"><Icon name="caret-right-fill" /></span>
 		{/if}
 	</div>
 </nav>
 <content class="container glass">
 	<nav class="close-navigation">
-		<a href="/" onclick={close} title="Zur Karte" aria-label="Zur Karte"><i class="bi bi-x-circle"></i></a>
+		<a href="/" onclick={close} title="Zur Karte" aria-label="Zur Karte"><Icon name="x-circle" /></a>
 	</nav>
 	<header>
 		<address>{entry.section}</address>

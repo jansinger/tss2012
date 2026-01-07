@@ -63,7 +63,8 @@ describe('LogbookEntriesOverlay', () => {
 				currentEntries: mockEntries
 			});
 
-			const icon = container.querySelector('.bi-x-circle');
+			// Icon component renders an SVG with class "icon-x-circle"
+			const icon = container.querySelector('.icon-x-circle');
 			expect(icon).toBeInTheDocument();
 		});
 	});

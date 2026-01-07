@@ -6,12 +6,12 @@ This document covers the testing approach for the **Ein tierischer Segelsommer 2
 
 ## Testing Framework
 
-| Tool | Purpose |
-|------|---------|
-| **Vitest** (v4.0.15) | Unit testing framework |
-| **@testing-library/svelte** (v5.2.9) | Component testing |
-| **@testing-library/jest-dom** (v6.9.1) | DOM matchers |
-| **jsdom** (v27.0.0) | DOM implementation |
+| Tool                                   | Purpose                |
+| -------------------------------------- | ---------------------- |
+| **Vitest** (v4.0.15)                   | Unit testing framework |
+| **@testing-library/svelte** (v5.2.9)   | Component testing      |
+| **@testing-library/jest-dom** (v6.9.1) | DOM matchers           |
+| **jsdom** (v27.0.0)                    | DOM implementation     |
 
 ---
 
@@ -21,25 +21,25 @@ This document covers the testing approach for the **Ein tierischer Segelsommer 2
 
 ```javascript
 export default defineConfig({
-    plugins: [svelte({ hot: !process.env.VITEST })],
-    test: {
-        globals: true,
-        environment: 'jsdom',
-        setupFiles: ['./vitest-setup.js'],
-        alias: {
-            '$app/environment': path.resolve('./src/mocks/environment.ts')
-        },
-        coverage: {
-            provider: 'v8',
-            reporter: ['text', 'html', 'json', 'json-summary'],
-            thresholds: {
-                lines: 70,
-                functions: 70,
-                branches: 50,
-                statements: 70
-            }
-        }
-    }
+	plugins: [svelte({ hot: !process.env.VITEST })],
+	test: {
+		globals: true,
+		environment: 'jsdom',
+		setupFiles: ['./vitest-setup.js'],
+		alias: {
+			'$app/environment': path.resolve('./src/mocks/environment.ts')
+		},
+		coverage: {
+			provider: 'v8',
+			reporter: ['text', 'html', 'json', 'json-summary'],
+			thresholds: {
+				lines: 70,
+				functions: 70,
+				branches: 50,
+				statements: 70
+			}
+		}
+	}
 });
 ```
 
@@ -47,12 +47,12 @@ export default defineConfig({
 
 ## Coverage Thresholds
 
-| Metric | Minimum |
-|--------|---------|
-| Lines | 70% |
-| Functions | 70% |
-| Statements | 70% |
-| Branches | 50% |
+| Metric     | Minimum |
+| ---------- | ------- |
+| Lines      | 70%     |
+| Functions  | 70%     |
+| Statements | 70%     |
+| Branches   | 50%     |
 
 ### Excluded Paths
 
@@ -119,6 +119,7 @@ alias: {
 Location: [src/mocks/](../src/mocks/)
 
 Place reusable mocks here for:
+
 - SvelteKit modules (`$app/*`)
 - External libraries
 - Browser APIs
@@ -153,15 +154,15 @@ import { describe, it, expect } from 'vitest';
 import ComponentName from './ComponentName.svelte';
 
 describe('ComponentName', () => {
-    it('renders correctly', () => {
-        render(ComponentName, {
-            props: {
-                // component props
-            }
-        });
+	it('renders correctly', () => {
+		render(ComponentName, {
+			props: {
+				// component props
+			}
+		});
 
-        expect(screen.getByText('Expected Text')).toBeInTheDocument();
-    });
+		expect(screen.getByText('Expected Text')).toBeInTheDocument();
+	});
 });
 ```
 
@@ -172,12 +173,12 @@ import { render, screen } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 
 it('handles click', async () => {
-    const user = userEvent.setup();
-    render(ComponentName);
+	const user = userEvent.setup();
+	render(ComponentName);
 
-    await user.click(screen.getByRole('button'));
+	await user.click(screen.getByRole('button'));
 
-    expect(screen.getByText('Clicked')).toBeInTheDocument();
+	expect(screen.getByText('Clicked')).toBeInTheDocument();
 });
 ```
 
@@ -187,11 +188,11 @@ it('handles click', async () => {
 import { render, waitFor } from '@testing-library/svelte';
 
 it('loads data', async () => {
-    render(ComponentName);
+	render(ComponentName);
 
-    await waitFor(() => {
-        expect(screen.getByText('Loaded')).toBeInTheDocument();
-    });
+	await waitFor(() => {
+		expect(screen.getByText('Loaded')).toBeInTheDocument();
+	});
 });
 ```
 
@@ -207,7 +208,7 @@ import { writable } from 'svelte/store';
 
 // Mock the map store
 vi.mock('$lib/stores', () => ({
-    map: writable(null)
+	map: writable(null)
 }));
 ```
 
@@ -215,15 +216,15 @@ vi.mock('$lib/stores', () => ({
 
 ```typescript
 vi.mock('ol/Map', () => ({
-    default: vi.fn().mockImplementation(() => ({
-        setTarget: vi.fn(),
-        updateSize: vi.fn(),
-        on: vi.fn(),
-        un: vi.fn(),
-        addOverlay: vi.fn(),
-        removeOverlay: vi.fn(),
-        getTargetElement: vi.fn(() => ({ style: {} }))
-    }))
+	default: vi.fn().mockImplementation(() => ({
+		setTarget: vi.fn(),
+		updateSize: vi.fn(),
+		on: vi.fn(),
+		un: vi.fn(),
+		addOverlay: vi.fn(),
+		removeOverlay: vi.fn(),
+		getTargetElement: vi.fn(() => ({ style: {} }))
+	}))
 }));
 ```
 
@@ -231,10 +232,10 @@ vi.mock('ol/Map', () => ({
 
 ```typescript
 vi.mock('ol', () => ({
-    Overlay: vi.fn().mockImplementation(() => ({
-        setPosition: vi.fn(),
-        getElement: vi.fn()
-    }))
+	Overlay: vi.fn().mockImplementation(() => ({
+		setPosition: vi.fn(),
+		getElement: vi.fn()
+	}))
 }));
 ```
 
@@ -247,16 +248,13 @@ import { describe, it, expect } from 'vitest';
 import { sortEntries } from './sortEntries';
 
 describe('sortEntries', () => {
-    it('sorts entries by date ascending', () => {
-        const entries = [
-            { datetime: '2012-07-15' },
-            { datetime: '2012-07-01' }
-        ];
+	it('sorts entries by date ascending', () => {
+		const entries = [{ datetime: '2012-07-15' }, { datetime: '2012-07-01' }];
 
-        const sorted = sortEntries(entries);
+		const sorted = sortEntries(entries);
 
-        expect(sorted[0].datetime).toBe('2012-07-01');
-    });
+		expect(sorted[0].datetime).toBe('2012-07-01');
+	});
 });
 ```
 
@@ -269,15 +267,15 @@ import { get } from 'svelte/store';
 import { map } from '$lib/stores';
 
 describe('map store', () => {
-    it('initializes as undefined', () => {
-        expect(get(map)).toBeUndefined();
-    });
+	it('initializes as undefined', () => {
+		expect(get(map)).toBeUndefined();
+	});
 
-    it('can be set and retrieved', () => {
-        const mockMap = { id: 'test' };
-        map.set(mockMap);
-        expect(get(map)).toBe(mockMap);
-    });
+	it('can be set and retrieved', () => {
+		const mockMap = { id: 'test' };
+		map.set(mockMap);
+		expect(get(map)).toBe(mockMap);
+	});
 });
 ```
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '$lib/components/Icon.svelte';
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 
@@ -25,7 +26,7 @@
 		onclick={closeHandler}
 		onkeydown={handleKeyDown}
 		aria-label="Overlay schließen">
-		<i class="bi bi-x-circle"></i>
+		<Icon name="x-circle" />
 		</button>
 	</nav>
 
@@ -50,11 +51,8 @@
 		background: transparent;
 		cursor: pointer;
 		padding: 2px 4px 1px;
-
-		i {
-			font-size: 1.3rem;
-			color: #fff;
-		}
+		font-size: 1.3rem;
+		color: #fff;
 
 		&:hover {
 			background-color: #2e628788;
@@ -62,7 +60,7 @@
 	}
 
 	@media (pointer: coarse) {
-		.close-navigation i {
+		.close-navigation {
 			font-size: 1.5rem;
 		}
 	}

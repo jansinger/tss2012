@@ -1,6 +1,6 @@
 ---
 name: map-feature-specialist
-description: "Create and modify OpenLayers map features, layers, and overlays"
+description: 'Create and modify OpenLayers map features, layers, and overlays'
 tools: Read, Write, Edit, Glob, Grep
 ---
 
@@ -33,16 +33,16 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { Style, Stroke, Fill } from 'ol/style';
 
 const vectorSource = new VectorSource({
-    url: '/data/newdata.geojson',
-    format: new GeoJSON()
+	url: '/data/newdata.geojson',
+	format: new GeoJSON()
 });
 
 export const newLayer = new VectorLayer({
-    source: vectorSource,
-    style: new Style({
-        stroke: new Stroke({ color: '#3399CC', width: 2 }),
-        fill: new Fill({ color: 'rgba(51, 153, 204, 0.2)' })
-    })
+	source: vectorSource,
+	style: new Style({
+		stroke: new Stroke({ color: '#3399CC', width: 2 }),
+		fill: new Fill({ color: 'rgba(51, 153, 204, 0.2)' })
+	})
 });
 ```
 
@@ -57,17 +57,19 @@ import { newLayer } from './layers/newlayer';
 
 ```typescript
 export function createMap(target: HTMLElement): Map {
-    return new Map({
-        target,
-        layers: [
-            osmLayer,
-            seamapLayer,
-            trackLayer,
-            newLayer,      // Add here - adjust position for z-order
-            logbookLayer   // Keep markers on top
-        ],
-        view: new View({ /* ... */ })
-    });
+	return new Map({
+		target,
+		layers: [
+			osmLayer,
+			seamapLayer,
+			trackLayer,
+			newLayer, // Add here - adjust position for z-order
+			logbookLayer // Keep markers on top
+		],
+		view: new View({
+			/* ... */
+		})
+	});
 }
 ```
 
@@ -85,37 +87,34 @@ import { Overlay } from 'ol';
 import type OLMap from 'ol/Map';
 
 export interface NewOverlayResult {
-    overlay: Overlay;
-    cleanup: () => void;
+	overlay: Overlay;
+	cleanup: () => void;
 }
 
-export const createNewOverlay = (
-    element: HTMLElement,
-    map: OLMap
-): NewOverlayResult => {
-    const overlay = new Overlay({
-        element,
-        offset: [0, -10],
-        positioning: 'bottom-center',
-        autoPan: { animation: { duration: 250 } }
-    });
+export const createNewOverlay = (element: HTMLElement, map: OLMap): NewOverlayResult => {
+	const overlay = new Overlay({
+		element,
+		offset: [0, -10],
+		positioning: 'bottom-center',
+		autoPan: { animation: { duration: 250 } }
+	});
 
-    // Event handlers
-    const handleEvent = (evt: MapBrowserEvent<PointerEvent>) => {
-        // Handle interaction
-    };
+	// Event handlers
+	const handleEvent = (evt: MapBrowserEvent<PointerEvent>) => {
+		// Handle interaction
+	};
 
-    // Setup
-    map.addOverlay(overlay);
-    map.on('click', handleEvent);
+	// Setup
+	map.addOverlay(overlay);
+	map.on('click', handleEvent);
 
-    // CRITICAL: Return cleanup function
-    const cleanup = () => {
-        map.un('click', handleEvent);
-        map.removeOverlay(overlay);
-    };
+	// CRITICAL: Return cleanup function
+	const cleanup = () => {
+		map.un('click', handleEvent);
+		map.removeOverlay(overlay);
+	};
 
-    return { overlay, cleanup };
+	return { overlay, cleanup };
 };
 ```
 
@@ -152,11 +151,11 @@ export const createNewOverlay = (
 import { Style, Icon, Circle, Fill, Stroke, Text } from 'ol/style';
 
 const markerStyle = new Style({
-    image: new Icon({
-        src: '/pics/marker-tss.svg',
-        scale: 0.5,
-        anchor: [0.5, 1]
-    })
+	image: new Icon({
+		src: '/pics/marker-tss.svg',
+		scale: 0.5,
+		anchor: [0.5, 1]
+	})
 });
 ```
 
@@ -164,19 +163,19 @@ const markerStyle = new Style({
 
 ```typescript
 const styleFunction = (feature: Feature): Style => {
-    const properties = feature.getProperties();
+	const properties = feature.getProperties();
 
-    return new Style({
-        image: new Circle({
-            radius: 8,
-            fill: new Fill({ color: properties.color || '#3399CC' }),
-            stroke: new Stroke({ color: '#fff', width: 2 })
-        }),
-        text: new Text({
-            text: properties.label,
-            font: '12px sans-serif'
-        })
-    });
+	return new Style({
+		image: new Circle({
+			radius: 8,
+			fill: new Fill({ color: properties.color || '#3399CC' }),
+			stroke: new Stroke({ color: '#fff', width: 2 })
+		}),
+		text: new Text({
+			text: properties.label,
+			font: '12px sans-serif'
+		})
+	});
 };
 ```
 
@@ -187,19 +186,19 @@ const MAX_CACHE_SIZE = 100;
 const styleCache = new Map<string, Style>();
 
 function getCachedStyle(key: string, createStyle: () => Style): Style {
-    if (styleCache.has(key)) {
-        return styleCache.get(key)!;
-    }
+	if (styleCache.has(key)) {
+		return styleCache.get(key)!;
+	}
 
-    // LRU eviction
-    if (styleCache.size >= MAX_CACHE_SIZE) {
-        const firstKey = styleCache.keys().next().value;
-        styleCache.delete(firstKey);
-    }
+	// LRU eviction
+	if (styleCache.size >= MAX_CACHE_SIZE) {
+		const firstKey = styleCache.keys().next().value;
+		styleCache.delete(firstKey);
+	}
 
-    const style = createStyle();
-    styleCache.set(key, style);
-    return style;
+	const style = createStyle();
+	styleCache.set(key, style);
+	return style;
 }
 ```
 
@@ -227,8 +226,8 @@ When creating map features:
 export const NEW_EVENT = 'newEvent';
 
 export interface NewEvent extends BaseEvent {
-    type: typeof NEW_EVENT;
-    data: SomeData;
+	type: typeof NEW_EVENT;
+	data: SomeData;
 }
 ```
 
@@ -236,23 +235,20 @@ export interface NewEvent extends BaseEvent {
 
 ```typescript
 map.dispatchEvent({
-    type: NEW_EVENT,
-    data: someData
+	type: NEW_EVENT,
+	data: someData
 } as unknown as BaseEvent);
 ```
 
 ### Type-Safe Handler
 
 ```typescript
-export function onNewEvent(
-    map: OLMap,
-    callback: (event: NewEvent) => void
-): () => void {
-    const handler = (event: BaseEvent) => {
-        callback(event as NewEvent);
-    };
-    map.on(NEW_EVENT, handler);
-    return () => map.un(NEW_EVENT, handler);
+export function onNewEvent(map: OLMap, callback: (event: NewEvent) => void): () => void {
+	const handler = (event: BaseEvent) => {
+		callback(event as NewEvent);
+	};
+	map.on(NEW_EVENT, handler);
+	return () => map.un(NEW_EVENT, handler);
 }
 ```
 
@@ -260,27 +256,27 @@ export function onNewEvent(
 
 ## Key Files Reference
 
-| File | Purpose |
-|------|---------|
-| [map.ts](../../src/lib/ol/map.ts) | Main map factory |
-| [overviewmap.ts](../../src/lib/ol/overviewmap.ts) | Overview map factory |
-| [constants.ts](../../src/lib/ol/constants.ts) | Default center, zoom |
-| [layers/logbook.ts](../../src/lib/ol/layers/logbook.ts) | Clustered markers |
-| [layers/track.ts](../../src/lib/ol/layers/track.ts) | Sailing route |
-| [layers/osm.ts](../../src/lib/ol/layers/osm.ts) | Base map tiles |
-| [layers/seamap.ts](../../src/lib/ol/layers/seamap.ts) | Nautical overlay |
+| File                                                        | Purpose              |
+| ----------------------------------------------------------- | -------------------- |
+| [map.ts](../../src/lib/ol/map.ts)                           | Main map factory     |
+| [overviewmap.ts](../../src/lib/ol/overviewmap.ts)           | Overview map factory |
+| [constants.ts](../../src/lib/ol/constants.ts)               | Default center, zoom |
+| [layers/logbook.ts](../../src/lib/ol/layers/logbook.ts)     | Clustered markers    |
+| [layers/track.ts](../../src/lib/ol/layers/track.ts)         | Sailing route        |
+| [layers/osm.ts](../../src/lib/ol/layers/osm.ts)             | Base map tiles       |
+| [layers/seamap.ts](../../src/lib/ol/layers/seamap.ts)       | Nautical overlay     |
 | [overlays/tooltip.ts](../../src/lib/ol/overlays/tooltip.ts) | Tooltip with cleanup |
 
 ---
 
 ## Files to Modify
 
-| Task | Files |
-|------|-------|
-| Add layer | `src/lib/ol/layers/[name].ts`, `src/lib/ol/map.ts` |
-| Add overlay | `src/lib/ol/overlays/[name].ts`, component using it |
-| Modify styling | `src/lib/ol/layers/[name].ts` |
-| Add event | `src/lib/types.ts`, overlay/layer file |
+| Task           | Files                                               |
+| -------------- | --------------------------------------------------- |
+| Add layer      | `src/lib/ol/layers/[name].ts`, `src/lib/ol/map.ts`  |
+| Add overlay    | `src/lib/ol/overlays/[name].ts`, component using it |
+| Modify styling | `src/lib/ol/layers/[name].ts`                       |
+| Add event      | `src/lib/types.ts`, overlay/layer file              |
 
 ---
 

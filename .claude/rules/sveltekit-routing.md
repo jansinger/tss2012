@@ -1,6 +1,6 @@
 ---
-description: "SvelteKit routing patterns for tss2012"
-globs: ["src/routes/**/*"]
+description: 'SvelteKit routing patterns for tss2012'
+globs: ['src/routes/**/*']
 alwaysApply: false
 ---
 
@@ -12,14 +12,14 @@ This document covers SvelteKit routing patterns for the **Ein tierischer Segelso
 
 ## Current Routes
 
-| Route | File | Purpose |
-|-------|------|---------|
-| `/` | `src/routes/+page.svelte` | Home page (map view) |
-| `/log` | `src/routes/log/+page.svelte` | Logbook list |
-| `/log/[id]` | `src/routes/log/[id]/+page.svelte` | Individual entry |
-| `/timeline` | `src/routes/timeline/+page.svelte` | Timeline view |
-| `/impressum` | `src/routes/impressum/+page.svelte` | Legal imprint |
-| `/barrierefreiheit` | `src/routes/barrierefreiheit/+page.svelte` | Accessibility |
+| Route               | File                                       | Purpose              |
+| ------------------- | ------------------------------------------ | -------------------- |
+| `/`                 | `src/routes/+page.svelte`                  | Home page (map view) |
+| `/log`              | `src/routes/log/+page.svelte`              | Logbook list         |
+| `/log/[id]`         | `src/routes/log/[id]/+page.svelte`         | Individual entry     |
+| `/timeline`         | `src/routes/timeline/+page.svelte`         | Timeline view        |
+| `/impressum`        | `src/routes/impressum/+page.svelte`        | Legal imprint        |
+| `/barrierefreiheit` | `src/routes/barrierefreiheit/+page.svelte` | Accessibility        |
 
 ---
 
@@ -27,15 +27,15 @@ This document covers SvelteKit routing patterns for the **Ein tierischer Segelso
 
 ### Convention
 
-| File | Purpose |
-|------|---------|
-| `+page.svelte` | Page component (renders UI) |
-| `+page.ts` | Page data loading (runs on client) |
-| `+page.server.ts` | Server-side data loading |
-| `+layout.svelte` | Layout wrapper |
-| `+layout.ts` | Layout data loading |
-| `+error.svelte` | Error page |
-| `[param]` | Dynamic route parameter |
+| File              | Purpose                            |
+| ----------------- | ---------------------------------- |
+| `+page.svelte`    | Page component (renders UI)        |
+| `+page.ts`        | Page data loading (runs on client) |
+| `+page.server.ts` | Server-side data loading           |
+| `+layout.svelte`  | Layout wrapper                     |
+| `+layout.ts`      | Layout data loading                |
+| `+error.svelte`   | Error page                         |
+| `[param]`         | Dynamic route parameter            |
 
 ### Project Structure
 
@@ -70,17 +70,17 @@ This project uses `@sveltejs/adapter-static` for pre-rendering.
 import adapter from '@sveltejs/adapter-static';
 
 export default {
-    kit: {
-        adapter: adapter({
-            pages: 'build',
-            assets: 'build',
-            fallback: null,
-            precompress: false
-        }),
-        prerender: {
-            entries: ['*']
-        }
-    }
+	kit: {
+		adapter: adapter({
+			pages: 'build',
+			assets: 'build',
+			fallback: null,
+			precompress: false
+		}),
+		prerender: {
+			entries: ['*']
+		}
+	}
 };
 ```
 
@@ -106,9 +106,9 @@ import type { PageServerLoad } from './$types';
 import { sortedEntries } from '$lib/sortedEntries';
 
 export const load: PageServerLoad = async () => {
-    return {
-        entries: sortedEntries
-    };
+	return {
+		entries: sortedEntries
+	};
 };
 ```
 
@@ -140,13 +140,13 @@ import { error } from '@sveltejs/kit';
 import { sortedEntries } from '$lib/sortedEntries';
 
 export const load: PageServerLoad = async ({ params }) => {
-    const entry = sortedEntries.find(e => e.id === params.id);
+	const entry = sortedEntries.find((e) => e.id === params.id);
 
-    if (!entry) {
-        error(404, 'Entry not found');
-    }
+	if (!entry) {
+		error(404, 'Entry not found');
+	}
 
-    return { entry };
+	return { entry };
 };
 ```
 
@@ -160,9 +160,9 @@ import type { EntryGenerator } from './$types';
 import { sortedEntries } from '$lib/sortedEntries';
 
 export const entries: EntryGenerator = () => {
-    return sortedEntries.map(entry => ({
-        id: entry.id
-    }));
+	return sortedEntries.map((entry) => ({
+		id: entry.id
+	}));
 };
 ```
 
@@ -269,9 +269,9 @@ mkdir -p src/routes/newroute
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-    return {
-        // Data for the page
-    };
+	return {
+		// Data for the page
+	};
 };
 ```
 

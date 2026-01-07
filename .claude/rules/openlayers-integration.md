@@ -1,6 +1,6 @@
 ---
-description: "OpenLayers integration patterns for map features"
-globs: ["src/lib/ol/**/*.ts", "src/lib/components/*Map*.svelte"]
+description: 'OpenLayers integration patterns for map features'
+globs: ['src/lib/ol/**/*.ts', 'src/lib/components/*Map*.svelte']
 alwaysApply: false
 ---
 
@@ -25,23 +25,23 @@ Layers are rendered bottom-to-top. The order in `createMap()` determines visibil
 
 ```typescript
 layers: [
-    osmLayer,        // 1. Base
-    seamapLayer,     // 2. Nautical overlay
-    trackLayer,      // 3. Route
-    logbookLayer     // 4. Markers (on top)
-]
+	osmLayer, // 1. Base
+	seamapLayer, // 2. Nautical overlay
+	trackLayer, // 3. Route
+	logbookLayer // 4. Markers (on top)
+];
 ```
 
 ---
 
 ## Layer Files
 
-| File | Purpose | Source |
-|------|---------|--------|
-| [osm.ts](../../src/lib/ol/layers/osm.ts) | OpenStreetMap base tiles | Remote tiles |
-| [seamap.ts](../../src/lib/ol/layers/seamap.ts) | Nautical chart overlay | Remote tiles |
-| [track.ts](../../src/lib/ol/layers/track.ts) | Sailing route line | KML file |
-| [logbook.ts](../../src/lib/ol/layers/logbook.ts) | Clustered entry markers | GeoJSON file |
+| File                                             | Purpose                  | Source       |
+| ------------------------------------------------ | ------------------------ | ------------ |
+| [osm.ts](../../src/lib/ol/layers/osm.ts)         | OpenStreetMap base tiles | Remote tiles |
+| [seamap.ts](../../src/lib/ol/layers/seamap.ts)   | Nautical chart overlay   | Remote tiles |
+| [track.ts](../../src/lib/ol/layers/track.ts)     | Sailing route line       | KML file     |
+| [logbook.ts](../../src/lib/ol/layers/logbook.ts) | Clustered entry markers  | GeoJSON file |
 
 ---
 
@@ -53,9 +53,9 @@ layers: [
 
 ```typescript
 const clusterSource = new Cluster({
-    distance: 50,      // Cluster features within 50px
-    minDistance: 20,   // Minimum 20px between clusters
-    source: vectorSource
+	distance: 50, // Cluster features within 50px
+	minDistance: 20, // Minimum 20px between clusters
+	source: vectorSource
 });
 ```
 
@@ -68,19 +68,19 @@ const MAX_CACHE_SIZE = 100;
 const styleCache = new Map<number, Style>();
 
 function getClusterStyle(size: number): Style {
-    if (styleCache.has(size)) {
-        return styleCache.get(size)!;
-    }
+	if (styleCache.has(size)) {
+		return styleCache.get(size)!;
+	}
 
-    // LRU eviction
-    if (styleCache.size >= MAX_CACHE_SIZE) {
-        const firstKey = styleCache.keys().next().value;
-        styleCache.delete(firstKey);
-    }
+	// LRU eviction
+	if (styleCache.size >= MAX_CACHE_SIZE) {
+		const firstKey = styleCache.keys().next().value;
+		styleCache.delete(firstKey);
+	}
 
-    const style = createStyle(size);
-    styleCache.set(size, style);
-    return style;
+	const style = createStyle(size);
+	styleCache.set(size, style);
+	return style;
 }
 ```
 
@@ -88,16 +88,16 @@ function getClusterStyle(size: number): Style {
 
 ```typescript
 function styleFunction(feature: Feature): Style {
-    const features = feature.get('features');
-    const size = features?.length || 1;
+	const features = feature.get('features');
+	const size = features?.length || 1;
 
-    if (size === 1) {
-        // Single feature - use marker icon
-        return singleMarkerStyle;
-    } else {
-        // Cluster - use circle with count
-        return getClusterStyle(size);
-    }
+	if (size === 1) {
+		// Single feature - use marker icon
+		return singleMarkerStyle;
+	} else {
+		// Cluster - use circle with count
+		return getClusterStyle(size);
+	}
 }
 ```
 
@@ -113,8 +113,8 @@ function styleFunction(feature: Feature): Style {
 export const CLICK_LOGBOOK_EVENT = 'clickLogbook';
 
 export interface LogbookClickEvent extends BaseEvent {
-    type: typeof CLICK_LOGBOOK_EVENT;
-    feature: Feature<Geometry> | RenderFeature;
+	type: typeof CLICK_LOGBOOK_EVENT;
+	feature: Feature<Geometry> | RenderFeature;
 }
 ```
 
@@ -124,8 +124,8 @@ export interface LogbookClickEvent extends BaseEvent {
 
 ```typescript
 map.dispatchEvent({
-    type: CLICK_LOGBOOK_EVENT,
-    feature: newFeature
+	type: CLICK_LOGBOOK_EVENT,
+	feature: newFeature
 } as unknown as BaseEvent);
 ```
 
@@ -135,14 +135,14 @@ map.dispatchEvent({
 
 ```typescript
 export function onLogbookClick(
-    map: OLMap,
-    callback: (event: LogbookClickEvent) => void
+	map: OLMap,
+	callback: (event: LogbookClickEvent) => void
 ): () => void {
-    const handler = (event: BaseEvent) => {
-        callback(event as LogbookClickEvent);
-    };
-    map.on(CLICK_LOGBOOK_EVENT, handler);
-    return () => map.un(CLICK_LOGBOOK_EVENT, handler);
+	const handler = (event: BaseEvent) => {
+		callback(event as LogbookClickEvent);
+	};
+	map.on(CLICK_LOGBOOK_EVENT, handler);
+	return () => map.un(CLICK_LOGBOOK_EVENT, handler);
 }
 ```
 
@@ -150,14 +150,14 @@ export function onLogbookClick(
 
 ```typescript
 $effect(() => {
-    if (!$map) return;
+	if (!$map) return;
 
-    const unsubscribe = onLogbookClick($map, (event) => {
-        const features = event.feature.get('features');
-        // Handle click...
-    });
+	const unsubscribe = onLogbookClick($map, (event) => {
+		const features = event.feature.get('features');
+		// Handle click...
+	});
 
-    return unsubscribe;
+	return unsubscribe;
 });
 ```
 
@@ -171,37 +171,38 @@ $effect(() => {
 
 ```typescript
 export interface TooltipOverlayResult {
-    overlay: Overlay;
-    cleanup: () => void;
+	overlay: Overlay;
+	cleanup: () => void;
 }
 
-export const createTooltipOverlay = (
-    element: HTMLElement,
-    map: OLMap
-): TooltipOverlayResult => {
-    const overlay = new Overlay({ element, /* ... */ });
+export const createTooltipOverlay = (element: HTMLElement, map: OLMap): TooltipOverlayResult => {
+	const overlay = new Overlay({ element /* ... */ });
 
-    // Track resources
-    const tooltipCache = new Map<string, string>();
+	// Track resources
+	const tooltipCache = new Map<string, string>();
 
-    // Event handlers
-    const handleClick = (evt) => { /* ... */ };
-    const handlePointerMove = (evt) => { /* ... */ };
+	// Event handlers
+	const handleClick = (evt) => {
+		/* ... */
+	};
+	const handlePointerMove = (evt) => {
+		/* ... */
+	};
 
-    // Setup
-    map.addOverlay(overlay);
-    map.on('click', handleClick);
-    map.on('pointermove', handlePointerMove);
+	// Setup
+	map.addOverlay(overlay);
+	map.on('click', handleClick);
+	map.on('pointermove', handlePointerMove);
 
-    // Cleanup function
-    const cleanup = () => {
-        map.un('click', handleClick);
-        map.un('pointermove', handlePointerMove);
-        map.removeOverlay(overlay);
-        tooltipCache.clear();
-    };
+	// Cleanup function
+	const cleanup = () => {
+		map.un('click', handleClick);
+		map.un('pointermove', handlePointerMove);
+		map.removeOverlay(overlay);
+		tooltipCache.clear();
+	};
 
-    return { overlay, cleanup };
+	return { overlay, cleanup };
 };
 ```
 
@@ -222,15 +223,15 @@ export const createTooltipOverlay = (
 
 ```typescript
 export function createMap(target: HTMLElement): Map {
-    return new Map({
-        target,
-        layers: [osmLayer, seamapLayer, trackLayer, logbookLayer],
-        view: new View({
-            center: fromLonLat(DEFAULTS.center),
-            zoom: DEFAULTS.zoom,
-            projection: 'EPSG:3857'
-        })
-    });
+	return new Map({
+		target,
+		layers: [osmLayer, seamapLayer, trackLayer, logbookLayer],
+		view: new View({
+			center: fromLonLat(DEFAULTS.center),
+			zoom: DEFAULTS.zoom,
+			projection: 'EPSG:3857'
+		})
+	});
 }
 ```
 
@@ -240,13 +241,15 @@ export function createMap(target: HTMLElement): Map {
 
 ```typescript
 export function createOverviewMap(target: HTMLElement, mainMap: Map): Map {
-    return new Map({
-        target,
-        layers: [/* subset of layers */],
-        view: new View({
-            // Sync with main map or independent
-        })
-    });
+	return new Map({
+		target,
+		layers: [
+			/* subset of layers */
+		],
+		view: new View({
+			// Sync with main map or independent
+		})
+	});
 }
 ```
 
@@ -281,16 +284,16 @@ export const newLayer = new VectorLayer({
 import { newLayer } from './layers/newlayer';
 
 export function createMap(target: HTMLElement): Map {
-    return new Map({
-        layers: [
-            osmLayer,
-            seamapLayer,
-            trackLayer,
-            newLayer,      // Add in correct z-order
-            logbookLayer
-        ],
-        // ...
-    });
+	return new Map({
+		layers: [
+			osmLayer,
+			seamapLayer,
+			trackLayer,
+			newLayer, // Add in correct z-order
+			logbookLayer
+		]
+		// ...
+	});
 }
 ```
 
@@ -302,8 +305,8 @@ export function createMap(target: HTMLElement): Map {
 
 ```typescript
 export const DEFAULTS = {
-    center: [10.5, 54.5],  // Longitude, Latitude (Baltic Sea)
-    zoom: 8
+	center: [10.5, 54.5], // Longitude, Latitude (Baltic Sea)
+	zoom: 8
 };
 ```
 
@@ -347,11 +350,11 @@ const center = fromLonLat([10.5, 54.5]);
 
 ## Key Files Reference
 
-| File | Purpose |
-|------|---------|
-| [map.ts](../../src/lib/ol/map.ts) | Main map factory |
-| [overviewmap.ts](../../src/lib/ol/overviewmap.ts) | Overview map factory |
-| [constants.ts](../../src/lib/ol/constants.ts) | Default center, zoom |
-| [tooltip.ts](../../src/lib/ol/overlays/tooltip.ts) | Tooltip overlay with cleanup |
-| [createTooltipHTML.ts](../../src/lib/ol/overlays/createTooltipHTML.ts) | Tooltip HTML generation |
-| [getFeatureAtEventPixel.ts](../../src/lib/ol/overlays/getFeatureAtEventPixel.ts) | Feature detection |
+| File                                                                             | Purpose                      |
+| -------------------------------------------------------------------------------- | ---------------------------- |
+| [map.ts](../../src/lib/ol/map.ts)                                                | Main map factory             |
+| [overviewmap.ts](../../src/lib/ol/overviewmap.ts)                                | Overview map factory         |
+| [constants.ts](../../src/lib/ol/constants.ts)                                    | Default center, zoom         |
+| [tooltip.ts](../../src/lib/ol/overlays/tooltip.ts)                               | Tooltip overlay with cleanup |
+| [createTooltipHTML.ts](../../src/lib/ol/overlays/createTooltipHTML.ts)           | Tooltip HTML generation      |
+| [getFeatureAtEventPixel.ts](../../src/lib/ol/overlays/getFeatureAtEventPixel.ts) | Feature detection            |

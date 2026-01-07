@@ -1,6 +1,6 @@
 ---
 name: documentation-writer
-description: "Update documentation, JSDoc comments, and README files"
+description: 'Update documentation, JSDoc comments, and README files'
 tools: Read, Write, Edit, Glob, Grep
 ---
 
@@ -21,7 +21,7 @@ Specialized agent for documentation updates and JSDoc comments.
 
 ## JSDoc Template for Functions
 
-```typescript
+````typescript
 /**
  * Brief description of what the function does.
  *
@@ -34,13 +34,10 @@ Specialized agent for documentation updates and JSDoc comments.
  * const result = functionName('input');
  * ```
  */
-export function functionName(
-    paramName: string,
-    optionalParam?: number
-): ReturnType {
-    // Implementation
+export function functionName(paramName: string, optionalParam?: number): ReturnType {
+	// Implementation
 }
-```
+````
 
 ### Real Example
 
@@ -54,11 +51,8 @@ export function functionName(
  * @param map - The OpenLayers Map instance to which the tooltip overlay will be added.
  * @returns An object containing the Overlay instance and a cleanup function.
  */
-export const createTooltipOverlay = (
-    element: HTMLElement,
-    map: OLMap
-): TooltipOverlayResult => {
-    // ...
+export const createTooltipOverlay = (element: HTMLElement, map: OLMap): TooltipOverlayResult => {
+	// ...
 };
 ```
 
@@ -71,17 +65,17 @@ export const createTooltipOverlay = (
  * Represents a logbook entry from the sailing journey.
  */
 export interface LogEntry {
-    /** Unique identifier for the entry */
-    id: string;
+	/** Unique identifier for the entry */
+	id: string;
 
-    /** Title of the logbook entry */
-    title: string;
+	/** Title of the logbook entry */
+	title: string;
 
-    /** ISO 8601 datetime string */
-    datetime: string;
+	/** ISO 8601 datetime string */
+	datetime: string;
 
-    /** Optional section/chapter name */
-    section?: string;
+	/** Optional section/chapter name */
+	section?: string;
 }
 ```
 
@@ -91,7 +85,7 @@ export interface LogEntry {
 
 Add documentation in the module script:
 
-```svelte
+````svelte
 <script lang="ts" module>
     /**
      * LogbookEntry displays a single entry from the sailing logbook.
@@ -111,7 +105,7 @@ Add documentation in the module script:
         onSelect?: (entry: LogEntry) => void;
     }
 </script>
-```
+````
 
 ---
 
@@ -145,9 +139,9 @@ npm run dev
 
 ### Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server |
+| Command         | Description          |
+| --------------- | -------------------- |
+| `npm run dev`   | Start dev server     |
 | `npm run build` | Build for production |
 
 ## License
@@ -210,13 +204,13 @@ MIT
 
 ## Key Files for Documentation
 
-| File | Purpose |
-|------|---------|
-| [README.md](../../README.md) | Project overview |
-| [src/lib/types.ts](../../src/lib/types.ts) | Type definitions |
-| [src/lib/ol/map.ts](../../src/lib/ol/map.ts) | Map factory |
-| [src/lib/ol/overlays/tooltip.ts](../../src/lib/ol/overlays/tooltip.ts) | Overlay patterns |
-| [.claude/](../) | Claude Code documentation |
+| File                                                                   | Purpose                   |
+| ---------------------------------------------------------------------- | ------------------------- |
+| [README.md](../../README.md)                                           | Project overview          |
+| [src/lib/types.ts](../../src/lib/types.ts)                             | Type definitions          |
+| [src/lib/ol/map.ts](../../src/lib/ol/map.ts)                           | Map factory               |
+| [src/lib/ol/overlays/tooltip.ts](../../src/lib/ol/overlays/tooltip.ts) | Overlay patterns          |
+| [.claude/](../)                                                        | Claude Code documentation |
 
 ---
 
@@ -239,17 +233,17 @@ Before:
 
 ```typescript
 export function sortEntries(entries, order) {
-    return entries.sort((a, b) => {
-        const dateA = new Date(a.datetime);
-        const dateB = new Date(b.datetime);
-        return order === 'asc' ? dateA - dateB : dateB - dateA;
-    });
+	return entries.sort((a, b) => {
+		const dateA = new Date(a.datetime);
+		const dateB = new Date(b.datetime);
+		return order === 'asc' ? dateA - dateB : dateB - dateA;
+	});
 }
 ```
 
 After:
 
-```typescript
+````typescript
 /**
  * Sorts logbook entries by datetime.
  *
@@ -262,17 +256,14 @@ After:
  * const sorted = sortEntries(entries, 'asc');
  * ```
  */
-export function sortEntries(
-    entries: LogEntry[],
-    order: 'asc' | 'desc' = 'asc'
-): LogEntry[] {
-    return [...entries].sort((a, b) => {
-        const dateA = new Date(a.datetime).getTime();
-        const dateB = new Date(b.datetime).getTime();
-        return order === 'asc' ? dateA - dateB : dateB - dateA;
-    });
+export function sortEntries(entries: LogEntry[], order: 'asc' | 'desc' = 'asc'): LogEntry[] {
+	return [...entries].sort((a, b) => {
+		const dateA = new Date(a.datetime).getTime();
+		const dateB = new Date(b.datetime).getTime();
+		return order === 'asc' ? dateA - dateB : dateB - dateA;
+	});
 }
-```
+````
 
 ---
 

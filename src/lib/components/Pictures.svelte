@@ -3,11 +3,6 @@
     import type { PicturesEntity } from '$lib/types';
     import { stripHtml } from '$lib/utils/striphtml';
 
-    // import function to register Swiper custom elements
-    import { register } from 'swiper/element/bundle';
-    // register Swiper custom elements
-    register();
-
     /**
      * Represents the properties for the Pictures component.
      * @typedef {Object} Props
@@ -25,9 +20,21 @@
      */
     let { pictures = [], folder }: Props = $props();
 
+    // Track if Swiper has been registered
+    let swiperReady = $state(false);
+
+    // Lazy-load Swiper registration only when component mounts in browser
+    $effect(() => {
+        if (browser && !swiperReady) {
+            import('swiper/element/bundle').then(({ register }) => {
+                register();
+                swiperReady = true;
+            });
+        }
+    });
 </script>
 
-{#if browser}
+{#if browser && swiperReady}
 	<p id="gallery-help" class="visually-hidden">
 		Verwenden Sie die Pfeiltasten links/rechts oder die Navigationspfeile, um durch die Bilder zu blättern.
 	</p>
@@ -98,11 +105,11 @@
 {/if}
 
 <style lang="scss">
-
 	figure {
 		margin: 0;
 		padding: auto 0;
 		width: 100%;
+
 		img {
 			display: block;
 			width: 100%;
@@ -111,70 +118,53 @@
 		}
 	}
 
-
 	figcaption {
 		margin: 10px 0;
 		font-style: italic;
 	}
 
 	swiper-container {
-      width: 100%;
-      height: 100%;
-    }
+		width: 100%;
+		height: 300px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-    swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+	swiper-slide {
+		text-align: center;
+		font-size: 18px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-size: cover;
+		background-position: center;
 
-    swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
 
-    swiper-container {
-      width: 100%;
-      height: 300px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+	.mySwiper {
+		height: 80%;
+		width: 100%;
+	}
 
-    swiper-slide {
-      background-size: cover;
-      background-position: center;
-    }
+	.mySwiper2 {
+		height: 20%;
+		box-sizing: border-box;
+		padding: 10px 0;
 
-    .mySwiper {
-      height: 80%;
-      width: 100%;
-    }
+		swiper-slide {
+			width: 25%;
+			height: 100%;
+			opacity: 0.4;
+		}
+	}
 
-    .mySwiper2 {
-      height: 20%;
-      box-sizing: border-box;
-      padding: 10px 0;
-    }
-
-    .mySwiper2 swiper-slide {
-      width: 25%;
-      height: 100%;
-      opacity: 0.4;
-    }
-
-    :global(.swiper-slide-thumb-active) {
-      opacity: 1!important;
-    }
-
-    swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+	:global(.swiper-slide-thumb-active) {
+		opacity: 1 !important;
+	}
 </style>

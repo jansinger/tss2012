@@ -27,9 +27,9 @@ worker-src 'none';
 
 ### Allowed External Sources
 
-| Directive | External Sources | Purpose |
-|-----------|-----------------|---------|
-| `img-src` | api.maptiler.com | MapTiler base map tiles |
+| Directive | External Sources  | Purpose                     |
+| --------- | ----------------- | --------------------------- |
+| `img-src` | api.maptiler.com  | MapTiler base map tiles     |
 | `img-src` | t1.openseamap.org | OpenSeaMap nautical overlay |
 
 ### Modifying CSP
@@ -52,6 +52,7 @@ The project includes a utility for stripping HTML from untrusted content.
 **File**: [src/lib/utils/striphtml.ts](../src/lib/utils/striphtml.ts)
 
 **Usage**:
+
 ```typescript
 import { striphtml } from '$lib/utils/striphtml';
 
@@ -89,19 +90,14 @@ Use TypeScript interfaces to validate data structures:
 
 ```typescript
 interface LogEntry {
-    id: string;
-    title: string;
-    datetime: string;
-    // ...
+	id: string;
+	title: string;
+	datetime: string;
+	// ...
 }
 
 function isLogEntry(data: unknown): data is LogEntry {
-    return (
-        typeof data === 'object' &&
-        data !== null &&
-        'id' in data &&
-        'title' in data
-    );
+	return typeof data === 'object' && data !== null && 'id' in data && 'title' in data;
 }
 ```
 
@@ -112,7 +108,7 @@ When processing map features:
 ```typescript
 const features = feature.get('features');
 if (features && Array.isArray(features) && features.length > 0) {
-    // Safe to process
+	// Safe to process
 }
 ```
 
@@ -130,6 +126,7 @@ This is a static site with no server-side code. **Never** include:
 - Private configuration
 
 If external APIs are needed:
+
 1. Use serverless functions (Netlify Functions)
 2. Store secrets in environment variables
 3. Never expose in client-side JavaScript
@@ -138,11 +135,11 @@ If external APIs are needed:
 
 Current external services (all public, no auth required):
 
-| Service | URL Pattern | Authentication |
-|---------|-------------|----------------|
-| OpenStreetMap | tile.openstreetmap.org | None (public) |
-| MapTiler | api.maptiler.com | None (free tier) |
-| OpenSeaMap | t1.openseamap.org | None (public) |
+| Service       | URL Pattern            | Authentication   |
+| ------------- | ---------------------- | ---------------- |
+| OpenStreetMap | tile.openstreetmap.org | None (public)    |
+| MapTiler      | api.maptiler.com       | None (free tier) |
+| OpenSeaMap    | t1.openseamap.org      | None (public)    |
 
 ### CORS Considerations
 

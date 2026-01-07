@@ -1,6 +1,6 @@
 ---
 name: test-runner
-description: "Write tests and improve test coverage"
+description: 'Write tests and improve test coverage'
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
@@ -38,47 +38,47 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ComponentName from './ComponentName.svelte';
 
 describe('ComponentName', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
+	beforeEach(() => {
+		vi.clearAllMocks();
+	});
 
-    it('renders with required props', () => {
-        render(ComponentName, {
-            props: {
-                title: 'Test Title'
-            }
-        });
+	it('renders with required props', () => {
+		render(ComponentName, {
+			props: {
+				title: 'Test Title'
+			}
+		});
 
-        expect(screen.getByText('Test Title')).toBeInTheDocument();
-    });
+		expect(screen.getByText('Test Title')).toBeInTheDocument();
+	});
 
-    it('handles user interaction', async () => {
-        const user = userEvent.setup();
-        const onClick = vi.fn();
+	it('handles user interaction', async () => {
+		const user = userEvent.setup();
+		const onClick = vi.fn();
 
-        render(ComponentName, {
-            props: {
-                title: 'Test',
-                onClick
-            }
-        });
+		render(ComponentName, {
+			props: {
+				title: 'Test',
+				onClick
+			}
+		});
 
-        await user.click(screen.getByRole('button'));
+		await user.click(screen.getByRole('button'));
 
-        expect(onClick).toHaveBeenCalledOnce();
-    });
+		expect(onClick).toHaveBeenCalledOnce();
+	});
 
-    it('updates when props change', async () => {
-        const { rerender } = render(ComponentName, {
-            props: { title: 'Initial' }
-        });
+	it('updates when props change', async () => {
+		const { rerender } = render(ComponentName, {
+			props: { title: 'Initial' }
+		});
 
-        expect(screen.getByText('Initial')).toBeInTheDocument();
+		expect(screen.getByText('Initial')).toBeInTheDocument();
 
-        await rerender({ title: 'Updated' });
+		await rerender({ title: 'Updated' });
 
-        expect(screen.getByText('Updated')).toBeInTheDocument();
-    });
+		expect(screen.getByText('Updated')).toBeInTheDocument();
+	});
 });
 ```
 
@@ -91,19 +91,19 @@ import { describe, it, expect } from 'vitest';
 import { utilityFunction } from './utilityFunction';
 
 describe('utilityFunction', () => {
-    it('handles normal input', () => {
-        const result = utilityFunction('input');
-        expect(result).toBe('expected');
-    });
+	it('handles normal input', () => {
+		const result = utilityFunction('input');
+		expect(result).toBe('expected');
+	});
 
-    it('handles edge case', () => {
-        const result = utilityFunction('');
-        expect(result).toBe('');
-    });
+	it('handles edge case', () => {
+		const result = utilityFunction('');
+		expect(result).toBe('');
+	});
 
-    it('throws on invalid input', () => {
-        expect(() => utilityFunction(null)).toThrow();
-    });
+	it('throws on invalid input', () => {
+		expect(() => utilityFunction(null)).toThrow();
+	});
 });
 ```
 
@@ -127,7 +127,7 @@ import { vi } from 'vitest';
 import { writable } from 'svelte/store';
 
 vi.mock('$lib/stores', () => ({
-    map: writable(null)
+	map: writable(null)
 }));
 ```
 
@@ -135,23 +135,23 @@ vi.mock('$lib/stores', () => ({
 
 ```typescript
 vi.mock('ol/Map', () => ({
-    default: vi.fn().mockImplementation(() => ({
-        setTarget: vi.fn(),
-        updateSize: vi.fn(),
-        on: vi.fn(),
-        un: vi.fn(),
-        addOverlay: vi.fn(),
-        removeOverlay: vi.fn(),
-        getTargetElement: vi.fn(() => ({ style: {} })),
-        dispatchEvent: vi.fn()
-    }))
+	default: vi.fn().mockImplementation(() => ({
+		setTarget: vi.fn(),
+		updateSize: vi.fn(),
+		on: vi.fn(),
+		un: vi.fn(),
+		addOverlay: vi.fn(),
+		removeOverlay: vi.fn(),
+		getTargetElement: vi.fn(() => ({ style: {} })),
+		dispatchEvent: vi.fn()
+	}))
 }));
 
 vi.mock('ol', () => ({
-    Overlay: vi.fn().mockImplementation(() => ({
-        setPosition: vi.fn(),
-        getElement: vi.fn()
-    }))
+	Overlay: vi.fn().mockImplementation(() => ({
+		setPosition: vi.fn(),
+		getElement: vi.fn()
+	}))
 }));
 ```
 
@@ -162,7 +162,7 @@ import { vi } from 'vitest';
 
 // Mock specific function
 vi.mock('$lib/utils/helper', () => ({
-    helperFunction: vi.fn(() => 'mocked result')
+	helperFunction: vi.fn(() => 'mocked result')
 }));
 
 // Spy on function
@@ -230,11 +230,11 @@ npm run test:coverage
 import { waitFor } from '@testing-library/svelte';
 
 it('loads data async', async () => {
-    render(ComponentName);
+	render(ComponentName);
 
-    await waitFor(() => {
-        expect(screen.getByText('Loaded')).toBeInTheDocument();
-    });
+	await waitFor(() => {
+		expect(screen.getByText('Loaded')).toBeInTheDocument();
+	});
 });
 ```
 
@@ -242,8 +242,8 @@ it('loads data async', async () => {
 
 ```typescript
 it('handles async operation', async () => {
-    const result = await asyncFunction();
-    expect(result).toBe('expected');
+	const result = await asyncFunction();
+	expect(result).toBe('expected');
 });
 ```
 
@@ -256,14 +256,14 @@ import { get } from 'svelte/store';
 import { myStore } from '$lib/stores';
 
 describe('myStore', () => {
-    it('has initial value', () => {
-        expect(get(myStore)).toBeUndefined();
-    });
+	it('has initial value', () => {
+		expect(get(myStore)).toBeUndefined();
+	});
 
-    it('updates value', () => {
-        myStore.set('new value');
-        expect(get(myStore)).toBe('new value');
-    });
+	it('updates value', () => {
+		myStore.set('new value');
+		expect(get(myStore)).toBe('new value');
+	});
 });
 ```
 
@@ -291,13 +291,13 @@ Use `waitFor` or `flushSync`.
 
 ## Files to Create/Modify
 
-| File | Location |
-|------|----------|
-| Component tests | `src/lib/components/*.spec.ts` |
-| Utility tests | `src/lib/utils/*.spec.ts` |
-| Store tests | `src/lib/*.spec.ts` |
-| OpenLayers tests | `src/lib/ol/**/*.spec.ts` |
-| Mocks | `src/mocks/*.ts` |
+| File             | Location                       |
+| ---------------- | ------------------------------ |
+| Component tests  | `src/lib/components/*.spec.ts` |
+| Utility tests    | `src/lib/utils/*.spec.ts`      |
+| Store tests      | `src/lib/*.spec.ts`            |
+| OpenLayers tests | `src/lib/ol/**/*.spec.ts`      |
+| Mocks            | `src/mocks/*.ts`               |
 
 ---
 

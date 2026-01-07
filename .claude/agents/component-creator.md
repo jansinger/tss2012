@@ -1,6 +1,6 @@
 ---
 name: component-creator
-description: "Create new Svelte 5 components with proper patterns and tests"
+description: 'Create new Svelte 5 components with proper patterns and tests'
 tools: Read, Write, Edit, Glob, Grep
 ---
 
@@ -110,40 +110,40 @@ import { describe, it, expect, vi } from 'vitest';
 import ComponentName from './ComponentName.svelte';
 
 describe('ComponentName', () => {
-    it('renders with required props', () => {
-        render(ComponentName, {
-            props: {
-                title: 'Test Title'
-            }
-        });
+	it('renders with required props', () => {
+		render(ComponentName, {
+			props: {
+				title: 'Test Title'
+			}
+		});
 
-        expect(screen.getByText('Test Title')).toBeInTheDocument();
-    });
+		expect(screen.getByText('Test Title')).toBeInTheDocument();
+	});
 
-    it('renders with optional props', () => {
-        render(ComponentName, {
-            props: {
-                title: 'Test',
-                count: 5
-            }
-        });
+	it('renders with optional props', () => {
+		render(ComponentName, {
+			props: {
+				title: 'Test',
+				count: 5
+			}
+		});
 
-        expect(screen.getByText('5 items')).toBeInTheDocument();
-    });
+		expect(screen.getByText('5 items')).toBeInTheDocument();
+	});
 
-    it('calls onClose when button clicked', async () => {
-        const onClose = vi.fn();
-        render(ComponentName, {
-            props: {
-                title: 'Test',
-                onClose
-            }
-        });
+	it('calls onClose when button clicked', async () => {
+		const onClose = vi.fn();
+		render(ComponentName, {
+			props: {
+				title: 'Test',
+				onClose
+			}
+		});
 
-        await screen.getByRole('button').click();
+		await screen.getByRole('button').click();
 
-        expect(onClose).toHaveBeenCalled();
-    });
+		expect(onClose).toHaveBeenCalled();
+	});
 });
 ```
 
@@ -154,25 +154,33 @@ describe('ComponentName', () => {
 Study these existing components for patterns:
 
 ### Simple Display Component
+
 **File**: [src/lib/components/LogbookEntry.svelte](../../src/lib/components/LogbookEntry.svelte)
+
 - Props with TypeScript interface
 - Conditional rendering
 - Scoped styles
 
 ### Complex Component with Effects
+
 **File**: [src/lib/components/LogbookMap.svelte](../../src/lib/components/LogbookMap.svelte)
+
 - Multiple `$effect` hooks
 - Cleanup functions
 - OpenLayers integration
 - Event handling
 
 ### Reusable Wrapper Component
+
 **File**: [src/lib/components/Overlay.svelte](../../src/lib/components/Overlay.svelte)
+
 - Slot/children pattern
 - Generic wrapper functionality
 
 ### Two-Way Binding Component
+
 **File**: [src/lib/components/LogbookEntriesOverlay.svelte](../../src/lib/components/LogbookEntriesOverlay.svelte)
+
 - `$bindable` props
 - State synchronization
 
@@ -180,11 +188,11 @@ Study these existing components for patterns:
 
 ## Files to Modify
 
-| File | Action |
-|------|--------|
-| `src/lib/components/[Name].svelte` | Create new |
-| `src/lib/components/[Name].spec.ts` | Create new |
-| Parent component | Import and use |
+| File                                | Action         |
+| ----------------------------------- | -------------- |
+| `src/lib/components/[Name].svelte`  | Create new     |
+| `src/lib/components/[Name].spec.ts` | Create new     |
+| Parent component                    | Import and use |
 
 ---
 
@@ -194,9 +202,9 @@ Study these existing components for patterns:
 
 ```typescript
 interface Props {
-    required: string;
-    optional?: number;
-    withDefault?: boolean;
+	required: string;
+	optional?: number;
+	withDefault?: boolean;
 }
 
 let { required, optional, withDefault = true }: Props = $props();

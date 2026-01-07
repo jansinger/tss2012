@@ -11,14 +11,14 @@
 
 ## Technology Stack
 
-| Category | Technology |
-|----------|------------|
+| Category  | Technology                            |
+| --------- | ------------------------------------- |
 | Framework | SvelteKit 2.x, Svelte 5.x (runes API) |
-| Language | TypeScript 5.x |
-| Mapping | OpenLayers 10.x |
-| Styling | SASS/SCSS, Bootstrap Icons |
-| Testing | Vitest, Testing Library |
-| Build | Vite 7.x |
+| Language  | TypeScript 5.x                        |
+| Mapping   | OpenLayers 10.x                       |
+| Styling   | SASS/SCSS, Bootstrap Icons            |
+| Testing   | Vitest, Testing Library               |
+| Build     | Vite 7.x                              |
 
 **Always use Context7** for code generation, setup, or library documentation. Automatically use the Context7 MCP tools to resolve library id and get docs.
 
@@ -52,10 +52,12 @@ static/
 // GOOD - Svelte 5
 let count = $state(0);
 let doubled = $derived(count * 2);
-$effect(() => { /* ... */ });
+$effect(() => {
+	/* ... */
+});
 
 // BAD - Do NOT use Svelte 4 syntax
-$: doubled = count * 2;  // FORBIDDEN
+$: doubled = count * 2; // FORBIDDEN
 ```
 
 ### $effect Cleanup (MANDATORY)
@@ -64,8 +66,8 @@ Always return cleanup function when managing resources:
 
 ```typescript
 $effect(() => {
-    map.on('click', handler);
-    return () => map.un('click', handler);  // REQUIRED
+	map.on('click', handler);
+	return () => map.un('click', handler); // REQUIRED
 });
 ```
 
@@ -94,48 +96,48 @@ npm run build        # Production build
 
 ### Claude Guidelines (`.claude/`)
 
-| Document | Purpose |
-|----------|---------|
-| [.claude/README.md](.claude/README.md) | Documentation index |
+| Document                                           | Purpose                           |
+| -------------------------------------------------- | --------------------------------- |
+| [.claude/README.md](.claude/README.md)             | Documentation index               |
 | [.claude/ARCHITECTURE.md](.claude/ARCHITECTURE.md) | Design patterns, SOLID, data flow |
-| [.claude/SECURITY.md](.claude/SECURITY.md) | CSP, XSS prevention |
-| [.claude/TESTING.md](.claude/TESTING.md) | Vitest, coverage, mocking |
+| [.claude/SECURITY.md](.claude/SECURITY.md)         | CSP, XSS prevention               |
+| [.claude/TESTING.md](.claude/TESTING.md)           | Vitest, coverage, mocking         |
 
 ### General Documentation (`docs/`)
 
-| Document | Purpose |
-|----------|---------|
-| [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md) | Performance optimization guide |
-| [docs/DEV_CONSOLE_WARNINGS.md](docs/DEV_CONSOLE_WARNINGS.md) | Vite dev warnings explained |
+| Document                                                     | Purpose                        |
+| ------------------------------------------------------------ | ------------------------------ |
+| [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md)                 | Performance optimization guide |
+| [docs/DEV_CONSOLE_WARNINGS.md](docs/DEV_CONSOLE_WARNINGS.md) | Vite dev warnings explained    |
 
 ### Technology Rules (Auto-loaded)
 
-| Rule | Scope |
-|------|-------|
-| [svelte5-patterns.md](.claude/rules/svelte5-patterns.md) | `src/**/*.svelte` |
-| [openlayers-integration.md](.claude/rules/openlayers-integration.md) | `src/lib/ol/**` |
-| [sveltekit-routing.md](.claude/rules/sveltekit-routing.md) | `src/routes/**` |
+| Rule                                                                 | Scope             |
+| -------------------------------------------------------------------- | ----------------- |
+| [svelte5-patterns.md](.claude/rules/svelte5-patterns.md)             | `src/**/*.svelte` |
+| [openlayers-integration.md](.claude/rules/openlayers-integration.md) | `src/lib/ol/**`   |
+| [sveltekit-routing.md](.claude/rules/sveltekit-routing.md)           | `src/routes/**`   |
 
 ### Sub-Agents
 
-| Trigger | Agent |
-|---------|-------|
-| "create component" | [component-creator](.claude/agents/component-creator.md) |
+| Trigger                    | Agent                                                              |
+| -------------------------- | ------------------------------------------------------------------ |
+| "create component"         | [component-creator](.claude/agents/component-creator.md)           |
 | "map feature", "add layer" | [map-feature-specialist](.claude/agents/map-feature-specialist.md) |
-| "write test", "coverage" | [test-runner](.claude/agents/test-runner.md) |
-| "review code" | [code-reviewer](.claude/agents/code-reviewer.md) |
-| "update docs", "JSDoc" | [documentation-writer](.claude/agents/documentation-writer.md) |
+| "write test", "coverage"   | [test-runner](.claude/agents/test-runner.md)                       |
+| "review code"              | [code-reviewer](.claude/agents/code-reviewer.md)                   |
+| "update docs", "JSDoc"     | [documentation-writer](.claude/agents/documentation-writer.md)     |
 
 ---
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `src/lib/types.ts` | TypeScript type definitions |
-| `src/lib/stores.ts` | Svelte stores (map instance) |
-| `src/lib/AppState.svelte.ts` | Global app state ($state) |
-| `src/lib/ol/map.ts` | Map factory function |
+| File                             | Purpose                              |
+| -------------------------------- | ------------------------------------ |
+| `src/lib/types.ts`               | TypeScript type definitions          |
+| `src/lib/stores.ts`              | Svelte stores (map instance)         |
+| `src/lib/AppState.svelte.ts`     | Global app state ($state)            |
+| `src/lib/ol/map.ts`              | Map factory function                 |
 | `src/lib/ol/overlays/tooltip.ts` | Tooltip overlay with cleanup pattern |
 
 ---

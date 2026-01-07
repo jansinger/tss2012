@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import Icon from '$lib/components/Icon.svelte';
 	import type { LogEntryShort } from '$lib/types';
 	import { fly } from 'svelte/transition';
 
@@ -24,7 +25,7 @@
 <nav class="main-navigation" aria-label="Hauptnavigation">
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
 		<button type="button" title="Karte" aria-label="Zur Karte" onclick={() => goto('/')} >
-			<i class="bi bi-map"></i>
+			<Icon name="map" />
 		</button>
 	</div>
 </nav>

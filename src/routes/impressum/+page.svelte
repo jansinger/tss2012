@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import Icon from '$lib/components/Icon.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 </script>
 
@@ -8,7 +8,7 @@
 		<content class="container">
 			<nav class="close-navigation" aria-label="Navigation schließen">
 				<a href="/" title="Zur Karte" aria-label="Zur Karte">
-					<i class="bi bi-x-circle"></i>
+					<Icon name="x-circle" />
 				</a>
 			</nav>
 

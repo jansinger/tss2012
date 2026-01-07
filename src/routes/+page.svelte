@@ -1,8 +1,8 @@
 <script lang="ts">
 	import LogbookEntriesOverlay from '$lib/components/LogbookEntriesOverlay.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 	import { goto } from '$app/navigation';
 	import { AppState } from '$lib/AppState.svelte';
-
 </script>
 
 <svelte:head>
@@ -26,7 +26,7 @@
 			aria-label="Zum Impressum"
 			onclick={() => goto('/impressum')}
 		>
-			<i class="bi bi-info-circle"></i>
+			<Icon name="info-circle" />
 		</button>
 	</div>
 	<div class="tss-navigation ol-unselectable ol-control" style="pointer-events: auto;">
@@ -36,7 +36,7 @@
 			aria-label="Zur Zeitleiste"
 			onclick={() => goto('/timeline')}
 		>
-			<i class="bi bi-view-list"></i>
+			<Icon name="view-list" />
 		</button>
 	</div>
 </nav>
