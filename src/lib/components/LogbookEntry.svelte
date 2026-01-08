@@ -182,40 +182,77 @@
 		}
 	}
 
-	article {
-		position: relative;
-		margin-bottom: 20px;
-		margin-top: 15px;
+	header {
+		margin-bottom: 1.5rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	}
 	address {
 		padding-top: 20px;
-		font-size: 0.8em;
-		text-align: left;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.75);
+		font-style: normal;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.5rem;
+	}
+	h1 {
+		font-size: 1.75rem;
+		line-height: 1.35;
+		margin: 0;
 	}
 	section.overview-map {
 		position: relative;
-		margin: 15px 0 10px 15px;
+		margin: 25px 0 15px 20px;
 		padding: 0;
 		float: right;
 		z-index: 10;
-		height: 200px;
+		height: 250px;
+		width: 250px;
+
 		:global(.map) {
-			width: 200px;
-			height: 200px;
-			border-radius: 15px;
+			width: 250px;
+			height: 250px;
+			border-radius: 12px;
 			overflow: hidden;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+		}
+	}
+
+	article.main-content {
+		position: relative;
+		margin-bottom: 20px;
+		margin-top: 15px;
+
+		:global(p) {
+			margin-bottom: 1.25rem;
+			hyphens: auto;
+			text-align: justify;
+		}
+
+		// After map clears, limit text width for readability
+		:global(p:nth-child(n+4)) {
+			max-width: 65ch;
 		}
 	}
 
 	@media screen and (max-width: 600px) {
 		section.overview-map {
 			float: none;
-			padding: 15px auto;
-			margin: 20px 0 0 0;
+			margin: 20px auto 15px;
 			width: 100%;
+			height: auto;
+
 			:global(.map) {
-				margin: 10px auto;
+				margin: 0 auto;
 				width: 100%;
+				height: 200px;
+			}
+		}
+
+		article.main-content {
+			:global(p) {
+				text-align: left;
 			}
 		}
 	}

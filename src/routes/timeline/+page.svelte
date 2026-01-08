@@ -49,24 +49,25 @@
 						</div>
 						<div class="timeline__block__body">
 							{#each value as entry}
-								<a href="/log/{entry.id}" aria-label="Beitrag vom {entry.localeDatetime}: {entry.title}">
-									<article class="timeline__block__text glass" aria-labelledby="entry-{entry.id}-title">
-										<div class="img-container">
+								<a href="/log/{entry.id}" class="entry-card-link" aria-label="Beitrag vom {entry.localeDatetime}: {entry.title}">
+									<article class="entry-card timeline__block__text glass" aria-labelledby="entry-{entry.id}-title">
+										<div class="entry-card__image-wrap">
 											<img
+												class="entry-card__image"
 												src="/images/{entry.picture}"
 												title={entry.pictureTitle}
 												alt={entry.pictureTitle}
 												loading="lazy"
 											/>
 										</div>
-										<div class="text-container">
-											<time datetime={entry.datetime}>{entry.localeDatetime}</time>
+										<div class="entry-card__text">
+											<time class="entry-card__time" datetime={entry.datetime}>{entry.localeDatetime}</time>
 											<!--
 												@html is used for formatted content from static JSON.
 												Data source: src/lib/data/logbook.json (trusted static content)
 											-->
-											<address>{@html entry.section}</address>
-											<p id="entry-{entry.id}-title">{@html entry.title}</p>
+											<address class="entry-card__address">{@html entry.section}</address>
+											<p class="entry-card__title" id="entry-{entry.id}-title">{@html entry.title}</p>
 										</div>
 									</article>
 								</a>
@@ -81,91 +82,5 @@
 </div>
 
 <style lang="scss">
-	.img-container img {
-		max-width: 200px;
-		max-height: 150px;
-	}
-	article {
-		padding: 0;
-		margin: 5px;
-		cursor: pointer;
-		float: left;
-		width: calc(100% - 30px);
-		max-height: 150px;
-		overflow: hidden;
-		scroll-behavior: auto;
-	}
-	article::before {
-		clear: both;
-	}
-
-	article:hover {
-		background-color: #2e628780;
-		opacity: 1;
-		.img-container img {
-			opacity: 1;
-		}
-	}
-
-	a:focus-visible article {
-		outline: 3px solid #ffd700;
-		outline-offset: 2px;
-		background-color: #2e628780;
-		.img-container img {
-			opacity: 1;
-		}
-	}
-
-	article time {
-		font-size: 0.9rem;
-	}
-	article address {
-		font-size: 0.8rem;
-	}
-
-	article .img-container {
-		width: 200px;
-		text-align: center;
-		margin-right: 10px;
-		float: left;
-	}
-	article .img-container img {
-		height: 150px;
-		max-width: 200px;
-		text-align: center;
-		margin-right: 10px;
-		float: left;
-		border-radius: 0.5rem 0 0 0.5rem;
-		opacity: 0.6;
-	}
-	article .text-container {
-		padding: 10px;
-	}
-	article p {
-		font-weight: bold;
-	}
-
-	@media screen and (max-width: 700px) {
-		article .img-container {
-			width: 100px;
-			height: 100%;
-		}
-		article .img-container img {
-			height: 75px;
-			max-width: 100px;
-		}
-		article .text-container {
-			padding: 5px;
-			font-size: 0.9rem;
-		}
-		article p {
-			font-weight: bold;
-		}
-		article time {
-			font-size: 0.85rem;
-		}
-		article address {
-			font-size: 0.8rem;
-		}
-	}
+	@use '../../lib/scss/entry-card';
 </style>

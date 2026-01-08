@@ -120,13 +120,13 @@ article {
 	z-index: 50;
 }
 
-// #2e6287
+// Glass morphism effect - liquid glass look with good contrast
 .glass {
 	box-shadow: 0 8px 32px 0 rgba(33, 70, 97, 0.37);
-	backdrop-filter: blur(15px) saturate(150%);
+	backdrop-filter: blur(12px) saturate(180%);
 	border-radius: 12px;
-	border: 1px solid rgba(255, 255, 255, 0.125);
-	background: linear-gradient(155deg, #2e628760 0%, #21466180 100%);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background: linear-gradient(155deg, rgba(46, 98, 135, 0.65) 0%, rgba(33, 70, 97, 0.7) 100%);
 }
 
 .timeline {

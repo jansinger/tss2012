@@ -1,0 +1,150 @@
+// Entry Card Styles
+// Shared styles for LogbookEntries and Timeline entry cards
+// Uses BEM naming convention
+
+// Card wrapper
+.entry-card {
+	color: #efefef;
+	padding: 0;
+	margin: 5px;
+	cursor: pointer;
+	float: left;
+	width: 100%;
+	max-height: 150px;
+	overflow: hidden;
+	position: relative;
+
+	&::before {
+		clear: both;
+	}
+
+	// Gradient fade to indicate truncated content
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 200px;
+		right: 0;
+		height: 25px;
+		background: linear-gradient(transparent, rgba(20, 45, 70, 0.9));
+		pointer-events: none;
+		border-radius: 0 0 12px 0;
+	}
+
+	&:hover {
+		background-color: rgba(46, 98, 135, 0.5);
+
+		.entry-card__image {
+			opacity: 1;
+		}
+	}
+}
+
+// Image container
+.entry-card__image-wrap {
+	width: 200px;
+	text-align: center;
+	margin-right: 10px;
+	float: left;
+}
+
+// Image
+.entry-card__image {
+	height: 150px;
+	max-width: 200px;
+	text-align: center;
+	margin-right: 10px;
+	float: left;
+	border-radius: 0.5em 0 0 0.5em;
+	filter: brightness(0.9) contrast(1.2);
+	opacity: 0.85;
+	transition: opacity 0.2s ease;
+}
+
+// Text container
+.entry-card__text {
+	padding: 10px;
+}
+
+// Date/time - subtle but recognizable
+.entry-card__time {
+	display: block;
+	font-size: 0.85rem;
+	color: rgba(255, 255, 255, 0.7);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 600;
+	margin-bottom: 2px;
+}
+
+// Location - secondary info
+.entry-card__address {
+	display: block;
+	font-size: 0.8rem;
+	color: rgba(255, 255, 255, 0.85);
+	margin-bottom: 4px;
+	font-style: normal;
+}
+
+// Title - primary element
+.entry-card__title {
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.5;
+	margin: 0;
+}
+
+// Link wrapper
+.entry-card-link {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	width: calc(100% - 30px);
+	text-decoration: none;
+
+	&:focus-visible .entry-card {
+		outline: 3px solid #ffd700;
+		outline-offset: 2px;
+		background-color: rgba(46, 98, 135, 0.5);
+
+		.entry-card__image {
+			opacity: 1;
+		}
+	}
+}
+
+// Mobile optimizations
+@media screen and (max-width: 700px) {
+	.entry-card {
+		&::after {
+			left: 100px;
+		}
+	}
+
+	.entry-card__image-wrap {
+		width: 100px;
+		height: 100%;
+	}
+
+	.entry-card__image {
+		height: 75px;
+		max-width: 100px;
+	}
+
+	.entry-card__text {
+		padding: 8px 12px;
+		font-size: 0.85rem;
+	}
+
+	.entry-card__time {
+		font-size: 0.8rem;
+	}
+
+	.entry-card__address {
+		font-size: 0.75rem;
+	}
+
+	.entry-card__title {
+		font-size: 0.95rem;
+	}
+}
