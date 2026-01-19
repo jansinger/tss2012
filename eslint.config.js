@@ -59,6 +59,7 @@ export default [
 				module: 'readonly',
 				require: 'readonly',
 				setTimeout: 'readonly',
+				clearTimeout: 'readonly',
 				setImmediate: 'readonly',
 				// ES2017 globals
 				Promise: 'readonly',
@@ -72,7 +73,8 @@ export default [
 		rules: {
 			...tseslint.configs.recommended.rules,
 			'@typescript-eslint/no-explicit-any': 'off',
-			'@typescript-eslint/no-unsafe-function-type': 'off'
+			'@typescript-eslint/no-unsafe-function-type': 'off',
+			'svelte/no-navigation-without-resolve': 'off'
 		}
 	},
 
@@ -156,6 +158,16 @@ export default [
 			'svelte/require-each-key': 'off',
 			'svelte/no-navigation-without-resolve': 'off',
 			'no-unused-vars': 'off'
+		}
+	},
+
+	// Disable svelte/no-navigation-without-resolve for non-Svelte TypeScript files
+	// (This must come after Svelte config to override)
+	{
+		files: ['**/*.ts'],
+		ignores: ['**/*.svelte.ts'],
+		rules: {
+			'svelte/no-navigation-without-resolve': 'off'
 		}
 	},
 
