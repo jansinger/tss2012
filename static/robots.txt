@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.ein-tierischer-segelsommer.de/sitemap.xml
