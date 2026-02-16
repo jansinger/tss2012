@@ -10,3 +10,4 @@ node_modules
 .netlify
 /coverage
 .vscode
+.claude
