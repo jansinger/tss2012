@@ -2,6 +2,8 @@
 name: documentation-writer
 description: 'Update documentation, JSDoc comments, and README files'
 tools: Read, Write, Edit, Glob, Grep
+model: sonnet
+maxTurns: 20
 ---
 
 # Documentation Writer Agent

@@ -1,75 +1,19 @@
 # CLAUDE.md - Ein tierischer Segelsommer 2012
 
-## Project Overview
+## Project
 
-**Ein tierischer Segelsommer 2012** is a SvelteKit-based web application that visualizes a 2012 sailing journey through an interactive map and timeline.
-
-- **Live URL**: https://www.ein-tierischer-segelsommer.de
-- **Deployment**: Netlify (static site)
+SvelteKit web app visualizing a 2012 sailing journey with interactive map and timeline.
+**Live**: https://www.ein-tierischer-segelsommer.de | **Deployment**: Netlify (static site)
 
 ---
 
-## Technology Stack
+## Critical Mandates
 
-| Category  | Technology                            |
-| --------- | ------------------------------------- |
-| Framework | SvelteKit 2.x, Svelte 5.x (runes API) |
-| Language  | TypeScript 5.x                        |
-| Mapping   | OpenLayers 10.x                       |
-| Styling   | SASS/SCSS, Bootstrap Icons            |
-| Testing   | Vitest, Testing Library               |
-| Build     | Vite 7.x                              |
+### Svelte 5 Runes ONLY
 
-**Always use Context7** for code generation, setup, or library documentation. Automatically use the Context7 MCP tools to resolve library id and get docs.
-
----
-
-## Project Structure
-
-```
-src/
-├── lib/
-│   ├── components/     # Svelte components
-│   ├── ol/             # OpenLayers (map.ts, layers/, overlays/)
-│   ├── utils/          # Utilities (sortEntries, striphtml)
-│   ├── types.ts        # TypeScript types
-│   ├── stores.ts       # Svelte stores (map)
-│   └── AppState.svelte.ts  # Svelte 5 runes state
-├── routes/             # SvelteKit pages
-└── mocks/              # Test mocks
-static/
-├── data/               # GeoJSON, KML data
-└── images/             # User images
-```
-
----
-
-## Critical Rules
-
-### Svelte 5 Runes Only
-
-```typescript
-// GOOD - Svelte 5
-let count = $state(0);
-let doubled = $derived(count * 2);
-$effect(() => {
-	/* ... */
-});
-
-// BAD - Do NOT use Svelte 4 syntax
-$: doubled = count * 2; // FORBIDDEN
-```
-
-### $effect Cleanup (MANDATORY)
-
-Always return cleanup function when managing resources:
-
-```typescript
-$effect(() => {
-	map.on('click', handler);
-	return () => map.un('click', handler); // REQUIRED
-});
-```
+- Use ONLY `$state()`, `$derived()`, `$effect()`, `$props()`, `$bindable()`
+- **FORBIDDEN**: `$:` reactive statements (Svelte 4 syntax) — use `$derived()` or `$effect()` instead
+- `$effect()` **MUST** return cleanup function when managing resources (event listeners, timers, overlays, subscriptions)
 
 ### TypeScript
 
@@ -77,79 +21,85 @@ $effect(() => {
 - Use `import type` for type-only imports
 - Prefer `interface` over `type` for objects
 
----
+### TDD — Test-Driven Development
 
-## Quick Start
+- **ALWAYS** write or update tests **BEFORE** implementing features, fixes, or refactors
+- Workflow: Write failing test → Implement code → Verify test passes
+- For bug fixes: Write a test that reproduces the bug first, then fix
+
+### Post-Change Validation
+
+After **every** code change, run the full validation chain:
 
 ```bash
-npm install          # Install dependencies
-npm run dev          # Start dev server
-npm run check        # TypeScript validation
-npm run lint         # ESLint + Prettier
-npm run test         # Run tests
-npm run build        # Production build
+npm run check && npm run lint && npm run test
+```
+
+Do NOT consider a task complete until all three commands pass.
+
+### Context7
+
+**ALWAYS** use Context7 MCP tools (`resolve-library-id` → `query-docs`) for Svelte, SvelteKit, and OpenLayers documentation. Never rely on training data for library APIs.
+
+---
+
+## Commands
+
+```bash
+npm run check        # TypeScript + Svelte validation (MUST pass)
+npm run lint         # ESLint + Prettier (MUST pass)
+npm run test         # Vitest tests (MUST pass)
+npm run build-ci     # Full CI: svelte-kit sync + vite build + vitest run
 ```
 
 ---
 
-## Documentation
+## Architecture Invariants
 
-### Claude Guidelines (`.claude/`)
+1. **OpenLayers Layer Order** (bottom → top, in `src/lib/ol/map.ts`):
+   OSM Base → SeaMap Overlay → Track Layer → Logbook Markers
 
-| Document                                           | Purpose                           |
-| -------------------------------------------------- | --------------------------------- |
-| [.claude/README.md](.claude/README.md)             | Documentation index               |
-| [.claude/ARCHITECTURE.md](.claude/ARCHITECTURE.md) | Design patterns, SOLID, data flow |
-| [.claude/SECURITY.md](.claude/SECURITY.md)         | CSP, XSS prevention               |
-| [.claude/TESTING.md](.claude/TESTING.md)           | Vitest, coverage, mocking         |
+2. **Static Site Generation**: All routes prerendered at build time via `@sveltejs/adapter-static`. No server-side logic, no user input processing. Data from static JSON/KML files.
 
-### General Documentation (`docs/`)
-
-| Document                                                     | Purpose                        |
-| ------------------------------------------------------------ | ------------------------------ |
-| [docs/OPTIMIZATION.md](docs/OPTIMIZATION.md)                 | Performance optimization guide |
-| [docs/DEV_CONSOLE_WARNINGS.md](docs/DEV_CONSOLE_WARNINGS.md) | Vite dev warnings explained    |
-
-### Technology Rules (Auto-loaded)
-
-| Rule                                                                 | Scope             |
-| -------------------------------------------------------------------- | ----------------- |
-| [svelte5-patterns.md](.claude/rules/svelte5-patterns.md)             | `src/**/*.svelte` |
-| [openlayers-integration.md](.claude/rules/openlayers-integration.md) | `src/lib/ol/**`   |
-| [sveltekit-routing.md](.claude/rules/sveltekit-routing.md)           | `src/routes/**`   |
-
-### Sub-Agents
-
-| Trigger                    | Agent                                                              |
-| -------------------------- | ------------------------------------------------------------------ |
-| "create component"         | [component-creator](.claude/agents/component-creator.md)           |
-| "map feature", "add layer" | [map-feature-specialist](.claude/agents/map-feature-specialist.md) |
-| "write test", "coverage"   | [test-runner](.claude/agents/test-runner.md)                       |
-| "review code"              | [code-reviewer](.claude/agents/code-reviewer.md)                   |
-| "update docs", "JSDoc"     | [documentation-writer](.claude/agents/documentation-writer.md)     |
+3. **State Management**:
+   - Component state: `$state()` in `.svelte` files
+   - App-wide state: `src/lib/AppState.svelte.ts` (Svelte 5 runes)
+   - Map instance: `src/lib/stores.ts` (Writable store — needed for OpenLayers integration with non-Svelte code)
 
 ---
 
 ## Key Files
 
-| File                             | Purpose                              |
-| -------------------------------- | ------------------------------------ |
-| `src/lib/types.ts`               | TypeScript type definitions          |
-| `src/lib/stores.ts`              | Svelte stores (map instance)         |
-| `src/lib/AppState.svelte.ts`     | Global app state ($state)            |
-| `src/lib/ol/map.ts`              | Map factory function                 |
-| `src/lib/ol/overlays/tooltip.ts` | Tooltip overlay with cleanup pattern |
+| File                             | Purpose                                            |
+| -------------------------------- | -------------------------------------------------- |
+| `src/lib/types.ts`               | TypeScript type definitions + custom event helpers |
+| `src/lib/ol/map.ts`              | Map factory (layer order defined here)             |
+| `src/lib/AppState.svelte.ts`     | Global app state with $state                       |
+| `src/lib/ol/overlays/tooltip.ts` | Reference cleanup pattern for overlays             |
 
 ---
 
-## Contributing
+## Documentation & Tools
 
-1. Use Svelte 5 runes only (no `$:`)
-2. Include `$effect` cleanup functions
-3. Type everything with TypeScript
-4. Run `npm run check && npm run lint && npm run test`
-5. Follow patterns in existing code
+See [.claude/README.md](.claude/README.md) for full documentation index, decision tree (Rule vs Skill vs Agent vs Hook), and available skills/agents.
+
+Rules auto-load based on file path globs. Skills: `/svelte5-expert`, `/openlayers-expert`, `/fix-issue`, `/create-pr`, `/security-audit`, `/performance-check`
 
 ---
 
-**Last Updated**: 2026-01-07
+## Compaction Survival
+
+When context is compacted, always preserve:
+
+1. Full list of modified files (absolute paths)
+2. Test commands and their results
+3. Svelte 5 runes requirement (no `$:` syntax)
+4. `$effect` cleanup requirement
+5. Context7 usage mandate for library documentation
+6. TDD mandate: tests before implementation
+7. Post-change validation: `npm run check && npm run lint && npm run test`
+8. Current task progress and remaining steps
+
+---
+
+**Last Updated**: 2026-02-16

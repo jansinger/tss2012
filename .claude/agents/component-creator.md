@@ -1,7 +1,11 @@
 ---
 name: component-creator
-description: 'Create new Svelte 5 components with proper patterns and tests'
+description: 'Create new Svelte 5 components with runes, TypeScript, snippets, and tests'
 tools: Read, Write, Edit, Glob, Grep
+model: sonnet
+maxTurns: 20
+skills:
+  - svelte5-expert
 ---
 
 # Component Creator Agent

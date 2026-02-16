@@ -1,80 +1,120 @@
 # Claude Code Documentation Index
 
-This directory contains modular documentation for the **Ein tierischer Segelsommer 2012** project, organized for efficient Claude Code assistance.
+Documentation for the **Ein tierischer Segelsommer 2012** project.
 
-## Documentation Map
+## File Structure
 
 ```
 .claude/
-├── README.md                 # This file - Navigation index
+├── README.md                 # This file — Navigation + Decision Tree
 ├── ARCHITECTURE.md           # Design patterns, SOLID, data flow
 ├── SECURITY.md               # CSP, XSS prevention, secure coding
-├── TESTING.md                # Vitest, coverage, mocking strategies
+├── TESTING.md                # Vitest 4.x, coverage, mocking
+├── settings.json             # Hooks, deny rules (committed to git)
+├── settings.local.json       # Personal permissions (gitignored)
 ├── rules/                    # Path-scoped auto-loaded rules
-│   ├── svelte5-patterns.md   # Svelte 5 runes patterns
-│   ├── openlayers-integration.md  # OpenLayers map patterns
-│   └── sveltekit-routing.md  # SvelteKit routing patterns
+│   ├── svelte5-patterns.md        # Svelte 5 runes (slim)
+│   ├── openlayers-integration.md  # OpenLayers patterns (slim)
+│   ├── sveltekit-routing.md       # SvelteKit routing
+│   ├── testing-patterns.md        # Vitest + Testing Library (NEW)
+│   └── security-rules.md         # Security (alwaysApply) (NEW)
+├── skills/                   # On-demand knowledge modules
+│   ├── svelte5-expert/            # Deep Svelte 5 knowledge
+│   ├── openlayers-expert/         # Deep OpenLayers knowledge
+│   ├── fix-issue/                 # GitHub issue workflow
+│   ├── create-pr/                 # PR creation workflow
+│   ├── security-audit/            # Security checklist
+│   └── performance-check/         # Performance analysis
 └── agents/                   # Specialized sub-agents
-    ├── component-creator.md      # Create Svelte components
-    ├── map-feature-specialist.md # OpenLayers features
-    ├── test-runner.md            # Write and run tests
-    ├── code-reviewer.md          # Code quality review
-    └── documentation-writer.md   # JSDoc and README updates
+    ├── component-creator.md       # Create Svelte 5 components
+    ├── test-runner.md             # Write tests (Vitest 4.x)
+    ├── security-reviewer.md       # Security review (Opus, read-only)
+    ├── architect.md               # Architecture review (Opus, read-only)
+    └── documentation-writer.md    # JSDoc and README updates
 ```
 
 ---
 
-## When to Use Which Document
+## Decision Tree: Rule vs Skill vs Agent vs Hook
 
-| Task                               | Document                                                           |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| Understanding project architecture | [ARCHITECTURE.md](ARCHITECTURE.md)                                 |
-| Security review or CSP changes     | [SECURITY.md](SECURITY.md)                                         |
-| Writing or debugging tests         | [TESTING.md](TESTING.md)                                           |
-| Working with Svelte 5 runes        | [rules/svelte5-patterns.md](rules/svelte5-patterns.md)             |
-| Map features or OpenLayers         | [rules/openlayers-integration.md](rules/openlayers-integration.md) |
-| Adding routes or pages             | [rules/sveltekit-routing.md](rules/sveltekit-routing.md)           |
+### When to Use a Rule
+
+- Pattern applies to specific file types (matched by `paths` globs)
+- Must ALWAYS be loaded when editing those files
+- Keep concise (<150 lines) — reference skills for deep knowledge
+- Examples: `svelte5-patterns.md` for `*.svelte`, `security-rules.md` (alwaysApply)
+
+### When to Use a Skill
+
+- Domain knowledge loaded **on-demand** (not always in context)
+- Auto-invoked via `disable-model-invocation: false` or manually via `/skill-name`
+- Can be large (400+ lines) — deep knowledge and workflows
+- Examples: `/svelte5-expert`, `/fix-issue <number>`, `/security-audit`
+
+### When to Use an Agent
+
+- Specialized **multi-step workflows** requiring multiple tools
+- Invoked by Claude based on trigger phrases
+- Has its own model, tools, and permissions
+- Examples: `component-creator` (creates files), `security-reviewer` (read-only audit)
+
+### When to Use a Hook
+
+- **Deterministic automation** that ALWAYS runs — no judgment needed
+- Configured in `.claude/settings.json`
+- Examples: Auto-format after edit, block pushes to main
 
 ---
 
-## Sub-Agent Trigger Phrases
+## Skills (On-Demand Knowledge)
 
-| Trigger Phrase                        | Agent                  | Purpose                    |
-| ------------------------------------- | ---------------------- | -------------------------- |
-| "create component", "new component"   | component-creator      | Create Svelte 5 components |
-| "map feature", "add layer", "overlay" | map-feature-specialist | OpenLayers customizations  |
-| "write test", "add test", "coverage"  | test-runner            | Test creation and coverage |
-| "review code", "check quality"        | code-reviewer          | Code quality validation    |
-| "update docs", "add JSDoc"            | documentation-writer   | Documentation updates      |
+| Skill             | Invocation            | Purpose                                      | Auto-Invoke |
+| ----------------- | --------------------- | -------------------------------------------- | ----------- |
+| svelte5-expert    | `/svelte5-expert`     | Deep Svelte 5 runes, migration, optimization | Yes         |
+| openlayers-expert | `/openlayers-expert`  | OpenLayers 10 layers, sources, performance   | Yes         |
+| fix-issue         | `/fix-issue <number>` | Full issue→PR workflow                       | Manual only |
+| create-pr         | `/create-pr`          | Analyze commits, create PR                   | Manual only |
+| security-audit    | `/security-audit`     | XSS, CSP, npm audit, OWASP                   | Manual only |
+| performance-check | `/performance-check`  | Bundle size, rendering, web vitals           | Manual only |
+
+---
+
+## Sub-Agents
+
+| Trigger Phrase                         | Agent                | Model  | Purpose                               |
+| -------------------------------------- | -------------------- | ------ | ------------------------------------- |
+| "create component", "new component"    | component-creator    | sonnet | Create Svelte 5 components with tests |
+| "write test", "add test", "coverage"   | test-runner          | sonnet | Write and improve Vitest tests        |
+| "security review", "check security"    | security-reviewer    | opus   | Security analysis (read-only)         |
+| "review architecture", "design review" | architect            | opus   | Architecture review (read-only)       |
+| "update docs", "add JSDoc"             | documentation-writer | sonnet | Documentation updates                 |
+
+---
+
+## Hooks (Automatic Actions)
+
+Configured in `.claude/settings.json`:
+
+| Hook               | Event                    | Action                                      |
+| ------------------ | ------------------------ | ------------------------------------------- |
+| Auto-Format        | PostToolUse (Edit/Write) | `prettier --write` on changed file          |
+| Protected Branches | PreToolUse (Bash)        | Block `git push` to main/master             |
+| Sensitive Files    | PreToolUse (Edit/Write)  | Block changes to .env, credentials, secrets |
+
+---
+
+## Reference Documentation
+
+| Task                               | Document                           |
+| ---------------------------------- | ---------------------------------- |
+| Understanding project architecture | [ARCHITECTURE.md](ARCHITECTURE.md) |
+| Security review or CSP changes     | [SECURITY.md](SECURITY.md)         |
+| Writing or debugging tests         | [TESTING.md](TESTING.md)           |
 
 ---
 
 ## Quick Links
 
-### Project
-
 - **Live Site**: https://www.ein-tierischer-segelsommer.de
 - **Main CLAUDE.md**: [../CLAUDE.md](../CLAUDE.md)
-
-### External Resources
-
-- [SvelteKit Docs](https://kit.svelte.dev/docs)
-- [Svelte 5 Docs](https://svelte.dev/docs/svelte/overview)
-- [OpenLayers API](https://openlayers.org/en/latest/apidoc/)
-
-### Key Project Files
-
-- Types: [src/lib/types.ts](../src/lib/types.ts)
-- Map Factory: [src/lib/ol/map.ts](../src/lib/ol/map.ts)
-- App State: [src/lib/AppState.svelte.ts](../src/lib/AppState.svelte.ts)
-
----
-
-## Document Maintenance
-
-When updating documentation:
-
-1. Keep each file focused on its specific domain
-2. Update cross-references when file paths change
-3. Use relative links for internal references
-4. Keep the main CLAUDE.md concise (~100-150 lines)
+- **Key Files**: `src/lib/types.ts`, `src/lib/ol/map.ts`, `src/lib/AppState.svelte.ts`

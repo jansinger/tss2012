@@ -1,0 +1,45 @@
+{
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "FILEPATH=$(echo \"$CLAUDE_TOOL_INPUT\" | jq -r '.file_path // empty'); if [ -n \"$FILEPATH\" ] && [ -f \"$FILEPATH\" ]; then npx prettier --write \"$FILEPATH\" 2>/dev/null; fi; exit 0"
+					}
+				]
+			}
+		],
+		"PreToolUse": [
+			{
+				"matcher": "Bash",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "COMMAND=$(echo \"$CLAUDE_TOOL_INPUT\" | jq -r '.command // empty'); if echo \"$COMMAND\" | grep -qE 'git push.*(origin\\s+main|origin\\s+master|main\\s*$|master\\s*$)'; then echo 'BLOCKED: Direct push to main/master. Use feature branches!' >&2; exit 2; fi; exit 0"
+					}
+				]
+			},
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "FILEPATH=$(echo \"$CLAUDE_TOOL_INPUT\" | jq -r '.file_path // empty'); if echo \"$FILEPATH\" | grep -qE '\\.env|\\.env\\.|credentials|secrets|private.*key'; then echo \"BLOCKED: Cannot modify sensitive file: $FILEPATH\" >&2; exit 2; fi; exit 0"
+					}
+				]
+			}
+		]
+	},
+	"permissions": {
+		"deny": [
+			"Write(.env*)",
+			"Edit(.env*)",
+			"Write(credentials*)",
+			"Edit(credentials*)",
+			"Write(secrets/*)",
+			"Edit(secrets/*)"
+		]
+	}
+}

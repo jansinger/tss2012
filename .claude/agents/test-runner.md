@@ -1,7 +1,11 @@
 ---
 name: test-runner
-description: 'Write tests and improve test coverage'
+description: 'Write and improve tests with Vitest 4.x and Testing Library for Svelte 5'
 tools: Read, Write, Edit, Glob, Grep, Bash
+model: sonnet
+maxTurns: 25
+skills:
+  - svelte5-expert
 ---
 
 # Test Runner Agent

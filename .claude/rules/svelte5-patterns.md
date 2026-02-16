@@ -1,287 +1,111 @@
 ---
-description: 'Svelte 5 runes patterns for tss2012 components'
-globs: ['src/**/*.svelte', 'src/**/*.svelte.ts']
-alwaysApply: false
+description: 'Critical Svelte 5 runes patterns — auto-loaded for all Svelte files'
+paths:
+  - 'src/**/*.svelte'
+  - 'src/**/*.svelte.ts'
 ---
 
-# Svelte 5 Runes Patterns
+# Svelte 5 Critical Patterns
 
-This project uses **Svelte 5** with the runes API. All components must follow these patterns.
+> For deep knowledge, migration guides, and optimization: use `/svelte5-expert` skill.
 
----
+## MANDATORY: Runes Only (NO Svelte 4 Syntax)
 
-## Runes Reference
-
-### $state - Reactive State
+### FORBIDDEN
 
 ```typescript
-// Simple state
-let count = $state(0);
-
-// Object state
-let user = $state({ name: '', email: '' });
-
-// Array state
-let items = $state<string[]>([]);
+$: doubled = count * 2; // ❌ NEVER use $: reactive statements
+$: if (count > 10) alert('!'); // ❌ NEVER use $: if blocks
+$: {
+	/* block */
+} // ❌ NEVER use $: blocks
 ```
 
-**File Example**: [src/lib/AppState.svelte.ts](../../src/lib/AppState.svelte.ts)
+### REQUIRED
 
 ```typescript
-export const AppState = $state({
-	currentEntries: []
-});
-```
-
-### $derived - Computed Values
-
-```typescript
-let count = $state(0);
-let doubled = $derived(count * 2);
-
-// Complex derivation
-let filtered = $derived(items.filter((item) => item.active));
-```
-
-### $props - Component Props
-
-```typescript
-interface Props {
-	title: string;
-	count?: number;
-	onClose?: () => void;
-}
-
-let { title, count = 0, onClose }: Props = $props();
-```
-
-### $bindable - Two-Way Binding
-
-```typescript
-interface Props {
-	visible: boolean;
-}
-
-let { visible = $bindable(false) }: Props = $props();
-```
-
-**File Example**: [src/lib/components/LogbookEntriesOverlay.svelte](../../src/lib/components/LogbookEntriesOverlay.svelte)
-
----
-
-## $effect Cleanup Pattern (MANDATORY)
-
-**Always return a cleanup function when managing resources.**
-
-### Pattern
-
-```typescript
+let doubled = $derived(count * 2); // ✅ Use $derived
 $effect(() => {
-	// Setup code
-	const handler = () => {
-		/* ... */
-	};
-	map.on('click', handler);
-
-	// ALWAYS return cleanup function
-	return () => {
-		map.un('click', handler);
-	};
-});
+	if (count > 10) alert('!');
+}); // ✅ Use $effect
 ```
 
-### Real Example from Project
+## MANDATORY: $effect Cleanup
 
-**File**: [src/lib/components/LogbookMap.svelte](../../src/lib/components/LogbookMap.svelte)
-
-```typescript
-$effect(() => {
-	if (!$map || !mapElement) return;
-
-	const { cleanup } = createTooltipOverlay(tooltipElement, $map);
-
-	return () => {
-		cleanup();
-	};
-});
-```
-
-### When Cleanup is Required
-
-| Resource        | Cleanup Action                           |
-| --------------- | ---------------------------------------- |
-| Event listeners | `map.un('event', handler)`               |
-| Overlays        | `map.removeOverlay(overlay)`             |
-| Timers          | `clearInterval(id)` / `clearTimeout(id)` |
-| Subscriptions   | `unsubscribe()`                          |
-| Caches          | `cache.clear()`                          |
-
----
-
-## Anti-Patterns (AVOID)
-
-### DO NOT use $: reactive statements
+ALWAYS return cleanup function when managing resources.
 
 ```typescript
-// BAD - Svelte 4 syntax
-$: doubled = count * 2;
-$: if (count > 10) {
-	doSomething();
-}
-
-// GOOD - Svelte 5 runes
-let doubled = $derived(count * 2);
-$effect(() => {
-	if (count > 10) {
-		doSomething();
-	}
-});
-```
-
-### DO NOT forget cleanup
-
-```typescript
-// BAD - Memory leak
+// ✅ CORRECT — cleanup returned
 $effect(() => {
 	map.on('click', handler);
-	// Missing cleanup!
+	return () => map.un('click', handler); // REQUIRED
 });
 
-// GOOD - Proper cleanup
+// ❌ WRONG — missing cleanup (MEMORY LEAK)
 $effect(() => {
 	map.on('click', handler);
-	return () => map.un('click', handler);
 });
 ```
 
-### DO NOT use onMount without cleanup
+### Resources Requiring Cleanup
 
-```typescript
-// BAD - Legacy pattern
-import { onMount, onDestroy } from 'svelte';
+- Event listeners (`map.on`, `window.addEventListener`)
+- Timers (`setTimeout`, `setInterval`)
+- Subscriptions (`store.subscribe`)
+- OpenLayers overlays (`map.addOverlay`)
+- Browser APIs (`ResizeObserver`, `IntersectionObserver`)
 
-onMount(() => {
-	map.on('click', handler);
-});
-onDestroy(() => {
-	map.un('click', handler);
-});
+## Quick Runes Reference
 
-// GOOD - Single $effect with cleanup
-$effect(() => {
-	map.on('click', handler);
-	return () => map.un('click', handler);
-});
-```
+| Rune                 | Purpose                  | Example                                         |
+| -------------------- | ------------------------ | ----------------------------------------------- |
+| `$state(value)`      | Reactive state           | `let count = $state(0)`                         |
+| `$derived(expr)`     | Computed value           | `let doubled = $derived(count * 2)`             |
+| `$effect(() => {})`  | Side effect with cleanup | See above                                       |
+| `$props()`           | Component props          | `let { title }: Props = $props()`               |
+| `$bindable(default)` | Two-way binding          | `let { visible = $bindable(false) } = $props()` |
 
----
-
-## Component Structure Template
+## Component Structure
 
 ```svelte
-<script lang="ts" module>
-    // Module-level exports (types, constants)
-    export interface Props {
-        title: string;
-        count?: number;
-    }
-</script>
-
 <script lang="ts">
-    // Imports
-    import { goto } from '$app/navigation';
-    import type { LogEntry } from '$lib/types';
+  import type { LogEntry } from '$lib/types';
 
-    // Props
-    let { title, count = 0 }: Props = $props();
+  interface Props {
+    title: string;
+    count?: number;
+  }
 
-    // Local state
-    let isOpen = $state(false);
+  let { title, count = 0 }: Props = $props();
+  let isOpen = $state(false);
+  let displayCount = $derived(count > 0 ? count : 'None');
 
-    // Derived values
-    let displayCount = $derived(count > 0 ? count : 'None');
+  $effect(() => {
+    // Setup
+    return () => { /* cleanup */ };
+  });
 
-    // Effects with cleanup
-    $effect(() => {
-        console.log('Component mounted with title:', title);
-        return () => {
-            console.log('Component unmounting');
-        };
-    });
-
-    // Functions
-    function handleClick() {
-        isOpen = !isOpen;
-    }
+  function handleClick() { isOpen = !isOpen; }
 </script>
 
-<!-- Template -->
 <div class="component">
-    <h1>{title}</h1>
-    <p>Count: {displayCount}</p>
-    <button onclick={handleClick}>Toggle</button>
+  <h1>{title}</h1>
+  <p>Count: {displayCount}</p>
+  <button onclick={handleClick}>Toggle</button>
 </div>
-
-<style lang="scss">
-    .component {
-        // Scoped styles
-    }
-</style>
 ```
 
----
+## Anti-Patterns to AVOID
 
-## State Management: Runes vs Stores
+1. ❌ `$:` reactive statements (Svelte 4)
+2. ❌ `$effect` without cleanup when managing resources
+3. ❌ `onMount`/`onDestroy` — use `$effect` with cleanup instead
+4. ❌ `on:click` — use `onclick` (Svelte 5 event syntax)
+5. ❌ `createEventDispatcher` — use callback props instead
+6. ❌ `<slot />` — use `{@render children()}` with Snippets
 
-### Use Svelte 5 Runes ($state)
+## Project State Management
 
-- Component-local state
-- App-wide state in `.svelte.ts` files
-- Reactive computed values
-
-### Use Svelte Stores
-
-- Sharing state with non-Svelte code (like OpenLayers)
-- When you need `subscribe()` pattern
-- Legacy compatibility
-
-**Example**: The map instance uses a store because OpenLayers needs direct access:
-
-```typescript
-// src/lib/stores.ts
-export const map: Writable<Map> = writable();
-```
-
----
-
-## TypeScript Integration
-
-### Type Props Interface
-
-```typescript
-interface Props {
-	entries: LogEntry[];
-	onSelect?: (entry: LogEntry) => void;
-}
-
-let { entries, onSelect }: Props = $props();
-```
-
-### Type State
-
-```typescript
-let selectedId = $state<string | null>(null);
-let items = $state<LogEntry[]>([]);
-```
-
-### Type Effects
-
-```typescript
-$effect(() => {
-	// TypeScript infers types from closure
-	const entry = entries.find((e) => e.id === selectedId);
-	if (entry) {
-		onSelect?.(entry);
-	}
-});
-```
+- **Component state**: `$state()` in `.svelte` files
+- **App-wide state**: `src/lib/AppState.svelte.ts` ($state at module level)
+- **Map instance**: `src/lib/stores.ts` (Writable store for OpenLayers)

@@ -1,0 +1,28 @@
+# CODEOWNERS for Ein tierischer Segelsommer 2012
+
+# Claude Code Configuration
+/.claude/                    @jansinger
+/CLAUDE.md                   @jansinger
+
+# GitHub Actions & CI
+/.github/workflows/          @jansinger
+/.github/CODEOWNERS          @jansinger
+/.github/dependabot.yml      @jansinger
+
+# Critical Configuration
+/svelte.config.js            @jansinger
+/vite.config.js              @jansinger
+/tsconfig.json               @jansinger
+/package.json                @jansinger
+/netlify.toml                @jansinger
+
+# Core Library
+/src/lib/types.ts            @jansinger
+/src/lib/stores.ts           @jansinger
+/src/lib/AppState.svelte.ts  @jansinger
+/src/lib/ol/map.ts           @jansinger
+/src/lib/ol/overviewmap.ts   @jansinger
+
+# Critical Routes
+/src/routes/+layout.svelte   @jansinger
+/src/routes/+error.svelte    @jansinger
