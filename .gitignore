@@ -8,6 +8,3 @@ node_modules
 !.env.example
 .netlify
 /coverage
-
-# Generated WebP images (from scripts/convert-to-webp.sh)
-static/images/**/*.webp
