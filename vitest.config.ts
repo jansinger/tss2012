@@ -25,14 +25,15 @@ export default defineConfig(({ mode }) => ({
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'html', 'json', 'json-summary'],
+			include: ['src/lib/**/*.{ts,svelte}', 'src/routes/**/*.{ts,svelte}'],
 			exclude: [
 				'node_modules/',
 				'src/mocks/',
 				'src/tools/',
 				'**/*.spec.ts',
 				'**/*.test.ts',
-				'vitest.config.js',
-				'vite.config.js',
+				'vitest.config.ts',
+				'vite.config.ts',
 				'svelte.config.js'
 			],
 			thresholds: {
