@@ -31,7 +31,10 @@
 	<a href="/log/{f.id}" class="entry-card-link" title={stripHtml(f.title)} onclick={() => { AppState.currentEntries=[]} }>
 		<article class="entry-card glass">
 			<div class="entry-card__image-wrap">
-				<img class="entry-card__image" src="/images/{f.picture}" loading="lazy" title={f.pictureTitle} alt={f.pictureTitle} />
+				<picture>
+					<source srcset="/images/{f.picture.replace('.jpg', '.webp')}" type="image/webp" />
+					<img class="entry-card__image" src="/images/{f.picture}" loading="lazy" title={f.pictureTitle} alt={f.pictureTitle} />
+				</picture>
 			</div>
 			<div class="entry-card__text">
 				<time class="entry-card__time" datetime={f.datetime}>{f.localeDatetime}</time>

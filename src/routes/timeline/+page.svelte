@@ -52,13 +52,16 @@
 								<a href="/log/{entry.id}" class="entry-card-link" aria-label="Beitrag vom {entry.localeDatetime}: {entry.title}">
 									<article class="entry-card timeline__block__text glass" aria-labelledby="entry-{entry.id}-title">
 										<div class="entry-card__image-wrap">
-											<img
-												class="entry-card__image"
-												src="/images/{entry.picture}"
-												title={entry.pictureTitle}
-												alt={entry.pictureTitle}
-												loading="lazy"
-											/>
+											<picture>
+												<source srcset="/images/{entry.picture.replace('.jpg', '.webp')}" type="image/webp" />
+												<img
+													class="entry-card__image"
+													src="/images/{entry.picture}"
+													title={entry.pictureTitle}
+													alt={entry.pictureTitle}
+													loading="lazy"
+												/>
+											</picture>
 										</div>
 										<div class="entry-card__text">
 											<time class="entry-card__time" datetime={entry.datetime}>{entry.localeDatetime}</time>

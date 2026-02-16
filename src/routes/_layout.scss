@@ -20,23 +20,19 @@ body {
 	font-family: 'Nunito', sans-serif;
 }
 
+$focus-outline: 3px solid #ffd700;
+
 /* Global focus styles for accessibility */
 *:focus-visible {
-	outline: 3px solid #ffd700;
+	outline: $focus-outline;
 	outline-offset: 2px;
 }
 
-/* Enhanced focus for links */
 a:focus-visible {
-	outline: 3px solid #ffd700;
-	outline-offset: 2px;
 	border-radius: 2px;
 }
 
-/* Enhanced focus for buttons */
 button:focus-visible {
-	outline: 3px solid #ffd700;
-	outline-offset: 2px;
 	border-radius: 4px;
 }
 
@@ -292,7 +288,7 @@ nav.sub-navigation {
 	}
 
 	a:focus-visible {
-		outline: 3px solid #ffd700;
+		outline: $focus-outline;
 		outline-offset: 3px;
 		background-color: #2e628788;
 	}
@@ -342,7 +338,7 @@ nav.sub-navigation {
 	background-color: #2e6287 !important;
 }
 .ol-control button:focus-visible {
-	outline: 3px solid #ffd700 !important;
+	outline: $focus-outline !important;
 	outline-offset: 2px !important;
 }
 
@@ -371,7 +367,7 @@ nav.sub-navigation {
 	}
 
 	&:focus-visible {
-		outline: 3px solid #ffd700;
+		outline: $focus-outline;
 		outline-offset: 2px;
 		background-color: rgba(255, 255, 255, 0.95);
 	}
@@ -397,7 +393,7 @@ nav.sub-navigation {
 
 	a:focus-visible,
 	button:focus-visible {
-		outline: 3px solid #ffd700;
+		outline: $focus-outline;
 		outline-offset: 3px;
 		background-color: #2e628788;
 	}

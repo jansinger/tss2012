@@ -60,14 +60,17 @@
 		{#each pictures as { filename, title, text, sizebig }, index}
 			<swiper-slide role="group" aria-label="Bild {index + 1} von {pictures.length}">
 				<figure>
-					<img
-						class="main-image"
-						src={`/images/${folder}/${filename}`}
-						{title}
-						alt={stripHtml(text)}
-						width={sizebig?.width}
-						height={sizebig?.height}
-					/>
+					<picture>
+						<source srcset={`/images/${folder}/${filename.replace('.jpg', '.webp')}`} type="image/webp" />
+						<img
+							class="main-image"
+							src={`/images/${folder}/${filename}`}
+							{title}
+							alt={stripHtml(text)}
+							width={sizebig?.width}
+							height={sizebig?.height}
+						/>
+					</picture>
 					<!--
 						@html is used for formatted image captions from static JSON.
 						Data source: src/lib/data/logbook.json (trusted static content)
@@ -90,15 +93,18 @@
 		aria-label="Bildvorschauen">
 		{#each pictures as { filename, title, text, sizebig }}
 			<swiper-slide role="listitem">
-				<img
-					class="main-image"
-					src={`/images/${folder}/${filename}`}
-					{title}
-					alt=""
-					aria-hidden="true"
-					width={sizebig?.width}
-					height={sizebig?.height}
+				<picture>
+					<source srcset={`/images/${folder}/${filename.replace('.jpg', '.webp')}`} type="image/webp" />
+					<img
+						class="main-image"
+						src={`/images/${folder}/${filename}`}
+						{title}
+						alt=""
+						aria-hidden="true"
+						width={sizebig?.width}
+						height={sizebig?.height}
 					/>
+				</picture>
 			</swiper-slide>
 		{/each}
 	</swiper-container>

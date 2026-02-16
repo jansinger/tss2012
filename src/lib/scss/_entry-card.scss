@@ -103,8 +103,6 @@
 	text-decoration: none;
 
 	&:focus-visible .entry-card {
-		outline: 3px solid #ffd700;
-		outline-offset: 2px;
 		background-color: rgba(46, 98, 135, 0.5);
 
 		.entry-card__image {
