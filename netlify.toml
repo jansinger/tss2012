@@ -9,4 +9,8 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    # Note: 'unsafe-inline' for script-src is required because SvelteKit generates
+    # inline scripts (__sveltekit_*) for client hydration. For static sites (adapter-static),
+    # nonce-based CSP is not available. This is acceptable because the site processes
+    # no user input and serves only pre-rendered static content.
     Content-Security-Policy = "default-src 'self'; script-src 'report-sample' 'self' 'unsafe-inline'; style-src 'report-sample' 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; connect-src 'self'; font-src 'self'; frame-src 'self'; img-src 'self' https://api.maptiler.com https://t1.openseamap.org; manifest-src 'self'; media-src 'self'; worker-src 'none';"
