@@ -39,6 +39,7 @@
 	 * @param e - The wheel event object
 	 */
 	const trackWheel = (e: WheelEvent): void => {
+		if (!entry) return;
 		const { deltaX } = e;
 
 		if (deltaX) {
@@ -77,11 +78,13 @@
 </script>
 
 <svelte:head>
-	<title>{stripHtml(entry.title)}</title>
-	<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" />
-	<meta name="geo.placename" content={stripHtml(entry.section)} />
-	<meta name="geo.position" content="{entry.data?.coordinates[1]};{entry.data?.coordinates[0]}" />
-	<meta name="ICBM" content="{entry.data?.coordinates[1]}, {entry.data?.coordinates[0]}" />
+	<title>{entry ? stripHtml(entry.title) : 'Logbuch'}</title>
+	{#if entry}
+		<link rel="canonical" href="https://www.ein-tierischer-segelsommer.de/log/{entry._id}" />
+		<meta name="geo.placename" content={stripHtml(entry.section)} />
+		<meta name="geo.position" content="{entry.data?.coordinates?.[1]};{entry.data?.coordinates?.[0]}" />
+		<meta name="ICBM" content="{entry.data?.coordinates?.[1]}, {entry.data?.coordinates?.[0]}" />
+	{/if}
 </svelte:head>
 
 <svelte:window onkeydown={handleKeyboardNav} />
@@ -95,7 +98,7 @@
 		<p class="error-message">Logbuch-Eintrag konnte nicht geladen werden.</p>
 		<a href="/" class="btn-back">Zurück zur Karte</a>
 	</div>
-{:else}
+{:else if entry}
 <nav class="sub-navigation" aria-label="Navigation zwischen Beiträgen" aria-describedby="nav-description" onwheel={trackWheel}>
 	<div class="item-wrapper left">
 		{#if entry._prev}
@@ -134,10 +137,10 @@
 	</header>
 
 	<section class="pictures">
-		<Pictures pictures={entry.pictures} folder={entry.pictureFolder} />
+		<Pictures pictures={entry.pictures ?? undefined} folder={entry.pictureFolder} />
 	</section>
 	<section class="overview-map">
-		<OverviewMap coordinates={entry.data.coordinates} />
+		<OverviewMap coordinates={entry.data?.coordinates ?? undefined} />
 	</section>
 	<article class="main-content">
 		<!--

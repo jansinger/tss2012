@@ -3,7 +3,7 @@
 	import { fly } from 'svelte/transition';
 
 	let { children, outside = undefined } = $props();
-	let content: HTMLElement = $state(undefined);
+	let content: HTMLElement | undefined = $state(undefined);
 	let isOpen = $state(true);
 
 	/**
@@ -13,7 +13,7 @@
 	 */
 	function contains(event: MouseEvent | PointerEvent): boolean {
 		const path = event.composedPath();
-		return path.includes(content);
+		return content !== undefined && path.includes(content);
 	}
 
 	/**

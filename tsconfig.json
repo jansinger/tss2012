@@ -1,23 +1,19 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"moduleResolution": "node",
-		"module": "es2020",
-		"lib": ["es2021", "DOM"],
-		"target": "es2021",
+		"moduleResolution": "bundler",
+		"module": "ESNext",
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"target": "ES2022",
 		/**
 			Partial strict mode options for better type safety.
 			Full "strict: true" requires additional type fixes in components.
 			strictFunctionTypes disabled due to OpenLayers type incompatibilities.
 			*/
-		"strictNullChecks": false,
+		"strictNullChecks": true,
 		"strictFunctionTypes": false,
 		"strictBindCallApply": true,
 		"noImplicitThis": true,
-		/**
-			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
-			to enforce using \`import type\` instead of \`import\` for Types.
-			*/
 		"isolatedModules": true,
 		"resolveJsonModule": true,
 		/**
@@ -32,6 +28,5 @@
 		"checkJs": true
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte", "vitest-setup.js"],
-	"exclude": ["src/tools/**/*", "**/*.spec.ts", "**/*.test.ts", "src/tests/**/*"],
-	"types": ["@types/pug"]
+	"exclude": ["src/tools/**/*", "**/*.spec.ts", "**/*.test.ts", "src/tests/**/*"]
 }

@@ -204,12 +204,9 @@ describe('LogbookEntry', () => {
 	});
 
 	describe('error state', () => {
-		// Note: The component has a bug where <svelte:head> accesses entry.section
-		// before checking hasValidEntry, causing errors when entry is null.
-		// These tests document the current behavior.
-
-		it('throws error when entry is null (svelte:head accesses entry.section)', () => {
-			expect(() => render(LogbookEntry, { entry: null })).toThrow();
+		it('renders error message when entry is null', () => {
+			const { getByText } = render(LogbookEntry, { entry: null });
+			expect(getByText(/konnte nicht geladen werden/)).toBeInTheDocument();
 		});
 
 		it('renders error message when entry has no data', () => {
@@ -218,20 +215,22 @@ describe('LogbookEntry', () => {
 			expect(getByText(/konnte nicht geladen werden/)).toBeInTheDocument();
 		});
 
-		it('throws error when coordinates is null (svelte:head accesses coordinates[1])', () => {
+		it('renders error message when coordinates is null', () => {
 			const invalidEntry = {
 				...entry,
 				data: { ...entry.data, coordinates: null }
 			} as unknown as LogEntry;
-			expect(() => render(LogbookEntry, { entry: invalidEntry })).toThrow();
+			const { getByText } = render(LogbookEntry, { entry: invalidEntry });
+			expect(getByText(/konnte nicht geladen werden/)).toBeInTheDocument();
 		});
 
-		it('throws error when coordinates is undefined (svelte:head accesses coordinates[1])', () => {
+		it('renders error message when coordinates is undefined', () => {
 			const invalidEntry = {
 				...entry,
 				data: { ...entry.data, coordinates: undefined }
 			} as unknown as LogEntry;
-			expect(() => render(LogbookEntry, { entry: invalidEntry })).toThrow();
+			const { getByText } = render(LogbookEntry, { entry: invalidEntry });
+			expect(getByText(/konnte nicht geladen werden/)).toBeInTheDocument();
 		});
 	});
 

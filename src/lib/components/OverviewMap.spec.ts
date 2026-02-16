@@ -89,7 +89,7 @@ describe('OverviewMap', () => {
 	});
 
 	describe('cleanup on unmount', () => {
-		it('calls setTarget(null) when component unmounts', async () => {
+		it('calls setTarget(undefined) when component unmounts', async () => {
 			const { unmount } = render(OverviewMap, { coordinates: [10, 54] });
 
 			// Wait for map to be initialized
@@ -99,7 +99,7 @@ describe('OverviewMap', () => {
 
 			unmount();
 
-			expect(mockMap.setTarget).toHaveBeenCalledWith(null);
+			expect(mockMap.setTarget).toHaveBeenCalledWith(undefined);
 		});
 
 		it('calls dispose when component unmounts', async () => {

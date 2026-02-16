@@ -22,7 +22,7 @@
 		// Cleanup function runs before effect re-runs or on unmount
 		return () => {
 			if (currentMap) {
-				currentMap.setTarget(null);
+				currentMap.setTarget(undefined);
 				currentMap.dispose();
 			}
 			map = undefined;
