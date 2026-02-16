@@ -1,0 +1,86 @@
+// =============================================================================
+// MIXINS — Ein tierischer Segelsommer
+// =============================================================================
+
+// ---------------------------------------------------------------------------
+// BREAKPOINTS (mobile-first)
+// ---------------------------------------------------------------------------
+@mixin bp-sm {
+	@media screen and (min-width: 480px) {
+		@content;
+	}
+}
+
+@mixin bp-md {
+	@media screen and (min-width: 768px) {
+		@content;
+	}
+}
+
+@mixin bp-lg {
+	@media screen and (min-width: 1024px) {
+		@content;
+	}
+}
+
+// Touch-device targeting
+@mixin touch-device {
+	@media (pointer: coarse) {
+		@content;
+	}
+}
+
+// ---------------------------------------------------------------------------
+// GLASS MORPHISM
+// ---------------------------------------------------------------------------
+@mixin glass {
+	box-shadow: var(--glass-shadow);
+	backdrop-filter: var(--glass-blur);
+	border-radius: var(--radius-3xl);
+	border: var(--glass-border);
+	background: var(--glass-bg);
+}
+
+// ---------------------------------------------------------------------------
+// ACCESSIBILITY
+// ---------------------------------------------------------------------------
+
+// Visually hidden (screen-reader only)
+@mixin visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+// Focus ring
+@mixin focus-ring($offset: var(--focus-offset)) {
+	outline: var(--focus-outline);
+	outline-offset: $offset;
+}
+
+// Reduced motion — wraps content that should be disabled/changed
+@mixin reduced-motion {
+	@media (prefers-reduced-motion: reduce) {
+		@content;
+	}
+}
+
+// High contrast mode
+@mixin high-contrast {
+	@media (prefers-contrast: more) {
+		@content;
+	}
+}
+
+// Forced colors (Windows High Contrast Mode)
+@mixin forced-colors {
+	@media (forced-colors: active) {
+		@content;
+	}
+}

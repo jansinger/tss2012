@@ -14,6 +14,6 @@
 
 <style lang="scss">
 	.content {
-		padding: 20px 0 20px 20px;
+		padding: var(--space-5) 0 var(--space-5) var(--space-5);
 	}
 </style>

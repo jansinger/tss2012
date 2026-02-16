@@ -66,6 +66,8 @@ npm run build-ci     # Full CI: svelte-kit sync + vite build + vitest run
    - App-wide state: `src/lib/AppState.svelte.ts` (Svelte 5 runes)
    - Map instance: `src/lib/stores.ts` (Writable store — needed for OpenLayers integration with non-Svelte code)
 
+4. **Design Tokens**: All visual values (colors, spacing, shadows, z-index, radii, transitions) defined in `src/lib/scss/_tokens.scss`. NEVER hardcode these values in components. See `.claude/rules/design-system.md` for full rules.
+
 ---
 
 ## Key Files
@@ -76,6 +78,8 @@ npm run build-ci     # Full CI: svelte-kit sync + vite build + vitest run
 | `src/lib/ol/map.ts`              | Map factory (layer order defined here)             |
 | `src/lib/AppState.svelte.ts`     | Global app state with $state                       |
 | `src/lib/ol/overlays/tooltip.ts` | Reference cleanup pattern for overlays             |
+| `src/lib/scss/_tokens.scss`      | Design token definitions (CSS custom properties)   |
+| `src/lib/scss/_mixins.scss`      | SCSS mixins (breakpoints, glass, accessibility)    |
 
 ---
 
@@ -99,6 +103,7 @@ When context is compacted, always preserve:
 6. TDD mandate: tests before implementation
 7. Post-change validation: `npm run check && npm run lint && npm run test`
 8. Current task progress and remaining steps
+9. Design tokens mandate: use `var(--token)` from `_tokens.scss`, never hardcode
 
 ---
 

@@ -47,6 +47,6 @@
 	.impressum-control {
 		bottom: 2.5em;
 		right: 0.5em;
-		z-index: 5;
+		z-index: var(--z-navigation);
 	}
 </style>

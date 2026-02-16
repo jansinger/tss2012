@@ -1,12 +1,14 @@
+@use 'mixins';
+
 // Entry Card Styles
 // Shared styles for LogbookEntries and Timeline entry cards
 // Uses BEM naming convention
 
 // Card wrapper
 .entry-card {
-	color: #efefef;
+	color: var(--color-text-secondary);
 	padding: 0;
-	margin: 5px;
+	margin: var(--space-1-5, 5px);
 	cursor: pointer;
 	float: left;
 	width: 100%;
@@ -26,13 +28,13 @@
 		left: 200px;
 		right: 0;
 		height: 25px;
-		background: linear-gradient(transparent, rgba(20, 45, 70, 0.9));
+		background: linear-gradient(transparent, var(--color-card-fade));
 		pointer-events: none;
-		border-radius: 0 0 12px 0;
+		border-radius: 0 0 var(--radius-3xl) 0;
 	}
 
 	&:hover {
-		background-color: rgba(46, 98, 135, 0.5);
+		background-color: var(--color-surface-hover);
 
 		.entry-card__image {
 			opacity: 1;
@@ -44,7 +46,7 @@
 .entry-card__image-wrap {
 	width: 200px;
 	text-align: center;
-	margin-right: 10px;
+	margin-right: var(--space-2-5);
 	float: left;
 }
 
@@ -53,44 +55,44 @@
 	height: 150px;
 	max-width: 200px;
 	text-align: center;
-	margin-right: 10px;
+	margin-right: var(--space-2-5);
 	float: left;
 	border-radius: 0.5em 0 0 0.5em;
 	filter: brightness(0.9) contrast(1.2);
 	opacity: 0.85;
-	transition: opacity 0.2s ease;
+	transition: opacity var(--transition-normal);
 }
 
 // Text container
 .entry-card__text {
-	padding: 10px;
+	padding: var(--space-2-5);
 }
 
 // Date/time - subtle but recognizable
 .entry-card__time {
 	display: block;
-	font-size: 0.85rem;
-	color: rgba(255, 255, 255, 0.7);
+	font-size: var(--font-size-base);
+	color: var(--color-text-muted);
 	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	font-weight: 600;
-	margin-bottom: 2px;
+	letter-spacing: var(--letter-spacing-wide);
+	font-weight: var(--font-weight-semibold);
+	margin-bottom: var(--space-0-5);
 }
 
 // Location - secondary info
 .entry-card__address {
 	display: block;
-	font-size: 0.8rem;
-	color: rgba(255, 255, 255, 0.85);
-	margin-bottom: 4px;
+	font-size: var(--font-size-sm);
+	color: var(--color-text-subtle);
+	margin-bottom: var(--space-1);
 	font-style: normal;
 }
 
 // Title - primary element
 .entry-card__title {
-	font-size: 1rem;
-	font-weight: 600;
-	line-height: 1.5;
+	font-size: var(--font-size-md);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-normal);
 	margin: 0;
 }
 
@@ -103,7 +105,7 @@
 	text-decoration: none;
 
 	&:focus-visible .entry-card {
-		background-color: rgba(46, 98, 135, 0.5);
+		background-color: var(--color-surface-hover);
 
 		.entry-card__image {
 			opacity: 1;
@@ -112,7 +114,11 @@
 }
 
 // Mobile optimizations
-@media screen and (max-width: 700px) {
+@include mixins.bp-md {
+	// Desktop styles (above 768px) — default mobile styles below
+}
+
+@media screen and (max-width: 767px) {
 	.entry-card {
 		&::after {
 			left: 100px;
@@ -130,16 +136,16 @@
 	}
 
 	.entry-card__text {
-		padding: 8px 12px;
-		font-size: 0.85rem;
+		padding: var(--space-2) var(--space-3);
+		font-size: var(--font-size-base);
 	}
 
 	.entry-card__time {
-		font-size: 0.8rem;
+		font-size: var(--font-size-sm);
 	}
 
 	.entry-card__address {
-		font-size: 0.75rem;
+		font-size: var(--font-size-xs);
 	}
 
 	.entry-card__title {

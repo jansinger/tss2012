@@ -24,10 +24,12 @@
 </Overlay>
 
 <style lang="scss">
+	@use '../lib/scss/mixins';
+
 	.container-article {
 		max-width: 800px;
 		overflow: scroll;
-		padding: 20px;
+		padding: var(--space-5);
 	}
 	h1 {
 		margin: 0 auto;
@@ -35,16 +37,16 @@
 
 	h1 {
 		font-size: 2.8em;
-		font-weight: 700;
+		font-weight: var(--font-weight-bold);
 		margin: 0 0 0.5em 0;
 	}
 
 	pre {
 		white-space: wrap;
-		font-size: 0.8rem;
+		font-size: var(--font-size-sm);
 	}
 
-	@media (min-width: 480px) {
+	@include mixins.bp-sm {
 		h1 {
 			font-size: 4em;
 		}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { closeAndNavigateHome } from '$lib/utils/appStateHelpers';
+	import { prefersReducedMotion } from '$lib/utils/a11y';
 	import { fly } from 'svelte/transition';
 
 	let { children, outside = undefined } = $props();
@@ -51,7 +52,7 @@
 
 {#if isOpen}
 	{@render outside?.()}
-	<div class="container-article" transition:fly bind:this={content}>
+	<div class="container-article" transition:fly={{ duration: prefersReducedMotion() ? 0 : 400 }} bind:this={content}>
 		{@render children?.()}
 	</div>
 {/if}

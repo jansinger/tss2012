@@ -125,7 +125,7 @@
 	}
 
 	figcaption {
-		margin: 10px 0;
+		margin: var(--space-2-5) 0;
 		font-style: italic;
 	}
 
@@ -161,7 +161,7 @@
 	.mySwiper2 {
 		height: 20%;
 		box-sizing: border-box;
-		padding: 10px 0;
+		padding: var(--space-2-5) 0;
 
 		swiper-slide {
 			width: 25%;

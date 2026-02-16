@@ -5,6 +5,7 @@
 <script lang="ts">
 	import { createTooltipOverlay, type TooltipOverlayResult } from '$lib/ol/overlays/tooltip';
 	import { fade } from 'svelte/transition';
+	import { prefersReducedMotion } from '$lib/utils/a11y';
 	import { type LogbookClickEvent, onLogbookClick } from '$lib/types';
 	import { handleLogbookClick as handleClick } from '$lib/utils/handleLogbookClick';
 
@@ -84,7 +85,7 @@
 	});
 </script>
 
-<div class="tooltip" bind:this={tooltipElement} transition:fade data-testid="tooltip">
+<div class="tooltip" bind:this={tooltipElement} transition:fade={{ duration: prefersReducedMotion() ? 0 : 400 }} data-testid="tooltip">
 	<time>&nbsp;</time>
 	<address>&nbsp;</address>
 	<h3>Huch! Keine Überschrift...</h3>
@@ -108,9 +109,10 @@
 		height: 100%;
 	}
 
+	// OL overlay z-index overrides — required due to OpenLayers specificity
 	.map :global(.ol-overlaycontainer),
 	.map :global(.ol-overlaycontainer-stopevent) {
-		z-index: 2 !important;
+		z-index: var(--z-map-overlays) !important;
 	}
 
 	.logo {
@@ -123,7 +125,7 @@
 		max-width: 500px;
 		background-position: center center;
 		border-top-right-radius: 16px;
-		box-shadow: 0 1px 8px rgba(255, 255, 255, 0.4);
+		box-shadow: var(--shadow-logo);
 	}
 
 	:global(.tooltip) {
@@ -131,12 +133,12 @@
 		position: absolute;
 		border-bottom: 1px dotted #666;
 		text-align: left;
-		z-index: 5;
+		z-index: var(--z-navigation);
 	}
 
 	.tooltip :global(h3) {
-		margin: 12px 0;
-		font-size: 1rem;
+		margin: var(--space-3) 0;
+		font-size: var(--font-size-md);
 	}
 
 	:global(.tooltip .right) {
@@ -144,20 +146,19 @@
 		max-width: 400px;
 		top: 50%;
 		left: 100%;
-		margin-left: 20px;
+		margin-left: var(--space-5);
 		transform: translate(0, -50%);
 		padding: 0;
-		border-radius: 8px;
+		border-radius: var(--radius-xl);
 		position: absolute;
-		z-index: 10;
-		
+		z-index: var(--z-map-tooltip);
+
 		// Consolidated image styles
 		img {
 			width: 200px;
-			border-radius: 8px 8px 0 0;
+			border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 			filter: brightness(0.9) contrast(1.2);
 		}
-
 	}
 
 	// Arrow styles for dynamically generated tooltip content (from createTooltipHTML.ts)
@@ -179,15 +180,15 @@
 		left: 0;
 		top: 50%;
 		transform: translate(50%, -50%) rotate(-45deg);
-		background-color: #444444;
-		box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+		background-color: var(--color-surface-tooltip, #444444);
+		box-shadow: var(--shadow-tooltip);
 	}
 
 	.tooltip :global(.text-content) {
-		padding: 10px 10px;
+		padding: var(--space-2-5);
 	}
 
 	.tooltip :global(address) {
-		font-size: 0.75rem;
+		font-size: var(--font-size-xs);
 	}
 </style>

@@ -3,6 +3,7 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import type { LogEntryShort } from '$lib/types';
 	import { fly } from 'svelte/transition';
+	import { prefersReducedMotion } from '$lib/utils/a11y';
 
 	interface Props {
 		/** @type {import('./$types').PageData */
@@ -30,8 +31,8 @@
 	</div>
 </nav>
 
-<div class="content" transition:fly>
-	<section class="timeline" role="feed" aria-label="Chronologische Zeitleiste der Segelreise">
+<div class="content" transition:fly={{ duration: prefersReducedMotion() ? 0 : 400 }}>
+	<section class="timeline" role="feed" aria-label="Chronologische Zeitleiste der Segelreise" aria-busy="false">
 		<div class="container">
 			<div class="timeline__wrapper">
 				<div class="timeline__progressbar"></div>

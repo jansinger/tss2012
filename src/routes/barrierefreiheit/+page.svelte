@@ -10,7 +10,7 @@
 
 <Overlay>
 	<div class="container-article glass">
-		<content class="container">
+		<div class="container">
 			<nav class="close-navigation" aria-label="Navigation schließen">
 				<a href="/" title="Zur Karte" aria-label="Zur Karte">
 					<Icon name="x-circle" />
@@ -128,24 +128,24 @@
 			<p class="back-link">
 				<a href="/">← Zurück zur Karte</a>
 			</p>
-		</content>
+		</div>
 	</div>
 </Overlay>
 
 <style lang="scss">
-	@import '../../lib/scss/article.css';
+	@use '../../lib/scss/article';
 
 	.container-article {
-		max-width: 900px;
+		max-width: var(--content-max-width);
 	}
 
-	content.container {
-		border-radius: 8px;
-		padding: 15px 20px;
+	.container {
+		border-radius: var(--radius-xl);
+		padding: var(--space-3-5, 15px) var(--space-5);
 	}
 
 	ul {
-		line-height: 1.8;
+		line-height: var(--line-height-loose);
 		margin-bottom: 1.5rem;
 	}
 
@@ -155,33 +155,33 @@
 
 	h2 {
 		margin-top: 2rem;
-		color: #ffd700;
+		color: var(--color-accent);
 	}
 
 	h3 {
 		margin-top: 1.5rem;
-		color: #ffc107;
+		color: var(--color-accent-muted);
 	}
 
 	a {
-		color: #ffd700;
+		color: var(--color-accent);
 		text-decoration: underline;
 
 		&:hover {
-			color: #ffed4e;
+			color: var(--color-accent-hover);
 		}
 	}
 
 	.back-link {
 		margin-top: 3rem;
 		padding-top: 2rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.2);
+		border-top: 1px solid var(--color-border-separator);
 		text-align: center;
-		font-size: 1.1rem;
+		font-size: var(--font-size-lg);
 	}
 
-	@media screen and (max-width: 1140px) {
-		content.container {
+	@media screen and (max-width: 1023px) {
+		.container {
 			margin-top: 60px;
 		}
 	}

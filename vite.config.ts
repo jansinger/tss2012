@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { resolve } from 'path';
 
 export default defineConfig(({ mode }) => ({
 	plugins: [sveltekit()],
@@ -12,8 +13,11 @@ export default defineConfig(({ mode }) => ({
 	resolve: {
 		conditions: mode === 'test' ? ['browser'] : [],
 		alias: {
-			// Prevent Node.js modules from being bundled in browser code
-			'web-worker': mode === 'production' ? false : 'web-worker'
+			// web-worker has both Node and browser exports; ensure Vite always uses browser version
+			// Node version imports 'url' and 'process' which are unavailable in the browser
+			...(mode !== 'production' && {
+				'web-worker': resolve(__dirname, 'node_modules/web-worker/src/browser/index.js')
+			})
 		}
 	},
 	css: {

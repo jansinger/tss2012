@@ -5,7 +5,7 @@
 
 <Overlay>
 	<div class="container-article glass">
-		<content class="container">
+		<div class="container">
 			<nav class="close-navigation" aria-label="Navigation schließen">
 				<a href="/" title="Zur Karte" aria-label="Zur Karte">
 					<Icon name="x-circle" />
@@ -89,20 +89,21 @@
 					target="_blank">Kanzlei Hasselbach, Frankfurt</a
 				>
 			</p>
-		</content>
+		</div>
 	</div>
 </Overlay>
 
 <style lang="scss">
-	@import '../../lib/scss/article.css';
+	@use '../../lib/scss/article';
+	@use '../../lib/scss/mixins';
 
 	.container-article {
 		max-width: 800px;
 	}
 
-	content.container {
-		border-radius: 8px;
-		padding: 5px 15px;
+	.container {
+		border-radius: var(--radius-xl);
+		padding: var(--space-1-5, 5px) var(--space-3-5, 15px);
 	}
 
 	img.crew {
@@ -112,16 +113,16 @@
 
 	p.accessibility-link {
 		margin-top: 2rem;
-		padding: 1rem;
-		background-color: rgba(255, 215, 0, 0.1);
-		border-left: 4px solid #ffd700;
-		border-radius: 4px;
+		padding: var(--space-4, 1rem);
+		background-color: var(--color-accent-subtle);
+		border-left: 4px solid var(--color-accent);
+		border-radius: var(--radius-md);
 
 		a {
-			color: #ffd700;
-			font-weight: 600;
+			color: var(--color-accent);
+			font-weight: var(--font-weight-semibold);
 			text-decoration: none;
-			font-size: 1rem;
+			font-size: var(--font-size-md);
 
 			&:hover {
 				text-decoration: underline;
@@ -130,14 +131,14 @@
 	}
 
 	p.links {
-		font-size: 0.8rem;
+		font-size: var(--font-size-sm);
 		text-align: right;
-		margin-top: 20px;
-		color: rgba(255, 255, 255, 0.7);
+		margin-top: var(--space-5);
+		color: var(--color-text-muted);
 	}
 
-	@media screen and (max-width: 1140px) {
-		content.container {
+	@media screen and (max-width: 1023px) {
+		.container {
 			margin-top: 60px;
 		}
 	}

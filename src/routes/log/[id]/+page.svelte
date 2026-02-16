@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
+	import { prefersReducedMotion } from '$lib/utils/a11y';
 
 	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
@@ -26,7 +27,7 @@
 </script>
 
 <Overlay>
-	<div class="container-article" transition:fly>
+	<div class="container-article" transition:fly={{ duration: prefersReducedMotion() ? 0 : 400 }}>
 		<LogbookEntry entry={data.entry} />
 	</div>
 </Overlay>

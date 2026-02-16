@@ -39,29 +39,29 @@
 <style lang="scss">
 	.entry-list {
 		display: block;
-		margin-right: 16px;
+		margin-right: var(--space-4);
 	}
 
 	.close-navigation {
 		position: sticky;
 		float: right;
-		top: 15px;
-		margin-right: 12px;
+		top: var(--space-3-5, 15px);
+		margin-right: var(--space-3);
 		border: none;
 		background: transparent;
 		cursor: pointer;
-		padding: 2px 4px 1px;
-		font-size: 1.3rem;
-		color: #fff;
+		padding: var(--space-0-5) var(--space-1) var(--space-px);
+		font-size: var(--font-size-xl);
+		color: var(--color-text);
 
 		&:hover {
-			background-color: #2e628788;
+			background-color: var(--color-primary-alpha);
 		}
 	}
 
 	@media (pointer: coarse) {
 		.close-navigation {
-			font-size: 1.5rem;
+			font-size: var(--font-size-2xl);
 		}
 	}
 </style>

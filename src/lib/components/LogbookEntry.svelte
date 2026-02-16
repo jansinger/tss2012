@@ -122,7 +122,7 @@
 		{/if}
 	</div>
 </nav>
-<content class="container glass">
+<div class="container glass">
 	<nav class="close-navigation">
 		<a href="/" onclick={close} title="Zur Karte" aria-label="Zur Karte"><Icon name="x-circle" /></a>
 	</nav>
@@ -150,11 +150,11 @@
 		-->
 		{@html entry.text}
 	</article>
-</content>
+</div>
 {/if}
 
 <style lang="scss">
-	@import '../scss/article.css';
+	@use '../scss/article';
 
 	.error-container {
 		display: flex;
@@ -167,36 +167,36 @@
 	}
 
 	.error-message {
-		font-size: 1.5rem;
-		color: #ffd700;
+		font-size: var(--font-size-2xl);
+		color: var(--color-accent);
 		margin-bottom: 2rem;
 	}
 
 	.btn-back {
 		padding: 0.75rem 1.5rem;
-		background-color: #2e6287;
-		color: #fff;
+		background-color: var(--color-primary);
+		color: var(--color-text);
 		text-decoration: none;
-		border-radius: 4px;
-		transition: background-color 0.2s;
+		border-radius: var(--radius-md);
+		transition: background-color var(--transition-normal);
 
 		&:hover {
-			background-color: #1a4d6d;
+			background-color: var(--color-primary-dark);
 		}
 	}
 
 	header {
 		margin-bottom: 1.5rem;
 		padding-bottom: 1rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+		border-bottom: 1px solid var(--color-border-subtle);
 	}
 	address {
-		padding-top: 20px;
+		padding-top: var(--space-5);
 		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.75);
+		color: var(--color-text-faint);
 		font-style: normal;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: var(--letter-spacing-wide);
 		margin-bottom: 0.5rem;
 	}
 	h1 {
@@ -209,23 +209,23 @@
 		margin: 25px 0 15px 20px;
 		padding: 0;
 		float: right;
-		z-index: 10;
+		z-index: var(--z-map-tooltip);
 		height: 250px;
 		width: 250px;
 
 		:global(.map) {
 			width: 250px;
 			height: 250px;
-			border-radius: 12px;
+			border-radius: var(--radius-3xl);
 			overflow: hidden;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			box-shadow: var(--shadow-card);
 		}
 	}
 
 	article.main-content {
 		position: relative;
-		margin-bottom: 20px;
-		margin-top: 15px;
+		margin-bottom: var(--space-5);
+		margin-top: var(--space-3-5, 15px);
 
 		:global(p) {
 			margin-bottom: 1.25rem;
@@ -234,15 +234,15 @@
 		}
 
 		// After map clears, limit text width for readability
-		:global(p:nth-child(n+4)) {
+		:global(p:nth-child(n + 4)) {
 			max-width: 65ch;
 		}
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 767px) {
 		section.overview-map {
 			float: none;
-			margin: 20px auto 15px;
+			margin: var(--space-5) auto var(--space-3-5, 15px);
 			width: 100%;
 			height: auto;
 
