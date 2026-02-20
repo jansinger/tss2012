@@ -33,7 +33,7 @@
 		"image-size": "^2.0.2",
 		"jsdom": "^28.1.0",
 		"prettier": "^3.8.1",
-		"prettier-plugin-svelte": "^3.4.1",
+		"prettier-plugin-svelte": "^3.5.0",
 		"sass": "^1.97.3",
 		"svelte": "^5.53.0",
 		"svelte-check": "^4.4.0",
