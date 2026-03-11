@@ -17,6 +17,7 @@
 		"images:webp": "bash scripts/convert-to-webp.sh"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.53.4",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
@@ -27,7 +28,7 @@
 		"@typescript-eslint/parser": "^8.56.1",
 		"@vitest/coverage-v8": "^4.0.18",
 		"esbuild": "^0.27.3",
-		"eslint": "^9.39.1",
+		"eslint": "^10.0.3",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.15.1",
 		"image-size": "^2.0.2",
@@ -42,6 +43,9 @@
 		"vitest": "^4.0.18"
 	},
 	"type": "module",
+	"engines": {
+		"node": "^20.19.0 || ^22.13.0 || >=24"
+	},
 	"dependencies": {
 		"ol": "^10.8.0",
 		"swiper": "^12.1.2"
