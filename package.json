@@ -43,6 +43,9 @@
 		"vitest": "^4.0.18"
 	},
 	"type": "module",
+	"engines": {
+		"node": "^20.19.0 || ^22.13.0 || >=24"
+	},
 	"dependencies": {
 		"ol": "^10.8.0",
 		"swiper": "^12.1.2"
