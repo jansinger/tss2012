@@ -4,4 +4,28 @@ updates:
     directory: '/'
     target-branch: 'main'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
+    groups:
+      production:
+        dependency-type: 'production'
+      svelte-ecosystem:
+        patterns:
+          - 'svelte'
+          - '@sveltejs/*'
+          - 'svelte-check'
+          - 'vite'
+          - 'typescript'
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - '@testing-library/*'
+          - 'jsdom'
+      linting:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - '@typescript-eslint/*'
+          - 'prettier'
+          - 'prettier-*'
