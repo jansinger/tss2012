@@ -117,7 +117,7 @@ describe('utilityFunction', () => {
 
 ### SvelteKit Modules
 
-Already configured in `vitest.config.js`:
+Already configured in `vitest.config.ts`:
 
 ```typescript
 // $app/navigation - Virtual module
@@ -181,9 +181,6 @@ expect(spy).toHaveBeenCalled();
 ```bash
 # Watch mode (development)
 npm run test
-
-# Single run
-npm run test:ci
 
 # With coverage
 npm run test:coverage
@@ -277,7 +274,7 @@ describe('myStore', () => {
 
 ### "Cannot find module"
 
-Check virtual modules in `vitest.config.js` or add alias mock.
+Check virtual modules in `vitest.config.ts` or add alias mock.
 
 ### "document is not defined"
 

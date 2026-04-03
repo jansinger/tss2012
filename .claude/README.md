@@ -16,8 +16,8 @@ Documentation for the **Ein tierischer Segelsommer 2012** project.
 │   ├── svelte5-patterns.md        # Svelte 5 runes (slim)
 │   ├── openlayers-integration.md  # OpenLayers patterns (slim)
 │   ├── sveltekit-routing.md       # SvelteKit routing
-│   ├── testing-patterns.md        # Vitest + Testing Library (NEW)
-│   └── security-rules.md         # Security (alwaysApply) (NEW)
+│   ├── testing-patterns.md        # Vitest + Testing Library
+│   └── security-rules.md         # Security (alwaysApply)
 ├── skills/                   # On-demand knowledge modules
 │   ├── svelte5-expert/            # Deep Svelte 5 knowledge
 │   ├── openlayers-expert/         # Deep OpenLayers knowledge

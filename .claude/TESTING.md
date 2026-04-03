@@ -8,20 +8,31 @@ This document covers the testing approach for the **Ein tierischer Segelsommer 2
 
 | Tool                                   | Purpose                |
 | -------------------------------------- | ---------------------- |
-| **Vitest** (v4.0.15)                   | Unit testing framework |
-| **@testing-library/svelte** (v5.2.9)   | Component testing      |
+| **Vitest** (v4.1.0)                    | Unit testing framework |
+| **@testing-library/svelte** (v5.3.1)   | Component testing      |
 | **@testing-library/jest-dom** (v6.9.1) | DOM matchers           |
-| **jsdom** (v27.0.0)                    | DOM implementation     |
+| **jsdom** (v29.0.1)                    | DOM implementation     |
 
 ---
 
 ## Configuration
 
-**File**: [vitest.config.js](../vitest.config.js)
+**File**: [vitest.config.ts](../vitest.config.ts)
 
-```javascript
-export default defineConfig({
-	plugins: [svelte({ hot: !process.env.VITEST })],
+```typescript
+export default defineConfig(({ mode }) => ({
+	plugins: [
+		svelte({ hot: !process.env.VITEST }),
+		{
+			name: 'virtual-modules',
+			resolveId(id) {
+				if (id === '$app/navigation') return 'virtual:$app/navigation';
+			},
+			load(id) {
+				if (id === 'virtual:$app/navigation') return 'export default []';
+			}
+		}
+	],
 	test: {
 		globals: true,
 		environment: 'jsdom',
@@ -32,6 +43,8 @@ export default defineConfig({
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'html', 'json', 'json-summary'],
+			include: ['src/lib/**/*.{ts,svelte}', 'src/routes/**/*.{ts,svelte}'],
+			exclude: ['node_modules/', 'src/mocks/', 'src/tools/', '**/*.spec.ts', '**/*.test.ts'],
 			thresholds: {
 				lines: 70,
 				functions: 70,
@@ -39,8 +52,12 @@ export default defineConfig({
 				statements: 70
 			}
 		}
+	},
+	resolve: {
+		alias: { $lib: path.resolve(__dirname, './src/lib') },
+		conditions: mode === 'test' ? ['browser'] : []
 	}
-});
+}));
 ```
 
 ---
@@ -61,7 +78,7 @@ export default defineConfig({
 - `src/tools/`
 - `**/*.spec.ts`
 - `**/*.test.ts`
-- Config files (`vitest.config.js`, `vite.config.js`, `svelte.config.js`)
+- Config files (`vitest.config.ts`, `vite.config.js`, `svelte.config.js`)
 
 ---
 
@@ -90,7 +107,7 @@ src/lib/components/
 
 ### Virtual Modules (SvelteKit Imports)
 
-**File**: [vitest.config.js](../vitest.config.js)
+**File**: [vitest.config.ts](../vitest.config.ts)
 
 ```javascript
 {
@@ -132,8 +149,8 @@ Place reusable mocks here for:
 # Watch mode (development)
 npm run test
 
-# Single run (CI)
-npm run test:ci
+# Single run
+npm run test
 
 # With coverage report
 npm run test:coverage
@@ -287,7 +304,7 @@ describe('map store', () => {
 
 **Problem**: `Cannot find module '$app/navigation'`
 
-**Solution**: Ensure virtual-modules plugin is configured in vitest.config.js
+**Solution**: Ensure virtual-modules plugin is configured in vitest.config.ts
 
 ### DOM Environment
 

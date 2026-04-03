@@ -234,6 +234,7 @@ SvelteKit's convention-based routing:
 - `/log/[id]` - Individual entry
 - `/timeline` - Timeline view
 - `/impressum` - Legal imprint
+- `/barrierefreiheit` - Accessibility statement
 
 ---
 

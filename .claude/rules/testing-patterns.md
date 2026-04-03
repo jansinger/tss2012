@@ -101,7 +101,7 @@ vi.mock('ol/Map', () => ({
 
 ### SvelteKit Modules
 
-SvelteKit modules (`$app/navigation`, `$app/environment`) are auto-mocked via virtual modules in `vitest.config.js`.
+SvelteKit modules (`$app/navigation`, `$app/environment`) are auto-mocked via virtual modules in `vitest.config.ts`.
 
 ## Test Organization
 
@@ -151,7 +151,7 @@ npm run build-ci          # Full CI: sync + build + test
 
 | Problem                    | Solution                                       |
 | -------------------------- | ---------------------------------------------- |
-| Virtual module not found   | Check vitest.config.js virtual-modules         |
+| Virtual module not found   | Check vitest.config.ts virtual-modules         |
 | DOM not available          | Ensure `environment: 'jsdom'` in vitest config |
 | Async effects not running  | Use `waitFor()` from Testing Library           |
 | Store not reactive in test | Mock with `writable()` from svelte/store       |
@@ -160,4 +160,4 @@ npm run build-ci          # Full CI: sync + build + test
 
 - Component tests: look for `*.spec.ts` co-located with components
 - Mock setup: `src/mocks/`
-- Vitest config: `vitest.config.js`
+- Vitest config: `vitest.config.ts`
