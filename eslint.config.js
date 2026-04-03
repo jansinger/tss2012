@@ -17,7 +17,9 @@ export default [
 			'node_modules/**',
 			'package/**',
 			'.DS_Store',
-			'coverage/**'
+			'coverage/**',
+			'.claude/**',
+			'.claire/**'
 		]
 	},
 

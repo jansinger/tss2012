@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => ({
 		globals: true,
 		environment: 'jsdom',
 		setupFiles: ['./vitest-setup.js'],
+		exclude: ['node_modules/**', '.claude/**', '.claire/**'],
 		alias: {
 			'$app/environment': path.resolve('./src/mocks/environment.ts')
 		},

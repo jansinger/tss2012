@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { resolve } from 'path';
 
 export default defineConfig(({ mode }) => ({
 	plugins: [sveltekit()],
@@ -11,14 +10,11 @@ export default defineConfig(({ mode }) => ({
 		}
 	},
 	resolve: {
-		conditions: mode === 'test' ? ['browser'] : [],
-		alias: {
-			// web-worker has both Node and browser exports; ensure Vite always uses browser version
-			// Node version imports 'url' and 'process' which are unavailable in the browser
-			...(mode !== 'production' && {
-				'web-worker': resolve(__dirname, 'node_modules/web-worker/src/browser/index.js')
-			})
-		}
+		// Include 'browser' condition in all non-production modes (dev, test, preview).
+		// This makes Vite use the package's declared browser export for packages like
+		// web-worker — no alias path-hacking needed, and it works in any directory context
+		// (main repo, git worktrees, CI).
+		conditions: mode !== 'production' ? ['browser'] : []
 	},
 	css: {
 		preprocessorOptions: {
