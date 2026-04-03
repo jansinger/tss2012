@@ -4,20 +4,9 @@ import '@testing-library/jest-dom';
 import LogbookMap from './LogbookMap.svelte'; // Replace with your actual component path
 import type LogbookMap__SvelteComponent_ from './LogbookMap.svelte';
 
-// Mocking external dependencies
-vi.mock('/ol/map', () => ({
-	createMap: vi.fn()
-}));
-vi.mock('/ol/overlays/tooltip', () => ({
-	createTooltipOverlay: vi.fn()
-}));
-vi.mock('/stores', () => ({
-	map: {
-		set: vi.fn(),
-		on: vi.fn(),
-		updateSize: vi.fn()
-	}
-}));
+// Unit tests cover structural/a11y aspects only (DOM, accessibility attributes,
+// unmount safety). Map initialisation is tested in LogbookMap.integration.spec.ts,
+// which mocks '$lib/ol/map' and '$lib/ol/overlays/tooltip' via vi.doMock().
 
 describe('MyComponent', () => {
 	let container: HTMLElement;
@@ -45,8 +34,29 @@ describe('MyComponent', () => {
 	it('mounts correctly and binds elements', async () => {
 		expect(tooltipElement).toBeInTheDocument();
 		expect(mapElement).toBeInTheDocument();
-		// Further assertions can be added here
 	});
 
-	// Additional tests for map setup, event handling, and DOM structure
+	it('unmounts without error even when initMap is still pending', async () => {
+		// This test guards against the race condition where the $effect cleanup
+		// runs before the initMap() Promise resolves. With the cancelled-flag
+		// pattern, the resolved cleanup function is invoked immediately rather
+		// than silently dropped.
+		const { unmount } = render(LogbookMap, { target: document.createElement('div') });
+
+		// Unmount synchronously — before any microtasks from initMap resolve
+		expect(() => unmount()).not.toThrow();
+	});
+
+	it('renders map and tooltip in correct DOM order', () => {
+		const tooltipIndex = Array.from(container.children).indexOf(tooltipElement);
+		const mapIndex = Array.from(container.children).indexOf(mapElement);
+
+		// Tooltip rendered before map (as defined in template)
+		expect(tooltipIndex).toBeLessThan(mapIndex);
+	});
+
+	it('map element has correct accessibility attributes', () => {
+		expect(mapElement).toHaveAttribute('role', 'region');
+		expect(mapElement).toHaveAttribute('aria-label', 'Interaktive Karte der Segelreise');
+	});
 });

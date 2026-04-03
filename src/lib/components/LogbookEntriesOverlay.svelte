@@ -3,8 +3,13 @@
 	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 	import { clearCurrentEntries } from '$lib/utils/appStateHelpers';
+	import type { LogEntryShort } from '$lib/types';
 
-	let { currentEntries = $bindable() } = $props();
+	interface Props {
+		currentEntries: LogEntryShort[];
+	}
+
+	let { currentEntries = $bindable() }: Props = $props();
 
 	const closeHandler = (e: Event) => {
 		e.preventDefault();

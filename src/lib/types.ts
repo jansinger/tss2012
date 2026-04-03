@@ -73,3 +73,16 @@ export interface PicturesEntity {
 	sizebig?: SizeParams;
 	sizesmall?: SizeParams;
 }
+
+export function logEntryToShort(entry: LogEntry): LogEntryShort {
+	return {
+		id: entry._id,
+		title: entry.title,
+		section: entry.section,
+		abstract: entry.abstract,
+		datetime: entry.datetime,
+		localeDatetime: entry.localeDatetime,
+		picture: entry.pictures?.[0] ? `${entry.pictureFolder}/${entry.pictures[0].filename}` : '',
+		pictureTitle: entry.pictures?.[0]?.title ?? ''
+	};
+}

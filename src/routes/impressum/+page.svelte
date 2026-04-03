@@ -137,9 +137,13 @@
 		color: var(--color-text-muted);
 	}
 
-	@media screen and (max-width: 1023px) {
+	.container {
+		margin-top: 60px;
+	}
+
+	@include mixins.bp-lg {
 		.container {
-			margin-top: 60px;
+			margin-top: 0;
 		}
 	}
 

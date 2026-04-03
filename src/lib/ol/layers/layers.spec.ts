@@ -35,6 +35,16 @@ describe('Map Layers', () => {
 			expect(urls?.[0]).toContain('/maps/streets/');
 		});
 
+		it('uses VITE_MAPTILER_KEY env variable, not a hardcoded key', () => {
+			const layer = osm();
+			const source = layer.getSource() as XYZ;
+			const urls = source.getUrls();
+
+			// In tests: VITE_MAPTILER_KEY='test-key' (set in vitest.config.ts)
+			expect(urls?.[0]).toContain('key=test-key');
+			expect(urls?.[0]).not.toContain('Gk3JylWsX7yLBIWEqn42');
+		});
+
 		it('has correct attributions', () => {
 			const layer = osm();
 			const source = layer.getSource() as XYZ;
@@ -278,12 +288,10 @@ describe('Map Layers', () => {
 			expect(layer1).not.toBe(layer2);
 		});
 
-		it('track shares the same source instance', () => {
-			const layer1 = track();
-			const layer2 = track();
-
-			// Source is shared (singleton pattern for performance)
-			expect(layer1.getSource()).toBe(layer2.getSource());
+		it('track shares VectorSource across calls (single KML fetch)', () => {
+			// Source is intentionally a module-level singleton so the KML file
+			// is fetched and parsed only once across all map instances.
+			expect(track().getSource()).toBe(track().getSource());
 		});
 
 		it('logbook creates independent cluster instances', () => {
