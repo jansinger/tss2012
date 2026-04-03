@@ -35,6 +35,16 @@ describe('Map Layers', () => {
 			expect(urls?.[0]).toContain('/maps/streets/');
 		});
 
+		it('uses VITE_MAPTILER_KEY env variable, not a hardcoded key', () => {
+			const layer = osm();
+			const source = layer.getSource() as XYZ;
+			const urls = source.getUrls();
+
+			// In tests: VITE_MAPTILER_KEY='test-key' (set in vitest.config.ts)
+			expect(urls?.[0]).toContain('key=test-key');
+			expect(urls?.[0]).not.toContain('Gk3JylWsX7yLBIWEqn42');
+		});
+
 		it('has correct attributions', () => {
 			const layer = osm();
 			const source = layer.getSource() as XYZ;
