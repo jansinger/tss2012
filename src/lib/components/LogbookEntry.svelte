@@ -163,17 +163,17 @@
 		justify-content: center;
 		min-height: 400px;
 		text-align: center;
-		padding: 2rem;
+		padding: var(--space-8);
 	}
 
 	.error-message {
 		font-size: var(--font-size-2xl);
 		color: var(--color-accent);
-		margin-bottom: 2rem;
+		margin-bottom: var(--space-8);
 	}
 
 	.btn-back {
-		padding: 0.75rem 1.5rem;
+		padding: var(--space-3) var(--space-6);
 		background-color: var(--color-primary);
 		color: var(--color-text);
 		text-decoration: none;
@@ -186,21 +186,21 @@
 	}
 
 	header {
-		margin-bottom: 1.5rem;
-		padding-bottom: 1rem;
+		margin-bottom: var(--space-6);
+		padding-bottom: var(--space-4);
 		border-bottom: 1px solid var(--color-border-subtle);
 	}
 	address {
 		padding-top: var(--space-5);
-		font-size: 0.9rem;
+		font-size: var(--font-size-md);
 		color: var(--color-text-faint);
 		font-style: normal;
 		text-transform: uppercase;
 		letter-spacing: var(--letter-spacing-wide);
-		margin-bottom: 0.5rem;
+		margin-bottom: var(--space-2);
 	}
 	h1 {
-		font-size: 1.75rem;
+		font-size: var(--font-size-display);
 		line-height: 1.35;
 		margin: 0;
 	}
@@ -225,10 +225,10 @@
 	article.main-content {
 		position: relative;
 		margin-bottom: var(--space-5);
-		margin-top: var(--space-3-5, 15px);
+		margin-top: var(--space-3-5);
 
 		:global(p) {
-			margin-bottom: 1.25rem;
+			margin-bottom: var(--space-5);
 			hyphens: auto;
 			text-align: justify;
 		}
@@ -242,7 +242,7 @@
 	@media screen and (max-width: 767px) {
 		section.overview-map {
 			float: none;
-			margin: var(--space-5) auto var(--space-3-5, 15px);
+			margin: var(--space-5) auto var(--space-3-5);
 			width: 100%;
 			height: auto;
 

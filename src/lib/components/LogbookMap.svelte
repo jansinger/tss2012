@@ -186,7 +186,7 @@
 		left: 0;
 		top: 50%;
 		transform: translate(50%, -50%) rotate(-45deg);
-		background-color: var(--color-surface-tooltip, #444444);
+		background-color: var(--color-surface-tooltip);
 		box-shadow: var(--shadow-tooltip);
 	}
 
