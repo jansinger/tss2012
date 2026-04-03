@@ -73,13 +73,19 @@
 	$effect(() => {
 		if (!mapElement || !tooltipElement) return;
 
+		let cancelled = false;
 		let cleanup: (() => void) | undefined;
 
 		initMap().then((cleanupFn) => {
+			if (cancelled) {
+				cleanupFn?.();
+				return;
+			}
 			cleanup = cleanupFn;
 		});
 
 		return () => {
+			cancelled = true;
 			cleanup?.();
 		};
 	});
