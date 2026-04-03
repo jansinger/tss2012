@@ -27,17 +27,23 @@ const style = new Style({
 });
 
 /**
+ * Module-level singleton: shared across all track() calls so the KML file is
+ * fetched and parsed only once, even when multiple map instances exist.
+ */
+const source = new VectorSource({
+	url: '/data/segelsommer2012.kml',
+	format: new KML({
+		extractStyles: false
+	})
+});
+
+/**
  * Creates a vector layer for displaying a track.
- * Each call creates a new VectorSource to avoid shared state between map instances.
+ * Each call returns a new VectorLayer backed by the shared VectorSource.
  * @returns {VectorLayer} The vector layer for the track.
  */
 export const track = () =>
 	new VectorLayer({
-		source: new VectorSource({
-			url: '/data/segelsommer2012.kml',
-			format: new KML({
-				extractStyles: false
-			})
-		}),
+		source,
 		style
 	});

@@ -288,8 +288,10 @@ describe('Map Layers', () => {
 			expect(layer1).not.toBe(layer2);
 		});
 
-		it('track creates independent source instances per call', () => {
-			expect(track().getSource()).not.toBe(track().getSource());
+		it('track shares VectorSource across calls (single KML fetch)', () => {
+			// Source is intentionally a module-level singleton so the KML file
+			// is fetched and parsed only once across all map instances.
+			expect(track().getSource()).toBe(track().getSource());
 		});
 
 		it('logbook creates independent cluster instances', () => {

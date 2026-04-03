@@ -4,20 +4,9 @@ import '@testing-library/jest-dom';
 import LogbookMap from './LogbookMap.svelte'; // Replace with your actual component path
 import type LogbookMap__SvelteComponent_ from './LogbookMap.svelte';
 
-// Mocking external dependencies
-vi.mock('/ol/map', () => ({
-	createMap: vi.fn()
-}));
-vi.mock('/ol/overlays/tooltip', () => ({
-	createTooltipOverlay: vi.fn()
-}));
-vi.mock('/stores', () => ({
-	map: {
-		set: vi.fn(),
-		on: vi.fn(),
-		updateSize: vi.fn()
-	}
-}));
+// Unit tests cover structural/a11y aspects only (DOM, accessibility attributes,
+// unmount safety). Map initialisation is tested in LogbookMap.integration.spec.ts,
+// which mocks '$lib/ol/map' and '$lib/ol/overlays/tooltip' via vi.doMock().
 
 describe('MyComponent', () => {
 	let container: HTMLElement;

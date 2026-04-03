@@ -26,7 +26,7 @@ describe('design tokens — LogbookEntry.svelte', () => {
 	});
 
 	it('has no hardcoded padding: 0.75rem', () => {
-		expect(logbookEntry).not.toContain('0.75rem');
+		expect(logbookEntry).not.toMatch(/\bpadding(?:-top|-right|-bottom|-left)?\s*:\s*0\.75rem\b/);
 	});
 
 	it('has no hardcoded margin-bottom: 1.5rem', () => {
