@@ -155,6 +155,7 @@
 
 <style lang="scss">
 	@use '../scss/article';
+	@use '../scss/mixins';
 
 	.error-container {
 		display: flex;
@@ -206,19 +207,33 @@
 	}
 	section.overview-map {
 		position: relative;
-		margin: 25px 0 15px 20px;
+		float: none;
+		margin: var(--space-5) auto var(--space-3-5);
 		padding: 0;
-		float: right;
+		width: 100%;
+		height: auto;
 		z-index: var(--z-map-tooltip);
-		height: 250px;
-		width: 250px;
 
 		:global(.map) {
-			width: 250px;
-			height: 250px;
+			margin: 0 auto;
+			width: 100%;
+			height: 200px;
 			border-radius: var(--radius-3xl);
 			overflow: hidden;
 			box-shadow: var(--shadow-card);
+		}
+
+		@include mixins.bp-md {
+			float: right;
+			margin: 25px 0 15px 20px;
+			width: 250px;
+			height: 250px;
+
+			:global(.map) {
+				margin: 0;
+				width: 250px;
+				height: 250px;
+			}
 		}
 	}
 
@@ -230,32 +245,17 @@
 		:global(p) {
 			margin-bottom: var(--space-5);
 			hyphens: auto;
-			text-align: justify;
+			text-align: left;
 		}
 
 		// After map clears, limit text width for readability
 		:global(p:nth-child(n + 4)) {
 			max-width: 65ch;
 		}
-	}
 
-	@media screen and (max-width: 767px) {
-		section.overview-map {
-			float: none;
-			margin: var(--space-5) auto var(--space-3-5);
-			width: 100%;
-			height: auto;
-
-			:global(.map) {
-				margin: 0 auto;
-				width: 100%;
-				height: 200px;
-			}
-		}
-
-		article.main-content {
+		@include mixins.bp-md {
 			:global(p) {
-				text-align: left;
+				text-align: justify;
 			}
 		}
 	}

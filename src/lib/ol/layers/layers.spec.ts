@@ -288,12 +288,8 @@ describe('Map Layers', () => {
 			expect(layer1).not.toBe(layer2);
 		});
 
-		it('track shares the same source instance', () => {
-			const layer1 = track();
-			const layer2 = track();
-
-			// Source is shared (singleton pattern for performance)
-			expect(layer1.getSource()).toBe(layer2.getSource());
+		it('track creates independent source instances per call', () => {
+			expect(track().getSource()).not.toBe(track().getSource());
 		});
 
 		it('logbook creates independent cluster instances', () => {

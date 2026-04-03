@@ -60,3 +60,26 @@ describe('design tokens — LogbookMap.svelte', () => {
 		expect(logbookMap).toContain('var(--color-surface-tooltip)');
 	});
 });
+
+describe('responsive — media query migrations', () => {
+	const impressum = readFileSync(resolve('src/routes/impressum/+page.svelte'), 'utf-8');
+	const barrierefreiheit = readFileSync(
+		resolve('src/routes/barrierefreiheit/+page.svelte'),
+		'utf-8'
+	);
+
+	it('LogbookEntry uses bp-md mixin instead of raw max-width media query', () => {
+		expect(logbookEntry).not.toContain('@media screen and (max-width: 767px)');
+		expect(logbookEntry).toContain('mixins.bp-md');
+	});
+
+	it('impressum uses bp-lg mixin instead of raw max-width media query', () => {
+		expect(impressum).not.toContain('@media screen and (max-width: 1023px)');
+		expect(impressum).toContain('mixins.bp-lg');
+	});
+
+	it('barrierefreiheit uses bp-lg mixin instead of raw max-width media query', () => {
+		expect(barrierefreiheit).not.toContain('@media screen and (max-width: 1023px)');
+		expect(barrierefreiheit).toContain('mixins.bp-lg');
+	});
+});

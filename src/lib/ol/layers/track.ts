@@ -27,21 +27,17 @@ const style = new Style({
 });
 
 /**
- * The source for the track vector layer.
- */
-const source = new VectorSource({
-	url: '/data/segelsommer2012.kml',
-	format: new KML({
-		extractStyles: false
-	})
-});
-
-/**
  * Creates a vector layer for displaying a track.
+ * Each call creates a new VectorSource to avoid shared state between map instances.
  * @returns {VectorLayer} The vector layer for the track.
  */
 export const track = () =>
 	new VectorLayer({
-		source,
+		source: new VectorSource({
+			url: '/data/segelsommer2012.kml',
+			format: new KML({
+				extractStyles: false
+			})
+		}),
 		style
 	});
