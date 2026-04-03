@@ -1,6 +1,7 @@
 export const prerender = true;
 import origEntries from '$lib/data/logbook.json';
 import type { LogEntryShort } from '$lib/types';
+import type { PageServerLoad } from './$types';
 
 const entries: LogEntryShort[] = origEntries.map((entry) => ({
 	id: entry._id,
@@ -13,9 +14,8 @@ const entries: LogEntryShort[] = origEntries.map((entry) => ({
 	pictureTitle: entry.pictures[0].title
 }));
 
-/** @type {import('./$types').PageServerLoad} */
-export function load() {
+export const load: PageServerLoad = () => {
 	return {
 		entries
 	};
-}
+};

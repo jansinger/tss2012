@@ -1,6 +1,27 @@
 import { sortedEntries } from '$lib/sortedEntries';
-import { load } from '../../../../routes/log/[id]/+page.server';
+import { load, entries } from '../../../../routes/log/[id]/+page.server';
 import { expect, test, describe } from 'vitest';
+
+describe('entries function', () => {
+	test('returns an entry for every sortedEntry', () => {
+		const result = entries();
+		expect(result).toHaveLength(sortedEntries.length);
+	});
+
+	test('each entry has an id param matching _id', () => {
+		const result = entries();
+		result.forEach((entry, i) => {
+			expect(entry).toHaveProperty('id');
+			expect(entry.id).toBe(sortedEntries[i]._id);
+		});
+	});
+
+	test('all returned ids are unique', () => {
+		const result = entries();
+		const ids = result.map((e) => e.id);
+		expect(new Set(ids).size).toBe(ids.length);
+	});
+});
 
 describe('load function', () => {
 	test('should return entry object with previous and next values if id exists in sortedEntries', async () => {

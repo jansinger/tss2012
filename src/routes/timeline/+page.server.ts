@@ -2,6 +2,7 @@ export const prerender = true;
 
 import { sortedEntries } from '$lib/sortedEntries';
 import type { LogEntryShort } from '$lib/types';
+import type { PageServerLoad } from './$types';
 
 const monthNames = [
 	'Januar',
@@ -39,9 +40,8 @@ const groupBy = function (xs: LogEntryShort[], key: string) {
 	}, {});
 };
 
-/** @type {import('./$types').PageServerLoad} */
-export function load() {
+export const load: PageServerLoad = () => {
 	return {
 		groupedEntries: groupBy(entries, 'key')
 	};
-}
+};

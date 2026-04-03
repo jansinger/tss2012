@@ -1,9 +1,12 @@
 import { sortedEntries } from '$lib/sortedEntries';
 import { error } from '@sveltejs/kit';
+import type { EntryGenerator, PageServerLoad } from './$types';
+
 export const prerender = true;
 
-/** @type {import('./$types').PageServerLoad} */
-export const load = async ({ params }) => {
+export const entries: EntryGenerator = () => sortedEntries.map((entry) => ({ id: entry._id }));
+
+export const load: PageServerLoad = async ({ params }) => {
 	const { id } = params;
 
 	const index = sortedEntries.findIndex((row) => row._id === id);
