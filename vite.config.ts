@@ -10,7 +10,8 @@ export default defineConfig(({ mode }) => ({
 			external: mode === 'production' ? ['web-worker'] : [],
 			output: {
 				manualChunks: (id) => {
-					if (id.includes('node_modules/ol/')) return 'openlayers';
+					const normalizedId = id.replace(/\\/g, '/');
+					if (/(?:^|\/)node_modules(?:\/.*)?\/ol\//.test(normalizedId)) return 'openlayers';
 				}
 			}
 		}

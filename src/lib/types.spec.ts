@@ -82,10 +82,10 @@ describe('logEntryToShort', () => {
 			expect(logEntryToShort(entry).pictureTitle).toBe('');
 		});
 
-		it('includes _prev and _next when present', () => {
+		it('does not error when optional _prev and _next are present', () => {
 			const entry: LogEntry = { ...baseEntry, _prev: 'prev-id', _next: 'next-id' };
 			const result = logEntryToShort(entry);
-			// Result is LogEntryShort — prev/next not in the type, but mapping should not error
+			// LogEntryShort does not include _prev/_next — mapping should silently omit them
 			expect(result.id).toBe('abc-123');
 		});
 	});
