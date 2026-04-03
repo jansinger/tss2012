@@ -2,8 +2,14 @@
 	import { closeAndNavigateHome } from '$lib/utils/appStateHelpers';
 	import { prefersReducedMotion } from '$lib/utils/a11y';
 	import { fly } from 'svelte/transition';
+	import type { Snippet } from 'svelte';
 
-	let { children, outside = undefined } = $props();
+	interface Props {
+		children?: Snippet;
+		outside?: Snippet;
+	}
+
+	let { children, outside = undefined }: Props = $props();
 	let content: HTMLElement | undefined = $state(undefined);
 	let isOpen = $state(true);
 
@@ -48,7 +54,7 @@
 	}
 </script>
 
-<svelte:window on:mousedown={handleWindowClick} on:keydown={handleWindowKeyDown} />
+<svelte:window onmousedown={handleWindowClick} onkeydown={handleWindowKeyDown} />
 
 {#if isOpen}
 	{@render outside?.()}
