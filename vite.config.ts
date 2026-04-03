@@ -7,7 +7,12 @@ export default defineConfig(({ mode }) => ({
 	build: {
 		chunkSizeWarningLimit: 1000,
 		rollupOptions: {
-			external: mode === 'production' ? ['web-worker'] : []
+			external: mode === 'production' ? ['web-worker'] : [],
+			output: {
+				manualChunks: (id) => {
+					if (id.includes('node_modules/ol/')) return 'openlayers';
+				}
+			}
 		}
 	},
 	resolve: {
