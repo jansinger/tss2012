@@ -20,6 +20,9 @@ export default defineConfig(({ mode }) => ({
 		environment: 'jsdom',
 		setupFiles: ['./vitest-setup.js'],
 		exclude: ['node_modules/**', '.claude/**', '.claire/**'],
+		env: {
+			VITE_MAPTILER_KEY: 'test-key'
+		},
 		alias: {
 			'$app/environment': path.resolve('./src/mocks/environment.ts')
 		},

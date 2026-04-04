@@ -2,6 +2,11 @@ export const prerender = true;
 
 import { sortedEntries } from '$lib/sortedEntries';
 import type { LogEntryShort } from '$lib/types';
+import type { PageServerLoad } from './$types';
+
+interface LogEntryWithKey extends LogEntryShort {
+	key: string;
+}
 
 const monthNames = [
 	'Januar',
@@ -18,7 +23,7 @@ const monthNames = [
 	'Dezember'
 ];
 
-const entries: LogEntryShort[] = sortedEntries.map((entry) => ({
+const entries: LogEntryWithKey[] = sortedEntries.map((entry) => ({
 	id: entry._id,
 	title: entry.title,
 	section: entry.section,
@@ -32,16 +37,19 @@ const entries: LogEntryShort[] = sortedEntries.map((entry) => ({
 	).getFullYear()}`
 }));
 
-const groupBy = function (xs: LogEntryShort[], key: string) {
-	return xs.reduce(function (rv, x) {
-		(rv[x[key]] = rv[x[key]] || []).push(x);
+function groupBy<T extends Record<K, string>, K extends keyof T>(
+	xs: T[],
+	key: K
+): Record<string, T[]> {
+	return xs.reduce<Record<string, T[]>>((rv, x) => {
+		const k = x[key];
+		(rv[k] = rv[k] ?? []).push(x);
 		return rv;
 	}, {});
-};
+}
 
-/** @type {import('./$types').PageServerLoad} */
-export function load() {
+export const load: PageServerLoad = () => {
 	return {
 		groupedEntries: groupBy(entries, 'key')
 	};
-}
+};

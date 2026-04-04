@@ -134,6 +134,7 @@
 
 <style lang="scss">
 	@use '../../lib/scss/article';
+	@use '../../lib/scss/mixins';
 
 	.container-article {
 		max-width: var(--content-max-width);
@@ -180,9 +181,13 @@
 		font-size: var(--font-size-lg);
 	}
 
-	@media screen and (max-width: 1023px) {
+	.container {
+		margin-top: 60px;
+	}
+
+	@include mixins.bp-lg {
 		.container {
-			margin-top: 60px;
+			margin-top: 0;
 		}
 	}
 

@@ -3,6 +3,7 @@
 </script>
 
 <script lang="ts">
+	import { get } from 'svelte/store';
 	import { createTooltipOverlay, type TooltipOverlayResult } from '$lib/ol/overlays/tooltip';
 	import { fade } from 'svelte/transition';
 	import { prefersReducedMotion } from '$lib/utils/a11y';
@@ -28,13 +29,17 @@
 	 **/
 	const initMap = async (): Promise<(() => void) | undefined> => {
 		try {
-			// Return early if map already exists
-			if ($map) {
-				$map.setTarget(mapElement);
-				$map.updateSize();
+			// Use get(map) instead of $map to avoid creating a reactive dependency inside
+			// the $effect. If we read $map here, map.set(newMap) below would trigger the
+			// $effect to re-run, causing tooltipResult.cleanup() to be called while Run 2
+			// is already in the fast-path — destroying the click→clickLogbook dispatch chain.
+			const currentMap = get(map);
+			if (currentMap) {
+				currentMap.setTarget(mapElement);
+				currentMap.updateSize();
 
 				// Re-attach event listener using type-safe helper and return cleanup
-				const unsubscribe = onLogbookClick($map, handleLogbookClickEvent);
+				const unsubscribe = onLogbookClick(currentMap, handleLogbookClickEvent);
 				return unsubscribe;
 			}
 
@@ -73,13 +78,19 @@
 	$effect(() => {
 		if (!mapElement || !tooltipElement) return;
 
+		let cancelled = false;
 		let cleanup: (() => void) | undefined;
 
 		initMap().then((cleanupFn) => {
+			if (cancelled) {
+				cleanupFn?.();
+				return;
+			}
 			cleanup = cleanupFn;
 		});
 
 		return () => {
+			cancelled = true;
 			cleanup?.();
 		};
 	});
@@ -180,7 +191,7 @@
 		left: 0;
 		top: 50%;
 		transform: translate(50%, -50%) rotate(-45deg);
-		background-color: var(--color-surface-tooltip, #444444);
+		background-color: var(--color-surface-tooltip);
 		box-shadow: var(--shadow-tooltip);
 	}
 

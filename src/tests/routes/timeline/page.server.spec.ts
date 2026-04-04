@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { load } from '../../../routes/timeline/+page.server';
+import type { LogEntryShort } from '$lib/types';
 
 describe('/timeline +page.server', () => {
 	describe('load function', () => {
@@ -23,7 +24,7 @@ describe('/timeline +page.server', () => {
 		it('entries within groups have the same month/year', () => {
 			const result = load();
 
-			Object.entries(result.groupedEntries).forEach(([key, entries]: [string, any[]]) => {
+			Object.entries(result.groupedEntries).forEach(([key, entries]: [string, LogEntryShort[]]) => {
 				const [monthName, year] = key.split(' ');
 
 				entries.forEach((entry) => {
@@ -38,7 +39,7 @@ describe('/timeline +page.server', () => {
 		it('groups contain arrays of entries', () => {
 			const result = load();
 
-			Object.values(result.groupedEntries).forEach((group: any) => {
+			Object.values(result.groupedEntries).forEach((group: LogEntryShort[]) => {
 				expect(Array.isArray(group)).toBe(true);
 				expect(group.length).toBeGreaterThan(0);
 			});
@@ -46,7 +47,7 @@ describe('/timeline +page.server', () => {
 
 		it('entries have all required LogEntryShort properties plus key', () => {
 			const result = load();
-			const firstGroup = Object.values(result.groupedEntries)[0] as any[];
+			const firstGroup = Object.values(result.groupedEntries)[0];
 			const firstEntry = firstGroup[0];
 
 			expect(firstEntry).toHaveProperty('id');
@@ -96,7 +97,7 @@ describe('/timeline +page.server', () => {
 		it('entries are sorted chronologically within groups', () => {
 			const result = load();
 
-			Object.values(result.groupedEntries).forEach((group: any[]) => {
+			Object.values(result.groupedEntries).forEach((group: LogEntryShort[]) => {
 				if (group.length > 1) {
 					for (let i = 0; i < group.length - 1; i++) {
 						const date1 = new Date(group[i].datetime);
@@ -104,6 +105,32 @@ describe('/timeline +page.server', () => {
 						expect(date1.getTime()).toBeLessThanOrEqual(date2.getTime());
 					}
 				}
+			});
+		});
+	});
+
+	describe('groupedEntries type safety', () => {
+		it('groupedEntries values are arrays of LogEntryShort', () => {
+			const result = load();
+			const grouped: Record<string, LogEntryShort[]> = result.groupedEntries;
+
+			Object.values(grouped).forEach((group) => {
+				group.forEach((entry) => {
+					// Accessing typed properties without any-casts
+					expect(typeof entry.id).toBe('string');
+					expect(typeof entry.title).toBe('string');
+					expect(typeof entry.datetime).toBe('string');
+				});
+			});
+		});
+
+		it('groupedEntries keys are strings', () => {
+			const result = load();
+			const grouped: Record<string, LogEntryShort[]> = result.groupedEntries;
+
+			Object.keys(grouped).forEach((key) => {
+				expect(typeof key).toBe('string');
+				expect(key.length).toBeGreaterThan(0);
 			});
 		});
 	});
@@ -121,7 +148,7 @@ describe('/timeline +page.server', () => {
 			const result = load();
 
 			const totalEntries = Object.values(result.groupedEntries).reduce(
-				(sum: number, group: any[]) => sum + group.length,
+				(sum: number, group: LogEntryShort[]) => sum + group.length,
 				0
 			);
 
@@ -132,7 +159,7 @@ describe('/timeline +page.server', () => {
 			const result = load();
 			const allIds = new Set();
 
-			Object.values(result.groupedEntries).forEach((group: any[]) => {
+			Object.values(result.groupedEntries).forEach((group: LogEntryShort[]) => {
 				group.forEach((entry) => {
 					expect(allIds.has(entry.id)).toBe(false);
 					allIds.add(entry.id);
@@ -144,7 +171,7 @@ describe('/timeline +page.server', () => {
 	describe('data transformation', () => {
 		it('picture path includes folder and filename', () => {
 			const result = load();
-			const firstGroup = Object.values(result.groupedEntries)[0] as any[];
+			const firstGroup = Object.values(result.groupedEntries)[0];
 			const entry = firstGroup[0];
 
 			expect(entry.picture).toContain('/');
@@ -154,7 +181,7 @@ describe('/timeline +page.server', () => {
 		it('uses first picture from pictures array', () => {
 			const result = load();
 
-			Object.values(result.groupedEntries).forEach((group: any[]) => {
+			Object.values(result.groupedEntries).forEach((group: LogEntryShort[]) => {
 				group.forEach((entry) => {
 					expect(entry.picture).toBeDefined();
 					expect(entry.pictureTitle).toBeDefined();

@@ -1,21 +1,14 @@
 export const prerender = true;
-import origEntries from '$lib/data/logbook.json';
-import type { LogEntryShort } from '$lib/types';
+import { sortedEntries } from '$lib/sortedEntries';
+import { logEntryToShort } from '$lib/types';
+import type { LogEntry } from '$lib/types';
+import type { PageServerLoad } from './$types';
 
-const entries: LogEntryShort[] = origEntries.map((entry) => ({
-	id: entry._id,
-	title: entry.title,
-	section: entry.section,
-	abstract: entry.abstract,
-	datetime: entry.datetime,
-	localeDatetime: entry.localeDatetime,
-	picture: `${entry.pictureFolder}/${entry.pictures[0].filename}`,
-	pictureTitle: entry.pictures[0].title
-}));
+// Cast needed: JSON-inferred coordinates type is number[] but LogEntry expects [number, number]
+const entries = sortedEntries.map((e) => logEntryToShort(e as LogEntry));
 
-/** @type {import('./$types').PageServerLoad} */
-export function load() {
+export const load: PageServerLoad = () => {
 	return {
 		entries
 	};
-}
+};

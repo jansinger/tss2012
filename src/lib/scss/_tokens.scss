@@ -62,6 +62,9 @@
 	// Entry card
 	--color-card-fade: rgba(20, 45, 70, 0.9);
 
+	// Map tooltip surface
+	--color-surface-tooltip: #444444;
+
 	// Focus
 	--color-focus: var(--color-accent);
 
@@ -97,6 +100,7 @@
 	--font-size-lg: 1.1rem;
 	--font-size-xl: 1.3rem;
 	--font-size-2xl: 1.5rem;
+	--font-size-display: 1.75rem;
 	--font-size-3xl: 2rem;
 
 	--line-height-tight: 1.3;
