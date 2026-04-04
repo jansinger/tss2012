@@ -11,24 +11,23 @@ permissions:
 
 jobs:
   test:
-    name: Test Suite
+    name: Test Suite (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    strategy:
+      matrix:
+        node-version: ['22.x', '24.x']
 
     steps:
       - name: Checkout code
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - name: Setup Node.js 22.x
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: '22.x'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
-
-      - name: Upgrade npm to v11
-        run: npm install -g npm@11
-        continue-on-error: true
 
       - name: Install dependencies
         run: npm ci
@@ -73,12 +72,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           cache: 'npm'
-
-      - name: Upgrade npm to v11
-        run: npm install -g npm@11
-        continue-on-error: true
 
       - name: Install dependencies
         run: npm ci
@@ -115,12 +110,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           cache: 'npm'
-
-      - name: Upgrade npm to v11
-        run: npm install -g npm@11
-        continue-on-error: true
 
       - name: Install dependencies
         run: npm ci
