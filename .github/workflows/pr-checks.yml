@@ -7,6 +7,12 @@ on:
 permissions:
   contents: read
 
+# vite@8.0.3 declares peerOptional esbuild@"^0.27.0" which excludes 0.28.x.
+# npm 11 strictly enforces this even for optional peer deps (ERESOLVE).
+# Scoped here rather than in .npmrc to keep local installs strict.
+env:
+  NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+
 jobs:
   pr-info:
     name: PR Information
@@ -42,6 +48,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
+      - name: Pin npm version
+        run: |
+          npm install -g npm@11.7.0
+          hash -r
 
       - name: Install dependencies
         run: npm ci
@@ -81,6 +92,11 @@ jobs:
         with:
           node-version: '24.x'
           cache: 'npm'
+
+      - name: Pin npm version
+        run: |
+          npm install -g npm@11.7.0
+          hash -r
 
       - name: Install dependencies
         run: npm ci
@@ -149,6 +165,11 @@ jobs:
           node-version: '24.x'
           cache: 'npm'
 
+      - name: Pin npm version
+        run: |
+          npm install -g npm@11.7.0
+          hash -r
+
       - name: Install dependencies
         run: npm ci
 
@@ -186,6 +207,11 @@ jobs:
         with:
           node-version: '24.x'
           cache: 'npm'
+
+      - name: Pin npm version
+        run: |
+          npm install -g npm@11.7.0
+          hash -r
 
       - name: Install dependencies
         run: npm ci
