@@ -19,7 +19,7 @@
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.57.1",
+		"@sveltejs/kit": "^2.58.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@testing-library/dom": "^10.4.1",
 		"@testing-library/jest-dom": "^6.9.1",
@@ -36,10 +36,10 @@
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^3.5.1",
 		"sass": "^1.99.0",
-		"svelte": "^5.55.4",
+		"svelte": "^5.55.5",
 		"svelte-check": "^4.4.6",
 		"typescript": "^6.0.3",
-		"vite": "^8.0.8",
+		"vite": "^8.0.10",
 		"vitest": "^4.1.0"
 	},
 	"type": "module",
