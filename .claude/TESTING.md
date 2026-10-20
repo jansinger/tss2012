@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => ({
 		environment: 'jsdom',
 		setupFiles: ['./vitest-setup.js'],
 		alias: {
-			'$app/environment': path.resolve('./src/mocks/environment.ts')
+			'$app/env': path.resolve('./src/mocks/environment.ts')
 		},
 		coverage: {
 			provider: 'v8',
@@ -54,7 +54,6 @@ export default defineConfig(({ mode }) => ({
 		}
 	},
 	resolve: {
-		alias: { $lib: path.resolve(__dirname, './src/lib') },
 		conditions: mode === 'test' ? ['browser'] : []
 	}
 }));
@@ -78,7 +77,7 @@ export default defineConfig(({ mode }) => ({
 - `src/tools/`
 - `**/*.spec.ts`
 - `**/*.test.ts`
-- Config files (`vitest.config.ts`, `vite.config.js`, `svelte.config.js`)
+- Config files (`vitest.config.ts`, `vite.config.ts`)
 
 ---
 
@@ -125,7 +124,7 @@ src/lib/components/
 
 ```javascript
 alias: {
-    '$app/environment': path.resolve('./src/mocks/environment.ts')
+    '$app/env': path.resolve('./src/mocks/environment.ts')
 }
 ```
 
@@ -224,7 +223,7 @@ import { vi } from 'vitest';
 import { writable } from 'svelte/store';
 
 // Mock the map store
-vi.mock('$lib/stores', () => ({
+vi.mock('#lib/stores.js', () => ({
 	map: writable(null)
 }));
 ```
@@ -281,7 +280,7 @@ describe('sortEntries', () => {
 
 ```typescript
 import { get } from 'svelte/store';
-import { map } from '$lib/stores';
+import { map } from '#lib/stores.js';
 
 describe('map store', () => {
 	it('initializes as undefined', () => {

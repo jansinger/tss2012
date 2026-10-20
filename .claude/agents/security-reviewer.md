@@ -36,7 +36,7 @@ grep -rn "eval(\|new Function(" src/ --include="*.ts" --include="*.svelte"
 For each `{@html}` usage:
 
 - [ ] Input is trusted (static/build-time)
-- [ ] Input is sanitized with `striphtml()` from `$lib/utils/striphtml`
+- [ ] Input is sanitized with `striphtml()` from `#lib/utils/striphtml.js`
 - [ ] NOT using user input, URL params, or external API data
 
 ### 2. CSP Compliance

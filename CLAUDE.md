@@ -61,6 +61,8 @@ npm run build-ci     # Full CI: svelte-kit sync + vite build + vitest run
 
 2. **Static Site Generation**: All routes prerendered at build time via `@sveltejs/adapter-static`. No server-side logic, no user input processing. Data from static JSON/KML files.
 
+   **SvelteKit 3**: There is no `svelte.config.js` — Kit options (adapter, preprocess) are passed to `sveltekit({...})` in `vite.config.ts`. Import library code via the `#lib/*` subpath import (declared in `package.json` `imports`) with explicit extensions, e.g. `import { map } from '#lib/stores.js'`. `$lib` and `$app/stores` no longer exist; use `$app/state` and `$app/env`.
+
 3. **State Management**:
    - Component state: `$state()` in `.svelte` files
    - App-wide state: `src/lib/AppState.svelte.ts` (Svelte 5 runes)

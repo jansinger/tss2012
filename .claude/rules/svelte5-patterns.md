@@ -69,7 +69,7 @@ $effect(() => {
 
 ```svelte
 <script lang="ts">
-  import type { LogEntry } from '$lib/types';
+  import type { LogEntry } from '#lib/types.js';
 
   interface Props {
     title: string;

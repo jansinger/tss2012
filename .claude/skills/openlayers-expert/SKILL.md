@@ -286,7 +286,7 @@ export function onLogbookClick(map: Map, callback: (event: LogbookClickEvent) =>
 ## Feature Detection
 
 ```typescript
-import { getFeatureAtEventPixel } from '$lib/ol/overlays/getFeatureAtEventPixel';
+import { getFeatureAtEventPixel } from '#lib/ol/overlays/getFeatureAtEventPixel.js';
 
 // Get feature at click position
 map.on('click', (evt) => {
@@ -389,7 +389,7 @@ export const map: Writable<Map> = writable();
 
 ```svelte
 <script lang="ts">
-  import { map } from '$lib/stores';
+  import { map } from '#lib/stores.js';
 
   $effect(() => {
     if (!$map) return;

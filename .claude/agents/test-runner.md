@@ -121,7 +121,7 @@ Already configured in `vitest.config.ts`:
 
 ```typescript
 // $app/navigation - Virtual module
-// $app/environment - Alias mock in src/mocks/environment.ts
+// $app/env - Alias mock in src/mocks/environment.ts
 ```
 
 ### Mocking Stores
@@ -130,7 +130,7 @@ Already configured in `vitest.config.ts`:
 import { vi } from 'vitest';
 import { writable } from 'svelte/store';
 
-vi.mock('$lib/stores', () => ({
+vi.mock('#lib/stores.js', () => ({
 	map: writable(null)
 }));
 ```
@@ -165,7 +165,7 @@ vi.mock('ol', () => ({
 import { vi } from 'vitest';
 
 // Mock specific function
-vi.mock('$lib/utils/helper', () => ({
+vi.mock('#lib/utils/helper.js', () => ({
 	helperFunction: vi.fn(() => 'mocked result')
 }));
 
@@ -254,7 +254,7 @@ it('handles async operation', async () => {
 
 ```typescript
 import { get } from 'svelte/store';
-import { myStore } from '$lib/stores';
+import { myStore } from '#lib/stores.js';
 
 describe('myStore', () => {
 	it('has initial value', () => {

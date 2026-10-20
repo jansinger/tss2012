@@ -54,7 +54,7 @@ The project includes a utility for stripping HTML from untrusted content.
 **Usage**:
 
 ```typescript
-import { striphtml } from '$lib/utils/striphtml';
+import { striphtml } from '#lib/utils/striphtml.js';
 
 const safeText = striphtml(untrustedHTML);
 ```

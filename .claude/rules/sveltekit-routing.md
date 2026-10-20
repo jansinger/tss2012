@@ -45,7 +45,7 @@ Constraints:
 ```typescript
 // +page.server.ts — data loaded at BUILD TIME
 import type { PageServerLoad } from './$types';
-import { sortedEntries } from '$lib/sortedEntries';
+import { sortedEntries } from '#lib/sortedEntries.js';
 
 export const load: PageServerLoad = async () => {
 	return { entries: sortedEntries };
