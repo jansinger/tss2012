@@ -1,8 +1,8 @@
 import { goto } from '$app/navigation';
-import { AppState } from '$lib/AppState.svelte';
+import { AppState } from '#lib/AppState.svelte.js';
 import type { Feature } from 'ol';
 import type { Geometry } from 'ol/geom';
-import type { LogEntryShort } from '$lib/types';
+import type { LogEntryShort } from '#lib/types.js';
 
 /**
  * Maps an OpenLayers feature to a LogEntryShort object.

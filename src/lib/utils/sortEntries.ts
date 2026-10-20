@@ -1,4 +1,4 @@
-import type { SortableEntry } from '$lib/types';
+import type { SortableEntry } from '#lib/types.js';
 
 /**
  * Sorts an array of sortable entries in ascending order based on their datetime property.

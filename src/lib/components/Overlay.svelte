@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { closeAndNavigateHome } from '$lib/utils/appStateHelpers';
-	import { prefersReducedMotion } from '$lib/utils/a11y';
+	import { closeAndNavigateHome } from '#lib/utils/appStateHelpers.js';
+	import { prefersReducedMotion } from '#lib/utils/a11y.js';
 	import { fly } from 'svelte/transition';
 	import type { Snippet } from 'svelte';
 

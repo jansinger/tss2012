@@ -10,7 +10,7 @@ import VectorLayer from 'ol/layer/Vector';
 import { markerStyle } from './layers/logbook';
 import VectorSource from 'ol/source/Vector';
 import { FullScreen, defaults as defaultControls } from 'ol/control';
-import type { Coordinates } from '$lib/types';
+import type { Coordinates } from '#lib/types.js';
 
 /**
  * Creates an overview map with a given target element or selector and center coordinates.

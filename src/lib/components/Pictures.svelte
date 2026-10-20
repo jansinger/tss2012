@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { browser } from '$app/environment';
-    import type { PicturesEntity } from '$lib/types';
-    import { stripHtml } from '$lib/utils/striphtml';
+	import { browser } from '$app/env';
+	import type { PicturesEntity } from '#lib/types.js';
+	import { stripHtml } from '#lib/utils/striphtml.js';
 
     /**
      * Represents the properties for the Pictures component.
@@ -65,7 +65,7 @@
 						<img
 							class="main-image"
 							src={`/images/${folder}/${filename}`}
-							{title}
+							title={title}
 							alt={stripHtml(text)}
 							width={sizebig?.width}
 							height={sizebig?.height}
@@ -98,7 +98,7 @@
 					<img
 						class="main-image"
 						src={`/images/${folder}/${filename}`}
-						{title}
+						title={title}
 						alt=""
 						aria-hidden="true"
 						width={sizebig?.width}

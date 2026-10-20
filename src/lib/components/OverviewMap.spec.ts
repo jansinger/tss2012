@@ -12,7 +12,7 @@ const createMockMap = () => ({
 let mockMap: ReturnType<typeof createMockMap>;
 
 // Mock the overviewmap module with dynamic mock map
-vi.mock('$lib/ol/overviewmap', () => {
+vi.mock('#lib/ol/overviewmap.js', () => {
 	return {
 		createOverviewMap: vi.fn((element, coords) => {
 			// Use the mockMap from the outer scope
@@ -25,7 +25,7 @@ describe('OverviewMap', () => {
 	beforeEach(async () => {
 		mockMap = createMockMap();
 		// Reset the mock implementation for each test
-		const { createOverviewMap } = await import('$lib/ol/overviewmap');
+		const { createOverviewMap } = await import('#lib/ol/overviewmap.js');
 		vi.mocked(createOverviewMap).mockImplementation(() => mockMap);
 		vi.clearAllMocks();
 	});
@@ -52,7 +52,7 @@ describe('OverviewMap', () => {
 
 	describe('map initialization', () => {
 		it('calls createOverviewMap with element and coordinates', async () => {
-			const { createOverviewMap } = await import('$lib/ol/overviewmap');
+			const { createOverviewMap } = await import('#lib/ol/overviewmap.js');
 			const coordinates = [10.5, 54.5];
 
 			render(OverviewMap, { coordinates });
@@ -75,7 +75,7 @@ describe('OverviewMap', () => {
 		});
 
 		it('uses default coordinates when not provided', async () => {
-			const { createOverviewMap } = await import('$lib/ol/overviewmap');
+			const { createOverviewMap } = await import('#lib/ol/overviewmap.js');
 
 			render(OverviewMap);
 
@@ -134,7 +134,7 @@ describe('OverviewMap', () => {
 
 	describe('coordinates prop', () => {
 		it('accepts different coordinate values', async () => {
-			const { createOverviewMap } = await import('$lib/ol/overviewmap');
+			const { createOverviewMap } = await import('#lib/ol/overviewmap.js');
 			const coordinates = [12.5, 55.0];
 
 			render(OverviewMap, { coordinates });

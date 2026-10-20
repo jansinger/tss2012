@@ -1,4 +1,4 @@
-import { sortedEntries } from '$lib/sortedEntries';
+import { sortedEntries } from '#lib/sortedEntries.js';
 import { error } from '@sveltejs/kit';
 import type { EntryGenerator, PageServerLoad } from './$types';
 

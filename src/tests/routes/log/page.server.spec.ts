@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { load } from '../../../routes/log/+page.server';
-import type { LogEntryShort } from '$lib/types';
+import type { LogEntryShort } from '#lib/types.js';
 
 describe('/log +page.server', () => {
 	describe('load function', () => {

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Icon from '$lib/components/Icon.svelte';
-	import type { LogEntryShort } from '$lib/types';
+	import Icon from '#lib/components/Icon.svelte';
+	import type { LogEntryShort } from '#lib/types.js';
 	import { fly } from 'svelte/transition';
-	import { prefersReducedMotion } from '$lib/utils/a11y';
+	import { prefersReducedMotion } from '#lib/utils/a11y.js';
 
 	interface Props {
 		/** @type {import('./$types').PageData */

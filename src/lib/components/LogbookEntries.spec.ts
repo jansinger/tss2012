@@ -2,11 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 import LogbookEntries from './LogbookEntries.svelte';
-import type { LogEntryShort } from '$lib/types';
-import { AppState } from '$lib/AppState.svelte';
+import type { LogEntryShort } from '#lib/types.js';
+import { AppState } from '#lib/AppState.svelte.js';
 
 // Mock AppState
-vi.mock('$lib/AppState.svelte', () => ({
+vi.mock('#lib/AppState.svelte.js', () => ({
 	AppState: {
 		currentEntries: []
 	}

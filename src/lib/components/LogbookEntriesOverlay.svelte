@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
-	import LogbookEntries from '$lib/components/LogbookEntries.svelte';
-	import Overlay from '$lib/components/Overlay.svelte';
-	import { clearCurrentEntries } from '$lib/utils/appStateHelpers';
-	import type { LogEntryShort } from '$lib/types';
+	import Icon from '#lib/components/Icon.svelte';
+	import LogbookEntries from '#lib/components/LogbookEntries.svelte';
+	import Overlay from '#lib/components/Overlay.svelte';
+	import { clearCurrentEntries } from '#lib/utils/appStateHelpers.js';
+	import type { LogEntryShort } from '#lib/types.js';
 
 	interface Props {
 		currentEntries: LogEntryShort[];

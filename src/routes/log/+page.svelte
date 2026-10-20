@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LogbookEntries from "$lib/components/LogbookEntries.svelte";
+	import LogbookEntries from "#lib/components/LogbookEntries.svelte";
 	import type { PageData } from './$types';
 
 	interface Props {

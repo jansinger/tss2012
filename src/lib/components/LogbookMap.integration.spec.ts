@@ -3,8 +3,8 @@ import { render, cleanup } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 import LogbookMap from './LogbookMap.svelte';
 import { get } from 'svelte/store';
-import { map as mapStore } from '$lib/stores';
-import { AppState } from '$lib/AppState.svelte';
+import { map as mapStore } from '#lib/stores.js';
+import { AppState } from '#lib/AppState.svelte.js';
 import {
 	createMockOLMap,
 	createMockOLFeature,
@@ -28,11 +28,11 @@ beforeEach(() => {
 	mockCreateTooltipOverlay = vi.fn();
 
 	// Mock dynamic imports
-	vi.doMock('$lib/ol/map', () => ({
+	vi.doMock('#lib/ol/map.js', () => ({
 		createMap: mockCreateMap
 	}));
 
-	vi.doMock('$lib/ol/overlays/tooltip', () => ({
+	vi.doMock('#lib/ol/overlays/tooltip.js', () => ({
 		createTooltipOverlay: mockCreateTooltipOverlay
 	}));
 });

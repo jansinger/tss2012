@@ -1,4 +1,4 @@
-import type { LogEntry, PicturesEntity, Coordinates } from '$lib/types';
+import type { LogEntry, PicturesEntity, Coordinates } from '#lib/types.js';
 import { vi } from 'vitest';
 
 /**

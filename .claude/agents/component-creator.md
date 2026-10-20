@@ -50,7 +50,7 @@ When creating a new component:
 
 <script lang="ts">
     // Imports
-    import type { LogEntry } from '$lib/types';
+    import type { LogEntry } from '#lib/types.js';
 
     // Props with defaults
     let { title, count = 0, onClose }: Props = $props();

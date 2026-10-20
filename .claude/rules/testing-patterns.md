@@ -75,7 +75,7 @@ describe('sortEntries', () => {
 import { vi } from 'vitest';
 import { writable } from 'svelte/store';
 
-vi.mock('$lib/stores', () => ({
+vi.mock('#lib/stores.js', () => ({
 	map: writable(null)
 }));
 ```
@@ -101,7 +101,7 @@ vi.mock('ol/Map', () => ({
 
 ### SvelteKit Modules
 
-SvelteKit modules (`$app/navigation`, `$app/environment`) are auto-mocked via virtual modules in `vitest.config.ts`.
+SvelteKit modules (`$app/navigation`, `$app/env`) are auto-mocked via virtual modules in `vitest.config.ts`.
 
 ## Test Organization
 

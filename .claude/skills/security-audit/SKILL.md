@@ -22,7 +22,7 @@ grep -rn "{@html" src/ --include="*.svelte"
 For each occurrence verify:
 
 - [ ] Input is trusted (static/build-time content)
-- [ ] Input is sanitized with `striphtml()` from `$lib/utils/striphtml`
+- [ ] Input is sanitized with `striphtml()` from `#lib/utils/striphtml.js`
 - [ ] NOT using user input, URL params, or external API data
 
 ### Scan for dangerous DOM manipulation

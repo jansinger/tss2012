@@ -1,8 +1,8 @@
 <script lang="ts">
-	import LogbookEntriesOverlay from '$lib/components/LogbookEntriesOverlay.svelte';
-	import Icon from '$lib/components/Icon.svelte';
+	import LogbookEntriesOverlay from '#lib/components/LogbookEntriesOverlay.svelte';
+	import Icon from '#lib/components/Icon.svelte';
 	import { goto } from '$app/navigation';
-	import { AppState } from '$lib/AppState.svelte';
+	import { AppState } from '#lib/AppState.svelte.js';
 </script>
 
 <svelte:head>

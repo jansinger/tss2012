@@ -6,7 +6,7 @@ import type Geometry from 'ol/geom/Geometry';
 import type RenderFeature from 'ol/render/Feature';
 import { createTooltipHTML } from './createTooltipHTML';
 import { getFeatureAtEventPixel } from './getFeatureAtEventPixel';
-import { CLICK_LOGBOOK_EVENT } from '$lib/types';
+import { CLICK_LOGBOOK_EVENT } from '#lib/types.js';
 
 export interface LogbookFeature {
 	title: string;
@@ -43,8 +43,13 @@ export const createTooltipOverlay = (element: HTMLElement, map: OLMap): TooltipO
 	// Cache for tooltip HTML content, keyed by entry ID
 	const tooltipCache = new Map<string, string>();
 
+	const setCursor = (cursor: string) => {
+		const target = map.getTargetElement();
+		if (target) target.style.cursor = cursor;
+	};
+
 	const hideTooltip = () => {
-		map.getTargetElement().style.cursor = '';
+		setCursor('');
 		overlay.setPosition(undefined);
 		currentFeature = null;
 	};
@@ -52,7 +57,7 @@ export const createTooltipOverlay = (element: HTMLElement, map: OLMap): TooltipO
 	const showTooltip = (feature: Feature<Geometry> | RenderFeature, coordinate: number[]) => {
 		const features = feature.get('features');
 		if (features && features.length === 1) {
-			map.getTargetElement().style.cursor = 'pointer';
+			setCursor('pointer');
 			currentFeature = feature;
 
 			const featureData = features[0].getProperties() as LogbookFeature;

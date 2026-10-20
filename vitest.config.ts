@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitest/config';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
 
 export default defineConfig(({ mode }) => ({
 	plugins: [
-		svelte({ hot: !process.env.VITEST }),
+		svelte({ hot: !process.env.VITEST, preprocess: vitePreprocess() }),
 		{
 			name: 'virtual-modules',
 			resolveId(id) {
@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
 			VITE_MAPTILER_KEY: 'test-key'
 		},
 		alias: {
-			'$app/environment': path.resolve('./src/mocks/environment.ts')
+			'$app/env': path.resolve('./src/mocks/environment.ts')
 		},
 		coverage: {
 			provider: 'v8',
@@ -37,8 +37,7 @@ export default defineConfig(({ mode }) => ({
 				'**/*.spec.ts',
 				'**/*.test.ts',
 				'vitest.config.ts',
-				'vite.config.ts',
-				'svelte.config.js'
+				'vite.config.ts'
 			],
 			thresholds: {
 				lines: 70,
@@ -49,9 +48,6 @@ export default defineConfig(({ mode }) => ({
 		}
 	},
 	resolve: {
-		alias: {
-			$lib: path.resolve(__dirname, './src/lib')
-		},
 		conditions: mode === 'test' ? ['browser'] : []
 	}
 }));

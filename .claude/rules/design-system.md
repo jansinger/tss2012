@@ -63,7 +63,7 @@ Use the `.glass` utility class or `@include glass` mixin. Do NOT manually write 
 
 - All color pairs MUST meet WCAG 2.2 AA contrast (4.5:1 text, 3:1 large text/UI)
 - All CSS transitions MUST respect `prefers-reduced-motion: reduce` (global rule in `_layout.scss`)
-- Svelte transitions (`fly`, `fade`) MUST use `prefersReducedMotion()` from `$lib/utils/a11y`
+- Svelte transitions (`fly`, `fade`) MUST use `prefersReducedMotion()` from `#lib/utils/a11y.js`
 - Interactive elements MUST have visible focus indicators via `--focus-outline`
 - Use `@include visually-hidden` for screen-reader-only content
 

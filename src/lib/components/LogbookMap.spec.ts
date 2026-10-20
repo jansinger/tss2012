@@ -6,7 +6,7 @@ import type LogbookMap__SvelteComponent_ from './LogbookMap.svelte';
 
 // Unit tests cover structural/a11y aspects only (DOM, accessibility attributes,
 // unmount safety). Map initialisation is tested in LogbookMap.integration.spec.ts,
-// which mocks '$lib/ol/map' and '$lib/ol/overlays/tooltip' via vi.doMock().
+// which mocks '#lib/ol/map' and '$lib/ol/overlays/tooltip' via vi.doMock().
 
 describe('MyComponent', () => {
 	let container: HTMLElement;

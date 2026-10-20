@@ -1,5 +1,5 @@
 import { goto } from '$app/navigation';
-import { AppState } from '$lib/AppState.svelte';
+import { AppState } from '#lib/AppState.svelte.js';
 
 /**
  * Clears the current entries from the app state.

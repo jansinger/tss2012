@@ -3,14 +3,14 @@ import { render, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 import Overlay from './Overlay.svelte';
 import { goto } from '$app/navigation';
-import { AppState } from '$lib/AppState.svelte';
+import { AppState } from '#lib/AppState.svelte.js';
 
 // Mock dependencies
 vi.mock('$app/navigation', () => ({
 	goto: vi.fn()
 }));
 
-vi.mock('$lib/AppState.svelte', () => ({
+vi.mock('#lib/AppState.svelte.js', () => ({
 	AppState: {
 		currentEntries: []
 	}

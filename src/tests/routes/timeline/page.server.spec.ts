@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { load } from '../../../routes/timeline/+page.server';
-import type { LogEntryShort } from '$lib/types';
+import type { LogEntryShort } from '#lib/types.js';
 
 describe('/timeline +page.server', () => {
 	describe('load function', () => {

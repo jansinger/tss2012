@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { AppState } from '$lib/AppState.svelte';
-    import type { LogEntryShort } from '$lib/types';
-    import { sortEntries } from '$lib/utils/sortEntries';
-    import { stripHtml } from '$lib/utils/striphtml';
+	import { AppState } from '#lib/AppState.svelte.js';
+    import type { LogEntryShort } from '#lib/types.js';
+    import { sortEntries } from '#lib/utils/sortEntries.js';
+    import { stripHtml } from '#lib/utils/striphtml.js';
 
     /**
      * Represents the props for the LogbookEntries component.

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { sortEntries } from './sortEntries';
-import type { SortableEntry } from '$lib/types';
+import type { SortableEntry } from '#lib/types.js';
 
 interface TestEntry extends SortableEntry {
 	_id: string;

@@ -21,7 +21,7 @@ ALLOWED `{@html}` usage (trusted content only):
 
 - Build-time generated HTML from static data
 - Developer-controlled templates
-- Content sanitized with `striphtml()` from `$lib/utils/striphtml`
+- Content sanitized with `striphtml()` from `#lib/utils/striphtml.js`
 
 ### Dangerous Patterns — AVOID
 
