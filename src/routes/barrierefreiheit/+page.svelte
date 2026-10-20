@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
-	import Overlay from '$lib/components/Overlay.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import Overlay from '#lib/components/Overlay.svelte';
 </script>
 
 <svelte:head>

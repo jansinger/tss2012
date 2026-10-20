@@ -1,23 +1,20 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import Overlay from '$lib/components/Overlay.svelte';
-	import { dev } from '$app/environment';
+	import { page } from '$app/state';
+	import Overlay from '#lib/components/Overlay.svelte';
+	import { dev } from '$app/env';
 	import { goto } from '$app/navigation';
 </script>
 
-<svelte:head>
-	<title>{$page.status}: {$page.error?.message}</title>
-</svelte:head>
+<svelte:head><title>{page.status}: {page.error?.message}</title></svelte:head>
 
 <Overlay>
 	<div class="container-article glass">
 		<article>
-			<h1>Error: {$page.status}</h1>
+			<h1>Error: {page.status}</h1>
+			<h2>{page.error?.message}</h2>
 
-			<h2>{$page.error?.message}</h2>
-
-			{#if dev && $page.error && 'stack' in $page.error}
-				<pre>{$page.error?.stack}</pre>
+			{#if dev && page.error && 'stack' in page.error}
+				<pre>{page.error?.stack}</pre>
 			{/if}
 		</article>
 	</div>

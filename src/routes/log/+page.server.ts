@@ -1,7 +1,7 @@
 export const prerender = true;
-import { sortedEntries } from '$lib/sortedEntries';
-import { logEntryToShort } from '$lib/types';
-import type { LogEntry } from '$lib/types';
+import { sortedEntries } from '#lib/sortedEntries.js';
+import { logEntryToShort } from '#lib/types.js';
+import type { LogEntry } from '#lib/types.js';
 import type { PageServerLoad } from './$types';
 
 // Cast needed: JSON-inferred coordinates type is number[] but LogEntry expects [number, number]

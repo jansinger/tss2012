@@ -1,4 +1,4 @@
-import logbookEntries from '$lib/data/logbook_orig.json';
+import logbookEntries from '#lib/data/logbook_orig.json';
 import fs from 'fs';
 
 const options = {

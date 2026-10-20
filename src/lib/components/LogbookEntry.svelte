@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { LogEntry } from '$lib/types';
-	import { stripHtml } from '$lib/utils/striphtml';
-	import { closeAndNavigateHome } from '$lib/utils/appStateHelpers';
-	import { createDebouncedNavigation } from '$lib/utils/navigation';
+	import type { LogEntry } from '#lib/types.js';
+	import { stripHtml } from '#lib/utils/striphtml.js';
+	import { closeAndNavigateHome } from '#lib/utils/appStateHelpers.js';
+	import { createDebouncedNavigation } from '#lib/utils/navigation.js';
 	import Icon from './Icon.svelte';
 	import OverviewMap from './OverviewMap.svelte';
 	import Pictures from './Pictures.svelte';

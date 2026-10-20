@@ -1,6 +1,6 @@
 <script lang="ts">
-	import LogbookMap from '$lib/components/LogbookMap.svelte';
-	import { AppState } from '$lib/AppState.svelte';
+	import LogbookMap from '#lib/components/LogbookMap.svelte';
+	import { AppState } from '#lib/AppState.svelte.js';
 
 	import './_layout.scss';
 	interface Props {

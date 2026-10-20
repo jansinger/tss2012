@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AppState } from '$lib/AppState.svelte';
+import { AppState } from '#lib/AppState.svelte.js';
 
 vi.mock('$app/navigation', () => ({
 	goto: vi.fn()

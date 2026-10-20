@@ -2,8 +2,8 @@ import { describe, it, expect, afterEach, vi, beforeEach } from 'vitest';
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
 import LogbookEntry from './LogbookEntry.svelte';
 import { goto } from '$app/navigation';
-import type { LogEntry } from '$lib/types';
-import { AppState } from '$lib/AppState.svelte';
+import type { LogEntry } from '#lib/types.js';
+import { AppState } from '#lib/AppState.svelte.js';
 
 // Mock the goto function
 vi.mock('$app/navigation', () => ({
@@ -21,7 +21,7 @@ vi.mock('./OverviewMap.svelte', async () => {
 });
 
 // Mock $lib/ol/overviewmap to prevent OpenLayers from loading
-vi.mock('$lib/ol/overviewmap', () => ({
+vi.mock('#lib/ol/overviewmap.js', () => ({
 	createOverviewMap: vi.fn(() => ({
 		updateSize: vi.fn(),
 		setTarget: vi.fn(),

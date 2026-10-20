@@ -10,7 +10,7 @@
 /.github/dependabot.yml      @jansinger
 
 # Critical Configuration
-/svelte.config.js            @jansinger
+/vite.config.ts              @jansinger
 /vite.config.js              @jansinger
 /tsconfig.json               @jansinger
 /package.json                @jansinger

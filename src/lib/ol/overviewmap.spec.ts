@@ -5,7 +5,7 @@ import { DEFAULTS } from './constants';
 import { fromLonLat } from 'ol/proj';
 import VectorLayer from 'ol/layer/Vector';
 import Point from 'ol/geom/Point';
-import type { Coordinates } from '$lib/types';
+import type { Coordinates } from '#lib/types.js';
 
 // Mock ResizeObserver for OpenLayers
 (global as any).ResizeObserver = class ResizeObserver {

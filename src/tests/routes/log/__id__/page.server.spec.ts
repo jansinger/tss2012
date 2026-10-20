@@ -1,4 +1,4 @@
-import { sortedEntries } from '$lib/sortedEntries';
+import { sortedEntries } from '#lib/sortedEntries.js';
 import { load, entries } from '../../../../routes/log/[id]/+page.server';
 import { expect, test, describe } from 'vitest';
 

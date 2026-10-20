@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Coordinates } from '$lib/types';
+	import type { Coordinates } from '#lib/types.js';
 	import type { Map } from 'ol';
 
 	let { coordinates = [0, 0] as Coordinates } = $props();
@@ -13,7 +13,7 @@
 
 		let currentMap: Map | undefined;
 
-		import('$lib/ol/overviewmap').then(({ createOverviewMap }) => {
+		import('#lib/ol/overviewmap.js').then(({ createOverviewMap }) => {
 			currentMap = createOverviewMap(mapElement, coordinates);
 			currentMap.updateSize();
 			map = currentMap;

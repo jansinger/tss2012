@@ -1,14 +1,14 @@
 <script lang="ts" module>
-	import { map } from '$lib/stores';
+	import { map } from '#lib/stores.js';
 </script>
 
 <script lang="ts">
 	import { get } from 'svelte/store';
-	import { createTooltipOverlay, type TooltipOverlayResult } from '$lib/ol/overlays/tooltip';
+	import { createTooltipOverlay, type TooltipOverlayResult } from '#lib/ol/overlays/tooltip.js';
 	import { fade } from 'svelte/transition';
-	import { prefersReducedMotion } from '$lib/utils/a11y';
-	import { type LogbookClickEvent, onLogbookClick } from '$lib/types';
-	import { handleLogbookClick as handleClick } from '$lib/utils/handleLogbookClick';
+	import { prefersReducedMotion } from '#lib/utils/a11y.js';
+	import { type LogbookClickEvent, onLogbookClick } from '#lib/types.js';
+	import { handleLogbookClick as handleClick } from '#lib/utils/handleLogbookClick.js';
 
 	let mapElement: HTMLElement;
 	let tooltipElement: HTMLElement;
@@ -48,7 +48,7 @@
 				return;
 			}
 
-			const { createMap } = await import('$lib/ol/map');
+			const { createMap } = await import('#lib/ol/map.js');
 			const newMap = createMap(mapElement);
 
 			// Update size after map creation

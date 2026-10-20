@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/svelte';
 import Pictures from './Pictures.svelte';
 import { describe, expect, it, vi } from 'vitest';
-import type { PicturesEntity } from '$lib/types';
+import type { PicturesEntity } from '#lib/types.js';
 
 // Mock the swiper/element/bundle module to avoid async loading issues in tests
 vi.mock('swiper/element/bundle', () => ({

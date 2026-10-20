@@ -1,7 +1,7 @@
 export const prerender = true;
 
-import { sortedEntries } from '$lib/sortedEntries';
-import type { LogEntryShort } from '$lib/types';
+import { sortedEntries } from '#lib/sortedEntries.js';
+import type { LogEntryShort } from '#lib/types.js';
 import type { PageServerLoad } from './$types';
 
 interface LogEntryWithKey extends LogEntryShort {

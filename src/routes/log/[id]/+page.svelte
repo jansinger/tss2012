@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { prefersReducedMotion } from '$lib/utils/a11y';
+	import { prefersReducedMotion } from '#lib/utils/a11y.js';
 
-	import LogbookEntry from '$lib/components/LogbookEntry.svelte';
-	import Overlay from '$lib/components/Overlay.svelte';
-	import { AppState } from '$lib/AppState.svelte';
-	import type { LogEntry } from '$lib/types';
-	import { logEntryToShort } from '$lib/types';
+	import LogbookEntry from '#lib/components/LogbookEntry.svelte';
+	import Overlay from '#lib/components/Overlay.svelte';
+	import { AppState } from '#lib/AppState.svelte.js';
+	import type { LogEntry } from '#lib/types.js';
+	import { logEntryToShort } from '#lib/types.js';
 
 	interface Props {
 		data: {
