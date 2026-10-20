@@ -133,4 +133,23 @@ describe('createTooltipOverlay', () => {
 		// Verify overlay was removed
 		expect(mockMap.getOverlays().getLength()).toBe(0);
 	});
+
+	it('does not throw on pointermove when the map has no target element', () => {
+		const mockElement = document.createElement('div');
+		const mockMap = new Map();
+		const onSpy = vi.spyOn(mockMap, 'on');
+		vi.spyOn(mockMap, 'getEventPixel').mockReturnValue([0, 0]);
+		vi.spyOn(mockMap, 'getFeaturesAtPixel').mockReturnValue([]);
+
+		const result = createTooltipOverlay(mockElement, mockMap);
+
+		const pointerMoveCall = onSpy.mock.calls.find(([type]) => type === 'pointermove');
+		const handlePointerMove = pointerMoveCall?.[1] as (evt: unknown) => void;
+		const evt = { originalEvent: new PointerEvent('pointermove'), coordinate: [0, 0] };
+
+		expect(mockMap.getTargetElement()).toBeFalsy();
+		expect(() => handlePointerMove(evt)).not.toThrow();
+
+		result.cleanup();
+	});
 });
