@@ -243,7 +243,7 @@ The following checks **must pass** for PR approval:
 
 ```bash
 # Use same Node version as CI
-nvm use 22
+nvm use  # reads .nvmrc
 
 # Clear cache
 rm -rf node_modules package-lock.json
