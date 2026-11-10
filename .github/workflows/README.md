@@ -15,7 +15,7 @@ This directory contains GitHub Actions workflows for CI/CD automation.
 
 #### Test Suite
 
-- Runs on Node.js 20.x and 22.x
+- Runs on Node.js 24.x and 26.x
 - Steps:
   - ✅ TypeScript check (`npm run check`)
   - ✅ Linter (`npm run lint`)
@@ -235,7 +235,7 @@ The following checks **must pass** for PR approval:
 
 **Possible causes:**
 
-- Node version difference (use 22.x locally)
+- Node version difference (use 24.x locally, see `.nvmrc`)
 - Missing environment variables
 - OS-specific issues (CI uses Ubuntu)
 
