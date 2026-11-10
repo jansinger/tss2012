@@ -48,7 +48,7 @@
 	},
 	"dependencies": {
 		"ol": "^10.11.0",
-		"swiper": "^14.3.0"
+		"swiper": "^14.4.0"
 	},
 	"imports": {
 		"#lib": "./src/lib/index.js",
